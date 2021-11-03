@@ -1,0 +1,50 @@
+**** dT   0.000
+*    top  TEST ./tests/a02013.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 36961
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.45581.6fad2578
+**   top  === varnishtest "H/2 state after sending/receiving preface"
+*    top  VTEST H/2 state after sending/receiving preface
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=38211
+**** s1   macro def s1_sock=127.0.0.1 38211
+*    s1   Listen on 127.0.0.1 38211
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   top  === server s1 -wait
+**   s1   Waiting for server (4/-1)
+**   s1   Started on 127.0.0.1 38211 (1 iterations)
+**   c1   Started on 127.0.0.1 38211 (1 iterations)
+***  c1   Connect to 127.0.0.1 38211
+**** dT   0.001
+***  s1   accepted fd 5 127.0.0.1 38440
+***  c1   connected fd 6 from 127.0.0.1 38440 to 127.0.0.1 38211
+**   c1   === expect h2.state == false
+**** c1   EXPECT h2.state (false) == "false" match
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**   s1   === expect h2.state == false
+**** s1   EXPECT h2.state (false) == "false" match
+**   s1   === rxpri
+**** dT   0.011
+**   c1   === expect h2.state == true
+**   s1   === expect h2.state == true
+**** c1   EXPECT h2.state (true) == "true" match
+**** s1   EXPECT h2.state (true) == "true" match
+***  s1   shutting fd 5
+**   s1   Ending
+***  c1   closing fd 6
+*    top  RESETTING after ./tests/a02013.vtc
+**   c1   Waiting for client
+**   c1   Ending
+*    top  TEST ./tests/a02013.vtc completed
+#    top  TEST ./tests/a02013.vtc passed (0.022)

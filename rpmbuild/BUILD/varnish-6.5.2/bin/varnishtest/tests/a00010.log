@@ -1,0 +1,71 @@
+**** dT   0.000
+*    top  TEST ./tests/a00010.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 36029
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.44883.00941cc2
+**   top  === varnishtest "simply test that the framework support \0"
+*    top  VTEST simply test that the framework support 
+**   top  === server s1 {
+**   top  === server s1 -start
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=41423
+**** s1   macro def s1_sock=127.0.0.1 41423
+*    s1   Listen on 127.0.0.1 41423
+**   top  === client c1 -connect ${s1_sock} {
+**   top  === client c1 -run
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 41423 (1 iterations)
+***  c1   Connect to 127.0.0.1 41423
+**** dT   0.001
+**   s1   Started on 127.0.0.1 41423 (1 iterations)
+***  c1   connected fd 5 from 127.0.0.1 33906 to 127.0.0.1 41423
+**   c1   === txreq
+***  s1   accepted fd 6 127.0.0.1 33906
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   s1   === rxreq
+**   c1   === rxresp
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 35
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Host: 127.0.0.1
+**** s1   bodylen = 0
+**   s1   === expect req.url == "/"
+**** s1   EXPECT req.url (/) == "/" match
+**   s1   === txresp -body {a\0bc}
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 4\r
+**** s1   txresp|\r
+**** s1   txresp|a\x00bc
+***  s1   shutting fd 6
+**   s1   Ending
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 4\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 38
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 4
+**** c1   c-l|a\x00bc
+**** c1   bodylen = 4
+**   c1   === expect resp.bodylen == 4
+**** c1   EXPECT resp.bodylen (4) == "4" match
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === server s1 -wait
+**   s1   Waiting for server (4/-1)
+*    top  RESETTING after ./tests/a00010.vtc
+*    top  TEST ./tests/a00010.vtc completed
+#    top  TEST ./tests/a00010.vtc passed (0.094)

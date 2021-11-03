@@ -1,0 +1,625 @@
+**** dT   0.000
+*    top  TEST ./tests/l00001.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 39673
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.67797.7e45bec0
+**   top  === varnishtest "Test VSL query operators"
+*    top  VTEST Test VSL query operators
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=34691
+**** s1   macro def s1_sock=127.0.0.1 34691
+*    s1   Listen on 127.0.0.1 34691
+**   top  === varnish v1 -vcl+backend {
+**   s1   Started on 127.0.0.1 34691 (1 iterations)
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.67797.7e45bec0/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 40617' -P /tmp/vtc.67797.7e45bec0/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.67797.7e45bec0/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 40617' -P /tmp/vtc.67797.7e45bec0/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 67817
+**** v1   macro def v1_pid=67817
+**** v1   macro def v1_name=/tmp/vtc.67797.7e45bec0/v1
+**** dT   0.012
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.110
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 7
+***  v1   CLI RX  107
+**** v1   CLI RX|nkcngtbajxrwgypxnnjscckcqnyznija
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** dT   0.111
+**** v1   CLI TX|auth cd0b93c2bf0b61940c71396df35a0bcf68ed4ecd20217519f3b1073d134dc918
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "34691"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_deliver {
+**** v1   CLI TX|\t\tset resp.http.x-test = "123 321";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.211
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.268
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.271
+***  v1   debug|Debug: Child (67836) Started
+**** dT   0.297
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (67836) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 38233
+**** v1   CLI TX|debug.xid 999
+**** dT   0.298
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 38233
+**   v1   Listen on 127.0.0.1 38233
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=38233
+**** v1   macro def v1_sock=127.0.0.1 38233
+**** dT   0.311
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892850.715669/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892850.715669/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** dT   0.312
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 38233
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 38233
+
+**** dT   0.398
+**   top  === logexpect l1 -v v1
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 38233 (1 iterations)
+***  c1   Connect to 127.0.0.1 38233
+***  c1   connected fd 22 from 127.0.0.1 60230 to 127.0.0.1 38233
+**   c1   === txreq -hdr "Foo: bar"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Foo: bar\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.399
+***  s1   accepted fd 5 127.0.0.1 55060
+**   s1   === rxreq
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|Foo: bar\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1002\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 113
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Foo: bar
+**** s1   http[ 4] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 5] |host: 127.0.0.1
+**** s1   http[ 6] |Accept-Encoding: gzip
+**** s1   http[ 7] |X-Varnish: 1002
+**** s1   bodylen = 0
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 5
+**   s1   Ending
+**** dT   0.410
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:11 GMT\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|x-test: 123 321\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 195
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:54:11 GMT
+**** c1   http[ 5] |X-Varnish: 1001
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |x-test: 123 321
+**** c1   http[ 9] |Accept-Ranges: bytes
+**** c1   http[10] |Connection: keep-alive
+**** c1   bodylen = 0
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+***  c1   closing fd 22
+**   c1   Ending
+**   top  === logexpect l1 -d 1 -g vxid -q "Begin eq 'req 1000 rxreq'" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**** dT   0.411
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| Begin eq 'req 1000 rxreq'
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "ReqProtocol ne 'HTTP/1.0'" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| ReqProtocol ne 'HTTP/1.0'
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus == 200" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus == 200
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus == 200." {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus == 200.
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus != 503" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus != 503
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus != 503." {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus != 503.
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**** dT   0.412
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus < 201" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 60230 a0 127.0.0.1 38233 1634892851.002895 25
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|       1002 Begin           b bereq 1001 fetch
+**** v1   vsl|       1002 VCL_use         b vcl1
+**** v1   vsl|       1002 Timestamp       b Start: 1634892851.003081 0.000000 0.000000
+**   l1   Waiting for logexp
+**** v1   vsl|       1002 BereqMethod     b GET
+**** v1   vsl|       1002 BereqURL        b /
+**** v1   vsl|       1002 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1002 BereqHeader     b Foo: bar
+**** v1   vsl|       1002 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b host: 127.0.0.1
+**** l1   begin|
+**** v1   vsl|       1002 BereqHeader     b Accept-Encoding: gzip
+**** l1   qry| RespStatus < 201
+**** v1   vsl|       1002 BereqHeader     b X-Varnish: 1002
+***  l1   expecting| expect 0 * Begin req
+**** v1   vsl|       1002 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1002 VCL_return      b fetch
+**** v1   vsl|       1002 BackendOpen     b 28 s1 127.0.0.1 34691 127.0.0.1 55060 connect
+**** v1   vsl|       1002 Timestamp       b Bereq: 1634892851.003259 0.000178 0.000178
+**** v1   vsl|       1002 Timestamp       b Beresp: 1634892851.003715 0.000634 0.000455
+**** v1   vsl|       1002 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1002 BerespStatus    b 200
+**** v1   vsl|       1002 BerespReason    b OK
+**** v1   vsl|       1002 BerespHeader    b Content-Length: 0
+**** v1   vsl|       1002 BerespHeader    b Date: Fri, 22 Oct 2021 08:54:11 GMT
+**** v1   vsl|       1002 TTL             b RFC 120 10 0 1634892851 1634892851 1634892851 0 0 cacheable
+**** v1   vsl|       1002 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1002 VCL_return      b deliver
+**** v1   vsl|       1002 Filters         b 
+**** v1   vsl|       1002 Storage         b malloc s0
+**** v1   vsl|       1002 Fetch_Body      b 0 none -
+**** v1   vsl|       1002 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1002 Timestamp       b BerespBody: 1634892851.013913 0.010832 0.010198
+**** v1   vsl|       1002 Length          b 0
+**** l1   match|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1002 BereqAcct       b 113 0 113 38 0 38
+***  l1   expecting| expect * = End 
+**** v1   vsl|       1002 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f6cd4010fb0 e=0.000000 f=0x0
+**** l1   match|       1001 End             c 
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f6cd4010fb0 e=1634892981.003715 f=0x1e
+**** l1   end|
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f6cd4010fb0 e=129.989760 f=0x0
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892851.002984 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892851.002984 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 60230 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Foo: bar
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1001 VCL_return      c hash
+**** v1   vsl|       1001 VCL_call        c HASH
+**** v1   vsl|       1001 VCL_return      c lookup
+**** v1   vsl|       1001 VCL_call        c MISS
+**** v1   vsl|       1001 VCL_return      c fetch
+**** v1   vsl|       1001 Link            c bereq 1002 fetch
+**** v1   vsl|       1001 Timestamp       c Fetch: 1634892851.013964 0.010980 0.010980
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 200
+**** v1   vsl|       1001 RespReason      c OK
+**** v1   vsl|       1001 RespHeader      c Content-Length: 0
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 08:54:11 GMT
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 RespHeader      c Age: 0
+**** v1   vsl|       1001 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1001 VCL_call        c DELIVER
+**** v1   vsl|       1001 RespHeader      c x-test: 123 321
+**** v1   vsl|       1001 VCL_return      c deliver
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus < 201." {
+**** v1   vsl|       1001 Timestamp       c Process: 1634892851.013985 0.011000 0.000020
+**** v1   vsl|       1001 Filters         c 
+**** v1   vsl|       1001 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1001 RespHeader      c Connection: keep-alive
+**   l1   === expect 0 *	Begin	req
+**** v1   vsl|       1001 Timestamp       c Resp: 1634892851.014032 0.011048 0.000047
+**** v1   vsl|       1001 ReqAcct         c 45 0 45 195 0 195
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 SessClose       c REM_CLOSE 0.012
+**** v1   vsl|       1000 End             c 
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus < 201.
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus > 199" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus > 199
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus > 199." {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus > 199.
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus <= 200" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus <= 200
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus <= 200." {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus <= 200.
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus >= 200" {
+**   l1   === expect 0 *	Begin	req
+**** dT   0.413
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus >= 200
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus >= 200." {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus >= 200.
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus ~ '^200$'" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus ~ '^200$'
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus !~ '^404$'" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus !~ '^404$'
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus == 200 and RespStat...
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus == 200 and RespStatus ~ '^200$'
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus == 404 or RespStatu...
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus == 404 or RespStatus ~ '^200$'
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**** dT   0.414
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus == 404 or not RespS...
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus == 404 or not RespStatus ~ '^404$'
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1002 Begin           b bereq 1001 fetch
+***  l1   expecting| expect * = End 
+**** l1   match|       1002 End             b 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "(RespStatus == 200 or RespStat...
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| (RespStatus == 200 or RespStatus == 404) and RespStatus == 200
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus == 200 or RespStatu...
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus == 200 or RespStatus == 503 and RespStatus == 404
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespHeader[2] == 123" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespHeader[2] == 123
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespHeader[2] == 123." {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespHeader[2] == 123.
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "Debug,Resp* == 200" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**** dT   0.415
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| Debug,Resp* == 200
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "Resp*:x-test eq '123 321'" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| Resp*:x-test eq '123 321'
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "RespStatus" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| RespStatus
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1001 Begin           c req 1000 rxreq
+***  l1   expecting| expect * = End 
+**** l1   match|       1001 End             c 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "{1}Begin ~ req" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| {1}Begin ~ req
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1002 Begin           b bereq 1001 fetch
+***  l1   expecting| expect * = End 
+**** l1   match|       1002 End             b 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "{2-}Begin ~ req" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| {2-}Begin ~ req
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1002 Begin           b bereq 1001 fetch
+***  l1   expecting| expect * = End 
+**** l1   match|       1002 End             b 
+**** l1   end|
+**   top  === logexpect l1 -d 1 -g vxid -q "{0+}Begin ~ req" {
+**   l1   === expect 0 *	Begin	req
+**   l1   === expect * =	End
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| {0+}Begin ~ req
+***  l1   expecting| expect 0 * Begin req
+**** l1   match|       1002 Begin           b bereq 1001 fetch
+***  l1   expecting| expect * = End 
+**** l1   match|       1002 End             b 
+**** l1   end|
+*    top  RESETTING after ./tests/l00001.vtc
+**** dT   0.416
+**   s1   Waiting for server (4/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:54:10 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   0.512
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 134 Backend name   Admin      Probe    Health     Last change
+vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:54:10 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.416
+***  v1   debug|Info: Child (67836) ended
+***  v1   debug|Info: Child (67836) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+**** dT   1.417
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   1.513
+**   v1   WAIT4 pid=67817 status=0x0000 (user 0.127040 sys 0.044311)
+*    top  TEST ./tests/l00001.vtc completed
+#    top  TEST ./tests/l00001.vtc passed (1.514)

@@ -1,0 +1,1323 @@
+**** dT   0.000
+*    top  TEST ./tests/a00019.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 38381
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.45076.3a8aedba
+**   top  === varnishtest "Check rxrespbody -max"
+*    top  VTEST Check rxrespbody -max
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=39101
+**** s1   macro def s1_sock=127.0.0.1 39101
+*    s1   Listen on 127.0.0.1 39101
+**   top  === server s2 {
+**   s2   Starting server
+**** s2   macro def s2_addr=127.0.0.1
+**** s2   macro def s2_port=33263
+**** s2   macro def s2_sock=127.0.0.1 33263
+*    s2   Listen on 127.0.0.1 33263
+**   top  === server s3 {
+**   s3   Starting server
+**** s3   macro def s3_addr=127.0.0.1
+**** s3   macro def s3_port=46411
+**   s1   Started on 127.0.0.1 39101 (1 iterations)
+**** s3   macro def s3_sock=127.0.0.1 46411
+*    s3   Listen on 127.0.0.1 46411
+**   top  === client c1 -connect ${s1_sock} {
+**   s2   Started on 127.0.0.1 33263 (1 iterations)
+**   c1   Starting client
+**   s3   Started on 127.0.0.1 46411 (1 iterations)
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39101 (1 iterations)
+***  c1   Connect to 127.0.0.1 39101
+**** dT   0.001
+***  c1   connected fd 10 from 127.0.0.1 60638 to 127.0.0.1 39101
+***  s1   accepted fd 7 127.0.0.1 60638
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   s1   === rxreq
+**   c1   === rxresphdrs
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 35
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Host: 127.0.0.1
+**** s1   bodylen = 0
+**   s1   === txresp -bodylen 65536
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 65536\r
+**** s1   txresp|\r
+**** s1   txresp|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** s1   txresp|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** s1   txresp|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** s1   txresp|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** s1   txresp|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** s1   txresp|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** s1   txresp|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** s1   txresp|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** s1   txresp|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** s1   txresp|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** s1   txresp|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** s1   txresp|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** s1   txresp|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** s1   txresp|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** s1   txresp|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** s1   txresp|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** s1   txresp|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** s1   txresp|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** s1   txresp|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** s1   txresp|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** s1   txresp|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** s1   txresp|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** s1   txresp|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** s1   txresp|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** s1   txresp|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** s1   txresp|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** s1   txresp|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** s1   txresp|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** s1   txresp|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** s1   txresp|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** s1   txresp|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** s1   txresp|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** s1   txresp|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** s1   txresp|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** s1   txresp|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** s1   txresp|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** s1   txresp|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** s1   txresp|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** s1   txresp|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** s1   txresp|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** s1   txresp|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** s1   txresp|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** s1   txresp|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** s1   txresp|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** s1   txresp|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** s1   txresp|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** s1   txresp|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** s1   txresp|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** s1   txresp|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** s1   txresp|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** s1   txresp|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** s1   txresp|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** s1   txresp|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** s1   txresp|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** s1   txresp|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** s1   txresp|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** s1   txresp|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** s1   txresp|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** s1   txresp|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** s1   txresp|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** s1   txresp|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** s1   txresp|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** s1   txresp|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** s1   txresp|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** s1   txresp|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** s1   txresp|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** s1   txresp|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** s1   txresp|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** s1   txresp|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** s1   txresp|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** s1   txresp|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** s1   txresp|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** s1   txresp|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** s1   txresp|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** s1   txresp|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** s1   txresp|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** s1   txresp|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** s1   txresp|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** s1   txresp|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** s1   txresp|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** s1   txresp|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** s1   txresp|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** s1   txresp|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** s1   txresp|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** s1   txresp|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** s1   txresp|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** s1   txresp|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** s1   txresp|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** s1   txresp|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** s1   txresp|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** s1   txresp|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** s1   txresp||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** s1   txresp|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** s1   txresp|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** s1   txresp|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** s1   txresp|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** s1   txresp|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** s1   txresp|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** s1   txresp|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** s1   txresp|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** s1   txresp|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** s1   txresp|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** s1   txresp|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** s1   txresp|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** s1   txresp|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** s1   txresp|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** s1   txresp|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** s1   txresp|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** s1   txresp|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** s1   txresp|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** s1   txresp|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** s1   txresp|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** s1   txresp|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** s1   txresp|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** s1   txresp|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** s1   txresp|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** s1   txresp|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** s1   txresp|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** s1   txresp|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** s1   txresp|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** s1   txresp|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** s1   txresp|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** s1   txresp|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** s1   txresp|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** s1   txresp|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** s1   txresp|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** s1   txresp|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** s1   txresp|CDEFGHIJKLMNOPQRSTUVWX
+**** s1   txresp| [...] (57386)
+**   s1   === rxreq
+**** dT   0.002
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 65536\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 42
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 65536
+**   c1   === rxrespbody -max 8192
+**** c1   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c1   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c1   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c1   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c1   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c1   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c1   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c1   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c1   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c1   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c1   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c1   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c1   c-l|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c1   c-l|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c1   c-l|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c1   c-l|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c1   c-l|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c1   c-l|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c1   c-l|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c1   c-l|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c1   c-l|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c1   c-l|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c1   c-l|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c1   c-l|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c1   c-l|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c1   c-l|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c1   c-l|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c1   c-l|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c1   c-l|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c1   c-l|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c1   c-l|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c1   c-l|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c1   c-l|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c1   c-l|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c1   c-l|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c1   c-l|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** c1   c-l|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** c1   c-l|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** c1   c-l|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** c1   c-l|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** c1   c-l|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** c1   c-l|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** c1   c-l|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** c1   c-l|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** c1   c-l|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** c1   c-l|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** c1   c-l|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** c1   c-l|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** c1   c-l|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** c1   c-l|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** c1   c-l|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** c1   c-l|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** c1   c-l|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** c1   c-l|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** c1   c-l|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** c1   c-l|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** c1   c-l|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** c1   c-l|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** c1   c-l|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** c1   c-l|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** c1   c-l|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** c1   c-l|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** c1   c-l|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** c1   c-l|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** c1   c-l|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** c1   c-l|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** c1   c-l|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** c1   c-l|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** c1   c-l|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** c1   c-l|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** c1   c-l|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** c1   c-l|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** c1   c-l|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** c1   c-l|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** c1   c-l|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** c1   c-l|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** c1   c-l|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** c1   c-l|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** c1   c-l|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** c1   c-l|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** c1   c-l|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** c1   c-l|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** c1   c-l|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** c1   c-l|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** c1   c-l|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** c1   c-l|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** c1   c-l|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** c1   c-l|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** c1   c-l|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** c1   c-l|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** c1   c-l|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** c1   c-l||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** c1   c-l|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** c1   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c1   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c1   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c1   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c1   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c1   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c1   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c1   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c1   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c1   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c1   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c1   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c1   c-l|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c1   c-l|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c1   c-l|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c1   c-l|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c1   c-l|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c1   c-l|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c1   c-l|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c1   c-l|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c1   c-l|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c1   c-l|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c1   c-l|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c1   c-l|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c1   c-l|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c1   c-l|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c1   c-l|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c1   c-l|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c1   c-l|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c1   c-l|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c1   c-l|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c1   c-l|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c1   c-l|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c1   c-l|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c1   c-l|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c1   bodylen = 8192
+**   c1   === expect resp.bodylen == 8192
+**** c1   EXPECT resp.bodylen (8192) == "8192" match
+**   c1   === rxrespbody -max 8192
+**** c1   c-l|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** c1   c-l|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** c1   c-l|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** c1   c-l|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** c1   c-l|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** c1   c-l|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** c1   c-l|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** c1   c-l|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** c1   c-l|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** c1   c-l|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** c1   c-l|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** c1   c-l|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** c1   c-l|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** c1   c-l|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** c1   c-l|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** c1   c-l|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** c1   c-l|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** c1   c-l|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** c1   c-l|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** c1   c-l|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** c1   c-l|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** c1   c-l|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** c1   c-l|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** c1   c-l|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** c1   c-l|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** c1   c-l|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** c1   c-l|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** c1   c-l|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** c1   c-l|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** c1   c-l|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** c1   c-l|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** c1   c-l|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** c1   c-l|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** c1   c-l|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** c1   c-l|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** c1   c-l|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** c1   c-l|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** c1   c-l|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** c1   c-l|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** c1   c-l|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** c1   c-l|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** c1   c-l|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** c1   c-l|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** c1   c-l|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** c1   c-l|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** c1   c-l|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** c1   c-l|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** c1   c-l|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** c1   c-l|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** c1   c-l|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** c1   c-l|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** c1   c-l|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** c1   c-l|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** c1   c-l|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** c1   c-l|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** c1   c-l|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** c1   c-l||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** c1   c-l|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** c1   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c1   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c1   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c1   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c1   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c1   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c1   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c1   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c1   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c1   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c1   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c1   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c1   c-l|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c1   c-l|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c1   c-l|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c1   c-l|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c1   c-l|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c1   c-l|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c1   c-l|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c1   c-l|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c1   c-l|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c1   c-l|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c1   c-l|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c1   c-l|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c1   c-l|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c1   c-l|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c1   c-l|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c1   c-l|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c1   c-l|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c1   c-l|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c1   c-l|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c1   c-l|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c1   c-l|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c1   c-l|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c1   c-l|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c1   c-l|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** c1   c-l|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** c1   c-l|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** c1   c-l|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** c1   c-l|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** c1   c-l|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** c1   c-l|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** c1   c-l|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** c1   c-l|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** c1   c-l|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** c1   c-l|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** c1   c-l|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** c1   c-l|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** c1   c-l|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** c1   c-l|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** c1   c-l|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** c1   c-l|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** c1   c-l|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** c1   c-l|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** c1   c-l|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** c1   c-l|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** c1   c-l|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** c1   c-l|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** c1   c-l|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** c1   c-l|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** c1   c-l|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** c1   c-l|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** c1   c-l|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** c1   c-l|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** c1   c-l|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** c1   c-l|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** c1   c-l|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** c1   c-l|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** c1   c-l|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** c1   c-l|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** c1   bodylen = 16384
+**   c1   === expect resp.bodylen == 16384
+**** c1   EXPECT resp.bodylen (16384) == "16384" match
+**   c1   === rxrespbody
+**** c1   c-l|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** c1   c-l|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** c1   c-l|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** c1   c-l|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** c1   c-l|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** c1   c-l|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** c1   c-l|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** c1   c-l|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** c1   c-l|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** c1   c-l|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** c1   c-l|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** c1   c-l|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** c1   c-l|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** c1   c-l|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** c1   c-l|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** c1   c-l|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** c1   c-l|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** c1   c-l|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** c1   c-l|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** c1   c-l|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** c1   c-l|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** c1   c-l||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** c1   c-l|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** c1   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c1   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c1   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c1   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c1   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c1   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c1   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c1   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c1   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c1   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c1   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c1   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c1   c-l|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c1   c-l|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c1   c-l|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c1   c-l|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c1   c-l|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c1   c-l|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c1   c-l|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c1   c-l|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c1   c-l|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c1   c-l|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c1   c-l|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c1   c-l|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c1   c-l|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c1   c-l|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c1   c-l|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c1   c-l|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c1   c-l|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c1   c-l|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c1   c-l|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c1   c-l|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c1   c-l|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c1   c-l|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c1   c-l|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c1   c-l|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** c1   c-l|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** c1   c-l|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** c1   c-l|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** c1   c-l|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** c1   c-l|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** c1   c-l|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** c1   c-l|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** c1   c-l|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** c1   c-l|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** c1   c-l|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** c1   c-l|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** c1   c-l|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** c1   c-l|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** c1   c-l|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** c1   c-l|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** c1   c-l|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** c1   c-l|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** c1   c-l|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** c1   c-l|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** c1   c-l|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** c1   c-l|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** c1   c-l|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** c1   c-l|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** c1   c-l|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** c1   c-l|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** c1   c-l|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** c1   c-l|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** c1   c-l|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** c1   c-l|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** c1   c-l|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** c1   c-l|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** c1   c-l|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** c1   c-l|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** c1   c-l|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** c1   c-l|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** c1   c-l|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** c1   c-l|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** c1   c-l|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** c1   c-l|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** c1   c-l|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** c1   c-l|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** c1   c-l|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** c1   c-l|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** c1   c-l|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** c1   c-l|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** c1   c-l|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** c1   c-l|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** c1   c-l|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** c1   c-l|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** c1   c-l|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** c1   c-l|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** c1   c-l|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** c1   c-l|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** c1   c-l|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** c1   c-l|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** c1   c-l||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** c1   c-l|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** c1   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c1   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c1   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c1   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c1   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c1   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c1   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c1   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c1   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c1   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c1   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c1   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c1   c-l| [...] (40960)
+**** c1   bodylen = 65536
+**   c1   === expect resp.bodylen == 65536
+**** c1   EXPECT resp.bodylen (65536) == "65536" match
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 35
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Host: 127.0.0.1
+**** s1   bodylen = 0
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 7
+**   s1   Ending
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 38
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   bodylen = 0
+***  c1   closing fd 10
+**** dT   0.003
+**   c1   Ending
+**   top  === client c2 -connect ${s2_sock} {
+**   c2   Starting client
+**   c2   Waiting for client
+**   c2   Started on 127.0.0.1 33263 (1 iterations)
+***  c2   Connect to 127.0.0.1 33263
+***  s2   accepted fd 8 127.0.0.1 52930
+**   s2   === rxreq
+***  c2   connected fd 7 from 127.0.0.1 52930 to 127.0.0.1 33263
+**   c2   === txreq
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**** s2   rxhdr|GET / HTTP/1.1\r
+**** s2   rxhdr|Host: 127.0.0.1\r
+**** s2   rxhdr|\r
+**** s2   rxhdrlen = 35
+**** s2   http[ 0] |GET
+**** s2   http[ 1] |/
+**** s2   http[ 2] |HTTP/1.1
+**** s2   http[ 3] |Host: 127.0.0.1
+**** s2   bodylen = 0
+**   s2   === txresp -nolen -hdr "Transfer-Encoding: chunked"
+**** s2   txresp|HTTP/1.1 200 OK\r
+**** s2   txresp|Transfer-Encoding: chunked\r
+**** s2   txresp|\r
+**   s2   === chunkedlen 8192
+**** s2   chunked|2000\r
+**** s2   chunked|01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701
+**** s2   chunked| [...] (8)
+**   s2   === chunkedlen 4096
+**** s2   chunked|1000\r
+**** s2   chunked|0123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567\r
+**   s2   === chunkedlen 4096
+**** s2   chunked|1000\r
+**** s2   chunked|0123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567\r
+**   s2   === chunkedlen 16384
+**** dT   0.004
+**** s2   chunked|4000\r
+**** s2   chunked|01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701
+**** s2   chunked| [...] (8200)
+**   s2   === chunkedlen 16384
+**** s2   chunked|4000\r
+**** s2   chunked|01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701
+**** s2   chunked| [...] (8200)
+**   s2   === chunkedlen 16384
+**** s2   chunked|4000\r
+**** s2   chunked|01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701
+**** s2   chunked| [...] (8200)
+**   s2   === chunkedlen 0
+**** s2   chunked|0\r
+**** s2   chunked|\r
+**   s2   === rxreq
+**   c2   === rxresphdrs
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Transfer-Encoding: chunked\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 47
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Transfer-Encoding: chunked
+**   c2   === rxrespbody -max 8192
+**** c2   len|2000\r
+**** c2   chunk|01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567
+**** c2   chunked|01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567
+**** c2   bodylen = 8192
+**   c2   === expect resp.bodylen == 8192
+**** c2   EXPECT resp.bodylen (8192) == "8192" match
+**   c2   === rxrespbody -max 8192
+**** dT   0.005
+**** c2   len|1000\r
+**** c2   chunk|0123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567
+**** c2   len|1000\r
+**** c2   chunk|0123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567
+**** c2   chunked|01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567
+**** c2   bodylen = 16384
+**   c2   === expect resp.bodylen == 16384
+**** c2   EXPECT resp.bodylen (16384) == "16384" match
+**   c2   === rxrespbody
+**** c2   len|4000\r
+**** c2   chunk|01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567
+**** c2   chunk| [...] (8192)
+**** c2   len|4000\r
+**** c2   chunk|01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567
+**** c2   chunk| [...] (8192)
+**** c2   len|4000\r
+**** c2   chunk|01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567
+**** c2   chunk| [...] (8192)
+**** c2   len|0\r
+**** c2   chunked|01234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567
+**** c2   chunked| [...] (40960)
+**** c2   bodylen = 65536
+**   c2   === expect resp.bodylen == 65536
+**** c2   EXPECT resp.bodylen (65536) == "65536" match
+**   c2   === txreq
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**** s2   rxhdr|GET / HTTP/1.1\r
+**** s2   rxhdr|Host: 127.0.0.1\r
+**** s2   rxhdr|\r
+**** s2   rxhdrlen = 35
+**** s2   http[ 0] |GET
+**** s2   http[ 1] |/
+**** s2   http[ 2] |HTTP/1.1
+**** s2   http[ 3] |Host: 127.0.0.1
+**** s2   bodylen = 0
+**   s2   === txresp
+**** s2   txresp|HTTP/1.1 200 OK\r
+**** s2   txresp|Content-Length: 0\r
+**** s2   txresp|\r
+***  s2   shutting fd 8
+**   s2   Ending
+**   c2   === rxresp
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Content-Length: 0\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 38
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Content-Length: 0
+**** c2   bodylen = 0
+***  c2   closing fd 7
+**   c2   Ending
+**   top  === client c3 -connect ${s3_sock} {
+**   c3   Starting client
+**   c3   Waiting for client
+**   c3   Started on 127.0.0.1 46411 (1 iterations)
+***  c3   Connect to 127.0.0.1 46411
+***  s3   accepted fd 9 127.0.0.1 45254
+**   s3   === rxreq
+***  c3   connected fd 7 from 127.0.0.1 45254 to 127.0.0.1 46411
+**   c3   === txreq
+**** c3   txreq|GET / HTTP/1.1\r
+**** c3   txreq|Host: 127.0.0.1\r
+**** c3   txreq|\r
+**** dT   0.006
+**** s3   rxhdr|GET / HTTP/1.1\r
+**** s3   rxhdr|Host: 127.0.0.1\r
+**** s3   rxhdr|\r
+**** s3   rxhdrlen = 35
+**** s3   http[ 0] |GET
+**** s3   http[ 1] |/
+**** s3   http[ 2] |HTTP/1.1
+**** s3   http[ 3] |Host: 127.0.0.1
+**** s3   bodylen = 0
+**   s3   === txresp -nolen -bodylen 65536
+**** s3   txresp|HTTP/1.1 200 OK\r
+**** s3   txresp|\r
+**** s3   txresp|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** s3   txresp|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** s3   txresp|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** s3   txresp|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** s3   txresp|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** s3   txresp|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** s3   txresp|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** s3   txresp|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** s3   txresp|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** s3   txresp|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** s3   txresp|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** s3   txresp|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** s3   txresp|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** s3   txresp|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** s3   txresp|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** s3   txresp|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** s3   txresp|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** s3   txresp|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** s3   txresp|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** s3   txresp|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** s3   txresp|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** s3   txresp|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** s3   txresp|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** s3   txresp|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** s3   txresp|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** s3   txresp|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** s3   txresp|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** s3   txresp|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** s3   txresp|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** s3   txresp|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** s3   txresp|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** s3   txresp|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** s3   txresp|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** s3   txresp|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** s3   txresp|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** s3   txresp|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** s3   txresp|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** s3   txresp|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** s3   txresp|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** s3   txresp|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** s3   txresp|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** s3   txresp|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** s3   txresp|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** s3   txresp|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** s3   txresp|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** s3   txresp|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** s3   txresp|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** s3   txresp|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** s3   txresp|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** s3   txresp|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** s3   txresp|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** s3   txresp|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** s3   txresp|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** s3   txresp|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** s3   txresp|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** s3   txresp|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** s3   txresp|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** s3   txresp|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** s3   txresp|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** s3   txresp|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** s3   txresp|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** s3   txresp|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** s3   txresp|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** s3   txresp|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** s3   txresp|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** s3   txresp|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** s3   txresp|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** s3   txresp|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** s3   txresp|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** s3   txresp|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** s3   txresp|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** s3   txresp|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** s3   txresp|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** s3   txresp|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** s3   txresp|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** s3   txresp|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** s3   txresp|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** s3   txresp|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** s3   txresp|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** s3   txresp|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** s3   txresp|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** s3   txresp|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** s3   txresp|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** s3   txresp|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** s3   txresp|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** s3   txresp|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** s3   txresp|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** s3   txresp|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** s3   txresp|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** s3   txresp|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** s3   txresp|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** s3   txresp||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** s3   txresp|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** s3   txresp|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** s3   txresp|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** s3   txresp|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** s3   txresp|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** s3   txresp|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** s3   txresp|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** s3   txresp|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** s3   txresp|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** s3   txresp|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** s3   txresp|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** s3   txresp|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** s3   txresp|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** s3   txresp|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** s3   txresp|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** s3   txresp|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** s3   txresp|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** s3   txresp|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** s3   txresp|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** s3   txresp|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** s3   txresp|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** s3   txresp|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** s3   txresp|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** s3   txresp|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** s3   txresp|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** s3   txresp|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** s3   txresp|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** s3   txresp|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** s3   txresp|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** s3   txresp|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** s3   txresp|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** s3   txresp|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** s3   txresp|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** s3   txresp|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** s3   txresp|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** s3   txresp|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** s3   txresp| [...] (57363)
+***  s3   shutting fd 9
+**   s3   Ending
+**   c3   === rxresphdrs
+**** c3   rxhdr|HTTP/1.1 200 OK\r
+**** c3   rxhdr|\r
+**** c3   rxhdrlen = 19
+**** c3   http[ 0] |HTTP/1.1
+**** c3   http[ 1] |200
+**** c3   http[ 2] |OK
+**   c3   === rxrespbody -max 8192
+**** dT   0.033
+**** c3   eof|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c3   eof|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c3   eof|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c3   eof|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c3   eof|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c3   eof|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c3   eof|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c3   eof|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c3   eof|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c3   eof|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c3   eof|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c3   eof|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c3   eof|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c3   eof|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c3   eof|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c3   eof|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c3   eof|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c3   eof|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c3   eof|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c3   eof|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c3   eof|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c3   eof|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c3   eof|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c3   eof|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c3   eof|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c3   eof|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c3   eof|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c3   eof|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c3   eof|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c3   eof|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c3   eof|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c3   eof|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c3   eof|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c3   eof|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c3   eof|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c3   eof|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** c3   eof|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** c3   eof|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** c3   eof|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** c3   eof|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** c3   eof|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** c3   eof|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** c3   eof|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** c3   eof|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** c3   eof|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** c3   eof|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** c3   eof|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** c3   eof|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** c3   eof|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** c3   eof|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** c3   eof|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** c3   eof|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** c3   eof|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** c3   eof|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** c3   eof|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** c3   eof|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** c3   eof|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** c3   eof|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** c3   eof|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** c3   eof|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** c3   eof|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** c3   eof|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** c3   eof|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** c3   eof|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** c3   eof|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** c3   eof|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** c3   eof|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** c3   eof|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** c3   eof|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** c3   eof|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** c3   eof|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** c3   eof|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** c3   eof|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** c3   eof|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** c3   eof|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** c3   eof|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** c3   eof|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** c3   eof|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** c3   eof|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** c3   eof|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** c3   eof|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** c3   eof|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** c3   eof|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** c3   eof|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** c3   eof|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** c3   eof|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** c3   eof|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** c3   eof|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** c3   eof|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** c3   eof|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** c3   eof|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** c3   eof||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** c3   eof|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** c3   eof|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c3   eof|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c3   eof|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c3   eof|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c3   eof|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c3   eof|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c3   eof|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c3   eof|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c3   eof|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c3   eof|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c3   eof|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c3   eof|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c3   eof|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c3   eof|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c3   eof|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c3   eof|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c3   eof|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c3   eof|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c3   eof|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c3   eof|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c3   eof|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c3   eof|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c3   eof|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c3   eof|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c3   eof|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c3   eof|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c3   eof|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c3   eof|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c3   eof|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c3   eof|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c3   eof|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c3   eof|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c3   eof|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c3   eof|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c3   eof|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c3   bodylen = 8192
+**   c3   === expect resp.bodylen == 8192
+**** c3   EXPECT resp.bodylen (8192) == "8192" match
+**   c3   === rxrespbody -max 8192
+**** dT   0.059
+**** c3   eof|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** c3   eof|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** c3   eof|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** c3   eof|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** c3   eof|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** c3   eof|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** c3   eof|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** c3   eof|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** c3   eof|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** c3   eof|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** c3   eof|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** c3   eof|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** c3   eof|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** c3   eof|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** c3   eof|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** c3   eof|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** c3   eof|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** c3   eof|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** c3   eof|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** c3   eof|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** c3   eof|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** c3   eof|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** c3   eof|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** c3   eof|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** c3   eof|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** c3   eof|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** c3   eof|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** c3   eof|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** c3   eof|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** c3   eof|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** c3   eof|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** c3   eof|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** c3   eof|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** c3   eof|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** c3   eof|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** c3   eof|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** c3   eof|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** c3   eof|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** c3   eof|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** c3   eof|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** c3   eof|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** c3   eof|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** c3   eof|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** c3   eof|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** c3   eof|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** c3   eof|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** c3   eof|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** c3   eof|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** c3   eof|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** c3   eof|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** c3   eof|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** c3   eof|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** c3   eof|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** c3   eof|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** c3   eof|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** c3   eof|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** c3   eof||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** c3   eof|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** c3   eof|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c3   eof|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c3   eof|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c3   eof|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c3   eof|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c3   eof|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c3   eof|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c3   eof|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c3   eof|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c3   eof|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c3   eof|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c3   eof|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c3   eof|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c3   eof|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c3   eof|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c3   eof|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c3   eof|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c3   eof|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c3   eof|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c3   eof|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c3   eof|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c3   eof|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c3   eof|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c3   eof|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c3   eof|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c3   eof|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c3   eof|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c3   eof|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c3   eof|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c3   eof|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c3   eof|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c3   eof|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c3   eof|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c3   eof|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c3   eof|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c3   eof|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** c3   eof|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** c3   eof|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** c3   eof|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** c3   eof|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** c3   eof|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** c3   eof|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** c3   eof|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** c3   eof|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** c3   eof|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** c3   eof|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** c3   eof|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** c3   eof|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** c3   eof|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** c3   eof|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** c3   eof|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** c3   eof|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** c3   eof|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** c3   eof|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** c3   eof|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** c3   eof|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** c3   eof|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** c3   eof|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** c3   eof|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** c3   eof|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** c3   eof|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** c3   eof|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** c3   eof|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** c3   eof|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** c3   eof|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** c3   eof|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** c3   eof|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** c3   eof|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** c3   eof|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** c3   eof|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** c3   bodylen = 16384
+**   c3   === expect resp.bodylen == 16384
+**** c3   EXPECT resp.bodylen (16384) == "16384" match
+**   c3   === rxrespbody
+**** dT   0.231
+**** c3   eof|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** c3   eof|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** c3   eof|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** c3   eof|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** c3   eof|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** c3   eof|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** c3   eof|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** c3   eof|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** c3   eof|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** c3   eof|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** c3   eof|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** c3   eof|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** c3   eof|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** c3   eof|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** c3   eof|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** c3   eof|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** c3   eof|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** c3   eof|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** c3   eof|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** c3   eof|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** c3   eof|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** c3   eof||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** c3   eof|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** c3   eof|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c3   eof|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c3   eof|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c3   eof|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c3   eof|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c3   eof|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c3   eof|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c3   eof|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c3   eof|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c3   eof|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c3   eof|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c3   eof|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c3   eof|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c3   eof|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c3   eof|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c3   eof|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c3   eof|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c3   eof|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c3   eof|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c3   eof|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c3   eof|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c3   eof|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c3   eof|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c3   eof|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c3   eof|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c3   eof|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c3   eof|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c3   eof|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c3   eof|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c3   eof|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c3   eof|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c3   eof|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c3   eof|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c3   eof|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c3   eof|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c3   eof|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** c3   eof|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** c3   eof|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** c3   eof|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** c3   eof|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** c3   eof|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** c3   eof|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** c3   eof|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** c3   eof|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** c3   eof|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** c3   eof|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** c3   eof|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** c3   eof|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** c3   eof|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** c3   eof|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** c3   eof|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** c3   eof|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** c3   eof|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** c3   eof|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** c3   eof|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** c3   eof|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** c3   eof|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** c3   eof|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** c3   eof|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** c3   eof|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** c3   eof|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** c3   eof|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** c3   eof|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** c3   eof|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** c3   eof|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** c3   eof|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** c3   eof|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** c3   eof|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** c3   eof|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** c3   eof|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** c3   eof|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** c3   eof|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** c3   eof|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** c3   eof|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** c3   eof|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** c3   eof|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** c3   eof|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** c3   eof|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** c3   eof|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** c3   eof|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** c3   eof|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** c3   eof|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** c3   eof|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** c3   eof|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** c3   eof|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** c3   eof|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** c3   eof|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** c3   eof|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** c3   eof|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** c3   eof|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** c3   eof|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** c3   eof||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** c3   eof|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** c3   eof|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c3   eof|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c3   eof|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c3   eof|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c3   eof|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c3   eof|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c3   eof|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c3   eof|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c3   eof|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c3   eof|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c3   eof|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c3   eof|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c3   eof| [...] (40960)
+**** c3   bodylen = 65536
+**   c3   === expect resp.bodylen == 65536
+**** c3   EXPECT resp.bodylen (65536) == "65536" match
+***  c3   closing fd 7
+**   c3   Ending
+*    top  RESETTING after ./tests/a00019.vtc
+**   s1   Waiting for server (4/-1)
+**   s2   Waiting for server (5/-1)
+**   s3   Waiting for server (6/-1)
+*    top  TEST ./tests/a00019.vtc completed
+#    top  TEST ./tests/a00019.vtc passed (0.232)

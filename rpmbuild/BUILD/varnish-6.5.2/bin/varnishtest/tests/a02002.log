@@ -1,0 +1,104 @@
+**** dT   0.000
+*    top  TEST ./tests/a02002.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 42055
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.45202.34701762
+**   top  === varnishtest "Trigger a compression error via bad index"
+*    top  VTEST Trigger a compression error via bad index
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=39313
+**** s1   macro def s1_sock=127.0.0.1 39313
+*    s1   Listen on 127.0.0.1 39313
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   c1   Waiting for client
+**   s1   Started on 127.0.0.1 39313 (1 iterations)
+**   c1   Started on 127.0.0.1 39313 (1 iterations)
+***  c1   Connect to 127.0.0.1 39313
+**** dT   0.001
+***  c1   connected fd 6 from 127.0.0.1 40142 to 127.0.0.1 39313
+***  s1   accepted fd 5 127.0.0.1 40142
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**   s1   === non_fatal
+**   s1   === stream 1 {
+**** s1   Not in H/2 mode, do what's needed
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**   s1   === rxpri
+**** dT   0.011
+**   s1   === stream 0 {
+**   c1   === stream 0 {
+**   s1   Starting stream 0x7f1d2c0013b0
+**   c1   Starting stream 0x7f1d24001480
+**   s1   Waiting for stream 0
+**   s1   === txsettings
+**   c1   Waiting for stream 0
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   s1   === rxsettings
+**   c1   === rxsettings
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   s1   === txsettings -ack
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   s1   === rxsettings
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  s1   flag: ACK
+**   s1   === expect settings.ack == true
+**** s1   EXPECT settings.ack (true) == "true" match
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   s1   Ending stream 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   s1   Starting stream 0x7f1d2c002640
+**   c1   Starting stream 0x7f1d24002680
+**   s1   Waiting for stream 1
+**   s1   === rxreq
+**   c1   Waiting for stream 1
+**   c1   === txreq -idxHdr 100 -litHdr inc plain "foo" plain "bar"
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 46
+**** dT   0.012
+***  s1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 46
+***  s1   flag: END_STREAM
+**** s1   Header decoding failed (2) -1
+**   s1   === expect req.http.foo == <undef>
+**   c1   === rxgoaway
+**** s1   EXPECT req.http.foo (<undef>) == "<undef>" match
+**   s1   === txgoaway -laststream 0 -err 9 -debug "compression_error"
+***  s1   tx: stream: 1, type: GOAWAY (7), flags: 0x00, size: 25
+**   s1   Ending stream 1
+***  c1   rx: stream: 1, type: GOAWAY (7), flags: 0x00, size: 25
+***  c1   goaway->laststream: 0
+***  c1   goaway->err: COMPRESSION_ERROR (9)
+***  c1   goaway->debug: compression_error
+**   c1   === expect goaway.err == 9
+**** c1   EXPECT goaway.err (9) == "9" match
+**   c1   === expect goaway.laststream == 0
+**** c1   EXPECT goaway.laststream (0) == "0" match
+**   c1   === expect goaway.debug == "compression_error"
+**** c1   EXPECT goaway.debug (compression_error) == "compression_error" match
+**   c1   Ending stream 1
+***  s1   shutting fd 5
+**   s1   Ending
+***  c1   closing fd 6
+**   c1   Ending
+*    top  RESETTING after ./tests/a02002.vtc
+**   s1   Waiting for server (4/-1)
+*    top  TEST ./tests/a02002.vtc completed
+#    top  TEST ./tests/a02002.vtc passed (0.044)

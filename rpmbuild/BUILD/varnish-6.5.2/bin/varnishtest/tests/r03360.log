@@ -1,0 +1,211 @@
+**** dT   0.000
+*    top  TEST ./tests/r03360.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 40271
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.99094.4b164066
+**   top  === varnishtest "Test recusive vcl includes"
+*    top  VTEST Test recusive vcl includes
+**   top  === shell {echo include '"_recurse.vcl";' > ${tmpdir}/_recurse.v...
+**** top  shell_cmd|exec 2>&1 ; echo include '"_recurse.vcl";' > /tmp/vtc.99094.4b164066/_recurse.vcl
+**** dT   0.002
+**** top  shell_status = 0x0000
+**   top  === shell {echo include '"_recurse2.vcl";' > ${tmpdir}/_recurse1...
+**** top  shell_cmd|exec 2>&1 ; echo include '"_recurse2.vcl";' > /tmp/vtc.99094.4b164066/_recurse1.vcl
+**** dT   0.003
+**** top  shell_status = 0x0000
+**   top  === shell {echo include '"_recurse1.vcl";' > ${tmpdir}/_recurse2...
+**** top  shell_cmd|exec 2>&1 ; echo include '"_recurse1.vcl";' > /tmp/vtc.99094.4b164066/_recurse2.vcl
+**** dT   0.005
+**** top  shell_status = 0x0000
+**   top  === varnish v1 -arg "-p vcl_path=${tmpdir}" -errvcl "Recursive i...
+**** dT   0.008
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.99094.4b164066/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 41533' -P /tmp/vtc.99094.4b164066/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p vcl_path=/tmp/vtc.99094.4b164066
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.99094.4b164066/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 41533' -P /tmp/vtc.99094.4b164066/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p vcl_path=/tmp/vtc.99094.4b164066
+***  v1   PID: 99115
+**** v1   macro def v1_pid=99115
+**** v1   macro def v1_name=/tmp/vtc.99094.4b164066/v1
+**** dT   0.016
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.115
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 5
+***  v1   CLI RX  107
+**** v1   CLI RX|gjqewiepkbukudxnhxnvdngfkcmczwpg
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth d492266cf5de249f8cde6ed110e2884c104cfd86798f51bd446590aa4470588c
+**** dT   0.116
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tinclude "_recurse.vcl" ;
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.117
+***  v1   debug|Could not delete 'vcl_vcl1.1634893244.278500/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Recursive include of "/tmp/vtc.99094.4b164066/_recurse.vcl"
+**** v1   CLI RX|
+**** v1   CLI RX|('/tmp/vtc.99094.4b164066/_recurse.vcl' Line 1 Pos 9)
+**** v1   CLI RX|include "_recurse.vcl";
+**** v1   CLI RX|--------##############-
+**** v1   CLI RX|
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 17)
+**** v1   CLI RX|        include "_recurse.vcl" ;
+**** v1   CLI RX|----------------##############--
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Recursive include of")
+**   top  === varnish v2 -arg "-p vcl_path=${tmpdir}" -errvcl "Recursive i...
+**** dT   0.121
+**   v2   Launch
+***  v2   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.99094.4b164066/v2 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 32931' -P /tmp/vtc.99094.4b164066/v2/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p vcl_path=/tmp/vtc.99094.4b164066
+***  v2   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.99094.4b164066/v2 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 32931' -P /tmp/vtc.99094.4b164066/v2/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p vcl_path=/tmp/vtc.99094.4b164066
+***  v2   PID: 99123
+**** v2   macro def v2_pid=99123
+**** v2   macro def v2_name=/tmp/vtc.99094.4b164066/v2
+**** dT   0.129
+***  v2   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v2   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v2   debug|200 321     
+***  v2   debug|-----------------------------
+***  v2   debug|Varnish Cache CLI 1.0
+***  v2   debug|-----------------------------
+***  v2   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v2   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v2   debug|
+***  v2   debug|Type 'help' for command list.
+***  v2   debug|Type 'quit' to close CLI session.
+***  v2   debug|Type 'start' to launch worker process.
+***  v2   debug|
+**** dT   0.216
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.227
+**** v2   CLIPOLL 1 0x1 0x0
+***  v2   CLI connection fd = 14
+***  v2   CLI RX  107
+**** v2   CLI RX|ilhwgggylupyiarcmfnntjhikruicrhd
+**** v2   CLI RX|
+**** v2   CLI RX|Authentication required.
+**** dT   0.228
+**** v2   CLI TX|auth 9f2844be7947e5fa3e045ccf729f6117b33e5265959c69cef072be9616c15829
+***  v2   CLI RX  200
+**** v2   CLI RX|-----------------------------
+**** v2   CLI RX|Varnish Cache CLI 1.0
+**** v2   CLI RX|-----------------------------
+**** v2   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v2   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v2   CLI RX|
+**** v2   CLI RX|Type 'help' for command list.
+**** v2   CLI RX|Type 'quit' to close CLI session.
+**** v2   CLI RX|Type 'start' to launch worker process.
+**** v2   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v2   CLI TX|vcl 4.1;
+**** v2   CLI TX|
+**** v2   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v2   CLI TX|\tinclude "_recurse1.vcl" ;
+**** v2   CLI TX|
+**** v2   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.229
+***  v2   debug|Could not delete 'vcl_vcl1.1634893244.390894/vgc.sym': No such file or directory
+***  v2   CLI RX  106
+**** v2   CLI RX|Message from VCC-compiler:
+**** v2   CLI RX|Recursive include of "/tmp/vtc.99094.4b164066/_recurse1.vcl"
+**** v2   CLI RX|
+**** v2   CLI RX|('/tmp/vtc.99094.4b164066/_recurse2.vcl' Line 1 Pos 9)
+**** v2   CLI RX|include "_recurse1.vcl";
+**** v2   CLI RX|--------###############-
+**** v2   CLI RX|
+**** v2   CLI RX|('/tmp/vtc.99094.4b164066/_recurse1.vcl' Line 1 Pos 9)
+**** v2   CLI RX|include "_recurse2.vcl";
+**** v2   CLI RX|--------###############-
+**** v2   CLI RX|
+**** v2   CLI RX|('<vcl.inline>' Line 4 Pos 17)
+**** v2   CLI RX|        include "_recurse1.vcl" ;
+**** v2   CLI RX|----------------###############--
+**** v2   CLI RX|
+**** v2   CLI RX|Running VCC-compiler failed, exited with 2
+**** v2   CLI RX|VCL compilation failed
+**   v2   VCL compilation failed (as expected)
+***  v2   Found expected string: ("Recursive include of")
+*    top  RESETTING after ./tests/r03360.vtc
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  101
+**** v1   CLI RX|Unknown request in manager process (child not running).
+**** v1   CLI RX|Type 'help' for more info.
+**   v1   Stop
+**** v1   CLI TX|stop
+**** dT   0.230
+***  v1   CLI RX  300
+**** v1   CLI RX|Child in state stopped
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   0.316
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.317
+**   v1   WAIT4 pid=99115 status=0x0000 (user 0.006801 sys 0.003806)
+**   v2   Wait
+**** v2   CLI TX|backend.list
+***  v2   CLI RX  101
+**** v2   CLI RX|Unknown request in manager process (child not running).
+**** v2   CLI RX|Type 'help' for more info.
+**   v2   Stop
+**** v2   CLI TX|stop
+***  v2   CLI RX  300
+**** v2   CLI RX|Child in state stopped
+***  v2   wait-stopped
+**** v2   CLI TX|status
+***  v2   CLI RX  200
+**** v2   CLI RX|Child in state stopped
+**** v2   CLI TX|panic.clear
+***  v2   CLI RX  300
+**** v2   CLI RX|No panic to clear
+***  v2   debug|Info: manager stopping child
+***  v2   debug|Info: manager dies
+**** dT   0.318
+**** v2   STDOUT EOF
+**** dT   0.328
+***  v2   vsl|No VSL chunk found (child not started ?)
+**   v2   WAIT4 pid=99123 status=0x0000 (user 0.007890 sys 0.002607)
+*    top  TEST ./tests/r03360.vtc completed
+#    top  TEST ./tests/r03360.vtc passed (0.329)

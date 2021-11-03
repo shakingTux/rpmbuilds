@@ -1,0 +1,75 @@
+**** dT   0.000
+*    top  TEST ./tests/a00018.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 40777
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.45050.117835d7
+**   top  === varnishtest "feature ignore_unknown_macro"
+*    top  VTEST feature ignore_unknown_macro
+**   top  === feature ignore_unknown_macro
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=38811
+**** s1   macro def s1_sock=127.0.0.1 38811
+*    s1   Listen on 127.0.0.1 38811
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 38811 (1 iterations)
+**   s1   Started on 127.0.0.1 38811 (1 iterations)
+***  c1   Connect to 127.0.0.1 38811
+***  c1   connected fd 6 from 127.0.0.1 49602 to 127.0.0.1 38811
+***  s1   accepted fd 5 127.0.0.1 49602
+**   c1   === txreq -hdr "Foo: ${foo}"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Foo: ${foo}\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.001
+**   c1   === rxresp
+**   s1   === rxreq
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|Foo: ${foo}\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 48
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Foo: ${foo}
+**** s1   http[ 4] |Host: 127.0.0.1
+**** s1   bodylen = 0
+**   s1   === expect req.http.Foo == "${foo}"
+**** s1   EXPECT req.http.Foo (${foo}) == "${foo}" match
+**   s1   === txresp -hdr "Bar: ${bar}"
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Bar: ${bar}\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 5
+**   s1   Ending
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Bar: ${bar}\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 51
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Bar: ${bar}
+**** c1   http[ 4] |Content-Length: 0
+**** c1   bodylen = 0
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+**   c1   === expect resp.http.Bar == "${bar}"
+**** c1   EXPECT resp.http.Bar (${bar}) == "${bar}" match
+***  c1   closing fd 6
+**   c1   Ending
+*    top  RESETTING after ./tests/a00018.vtc
+**   s1   Waiting for server (4/-1)
+*    top  TEST ./tests/a00018.vtc completed
+#    top  TEST ./tests/a00018.vtc passed (0.021)

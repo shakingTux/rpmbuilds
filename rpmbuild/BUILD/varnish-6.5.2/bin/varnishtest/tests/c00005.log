@@ -1,0 +1,877 @@
+**** dT   0.000
+*    top  TEST ./tests/c00005.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 36299
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.52522.1573656d
+**   top  === varnishtest "Test ACLs"
+*    top  VTEST Test ACLs
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=40145
+**** s1   macro def s1_sock=127.0.0.1 40145
+*    s1   Listen on 127.0.0.1 40145
+**   top  === varnish v1 -arg "-p vsl_mask=+VCL_trace"
+**   s1   Started on 127.0.0.1 40145 (1 iterations)
+**** dT   0.009
+**   top  === varnish v1 -errvcl {Name acl1 must have type 'acl'.} {
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.52522.1573656d/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 45549' -P /tmp/vtc.52522.1573656d/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p vsl_mask=+VCL_trace
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.52522.1573656d/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 45549' -P /tmp/vtc.52522.1573656d/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p vsl_mask=+VCL_trace
+***  v1   PID: 52541
+**** v1   macro def v1_pid=52541
+**** v1   macro def v1_name=/tmp/vtc.52522.1573656d/v1
+**** dT   0.019
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.118
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 7
+***  v1   CLI RX  107
+**** v1   CLI RX|jpxvfqxrgdjeqohpyftkruqjgcqkxlte
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth 1e713cb248c4296e5941c1dbe1ccb2cdba635fe21ed7877b9c594d812421b4bf
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (client.ip ~ acl1) {
+**** v1   CLI TX|\t\t\tset req.url = "/";
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend acl1 {
+**** v1   CLI TX|\t\t.host = "127.0.0.1";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.120
+***  v1   debug|Could not delete 'vcl_vcl1.1634892628.518866/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Name acl1 must have type 'acl'.
+**** v1   CLI RX|('<vcl.inline>' Line 9 Pos 17)
+**** v1   CLI RX|        backend acl1 {
+**** v1   CLI RX|----------------####--
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Name acl1 must have type 'acl'.")
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl2 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "40145"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (client.ip ~ acl1) {
+**** v1   CLI TX|\t\t\tset req.url = "/";
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|\tacl acl1 {
+**** v1   CLI TX|\t\t"127.0.0.1";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_deliver {
+**** v1   CLI TX|\t\tset resp.http.acl = acl1;
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.218
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.285
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl2
+**** dT   0.286
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.289
+***  v1   debug|Debug: Child (52596) Started
+**** dT   0.316
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (52596) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 35321
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 35321
+**   v1   Listen on 127.0.0.1 35321
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=35321
+**** v1   macro def v1_sock=127.0.0.1 35321
+**** dT   0.319
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl2" vcl_vcl2.1634892628.520173/vgc.so 1auto
+**** v1   vsl|          0 VCL_trace       - vcl2 36 1.190.5
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl2.1634892628.520173/vgc.so" as "vcl2"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl2"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 35321
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 35321
+
+**** dT   0.417
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 35321 (1 iterations)
+***  c1   Connect to 127.0.0.1 35321
+***  c1   connected fd 17 from 127.0.0.1 58596 to 127.0.0.1 35321
+**   c1   === txreq -url "foo"
+**** c1   txreq|GET foo HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+***  s1   accepted fd 5 127.0.0.1 49966
+**   s1   === rxreq
+**** dT   0.418
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1002\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 103
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1002
+**** s1   bodylen = 0
+**   s1   === expect req.url == "/"
+**** s1   EXPECT req.url (/) == "/" match
+**   s1   === txresp -body "1111\n"
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 5\r
+**** s1   txresp|\r
+**** s1   txresp|1111
+**   s1   === rxreq
+**** dT   0.419
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 5\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:50:28 GMT\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|acl: acl1\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 189
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 5
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:50:28 GMT
+**** c1   http[ 5] |X-Varnish: 1001
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |acl: acl1
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 58596 a0 127.0.0.1 35321 1634892628.817406 22
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f4b8c010fb0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f4b8c010fb0 e=1634892758.818416 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f4b8c010fb0 e=129.999796 f=0x0
+**** c1   http[ 9] |Accept-Ranges: bytes
+**** c1   http[10] |Connection: keep-alive
+**** c1   c-l|1111
+**** c1   bodylen = 5
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+**   c1   === expect resp.http.acl == acl1
+**** c1   EXPECT resp.http.acl (acl1) == "acl1" match
+***  c1   closing fd 17
+**   c1   Ending
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl3 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "40145"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\tacl acl1 {
+**** v1   CLI TX|\t\t! "127.0.0.1";
+**** v1   CLI TX|\t\t"0.0.0.0" / 0;
+**** v1   CLI TX|\t\t"::" / 0;
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (client.ip ~ acl1) {
+**** v1   CLI TX|\t\t\tset req.url = "/";
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|\tsub vcl_deliver {
+**** v1   CLI TX|\t\tset resp.http.acl = acl1;
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.519
+**** v1   vsl|       1002 Begin           b bereq 1001 fetch
+**** v1   vsl|       1002 VCL_use         b vcl2
+**** v1   vsl|       1002 Timestamp       b Start: 1634892628.817600 0.000000 0.000000
+**** v1   vsl|       1002 BereqMethod     b GET
+**** v1   vsl|       1002 BereqURL        b /
+**** v1   vsl|       1002 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1002 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1002 BereqHeader     b X-Varnish: 1002
+**** v1   vsl|       1002 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1002 VCL_trace       b vcl2 28 1.143.5
+**** v1   vsl|       1002 VCL_trace       b vcl2 29 1.144.9
+**** v1   vsl|       1002 VCL_trace       b vcl2 30 1.146.5
+**** v1   vsl|       1002 VCL_return      b fetch
+**** v1   vsl|       1002 BackendOpen     b 28 s1 127.0.0.1 40145 127.0.0.1 49966 connect
+**** v1   vsl|       1002 Timestamp       b Bereq: 1634892628.817793 0.000193 0.000193
+**** v1   vsl|       1002 Timestamp       b Beresp: 1634892628.818415 0.000815 0.000622
+**** v1   vsl|       1002 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1002 BerespStatus    b 200
+**** v1   vsl|       1002 BerespReason    b OK
+**** v1   vsl|       1002 BerespHeader    b Content-Length: 5
+**** v1   vsl|       1002 BerespHeader    b Date: Fri, 22 Oct 2021 08:50:28 GMT
+**** v1   vsl|       1002 TTL             b RFC 120 10 0 1634892629 1634892629 1634892628 0 0 cacheable
+**** v1   vsl|       1002 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1002 VCL_trace       b vcl2 31 1.150.5
+**** v1   vsl|       1002 VCL_trace       b vcl2 34 1.162.5
+**** v1   vsl|       1002 VCL_return      b deliver
+**** v1   vsl|       1002 Filters         b 
+**** v1   vsl|       1002 Storage         b malloc s0
+**** v1   vsl|       1002 Fetch_Body      b 3 length stream
+**** v1   vsl|       1002 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1002 Timestamp       b BerespBody: 1634892628.828682 0.011082 0.010266
+**** v1   vsl|       1002 Length          b 5
+**** v1   vsl|       1002 BereqAcct       b 103 0 103 38 5 43
+**** v1   vsl|       1002 End             b 
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892628.817498 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892628.817498 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl2
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 58596 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c foo
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 VCL_trace       c vcl2 1 0.6.17
+**** v1   vsl|       1001 VCL_acl         c MATCH acl1 "127.0.0.1"
+**** v1   vsl|       1001 VCL_trace       c vcl2 2 0.7.25
+**** v1   vsl|       1001 ReqURL          c /
+**** v1   vsl|       1001 VCL_trace       c vcl2 3 0.9.9
+**** v1   vsl|       1001 VCL_trace       c vcl2 5 1.40.5
+**** v1   vsl|       1001 VCL_trace       c vcl2 6 1.41.9
+**** v1   vsl|       1001 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1001 VCL_trace       c vcl2 7 1.43.5
+**** v1   vsl|       1001 VCL_trace       c vcl2 9 1.47.5
+**** v1   vsl|       1001 VCL_trace       c vcl2 11 1.53.5
+**** v1   vsl|       1001 VCL_trace       c vcl2 13 1.65.5
+**** v1   vsl|       1001 VCL_trace       c vcl2 15 1.69.5
+**** v1   vsl|       1001 VCL_trace       c vcl2 17 1.73.5
+**** v1   vsl|       1001 VCL_return      c hash
+**** v1   vsl|       1001 VCL_call        c HASH
+**** v1   vsl|       1001 VCL_trace       c vcl2 20 1.90.5
+**** v1   vsl|       1001 VCL_trace       c vcl2 21 1.92.9
+**** v1   vsl|       1001 VCL_return      c lookup
+**** v1   vsl|       1001 VCL_call        c MISS
+**** v1   vsl|       1001 VCL_trace       c vcl2 25 1.108.5
+**** v1   vsl|       1001 VCL_return      c fetch
+**** v1   vsl|       1001 Link            c bereq 1002 fetch
+**** v1   vsl|       1001 Timestamp       c Fetch: 1634892628.818579 0.001080 0.001080
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 200
+**** v1   vsl|       1001 RespReason      c OK
+**** v1   vsl|       1001 RespHeader      c Content-Length: 5
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 08:50:28 GMT
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 RespHeader      c Age: 0
+**** v1   vsl|       1001 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1001 VCL_call        c DELIVER
+**** v1   vsl|       1001 VCL_trace       c vcl2 4 0.16.17
+**** v1   vsl|       1001 RespHeader      c acl: acl1
+**** v1   vsl|       1001 VCL_trace       c vcl2 26 1.112.5
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634892628.818601 0.001103 0.000022
+**** v1   vsl|       1001 Filters         c 
+**** v1   vsl|       1001 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1001 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1001 Timestamp       c Resp: 1634892628.828698 0.011199 0.010096
+**** v1   vsl|       1001 ReqAcct         c 37 0 37 189 5 194
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 SessClose       c REM_CLOSE 0.011
+**** v1   vsl|       1000 End             c 
+**** dT   0.590
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl3
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl3' now active
+**   top  === client c1 -run
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 35321 (1 iterations)
+***  c1   Connect to 127.0.0.1 35321
+***  c1   connected fd 17 from 127.0.0.1 58600 to 127.0.0.1 35321
+**   c1   === txreq -url "foo"
+**** c1   txreq|GET foo HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.591
+**** s1   rxhdr|GET foo HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1005\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 105
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |foo
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1005
+**** s1   bodylen = 0
+**   s1   === expect req.url == "foo"
+**** s1   EXPECT req.url (foo) == "foo" match
+**   s1   === txresp -body "2222\n"
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 5\r
+**** s1   txresp|\r
+**** s1   txresp|2222
+***  s1   shutting fd 5
+**   s1   Ending
+**** dT   0.592
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 5\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:50:28 GMT\r
+**** c1   rxhdr|X-Varnish: 1004\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|acl: acl1\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 189
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 5
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:50:28 GMT
+**** c1   http[ 5] |X-Varnish: 1004
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |acl: acl1
+**** c1   http[ 9] |Accept-Ranges: bytes
+**** c1   http[10] |Connection: keep-alive
+**** c1   c-l|2222
+**** c1   bodylen = 5
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+**   c1   === expect resp.http.acl == acl1
+**** c1   EXPECT resp.http.acl (acl1) == "acl1" match
+***  c1   closing fd 17
+**   c1   Ending
+**   top  === varnish v1 -cliok "param.set vsl_mask -VCL_trace"
+**** v1   CLI TX|param.set vsl_mask -VCL_trace
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set vsl_mask -VCL_trace>
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl4 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\timport std;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend dummy None;
+**** v1   CLI TX|
+**** v1   CLI TX|\tacl acl1 {
+**** v1   CLI TX|\t\t# bad notation (confusing)
+**** v1   CLI TX|\t\t"1.2.3.4"/24;
+**** v1   CLI TX|\t\t"1.2.3.66"/26;
+**** v1   CLI TX|
+**** v1   CLI TX|\t\t# more specific wins
+**** v1   CLI TX|\t\t"1.4.4.0"/22;
+**** v1   CLI TX|\t\t"1.3.4.0"/23;
+**** v1   CLI TX|\t\t"1.3.5.0"/26;
+**** v1   CLI TX|\t\t"1.3.6.0"/25;
+**** v1   CLI TX|\t\t"1.3.6.128"/25;
+**** v1   CLI TX|\t\t"1.3.0.0"/21;
+**** v1   CLI TX|\t\t"1.4.7";
+**** v1   CLI TX|\t\t"1.4.6.0"/24;
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\treturn (synth(200));
+**** v1   CLI TX|\t}
+**** v1   CLI TX|\tsub t {
+**** v1   CLI TX|\t\tif (std.ip(req.http.ip) ~ acl1) { }
+**** v1   CLI TX|\t}
+**** v1   CLI TX|\tsub vcl_synth {
+**** v1   CLI TX|\t\t# variables would be nice, but not in core (yet?)
+**** v1   CLI TX|\t\tset req.http.ip = "1.2.3.0";\tcall t;
+**** v1   CLI TX|\t\tset req.http.ip = "1.2.3.63";\tcall t;
+**** v1   CLI TX|\t\tset req.http.ip = "1.2.3.64";\tcall t;
+**** v1   CLI TX|
+**** v1   CLI TX|\t\tset req.http.ip = "1.3.4.255";\tcall t;
+**** v1   CLI TX|\t\tset req.http.ip = "1.3.5.0";\tcall t;
+**** v1   CLI TX|\t\tset req.http.ip = "1.3.5.255";\tcall t;
+**** v1   CLI TX|\t\tset req.http.ip = "1.3.6.0";\tcall t;
+**** v1   CLI TX|\t\tset req.http.ip = "1.3.6.140";\tcall t;
+**** v1   CLI TX|\t\tset req.http.ip = "1.3.7.255";\tcall t;
+**** v1   CLI TX|
+**** v1   CLI TX|\t\tset req.http.ip = "1.4.5.255";\tcall t;
+**** v1   CLI TX|\t\tset req.http.ip = "1.4.6.64";\tcall t;
+**** v1   CLI TX|\t\tset req.http.ip = "1.4.7.64";\tcall t;
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.619
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl3 vcl_vcl3.1634892628.819596/vgc.so 1auto
+**** v1   vsl|          0 VCL_trace       - vcl3 36 1.190.5
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl3.1634892628.819596/vgc.so" as "vcl3"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl3
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1003 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1003 SessOpen        c 127.0.0.1 58600 a0 127.0.0.1 35321 1634892628.990658 26
+**** v1   vsl|       1003 Link            c req 1004 rxreq
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f4b8c010fb0 e=129.826924 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f4b78000bb0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f4b78000bb0 e=1634892758.991421 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f4b8c010fb0 e=129.826913 f=0x0
+**** v1   vsl|       1005 Begin           b bereq 1004 fetch
+**** v1   vsl|       1005 VCL_use         b vcl3
+**** v1   vsl|       1005 Timestamp       b Start: 1634892628.990862 0.000000 0.000000
+**** v1   vsl|       1005 BereqMethod     b GET
+**** v1   vsl|       1005 BereqURL        b foo
+**** v1   vsl|       1005 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1005 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1005 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1005 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1005 BereqHeader     b X-Varnish: 1005
+**** v1   vsl|       1005 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1005 VCL_trace       b vcl3 28 1.143.5
+**** v1   vsl|       1005 VCL_trace       b vcl3 29 1.144.9
+**** v1   vsl|       1005 VCL_trace       b vcl3 30 1.146.5
+**** v1   vsl|       1005 VCL_return      b fetch
+**** v1   vsl|       1005 BackendOpen     b 28 s1 127.0.0.1 40145 127.0.0.1 49966 reuse
+**** v1   vsl|       1005 Timestamp       b Bereq: 1634892628.990948 0.000086 0.000086
+**** v1   vsl|       1005 Timestamp       b Beresp: 1634892628.991421 0.000559 0.000473
+**** v1   vsl|       1005 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1005 BerespStatus    b 200
+**** v1   vsl|       1005 BerespReason    b OK
+**** v1   vsl|       1005 BerespHeader    b Content-Length: 5
+**** v1   vsl|       1005 BerespHeader    b Date: Fri, 22 Oct 2021 08:50:28 GMT
+**** v1   vsl|       1005 TTL             b RFC 120 10 0 1634892629 1634892629 1634892628 0 0 cacheable
+**** v1   vsl|       1005 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1005 VCL_trace       b vcl3 31 1.150.5
+**** v1   vsl|       1005 VCL_trace       b vcl3 34 1.162.5
+**** v1   vsl|       1005 VCL_return      b deliver
+**** v1   vsl|       1005 Filters         b 
+**** v1   vsl|       1005 Storage         b malloc s0
+**** v1   vsl|       1005 Fetch_Body      b 3 length stream
+**** v1   vsl|       1005 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1005 Timestamp       b BerespBody: 1634892629.001603 0.010741 0.010182
+**** v1   vsl|       1005 Length          b 5
+**** v1   vsl|       1005 BereqAcct       b 105 0 105 38 5 43
+**** v1   vsl|       1005 End             b 
+**** v1   vsl|       1004 Begin           c req 1003 rxreq
+**** v1   vsl|       1004 Timestamp       c Start: 1634892628.990779 0.000000 0.000000
+**** v1   vsl|       1004 Timestamp       c Req: 1634892628.990779 0.000000 0.000000
+**** v1   vsl|       1004 VCL_use         c vcl3
+**** v1   vsl|       1004 ReqStart        c 127.0.0.1 58600 a0
+**** v1   vsl|       1004 ReqMethod       c GET
+**** v1   vsl|       1004 ReqURL          c foo
+**** v1   vsl|       1004 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1004 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1004 VCL_call        c RECV
+**** v1   vsl|       1004 VCL_trace       c vcl3 1 0.12.17
+**** v1   vsl|       1004 VCL_acl         c NEG_MATCH acl1 "127.0.0.1"
+**** v1   vsl|       1004 VCL_trace       c vcl3 3 0.15.9
+**** v1   vsl|       1004 VCL_trace       c vcl3 5 1.40.5
+**** v1   vsl|       1004 VCL_trace       c vcl3 6 1.41.9
+**** v1   vsl|       1004 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1004 VCL_trace       c vcl3 7 1.43.5
+**** v1   vsl|       1004 VCL_trace       c vcl3 9 1.47.5
+**** v1   vsl|       1004 VCL_trace       c vcl3 11 1.53.5
+**** v1   vsl|       1004 VCL_trace       c vcl3 13 1.65.5
+**** v1   vsl|       1004 VCL_trace       c vcl3 15 1.69.5
+**** v1   vsl|       1004 VCL_trace       c vcl3 17 1.73.5
+**** v1   vsl|       1004 VCL_return      c hash
+**** v1   vsl|       1004 VCL_call        c HASH
+**** v1   vsl|       1004 VCL_trace       c vcl3 20 1.90.5
+**** v1   vsl|       1004 VCL_trace       c vcl3 21 1.92.9
+**** v1   vsl|       1004 VCL_return      c lookup
+**** v1   vsl|       1004 VCL_call        c MISS
+**** v1   vsl|       1004 VCL_trace       c vcl3 25 1.108.5
+**** v1   vsl|       1004 VCL_return      c fetch
+**** v1   vsl|       1004 Link            c bereq 1005 fetch
+**** v1   vsl|       1004 Timestamp       c Fetch: 1634892628.991496 0.000717 0.000717
+**** v1   vsl|       1004 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1004 RespStatus      c 200
+**** v1   vsl|       1004 RespReason      c OK
+**** v1   vsl|       1004 RespHeader      c Content-Length: 5
+**** v1   vsl|       1004 RespHeader      c Date: Fri, 22 Oct 2021 08:50:28 GMT
+**** v1   vsl|       1004 RespHeader      c X-Varnish: 1004
+**** v1   vsl|       1004 RespHeader      c Age: 0
+**** v1   vsl|       1004 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1004 VCL_call        c DELIVER
+**** v1   vsl|       1004 VCL_trace       c vcl3 4 0.17.17
+**** v1   vsl|       1004 RespHeader      c acl: acl1
+**** v1   vsl|       1004 VCL_trace       c vcl3 26 1.112.5
+**** v1   vsl|       1004 VCL_return      c deliver
+**** v1   vsl|       1004 Timestamp       c Process: 1634892628.991506 0.000726 0.000009
+**** v1   vsl|       1004 Filters         c 
+**** v1   vsl|       1004 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1004 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1004 Timestamp       c Resp: 1634892629.001703 0.010924 0.010197
+**** v1   vsl|       1004 ReqAcct         c 37 0 37 189 5 194
+**** v1   vsl|       1004 End             c 
+**** v1   vsl|       1003 SessClose       c REM_CLOSE 0.011
+**** v1   vsl|       1003 End             c 
+**** dT   0.788
+***  v1   CLI RX  200
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Address/Netmask mismatch, changed to 1.2.3.0/24
+**** v1   CLI RX|('<vcl.inline>' Line 9 Pos 17)
+**** v1   CLI RX|                "1.2.3.4"/24;
+**** v1   CLI RX|----------------#########----
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Address/Netmask mismatch, changed to 1.2.3.64/26
+**** v1   CLI RX|('<vcl.inline>' Line 10 Pos 17)
+**** v1   CLI RX|                "1.2.3.66"/26;
+**** v1   CLI RX|----------------##########----
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl4
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl4' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**** dT   0.789
+**   l1   === expect * 1007	ReqHeader	{^\Qip: 1.2.3.0\E$}
+**   l1   === expect 0 =	VCL_acl	{^\QMATCH acl1 "1.2.3.4"/24 fixed: 1.2.3....
+**   l1   === expect 1 =	ReqHeader	{^\Qip: 1.2.3.63\E$}
+**   l1   === expect 0 =	VCL_acl	{^\QMATCH acl1 "1.2.3.4"/24 fixed: 1.2.3....
+**   l1   === expect 1 =	ReqHeader	{^\Qip: 1.2.3.64\E$}
+**   l1   === expect 0 =	VCL_acl	{^\QMATCH acl1 "1.2.3.66"/26 fixed: 1.2.3...
+**   l1   === expect 1 =	ReqHeader	{^\Qip: 1.3.4.255\E$}
+**   l1   === expect 0 =	VCL_acl	{^\QMATCH acl1 "1.3.4.0"/23\E$}
+**   l1   === expect 1 =	ReqHeader	{^\Qip: 1.3.5.0\E$}
+**   l1   === expect 0 =	VCL_acl	{^\QMATCH acl1 "1.3.5.0"/26\E$}
+**   l1   === expect 1 =	ReqHeader	{^\Qip: 1.3.5.255\E$}
+**   l1   === expect 0 =	VCL_acl	{^\QMATCH acl1 "1.3.4.0"/23\E$}
+**   l1   === expect 1 =	ReqHeader	{^\Qip: 1.3.6.0\E$}
+**   l1   === expect 0 =	VCL_acl	{^\QMATCH acl1 "1.3.6.0"/25\E$}
+**   l1   === expect 1 =	ReqHeader	{^\Qip: 1.3.6.140\E$}
+**   l1   === expect 0 =	VCL_acl	{^\QMATCH acl1 "1.3.6.128"/25\E$}
+**   l1   === expect 1 =	ReqHeader	{^\Qip: 1.3.7.255\E$}
+**   l1   === expect 0 =	VCL_acl	{^\QMATCH acl1 "1.3.0.0"/21\E$}
+**   l1   === expect 1 =	ReqHeader	{^\Qip: 1.4.5.255\E$}
+**   l1   === expect 0 =	VCL_acl	{^\QMATCH acl1 "1.4.4.0"/22\E$}
+**   l1   === expect 1 =	ReqHeader	{^\Qip: 1.4.6.64\E$}
+**   l1   === expect 0 =	VCL_acl	{^\QMATCH acl1 "1.4.6.0"/24\E$}
+**   l1   === expect 1 =	ReqHeader	{^\Qip: 1.4.7.64\E$}
+**   l1   === expect 0 =	VCL_acl	{^\QMATCH acl1 "1.4.7"\E$}
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1007 ReqHeader ^\\Qip: 1.2.3.0\\E$
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 35321 (1 iterations)
+***  c1   Connect to 127.0.0.1 35321
+***  c1   connected fd 21 from 127.0.0.1 58602 to 127.0.0.1 35321
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.790
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:50:29 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1007\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 213
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:50:29 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1007
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 227
+**** c1   http[ 9] |Accept-Ranges: bytes
+**** c1   http[10] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1007</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+***  c1   closing fd 21
+**   c1   Ending
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   0.799
+**** l1   match|       1007 ReqHeader       c ip: 1.2.3.0
+***  l1   expecting| expect 0 = VCL_acl ^\\QMATCH acl1 \"1.2.3.4\"/24 fixed: 1.2.3.0/24\\E$
+**** l1   match|       1007 VCL_acl         c MATCH acl1 "1.2.3.4"/24 fixed: 1.2.3.0/24
+***  l1   expecting| expect 1 = ReqHeader ^\\Qip: 1.2.3.63\\E$
+**** l1   match|       1007 ReqHeader       c ip: 1.2.3.63
+***  l1   expecting| expect 0 = VCL_acl ^\\QMATCH acl1 \"1.2.3.4\"/24 fixed: 1.2.3.0/24\\E$
+**** l1   match|       1007 VCL_acl         c MATCH acl1 "1.2.3.4"/24 fixed: 1.2.3.0/24
+***  l1   expecting| expect 1 = ReqHeader ^\\Qip: 1.2.3.64\\E$
+**** l1   match|       1007 ReqHeader       c ip: 1.2.3.64
+***  l1   expecting| expect 0 = VCL_acl ^\\QMATCH acl1 \"1.2.3.66\"/26 fixed: 1.2.3.64/26\\E$
+**** l1   match|       1007 VCL_acl         c MATCH acl1 "1.2.3.66"/26 fixed: 1.2.3.64/26
+***  l1   expecting| expect 1 = ReqHeader ^\\Qip: 1.3.4.255\\E$
+**** l1   match|       1007 ReqHeader       c ip: 1.3.4.255
+***  l1   expecting| expect 0 = VCL_acl ^\\QMATCH acl1 \"1.3.4.0\"/23\\E$
+**** l1   match|       1007 VCL_acl         c MATCH acl1 "1.3.4.0"/23
+***  l1   expecting| expect 1 = ReqHeader ^\\Qip: 1.3.5.0\\E$
+**** l1   match|       1007 ReqHeader       c ip: 1.3.5.0
+***  l1   expecting| expect 0 = VCL_acl ^\\QMATCH acl1 \"1.3.5.0\"/26\\E$
+**** l1   match|       1007 VCL_acl         c MATCH acl1 "1.3.5.0"/26
+***  l1   expecting| expect 1 = ReqHeader ^\\Qip: 1.3.5.255\\E$
+**** l1   match|       1007 ReqHeader       c ip: 1.3.5.255
+***  l1   expecting| expect 0 = VCL_acl ^\\QMATCH acl1 \"1.3.4.0\"/23\\E$
+**** l1   match|       1007 VCL_acl         c MATCH acl1 "1.3.4.0"/23
+***  l1   expecting| expect 1 = ReqHeader ^\\Qip: 1.3.6.0\\E$
+**** l1   match|       1007 ReqHeader       c ip: 1.3.6.0
+***  l1   expecting| expect 0 = VCL_acl ^\\QMATCH acl1 \"1.3.6.0\"/25\\E$
+**** l1   match|       1007 VCL_acl         c MATCH acl1 "1.3.6.0"/25
+***  l1   expecting| expect 1 = ReqHeader ^\\Qip: 1.3.6.140\\E$
+**** l1   match|       1007 ReqHeader       c ip: 1.3.6.140
+***  l1   expecting| expect 0 = VCL_acl ^\\QMATCH acl1 \"1.3.6.128\"/25\\E$
+**** l1   match|       1007 VCL_acl         c MATCH acl1 "1.3.6.128"/25
+***  l1   expecting| expect 1 = ReqHeader ^\\Qip: 1.3.7.255\\E$
+**** l1   match|       1007 ReqHeader       c ip: 1.3.7.255
+***  l1   expecting| expect 0 = VCL_acl ^\\QMATCH acl1 \"1.3.0.0\"/21\\E$
+**** l1   match|       1007 VCL_acl         c MATCH acl1 "1.3.0.0"/21
+***  l1   expecting| expect 1 = ReqHeader ^\\Qip: 1.4.5.255\\E$
+**** l1   match|       1007 ReqHeader       c ip: 1.4.5.255
+***  l1   expecting| expect 0 = VCL_acl ^\\QMATCH acl1 \"1.4.4.0\"/22\\E$
+**** l1   match|       1007 VCL_acl         c MATCH acl1 "1.4.4.0"/22
+***  l1   expecting| expect 1 = ReqHeader ^\\Qip: 1.4.6.64\\E$
+**** l1   match|       1007 ReqHeader       c ip: 1.4.6.64
+***  l1   expecting| expect 0 = VCL_acl ^\\QMATCH acl1 \"1.4.6.0\"/24\\E$
+**** l1   match|       1007 VCL_acl         c MATCH acl1 "1.4.6.0"/24
+***  l1   expecting| expect 1 = ReqHeader ^\\Qip: 1.4.7.64\\E$
+**** l1   match|       1007 ReqHeader       c ip: 1.4.7.64
+***  l1   expecting| expect 0 = VCL_acl ^\\QMATCH acl1 \"1.4.7\"\\E$
+**** l1   match|       1007 VCL_acl         c MATCH acl1 "1.4.7"
+**** l1   end|
+**   top  === varnish v1 -cliok "param.set vcc_acl_pedantic on"
+**** v1   CLI TX|param.set vcc_acl_pedantic on
+**** dT   0.800
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set vcc_acl_pedantic on>
+**   top  === varnish v1 -errvcl {Address/Netmask mismatch, need be 1.2.3....
+**** v1   CLI TX|vcl.inline vcl5 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\timport std;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend dummy None;
+**** v1   CLI TX|
+**** v1   CLI TX|\tacl acl1 {
+**** v1   CLI TX|\t\t"1.2.3.4"/24;
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (client.ip ~ acl1) {}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.801
+***  v1   debug|Could not delete 'vcl_vcl5.1634892629.200082/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Address/Netmask mismatch, need be 1.2.3.0/24
+**** v1   CLI RX|('<vcl.inline>' Line 8 Pos 17)
+**** v1   CLI RX|                "1.2.3.4"/24;
+**** v1   CLI RX|----------------#########----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Address/Netmask mismatch, need be 1.2.3.0/24")
+*    top  RESETTING after ./tests/c00005.vtc
+**   s1   Waiting for server (4/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+**** dT   0.820
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl4 vcl_vcl4.1634892628.992475/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl4.1634892628.992475/vgc.so" as "vcl4"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl4
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1006 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1006 SessOpen        c 127.0.0.1 58602 a0 127.0.0.1 35321 1634892629.189634 27
+**** v1   vsl|       1006 Link            c req 1007 rxreq
+**** v1   vsl|       1007 Begin           c req 1006 rxreq
+**** v1   vsl|       1007 Timestamp       c Start: 1634892629.189715 0.000000 0.000000
+**** v1   vsl|       1007 Timestamp       c Req: 1634892629.189715 0.000000 0.000000
+**** v1   vsl|       1007 VCL_use         c vcl4
+**** v1   vsl|       1007 ReqStart        c 127.0.0.1 58602 a0
+**** v1   vsl|       1007 ReqMethod       c GET
+**** v1   vsl|       1007 ReqURL          c /
+**** v1   vsl|       1007 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1007 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1007 VCL_call        c RECV
+**** v1   vsl|       1007 VCL_return      c synth
+**** v1   vsl|       1007 VCL_call        c HASH
+**** v1   vsl|       1007 VCL_return      c lookup
+**** v1   vsl|       1007 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1007 RespStatus      c 200
+**** v1   vsl|       1007 RespReason      c OK
+**** v1   vsl|       1007 RespHeader      c Date: Fri, 22 Oct 2021 08:50:29 GMT
+**** v1   vsl|       1007 RespHeader      c Server: Varnish
+**** v1   vsl|       1007 RespHeader      c X-Varnish: 1007
+**** v1   vsl|       1007 VCL_call        c SYNTH
+**** v1   vsl|       1007 ReqHeader       c ip: 1.2.3.0
+**** v1   vsl|       1007 VCL_acl         c MATCH acl1 "1.2.3.4"/24 fixed: 1.2.3.0/24
+**** v1   vsl|       1007 ReqUnset        c ip: 1.2.3.0
+**** v1   vsl|       1007 ReqHeader       c ip: 1.2.3.63
+**** v1   vsl|       1007 VCL_acl         c MATCH acl1 "1.2.3.4"/24 fixed: 1.2.3.0/24
+**** v1   vsl|       1007 ReqUnset        c ip: 1.2.3.63
+**** v1   vsl|       1007 ReqHeader       c ip: 1.2.3.64
+**** v1   vsl|       1007 VCL_acl         c MATCH acl1 "1.2.3.66"/26 fixed: 1.2.3.64/26
+**** v1   vsl|       1007 ReqUnset        c ip: 1.2.3.64
+**** v1   vsl|       1007 ReqHeader       c ip: 1.3.4.255
+**** v1   vsl|       1007 VCL_acl         c MATCH acl1 "1.3.4.0"/23
+**** v1   vsl|       1007 ReqUnset        c ip: 1.3.4.255
+**** v1   vsl|       1007 ReqHeader       c ip: 1.3.5.0
+**** v1   vsl|       1007 VCL_acl         c MATCH acl1 "1.3.5.0"/26
+**** v1   vsl|       1007 ReqUnset        c ip: 1.3.5.0
+**** v1   vsl|       1007 ReqHeader       c ip: 1.3.5.255
+**** v1   vsl|       1007 VCL_acl         c MATCH acl1 "1.3.4.0"/23
+**** v1   vsl|       1007 ReqUnset        c ip: 1.3.5.255
+**** v1   vsl|       1007 ReqHeader       c ip: 1.3.6.0
+**** v1   vsl|       1007 VCL_acl         c MATCH acl1 "1.3.6.0"/25
+**** v1   vsl|       1007 ReqUnset        c ip: 1.3.6.0
+**** v1   vsl|       1007 ReqHeader       c ip: 1.3.6.140
+**** v1   vsl|       1007 VCL_acl         c MATCH acl1 "1.3.6.128"/25
+**** v1   vsl|       1007 ReqUnset        c ip: 1.3.6.140
+**** v1   vsl|       1007 ReqHeader       c ip: 1.3.7.255
+**** v1   vsl|       1007 VCL_acl         c MATCH acl1 "1.3.0.0"/21
+**** v1   vsl|       1007 ReqUnset        c ip: 1.3.7.255
+**** v1   vsl|       1007 ReqHeader       c ip: 1.4.5.255
+**** v1   vsl|       1007 VCL_acl         c MATCH acl1 "1.4.4.0"/22
+**** v1   vsl|       1007 ReqUnset        c ip: 1.4.5.255
+**** v1   vsl|       1007 ReqHeader       c ip: 1.4.6.64
+**** v1   vsl|       1007 VCL_acl         c MATCH acl1 "1.4.6.0"/24
+**** v1   vsl|       1007 ReqUnset        c ip: 1.4.6.64
+**** v1   vsl|       1007 ReqHeader       c ip: 1.4.7.64
+**** v1   vsl|       1007 VCL_acl         c MATCH acl1 "1.4.7"
+**** v1   vsl|       1007 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1007 RespHeader      c Retry-After: 5
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 Timestamp       c Process: 1634892629.189790 0.000075 0.000075
+**** v1   vsl|       1007 RespHeader      c Content-Length: 227
+**** v1   vsl|       1007 Storage         c malloc Transient
+**** v1   vsl|       1007 Filters         c 
+**** v1   vsl|       1007 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1007 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1007 Timestamp       c Resp: 1634892629.189839 0.000123 0.000048
+**** v1   vsl|       1007 ReqAcct         c 35 0 35 213 227 440
+**** v1   vsl|       1007 End             c 
+**** v1   vsl|       1006 SessClose       c REM_CLOSE 0.001
+**** v1   vsl|       1006 End             c 
+**** dT   0.842
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin    Probe    Health    Last change
+**   v1   Stop
+**** v1   CLI TX|stop
+**** dT   0.843
+***  v1   debug|Debug: Stopping Child
+**** dT   0.920
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 55 Backend name   Admin    Probe    Health    Last change
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.843
+***  v1   debug|Info: Child (52596) ended
+***  v1   debug|Info: Child (52596) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+**** dT   1.844
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** dT   1.845
+**** v1   STDOUT EOF
+**** dT   1.922
+**   v1   WAIT4 pid=52541 status=0x0000 (user 0.485354 sys 0.073839)
+*    top  TEST ./tests/c00005.vtc completed
+#    top  TEST ./tests/c00005.vtc passed (1.922)

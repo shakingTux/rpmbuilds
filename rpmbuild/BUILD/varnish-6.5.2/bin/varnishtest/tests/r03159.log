@@ -1,0 +1,114 @@
+**** dT   0.000
+*    top  TEST ./tests/r03159.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 44587
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.98041.072713d0
+**   top  === varnishtest "double sub unref warning / warnings output for ...
+*    top  VTEST double sub unref warning / warnings output for -f
+**   top  === shell {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tcat >unref.vcl <<-EOF
+**** top  shell_cmd|\tvcl 4.1;
+**** top  shell_cmd|\tbackend be none;
+**** top  shell_cmd|\tsub foo { }
+**** top  shell_cmd|\tEOF
+**** dT   0.003
+**** top  shell_status = 0x0000
+**   top  === shell -match "^1$" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\t{
+**** top  shell_cmd|\t\tvarnishd -F -n "/tmp/vtc.98041.072713d0/t" -a "/tmp/vtc.98041.072713d0/sock" \
+**** top  shell_cmd|\t\t\t-p vcc_err_unref=off -f "/tmp/vtc.98041.072713d0/unref.vcl" &
+**** top  shell_cmd|\t\tpid=$!
+**** top  shell_cmd|\t\tvarnishadm -n "/tmp/vtc.98041.072713d0/t" stop
+**** top  shell_cmd|\t\tkill $pid
+**** top  shell_cmd|\t} 2>&1 | grep -c "That was just a warning"
+**** dT   1.293
+**** top  shell_out|1
+**** top  shell_status = 0x0000
+**** top  shell_match succeeded
+**   top  === varnish v1 -cliok "param.set vcc_err_unref off"
+**** dT   1.298
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.98041.072713d0/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 32819' -P /tmp/vtc.98041.072713d0/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.98041.072713d0/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 32819' -P /tmp/vtc.98041.072713d0/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 98355
+**** v1   macro def v1_pid=98355
+**** v1   macro def v1_name=/tmp/vtc.98041.072713d0/v1
+**** dT   1.306
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   1.404
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 5
+***  v1   CLI RX  107
+**** v1   CLI RX|sugnentycthmexrrohsaafwhkmfbnoew
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** dT   1.405
+**** v1   CLI TX|auth 28e1b629bbbba91da3230075e666b5219a7655cdec6209444cf8702a077f78d9
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|param.set vcc_err_unref off
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set vcc_err_unref off>
+**   top  === shell -match "^1$" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishadm -n "/tmp/vtc.98041.072713d0/v1" vcl.load unref "/tmp/vtc.98041.072713d0/unref.vcl" 2>&1 |
+**** top  shell_cmd|\tgrep -c "That was just a warning"
+**** dT   1.505
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   1.562
+**** top  shell_out|1
+**** top  shell_status = 0x0000
+**** top  shell_match succeeded
+*    top  RESETTING after ./tests/r03159.vtc
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  101
+**** v1   CLI RX|Unknown request in manager process (child not running).
+**** v1   CLI RX|Type 'help' for more info.
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   CLI RX  300
+**** v1   CLI RX|Child in state stopped
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+**** dT   1.563
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   1.605
+***  v1   vsl|No VSL chunk found (child not started ?)
+**   v1   WAIT4 pid=98355 status=0x0000 (user 0.121288 sys 0.028545)
+**** dT   1.606
+*    top  TEST ./tests/r03159.vtc completed
+#    top  TEST ./tests/r03159.vtc passed (1.606)

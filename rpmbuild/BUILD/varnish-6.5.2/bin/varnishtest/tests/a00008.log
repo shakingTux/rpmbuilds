@@ -1,0 +1,211 @@
+**** dT   0.000
+*    top  TEST ./tests/a00008.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 41009
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.44801.6aef94ad
+**   top  === varnishtest "Barrier operations"
+*    top  VTEST Barrier operations
+**   top  === barrier bs cond 4
+**   top  === barrier bc cond 4
+**   top  === barrier bb cond 4 -cyclic
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=32915
+**** s1   macro def s1_sock=127.0.0.1 32915
+*    s1   Listen on 127.0.0.1 32915
+**   top  === server s2 {
+**   s2   Starting server
+**** s2   macro def s2_addr=127.0.0.1
+**** s2   macro def s2_port=34153
+**** s2   macro def s2_sock=127.0.0.1 34153
+*    s2   Listen on 127.0.0.1 34153
+**   top  === server s3 {
+**   s3   Starting server
+**   s1   Started on 127.0.0.1 32915 (1 iterations)
+**** s3   macro def s3_addr=127.0.0.1
+**** s3   macro def s3_port=35559
+**** s3   macro def s3_sock=127.0.0.1 35559
+*    s3   Listen on 127.0.0.1 35559
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   s3   Started on 127.0.0.1 35559 (1 iterations)
+**   top  === client c2 -connect ${s2_sock} {
+**   c2   Starting client
+**   c1   Started on 127.0.0.1 32915 (1 iterations)
+***  c1   Connect to 127.0.0.1 32915
+**   top  === client c3 -connect ${s3_sock} {
+**   c3   Starting client
+**   top  === barrier bs sync
+**** top  Barrier(bs) wait 1 of 4
+**   c2   Started on 127.0.0.1 34153 (1 iterations)
+***  c2   Connect to 127.0.0.1 34153
+***  s1   accepted fd 7 127.0.0.1 49598
+**** dT   0.001
+**   s1   === rxreq
+***  c2   connected fd 10 from 127.0.0.1 51806 to 127.0.0.1 34153
+***  c1   connected fd 9 from 127.0.0.1 49598 to 127.0.0.1 32915
+**   c1   === delay .2
+**   c2   === delay .6
+***  c2   delaying 0.6 second(s)
+***  c1   delaying 0.2 second(s)
+**   c3   Started on 127.0.0.1 35559 (1 iterations)
+**   s2   Started on 127.0.0.1 34153 (1 iterations)
+***  c3   Connect to 127.0.0.1 35559
+***  s2   accepted fd 11 127.0.0.1 51806
+**   s2   === rxreq
+***  s3   accepted fd 8 127.0.0.1 33064
+**   s3   === rxreq
+***  c3   connected fd 12 from 127.0.0.1 33064 to 127.0.0.1 35559
+**   c3   === delay .9
+***  c3   delaying 0.9 second(s)
+**** dT   0.201
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 35
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Host: 127.0.0.1
+**** s1   bodylen = 0
+**   s1   === barrier bs sync
+**** s1   Barrier(bs) wait 2 of 4
+**** dT   0.601
+**   c2   === txreq
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** s2   rxhdr|GET / HTTP/1.1\r
+**** s2   rxhdr|Host: 127.0.0.1\r
+**** s2   rxhdr|\r
+**** s2   rxhdrlen = 35
+**** s2   http[ 0] |GET
+**** s2   http[ 1] |/
+**** s2   http[ 2] |HTTP/1.1
+**** s2   http[ 3] |Host: 127.0.0.1
+**** s2   bodylen = 0
+**   s2   === barrier bs sync
+**** s2   Barrier(bs) wait 3 of 4
+**** dT   0.901
+**   c3   === txreq
+**** c3   txreq|GET / HTTP/1.1\r
+**** c3   txreq|Host: 127.0.0.1\r
+**** c3   txreq|\r
+**   c3   === rxresp
+**** s3   rxhdr|GET / HTTP/1.1\r
+**** s3   rxhdr|Host: 127.0.0.1\r
+**** s3   rxhdr|\r
+**** s3   rxhdrlen = 35
+**** s3   http[ 0] |GET
+**** s3   http[ 1] |/
+**** s3   http[ 2] |HTTP/1.1
+**** s3   http[ 3] |Host: 127.0.0.1
+**** s3   bodylen = 0
+**   s3   === barrier bs sync
+**** s3   Barrier(bs) wake 4
+**** dT   0.902
+**   s3   === barrier bb sync
+**** s3   Barrier(bb) wait 1 of 4
+**   s1   === barrier bb sync
+**** s1   Barrier(bb) wait 2 of 4
+**   s2   === barrier bb sync
+**   top  === barrier bb sync
+**** s2   Barrier(bb) wait 3 of 4
+**** top  Barrier(bb) wake 4
+**   top  === barrier bc sync
+**** top  Barrier(bc) wait 1 of 4
+**   s1   === delay .9
+**   s2   === delay .6
+***  s1   delaying 0.9 second(s)
+***  s2   delaying 0.6 second(s)
+**   s3   === delay .2
+***  s3   delaying 0.2 second(s)
+**** dT   1.102
+**   s3   === txresp
+**** s3   txresp|HTTP/1.1 200 OK\r
+**** s3   txresp|Content-Length: 0\r
+**** s3   txresp|\r
+***  s3   shutting fd 8
+**   s3   Ending
+**** c3   rxhdr|HTTP/1.1 200 OK\r
+**** c3   rxhdr|Content-Length: 0\r
+**** c3   rxhdr|\r
+**** c3   rxhdrlen = 38
+**** c3   http[ 0] |HTTP/1.1
+**** c3   http[ 1] |200
+**** c3   http[ 2] |OK
+**** c3   http[ 3] |Content-Length: 0
+**** c3   bodylen = 0
+**   c3   === barrier bc sync
+**** c3   Barrier(bc) wait 2 of 4
+**** dT   1.502
+**   s2   === txresp
+**** s2   txresp|HTTP/1.1 200 OK\r
+**** s2   txresp|Content-Length: 0\r
+**** s2   txresp|\r
+***  s2   shutting fd 11
+**   s2   Ending
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Content-Length: 0\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 38
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Content-Length: 0
+**** c2   bodylen = 0
+**   c2   === barrier bc sync
+**** c2   Barrier(bc) wait 3 of 4
+**** dT   1.802
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 7
+**   s1   Ending
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 38
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   bodylen = 0
+**   c1   === barrier bc sync
+**** c1   Barrier(bc) wake 4
+**   c1   === barrier bb sync
+**** c1   Barrier(bb) wait 1 of 4
+**   top  === barrier bb sync
+**** top  Barrier(bb) wait 2 of 4
+**   c3   === barrier bb sync
+**** c3   Barrier(bb) wait 3 of 4
+**   c2   === barrier bb sync
+**** c2   Barrier(bb) wake 4
+*    top  RESETTING after ./tests/a00008.vtc
+**   c1   Waiting for client
+***  c2   closing fd 10
+***  c3   closing fd 12
+**** dT   1.803
+**   c3   Ending
+**   c2   Ending
+***  c1   closing fd 9
+**   c1   Ending
+**   c2   Waiting for client
+**   c3   Waiting for client
+**   s1   Waiting for server (4/-1)
+**   s2   Waiting for server (5/-1)
+**   s3   Waiting for server (6/-1)
+*    top  TEST ./tests/a00008.vtc completed
+#    top  TEST ./tests/a00008.vtc passed (1.803)

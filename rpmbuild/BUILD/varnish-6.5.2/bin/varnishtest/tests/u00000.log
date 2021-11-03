@@ -1,0 +1,728 @@
+**** dT   0.000
+*    top  TEST ./tests/u00000.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 42789
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.102161.78f4165b
+**   top  === varnishtest "Code coverage of mgt_main, (VCL compiler and RS...
+*    top  VTEST Code coverage of mgt_main, (VCL compiler and RSTdump etc)
+**   top  === shell "varnishd -b 127.0.0.1:80 -C 2> ${tmpdir}/_.c"
+**** top  shell_cmd|exec 2>&1 ; varnishd -b 127.0.0.1:80 -C 2> /tmp/vtc.102161.78f4165b/_.c
+**** dT   0.161
+**** top  shell_status = 0x0000
+**   top  === shell {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -n /tmp/vtc.102161.78f4165b/no_keep -C -b 127.0.0.1:80 2> no_keep.c
+**** top  shell_cmd|\ttest -s no_keep.c && ! test -d no_keep || test -f no_keep/*/vgc.gcda
+**** dT   0.322
+**** top  shell_status = 0x0000
+**   top  === shell {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -n /tmp/vtc.102161.78f4165b/keep -p debug=+vcl_keep -C -b 127.0.0.1:80 2> keep.c
+**** top  shell_cmd|\ttest -s keep.c && test -d keep
+**** dT   0.488
+**** top  shell_status = 0x0000
+**   top  === shell -err -expect {VCL version declaration missing} {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\techo 'bad vcl' > /tmp/vtc.102161.78f4165b/bad.vcl
+**** top  shell_cmd|\tvarnishd -f /tmp/vtc.102161.78f4165b/bad.vcl -n /tmp/vtc.102161.78f4165b
+**** dT   0.495
+**** top  shell_out|Could not delete 'vcl_boot.1634893301.285113/vgc.sym': No such file or directory
+**** top  shell_out|Error:
+**** top  shell_out|Message from VCC-compiler:
+**** top  shell_out|VCL version declaration missing
+**** top  shell_out|Update your VCL to Version 4 syntax, and add
+**** top  shell_out|\tvcl 4.1;
+**** top  shell_out|on the first line of the VCL files.
+**** top  shell_out|('/tmp/vtc.102161.78f4165b/bad.vcl' Line 1 Pos 1)
+**** top  shell_out|bad vcl
+**** top  shell_out|###----
+**** top  shell_out|
+**** top  shell_out|Running VCC-compiler failed, exited with 2
+**** top  shell_out|VCL compilation failed
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect {-x must be the first argument} "varnishd...
+**** top  shell_cmd|exec 2>&1 ; varnishd -d -x foo 
+**** dT   0.498
+**** top  shell_out|Error: -x must be the first argument
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {-V must be the first argument} "varnishd...
+**** top  shell_cmd|exec 2>&1 ; varnishd -d -V foo 
+**** dT   0.501
+**** top  shell_out|Error: -V must be the first argument
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {Too many arguments for -x} "varnishd -x ...
+**** top  shell_cmd|exec 2>&1 ; varnishd -x foo bar
+**** dT   0.504
+**** top  shell_out|Error: Too many arguments for -x
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {Invalid -x argument} "varnishd -x foo "
+**** top  shell_cmd|exec 2>&1 ; varnishd -x foo 
+**** dT   0.507
+**** top  shell_out|Error: Invalid -x argument
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {option} "varnishd -A "
+**** top  shell_cmd|exec 2>&1 ; varnishd -A 
+**** dT   0.511
+**** top  shell_out|varnishd: invalid option -- 'A'
+**** top  shell_out|Usage: varnishd [options]
+**** top  shell_out|
+**** top  shell_out|Basic options:
+**** top  shell_out|  -a [<name>=]address[:port][,proto] # HTTP listen address and port
+**** top  shell_out|     [,user=<u>][,group=<g>]   # Can be specified multiple times.
+**** top  shell_out|     [,mode=<m>]               #   default: ":80,HTTP"
+**** top  shell_out|                               # Proto can be "PROXY" or "HTTP" (default)
+**** top  shell_out|                               # user, group and mode set permissions for
+**** top  shell_out|                               #   a Unix domain socket.
+**** top  shell_out|  -b [addr[:port]|path]        # Backend address and port
+**** top  shell_out|                               #   or socket file path
+**** top  shell_out|                               #   default: ":80"
+**** top  shell_out|  -f vclfile                   # VCL program
+**** top  shell_out|                               # Can be specified multiple times.
+**** top  shell_out|  -n dir                       # Working directory
+**** top  shell_out|
+**** top  shell_out|-b can be used only once, and not together with -f
+**** top  shell_out|
+**** top  shell_out|Documentation options:
+**** top  shell_out|  -?                           # Prints this usage message
+**** top  shell_out|  -x parameter                 # Parameter documentation
+**** top  shell_out|  -x vsl                       # VSL record documentation
+**** top  shell_out|  -x cli                       # CLI command documentation
+**** top  shell_out|  -x builtin                   # Builtin VCL program
+**** top  shell_out|  -x optstring                 # List of getopt options
+**** top  shell_out|
+**** top  shell_out|Operations options:
+**** top  shell_out|  -F                           # Run in foreground
+**** top  shell_out|  -T address[:port]            # CLI address
+**** top  shell_out|                               # Can be specified multiple times.
+**** top  shell_out|  -M address:port              # Reverse CLI destination
+**** top  shell_out|                               # Can be specified multiple times.
+**** top  shell_out|  -P file                      # PID file
+**** top  shell_out|  -i identity                  # Identity of varnish instance
+**** top  shell_out|  -I clifile                   # Initialization CLI commands
+**** top  shell_out|
+**** top  shell_out|Tuning options:
+**** top  shell_out|  -t TTL                       # Default TTL
+**** top  shell_out|  -p param=value               # set parameter
+**** top  shell_out|                               # Can be specified multiple times.
+**** top  shell_out|  -s [name=]kind[,options]     # Storage specification
+**** top  shell_out|                               # Can be specified multiple times.
+**** top  shell_out|                               #   -s default (=malloc)
+**** top  shell_out|                               #   -s malloc
+**** top  shell_out|                               #   -s file
+**** top  shell_out|  -l vsl                       # Size of shared memory log
+**** top  shell_out|                               #   vsl: space for VSL records [80m]
+**** top  shell_out|
+**** top  shell_out|Security options:
+**** top  shell_out|  -r param[,param...]          # Set parameters read-only from CLI
+**** top  shell_out|                               # Can be specified multiple times.
+**** top  shell_out|  -S secret-file               # Secret file for CLI authentication
+**** top  shell_out|  -j jail[,options]            # Jail specification
+**** top  shell_out|                               #   -j unix
+**** top  shell_out|                               #   -j none
+**** top  shell_out|
+**** top  shell_out|Advanced/Dev/Debug options:
+**** top  shell_out|  -d                           # debug mode
+**** top  shell_out|                               # Stay in foreground, CLI on stdin.
+**** top  shell_out|  -C                           # Output VCL code compiled to C language
+**** top  shell_out|  -V                           # version
+**** top  shell_out|  -h kind[,options]            # Hash specification
+**** top  shell_out|  -W waiter                    # Waiter implementation
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {Usage: varnishd [options]} "varnishd -? ...
+**** top  shell_cmd|exec 2>&1 ; varnishd -? 
+**** dT   0.514
+**** top  shell_out|varnishd: invalid option -- '?'
+**** top  shell_out|Usage: varnishd [options]
+**** top  shell_out|
+**** top  shell_out|Basic options:
+**** top  shell_out|  -a [<name>=]address[:port][,proto] # HTTP listen address and port
+**** top  shell_out|     [,user=<u>][,group=<g>]   # Can be specified multiple times.
+**** top  shell_out|     [,mode=<m>]               #   default: ":80,HTTP"
+**** top  shell_out|                               # Proto can be "PROXY" or "HTTP" (default)
+**** top  shell_out|                               # user, group and mode set permissions for
+**** top  shell_out|                               #   a Unix domain socket.
+**** top  shell_out|  -b [addr[:port]|path]        # Backend address and port
+**** top  shell_out|                               #   or socket file path
+**** top  shell_out|                               #   default: ":80"
+**** top  shell_out|  -f vclfile                   # VCL program
+**** top  shell_out|                               # Can be specified multiple times.
+**** top  shell_out|  -n dir                       # Working directory
+**** top  shell_out|
+**** top  shell_out|-b can be used only once, and not together with -f
+**** top  shell_out|
+**** top  shell_out|Documentation options:
+**** top  shell_out|  -?                           # Prints this usage message
+**** top  shell_out|  -x parameter                 # Parameter documentation
+**** top  shell_out|  -x vsl                       # VSL record documentation
+**** top  shell_out|  -x cli                       # CLI command documentation
+**** top  shell_out|  -x builtin                   # Builtin VCL program
+**** top  shell_out|  -x optstring                 # List of getopt options
+**** top  shell_out|
+**** top  shell_out|Operations options:
+**** top  shell_out|  -F                           # Run in foreground
+**** top  shell_out|  -T address[:port]            # CLI address
+**** top  shell_out|                               # Can be specified multiple times.
+**** top  shell_out|  -M address:port              # Reverse CLI destination
+**** top  shell_out|                               # Can be specified multiple times.
+**** top  shell_out|  -P file                      # PID file
+**** top  shell_out|  -i identity                  # Identity of varnish instance
+**** top  shell_out|  -I clifile                   # Initialization CLI commands
+**** top  shell_out|
+**** top  shell_out|Tuning options:
+**** top  shell_out|  -t TTL                       # Default TTL
+**** top  shell_out|  -p param=value               # set parameter
+**** top  shell_out|                               # Can be specified multiple times.
+**** top  shell_out|  -s [name=]kind[,options]     # Storage specification
+**** top  shell_out|                               # Can be specified multiple times.
+**** top  shell_out|                               #   -s default (=malloc)
+**** top  shell_out|                               #   -s malloc
+**** top  shell_out|                               #   -s file
+**** top  shell_out|  -l vsl                       # Size of shared memory log
+**** top  shell_out|                               #   vsl: space for VSL records [80m]
+**** top  shell_out|
+**** top  shell_out|Security options:
+**** top  shell_out|  -r param[,param...]          # Set parameters read-only from CLI
+**** top  shell_out|                               # Can be specified multiple times.
+**** top  shell_out|  -S secret-file               # Secret file for CLI authentication
+**** top  shell_out|  -j jail[,options]            # Jail specification
+**** top  shell_out|                               #   -j unix
+**** top  shell_out|                               #   -j none
+**** top  shell_out|
+**** top  shell_out|Advanced/Dev/Debug options:
+**** top  shell_out|  -d                           # debug mode
+**** top  shell_out|                               # Stay in foreground, CLI on stdin.
+**** top  shell_out|  -C                           # Output VCL code compiled to C language
+**** top  shell_out|  -V                           # version
+**** top  shell_out|  -h kind[,options]            # Hash specification
+**** top  shell_out|  -W waiter                    # Waiter implementation
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {Too many arguments} "varnishd foo "
+**** top  shell_cmd|exec 2>&1 ; varnishd foo 
+**** dT   0.517
+**** top  shell_out|Error: Too many arguments (foo...)
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell "varnishd -x parameter > ${tmpdir}/_.param"
+**** top  shell_cmd|exec 2>&1 ; varnishd -x parameter > /tmp/vtc.102161.78f4165b/_.param
+**** dT   0.528
+**** top  shell_status = 0x0000
+**   top  === shell "varnishd -x vsl > ${tmpdir}/_.vsl"
+**** top  shell_cmd|exec 2>&1 ; varnishd -x vsl > /tmp/vtc.102161.78f4165b/_.vsl
+**** dT   0.533
+**** top  shell_status = 0x0000
+**   top  === shell "varnishd -x cli > ${tmpdir}/_.cli"
+**** top  shell_cmd|exec 2>&1 ; varnishd -x cli > /tmp/vtc.102161.78f4165b/_.cli
+**** dT   0.539
+**** top  shell_status = 0x0000
+**   top  === shell "varnishd -x builtin > ${tmpdir}/_.builtin"
+**** top  shell_cmd|exec 2>&1 ; varnishd -x builtin > /tmp/vtc.102161.78f4165b/_.builtin
+**** dT   0.543
+**** top  shell_status = 0x0000
+**   top  === shell -err -expect {-C needs either -b <backend> or -f <vcl_...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -C
+**** dT   0.545
+**** top  shell_out|Error: -C needs either -b <backend> or -f <vcl_file>
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {Cannot open -S file} {
+**** dT   0.546
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -S /tmp/vtc.102161.78f4165b/nonexistent -n /tmp/vtc.102161.78f4165b/v0 -f ''
+**** dT   0.550
+**** top  shell_out|Error: Cannot open -S file (/tmp/vtc.102161.78f4165b/nonexistent): No such file or directory
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect {Unknown jail method "xyz"} "varnishd -jx...
+**** top  shell_cmd|exec 2>&1 ; varnishd -jxyz -f '' 
+**** dT   0.554
+**** top  shell_out|Error: Unknown jail method "xyz"
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect {Invalid backslash sequence} {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -l 'xyz\kk,xyz\foo' -f ''
+**** dT   0.558
+**** top  shell_out|Error: -l ...: Invalid backslash sequence
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect {Invalid backslash sequence} {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -l 'ab\8cd' -f ''
+**** dT   0.562
+**** top  shell_out|Error: -l ...: Invalid backslash sequence
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect {Too many arguments for -V} "varnishd -V ...
+**** top  shell_cmd|exec 2>&1 ; varnishd -V -V
+**** dT   0.566
+**** top  shell_out|Error: Too many arguments for -V
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -expect {Copyright (c) 2006} "varnishd -V"
+**** top  shell_cmd|exec 2>&1 ; varnishd -V
+**** dT   0.569
+**** top  shell_out|varnishd (varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b)
+**** top  shell_out|Copyright (c) 2006 Verdens Gang AS
+**** top  shell_out|Copyright (c) 2006-2020 Varnish Software
+**** top  shell_status = 0x0000
+**** top  shell_expect found
+**   top  === shell -err -expect {Only one of -d or -F can be specified} "...
+**** top  shell_cmd|exec 2>&1 ; varnishd -d -F 
+**** dT   0.572
+**** top  shell_out|Error: Only one of -d or -F can be specified
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {Only one of -b or -f can be specified} "...
+**** top  shell_cmd|exec 2>&1 ; varnishd -b a -f b 
+**** dT   0.575
+**** top  shell_out|Error: Only one of -b or -f can be specified
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {-d makes no sense with -C} "varnishd -C ...
+**** top  shell_cmd|exec 2>&1 ; varnishd -C -b 127.0.0.1:80 -d 
+**** dT   0.578
+**** top  shell_out|Error: -d makes no sense with -C
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {-F makes no sense with -C} "varnishd -C ...
+**** top  shell_cmd|exec 2>&1 ; varnishd -C -b 127.0.0.1:80 -F 
+**** dT   0.581
+**** top  shell_out|Error: -F makes no sense with -C
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {Neither -b nor -f given} { varnishd -n $...
+**** top  shell_cmd|exec 2>&1 ;  varnishd -n /tmp/vtc.102161.78f4165b/v0  
+**** dT   0.584
+**** top  shell_out|Error: Neither -b nor -f given. (use -f '' to override)
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {Only one -I allowed} {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\ttouch foo bar
+**** top  shell_cmd|\tvarnishd -f '' -I foo -I bar -n /tmp/vtc.102161.78f4165b/v0 -a :0
+**** dT   0.589
+**** top  shell_out|Error: \tOnly one -I allowed
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect {Error: -I file CLI command failed (104)}...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\techo "vcl.list" > foo
+**** top  shell_cmd|\techo "-foobar" >> foo
+**** top  shell_cmd|\techo "vcl.load" >> foo
+**** top  shell_cmd|\tvarnishd -f '' -I foo -n /tmp/vtc.102161.78f4165b/v0 -a :0 -l 2m
+**** dT   0.605
+**** top  shell_out|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** top  shell_out|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** top  shell_out|BEGIN of -I file processing
+**** top  shell_out|200 321     
+**** top  shell_out|-----------------------------
+**** top  shell_out|Varnish Cache CLI 1.0
+**** top  shell_out|-----------------------------
+**** top  shell_out|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** top  shell_out|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** top  shell_out|
+**** top  shell_out|Type 'help' for command list.
+**** top  shell_out|Type 'quit' to close CLI session.
+**** top  shell_out|Type 'start' to launch worker process.
+**** top  shell_out|
+**** top  shell_out|> vcl.list
+**** top  shell_out|200 0       
+**** top  shell_out|
+**** top  shell_out|> -foobar
+**** top  shell_out|101 82      
+**** top  shell_out|Unknown request in manager process (child not running).
+**** top  shell_out|Type 'help' for more info.
+**** top  shell_out|> vcl.load
+**** top  shell_out|Error: -I file CLI command failed (104)
+**** top  shell_out|Too few parameters
+**** top  shell_out|
+**** top  shell_out|
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect {Error: -l ...: Missing '"'} {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -f '' -I foo -n /tmp/vtc.102161.78f4165b/v0 -a :0 -l '2m,"'
+**** dT   0.609
+**** top  shell_out|Error: -l ...: Missing '"'
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect {Error: Too many sub arguments} {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -f '' -I foo -n /tmp/vtc.102161.78f4165b/v0 -a :0 -l 2m,2m,2m
+**** dT   0.613
+**** top  shell_out|Error: Too many sub arguments to -l
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect {Warning: Ignoring deprecated second suba...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -f '' -I foo -n /tmp/vtc.102161.78f4165b/v0 -a :0 -l 2m,2m
+**** dT   0.628
+**** top  shell_out|Warning: Ignoring deprecated second subargument to -l
+**** top  shell_out|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** top  shell_out|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** top  shell_out|BEGIN of -I file processing
+**** top  shell_out|200 321     
+**** top  shell_out|-----------------------------
+**** top  shell_out|Varnish Cache CLI 1.0
+**** top  shell_out|-----------------------------
+**** top  shell_out|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** top  shell_out|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** top  shell_out|
+**** top  shell_out|Type 'help' for command list.
+**** top  shell_out|Type 'quit' to close CLI session.
+**** top  shell_out|Type 'start' to launch worker process.
+**** top  shell_out|
+**** top  shell_out|> vcl.list
+**** top  shell_out|200 0       
+**** top  shell_out|
+**** top  shell_out|> -foobar
+**** top  shell_out|101 82      
+**** top  shell_out|Unknown request in manager process (child not running).
+**** top  shell_out|Type 'help' for more info.
+**** top  shell_out|> vcl.load
+**** top  shell_out|Error: -I file CLI command failed (104)
+**** top  shell_out|Too few parameters
+**** top  shell_out|
+**** top  shell_out|
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === process p1 "exec varnishd -n ${tmpdir}/v1 -F -f '' -a :0 -l2...
+**** dT   0.633
+**** p1   CMD: exec varnishd -n /tmp/vtc.102161.78f4165b/v1 -F -f '' -a :0 -l2m,1m
+***  p1   PID: 102273
+**** p1   macro def p1_pid=102273
+**** p1   macro def p1_dir=/tmp/vtc.102161.78f4165b/p1
+**** p1   macro def p1_out=/tmp/vtc.102161.78f4165b/p1/term
+**** p1   macro def p1_err=/tmp/vtc.102161.78f4165b/p1/stderr
+**** dT   0.634
+**   top  === delay 2
+***  top  delaying 2 second(s)
+**** dT   0.637
+**** p1   stderr|Warning: Ignoring deprecated second subargument to -l
+**** dT   0.641
+**** p1   stderr|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** dT   0.642
+**** p1   stderr|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** dT   2.634
+**   top  === shell {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\t(
+**** top  shell_cmd|\techo 'vcl 4.0;'
+**** top  shell_cmd|\techo 'backend default {'
+**** top  shell_cmd|\techo '  .host="127.0.0.1 42789";'
+**** top  shell_cmd|\techo '}'
+**** top  shell_cmd|\t) > /tmp/vtc.102161.78f4165b/vcl
+**** dT   2.636
+**** top  shell_status = 0x0000
+**   top  === shell -expect {VCL compiled.} {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishadm -n /tmp/vtc.102161.78f4165b/v1 vcl.load vcl1 /tmp/vtc.102161.78f4165b/vcl
+**** dT   2.806
+**** top  shell_out|VCL compiled.
+**** top  shell_out|
+**** top  shell_status = 0x0000
+**** top  shell_expect found
+**   top  === shell -expect {active   auto    warm         -    vcl1} {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishadm -n /tmp/vtc.102161.78f4165b/v1 vcl.list
+**** dT   2.820
+**** top  shell_out|active   auto    warm         -    vcl1
+**** top  shell_out|
+**** top  shell_status = 0x0000
+**** top  shell_expect found
+**   top  === shell {varnishadm -n ${tmpdir}/v1 start}
+**** top  shell_cmd|exec 2>&1 ; varnishadm -n /tmp/vtc.102161.78f4165b/v1 start
+**** dT   2.838
+**** p1   stderr|Debug: Child (102334) Started
+**** dT   2.864
+**** p1   stderr|Info: Child (102334) said Child starts
+**** dT   2.865
+**** top  shell_out|
+**** top  shell_status = 0x0000
+**   top  === shell {varnishadm -n ${tmpdir}/v1 debug.listen_address}
+**** top  shell_cmd|exec 2>&1 ; varnishadm -n /tmp/vtc.102161.78f4165b/v1 debug.listen_address
+**** dT   2.880
+**** top  shell_out|0.0.0.0 34087
+**** top  shell_out|:: 41133
+**** top  shell_out|
+**** top  shell_status = 0x0000
+**   top  === shell -exit 1 -expect "Command failed with error code 500" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishadm -n /tmp/vtc.102161.78f4165b/v1 quit
+**** dT   2.896
+**** top  shell_out|Command failed with error code 500
+**** top  shell_out|Closing CLI connection
+**** top  shell_status = 0x0001
+**** top  shell_expect found
+**   top  === shell -exit 1 -expect "Command failed with error code 102" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishadm -n /tmp/vtc.102161.78f4165b/v1 debug.panic.master -j
+**** dT   2.913
+**** top  shell_out|Command failed with error code 102
+**** top  shell_out|JSON unimplemented
+**** top  shell_out|
+**** top  shell_status = 0x0001
+**** top  shell_expect found
+**   top  === shell -exit 1 -expect "Command failed with error code 101" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishadm -n /tmp/vtc.102161.78f4165b/v1 123
+**** dT   2.927
+**** top  shell_out|Command failed with error code 101
+**** top  shell_out|Unknown request.
+**** top  shell_out|Type 'help' for more info.
+**** top  shell_out|
+**** top  shell_status = 0x0001
+**** top  shell_expect found
+**** dT   2.928
+**   top  === shell "varnishadm -n ${tmpdir}/v1 param.set cli_limit 128"
+**** top  shell_cmd|exec 2>&1 ; varnishadm -n /tmp/vtc.102161.78f4165b/v1 param.set cli_limit 128
+**** dT   2.943
+**** top  shell_out|
+**** top  shell_status = 0x0000
+**   top  === shell -expect "[response was truncated]" "varnishadm -n ${tm...
+**** top  shell_cmd|exec 2>&1 ; varnishadm -n /tmp/vtc.102161.78f4165b/v1 help
+**** dT   2.958
+**** top  shell_out|auth <response>
+**** top  shell_out|backend.list [-j] [-p] [<backend_pattern>]
+**** top  shell_out|backend.set_health <backend_pattern> [auto|healthy|sick]
+**** top  shell_out|ban <field>
+**** top  shell_out|[response was truncated]
+**** top  shell_status = 0x0000
+**** top  shell_expect found
+**   top  === process p1 -expect-exit 64 -stop -wait
+**** p1   Sent signal 15
+**** dT   2.959
+**** p1   stderr|Error: Manager got SIGTERM
+**** p1   stderr|Debug: Stopping Child
+**** dT   3.959
+**** p1   stderr|Error: Child (102334) died signal=15
+**** dT   3.963
+**** p1   stderr|Debug: Child cleanup complete
+**** dT   3.964
+**** p1   stderr|Info: manager stopping child
+**** p1   stderr|Info: manager dies
+**** dT   3.969
+**** p1   stdout read -1
+**** p1   stderr read 0
+**   p1   WAIT4 pid=102273 status=0x4000 (user 0.140700 sys 0.057659)
+**** p1   macro undef p1_pid
+**** p1   stdout 0 bytes, stderr 455 bytes
+**   top  === shell {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tcat >/tmp/vtc.102161.78f4165b/ok1 <<-EOF
+**** top  shell_cmd|\tvcl 4.0;
+**** top  shell_cmd|\tbackend ok1 {
+**** top  shell_cmd|\t  .host="127.0.0.1 42789";
+**** top  shell_cmd|\t}
+**** top  shell_cmd|\tEOF
+**** top  shell_cmd|
+**** top  shell_cmd|\tcat >/tmp/vtc.102161.78f4165b/ok2 <<-EOF
+**** top  shell_cmd|\tvcl 4.0;
+**** top  shell_cmd|\tbackend ok2 {
+**** top  shell_cmd|\t  .host="127.0.0.1 42789";
+**** top  shell_cmd|\t}
+**** top  shell_cmd|\tEOF
+**** dT   3.974
+**** top  shell_status = 0x0000
+**   top  === varnish v2 -arg "-f ${tmpdir}/ok1" -arg "-f ${tmpdir}/ok2" -...
+**** dT   3.977
+**   v2   Launch
+***  v2   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.102161.78f4165b/v2 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 41189' -P /tmp/vtc.102161.78f4165b/v2/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -f /tmp/vtc.102161.78f4165b/ok1 -f /tmp/vtc.102161.78f4165b/ok2
+***  v2   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.102161.78f4165b/v2 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 41189' -P /tmp/vtc.102161.78f4165b/v2/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -f /tmp/vtc.102161.78f4165b/ok1 -f /tmp/vtc.102161.78f4165b/ok2
+***  v2   PID: 102651
+**** v2   macro def v2_pid=102651
+**** v2   macro def v2_name=/tmp/vtc.102161.78f4165b/v2
+**** dT   4.136
+***  v2   debug|Warnings:
+***  v2   debug|VCL compiled.
+***  v2   debug|
+**** dT   4.294
+***  v2   debug|Warnings:
+***  v2   debug|VCL compiled.
+***  v2   debug|
+**** dT   4.299
+***  v2   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v2   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v2   debug|200 321     
+***  v2   debug|-----------------------------
+***  v2   debug|Varnish Cache CLI 1.0
+***  v2   debug|-----------------------------
+***  v2   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v2   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v2   debug|
+***  v2   debug|Type 'help' for command list.
+***  v2   debug|Type 'quit' to close CLI session.
+***  v2   debug|Type 'start' to launch worker process.
+***  v2   debug|
+**** dT   4.398
+**** v2   CLIPOLL 1 0x1 0x0
+***  v2   CLI connection fd = 7
+***  v2   CLI RX  107
+**** v2   CLI RX|rlxjzfajirdpbhzdhwbvfqywimvkgilj
+**** v2   CLI RX|
+**** v2   CLI RX|Authentication required.
+**** v2   CLI TX|auth 86463d560b5c2def3c8e2ea9d244b05a22a3c97d6c0cc9ecd1c821dcb039ecb6
+***  v2   CLI RX  200
+**** v2   CLI RX|-----------------------------
+**** v2   CLI RX|Varnish Cache CLI 1.0
+**** v2   CLI RX|-----------------------------
+**** v2   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v2   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v2   CLI RX|
+**** v2   CLI RX|Type 'help' for command list.
+**** v2   CLI RX|Type 'quit' to close CLI session.
+**** v2   CLI RX|Type 'start' to launch worker process.
+**** dT   4.399
+**   v2   Start
+**** v2   CLI TX|start
+**** dT   4.402
+***  v2   debug|Debug: Child (102670) Started
+**** dT   4.429
+***  v2   CLI RX  200
+***  v2   wait-running
+**** v2   CLI TX|status
+***  v2   debug|Info: Child (102670) said Child starts
+***  v2   CLI RX  200
+**** v2   CLI RX|Child in state running
+**** v2   CLI TX|debug.listen_address
+***  v2   CLI RX  200
+**** v2   CLI RX|127.0.0.1 36351
+**** v2   CLI TX|debug.xid 999
+***  v2   CLI RX  200
+**** v2   CLI RX|XID is 999
+**** v2   CLI TX|debug.listen_address
+***  v2   CLI RX  200
+**** v2   CLI RX|127.0.0.1 36351
+**   v2   Listen on 127.0.0.1 36351
+**** v2   macro def v2_addr=127.0.0.1
+**** v2   macro def v2_port=36351
+**** v2   macro def v2_sock=127.0.0.1 36351
+**** dT   4.499
+**** v2   vsl|          0 CLI             - Rd vcl.load "boot0" vcl_boot0.1634893304.773032/vgc.so 1auto
+**** v2   vsl|          0 CLI             - Wr 200 54 Loaded "vcl_boot0.1634893304.773032/vgc.so" as "boot0"
+**** v2   vsl|          0 CLI             - Rd vcl.load "boot" vcl_boot.1634893304.928205/vgc.so 1auto
+**** v2   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_boot.1634893304.928205/vgc.so" as "boot"
+**** v2   vsl|          0 CLI             - Rd vcl.use "boot"
+**** v2   vsl|          0 CLI             - Wr 200 0 
+**** v2   vsl|          0 CLI             - Rd start
+**** v2   vsl|          0 CLI             - Wr 200 0 
+**** v2   vsl|          0 CLI             - Rd debug.listen_address 
+**** v2   vsl|          0 CLI             - Wr 200 16 127.0.0.1 36351
+
+**** v2   vsl|          0 CLI             - Rd debug.xid 999 
+**** v2   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v2   vsl|          0 CLI             - Rd debug.listen_address 
+**** v2   vsl|          0 CLI             - Wr 200 16 127.0.0.1 36351
+
+**** dT   4.530
+**   top  === varnish v2 -cliexpect {available   auto    warm         0   ...
+**** v2   CLI TX|vcl.list
+***  v2   CLI RX  200
+**** v2   CLI RX|available   auto    warm         0    boot0
+**** v2   CLI RX|active      auto    warm         0    boot
+**   v2   CLI 200 <vcl.list>
+**   top  === varnish v2 -cliexpect {active      auto    warm         0   ...
+**** v2   CLI TX|vcl.list
+***  v2   CLI RX  200
+**** v2   CLI RX|available   auto    warm         0    boot0
+**** v2   CLI RX|active      auto    warm         0    boot
+**   v2   CLI 200 <vcl.list>
+**   top  === varnish v2 -stop -wait
+**   v2   Stop
+**** v2   CLI TX|stop
+***  v2   debug|Debug: Stopping Child
+**** dT   4.599
+**** v2   vsl|          0 CLI             - Rd vcl.list
+**** v2   vsl|          0 CLI             - Wr 200 87 available   auto    warm         0    boot0
+active      auto    warm         0    boot
+
+**** v2   vsl|          0 CLI             - Rd vcl.list
+**** v2   vsl|          0 CLI             - Wr 200 87 available   auto    warm         0    boot0
+active      auto    warm         0    boot
+
+**** v2   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   5.531
+***  v2   debug|Info: Child (102670) ended
+***  v2   debug|Info: Child (102670) said Child dies
+***  v2   debug|Debug: Child cleanup complete
+***  v2   CLI RX  200
+***  v2   wait-stopped
+**** v2   CLI TX|status
+***  v2   CLI RX  200
+**** v2   CLI RX|Child in state stopped
+**   v2   Wait
+**** v2   CLI TX|backend.list
+***  v2   CLI RX  101
+**** v2   CLI RX|Unknown request in manager process (child not running).
+**** v2   CLI RX|Type 'help' for more info.
+**   v2   Stop
+**** v2   CLI TX|stop
+***  v2   CLI RX  300
+**** v2   CLI RX|Child in state stopped
+***  v2   wait-stopped
+**** v2   CLI TX|status
+***  v2   CLI RX  200
+**** v2   CLI RX|Child in state stopped
+**** v2   CLI TX|panic.clear
+***  v2   CLI RX  300
+**** v2   CLI RX|No panic to clear
+***  v2   debug|Info: manager stopping child
+***  v2   debug|Info: manager dies
+**** dT   5.532
+**** v2   STDOUT EOF
+**** dT   5.601
+**   v2   WAIT4 pid=102651 status=0x0000 (user 0.274752 sys 0.061191)
+**   top  === shell -err -expect {Cannot read -f file} {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\texec varnishd -n /tmp/vtc.102161.78f4165b/v0 -F -a :0 -l2m,3m -f /tmp/vtc.102161.78f4165b/ok1 \
+**** top  shell_cmd|\t    -f /tmp/vtc.102161.78f4165b/ok2 -f /tmp/vtc.102161.78f4165b/bad
+**** dT   5.605
+**** top  shell_out|Warning: Ignoring deprecated second subargument to -l
+**** top  shell_out|Error: Cannot read -f file '/tmp/vtc.102161.78f4165b/bad' (No such file or directory)
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect {Cannot read -f file} {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\texec varnishd -n /tmp/vtc.102161.78f4165b/v0 -F -a :0 -l2m,3m -f /tmp/vtc.102161.78f4165b/ok1 \
+**** top  shell_cmd|\t    -f /tmp/vtc.102161.78f4165b/bad -f /tmp/vtc.102161.78f4165b/ok2
+**** dT   5.609
+**** top  shell_out|Warning: Ignoring deprecated second subargument to -l
+**** top  shell_out|Error: Cannot read -f file '/tmp/vtc.102161.78f4165b/bad' (No such file or directory)
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+*    top  RESETTING after ./tests/u00000.vtc
+*    top  TEST ./tests/u00000.vtc completed
+#    top  TEST ./tests/u00000.vtc passed (5.609)

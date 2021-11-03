@@ -1,0 +1,80 @@
+/*
+ * NB:  This file is machine generated, DO NOT EDIT!
+ *
+ * Edit varnishstat_bindings.h and run make instead
+ */
+
+#include <stddef.h>
+#include "vdef.h"
+#include "varnishstat.h"
+
+const char *const bindings_help[] = {
+	"",
+	"<h>",
+	"",
+	"\tToggle the help screen.",
+	"",
+	"<UP> or <k>",
+	"",
+	"\tNavigate the counter list one line up.",
+	"",
+	"<DOWN> or <j>",
+	"",
+	"\tNavigate the counter list one line down.",
+	"",
+	"<PAGEUP> or <b> or <CTRL-B>",
+	"",
+	"\tNavigate the counter list one page up.",
+	"",
+	"<PAGEDOWN> or <SPACE> or <CTRL-F>",
+	"",
+	"\tNavigate the counter list one page down.",
+	"",
+	"<HOME> or <g>",
+	"",
+	"\tNavigate the counter list to the top.",
+	"",
+	"<END> or <G>",
+	"",
+	"\tNavigate the counter list to the bottom.",
+	"",
+	"<d>",
+	"",
+	"\tToggle between showing and hiding unseen counters. Unseen",
+	"\tcounters are those that has been zero for the entire runtime",
+	"\tof varnishstat. Defaults to hide unseen counters.",
+	"",
+	"<e>",
+	"",
+	"\tToggle scaling of values.",
+	"",
+	"<v>",
+	"",
+	"\tIncrease verbosity. Defaults to only showing informational",
+	"\tcounters.",
+	"",
+	"<V>",
+	"",
+	"\tDecrease verbosity. Defaults to only showing informational",
+	"\tcounters.",
+	"",
+	"<q>",
+	"",
+	"\tQuit.",
+	"",
+	"<CTRL+T>",
+	"",
+	"\tSample now.",
+	"",
+	"<+>",
+	"",
+	"\tIncrease refresh interval.",
+	"",
+	"<->",
+	"",
+	"\tDecrease refresh interval.",
+	"",
+	NULL
+};
+
+const int bindings_help_len = 65;

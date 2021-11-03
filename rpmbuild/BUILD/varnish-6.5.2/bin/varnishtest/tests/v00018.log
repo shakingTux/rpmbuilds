@@ -1,0 +1,678 @@
+**** dT   0.000
+*    top  TEST ./tests/v00018.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 38003
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.107645.5c10e72d
+**   top  === varnishtest "VCL compiler coverage test: vcc_action.c"
+*    top  VTEST VCL compiler coverage test: vcc_action.c
+**   top  === varnish v1 -vcl {
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.107645.5c10e72d/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 46701' -P /tmp/vtc.107645.5c10e72d/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.107645.5c10e72d/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 46701' -P /tmp/vtc.107645.5c10e72d/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 107663
+**** v1   macro def v1_pid=107663
+**** v1   macro def v1_name=/tmp/vtc.107645.5c10e72d/v1
+**** dT   0.013
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.112
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 5
+***  v1   CLI RX  107
+**** v1   CLI RX|khsdyuzqknmfurnmaeuwlyspksovxzwr
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth 794f99d825a8575aea0aece477d8f95ba2ea86bdd7c84ad3370bdf5f0958f0a4
+**** dT   0.113
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_miss { return(synth(100,req.url)); }
+**** v1   CLI TX|\tsub vcl_hit { return(synth(100,"the butter please")); }
+**** v1   CLI TX|\tsub vcl_deliver { return(synth(resp.status, resp.reason)); }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.213
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.295
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   top  === varnish v1 -errvcl {Variable is read only.} {
+**** v1   CLI TX|vcl.inline vcl2 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_miss { set now = 1000; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.296
+***  v1   debug|Could not delete 'vcl_vcl2.1634893373.822168/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 28) -- (Pos 30)
+**** v1   CLI RX|        sub vcl_miss { set now = 1000; }
+**** v1   CLI RX|---------------------------###----------
+**** v1   CLI RX|
+**** v1   CLI RX|Variable is read only.
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Variable is read only.")
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl3 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_backend_response { set beresp.ttl /= 2; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.313
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.414
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.451
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl3
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl3' now active
+**   top  === varnish v1 -errvcl {Expected '=' got '>>'} {
+**** v1   CLI TX|vcl.inline vcl4 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_backend_response { set beresp.ttl >>= 2; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.452
+***  v1   debug|Could not delete 'vcl_vcl4.1634893373.978406/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Expected '=' got '>>'
+**** v1   CLI RX|(program line 144), at
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 51)
+**** v1   CLI RX|        sub vcl_backend_response { set beresp.ttl >>= 2; }
+**** v1   CLI RX|--------------------------------------------------##------
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Expected '=' got '>>'")
+**   top  === varnish v1 -errvcl {Expected '=' got '+='} {
+**** v1   CLI TX|vcl.inline vcl5 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_backend_fetch { set bereq.backend += b; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.453
+***  v1   debug|Could not delete 'vcl_vcl5.1634893373.979504/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Expected '=' got '+='
+**** v1   CLI RX|(program line 144), at
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 51)
+**** v1   CLI RX|        sub vcl_backend_fetch { set bereq.backend += b; }
+**** v1   CLI RX|--------------------------------------------------##-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Expected '=' got '+='")
+**   top  === varnish v1 -errvcl {Expected ';' got 'if'} {
+**** v1   CLI TX|vcl.inline vcl6 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\t/* XXX: This should not really be an synth */
+**** v1   CLI TX|\tsub vcl_recv { set req.url = "foo" if "bar"; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.454
+***  v1   debug|Could not delete 'vcl_vcl6.1634893373.980476/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Expected ';' got 'if'
+**** v1   CLI RX|(program line 153), at
+**** v1   CLI RX|('<vcl.inline>' Line 5 Pos 44)
+**** v1   CLI RX|        sub vcl_recv { set req.url = "foo" if "bar"; }
+**** v1   CLI RX|-------------------------------------------##---------
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Expected ';' got 'if'")
+**   top  === varnish v1 -errvcl {Unknown property 'foo' for type HTTP} {
+**** v1   CLI TX|vcl.inline vcl7 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_hash { hash_data(req.foo); }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.455
+***  v1   debug|Could not delete 'vcl_vcl7.1634893373.981443/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Unknown property 'foo' for type HTTP
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 38)
+**** v1   CLI RX|        sub vcl_hash { hash_data(req.foo); }
+**** v1   CLI RX|-------------------------------------###----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Unknown property 'foo' for type HTTP")
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl8 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_recv { set req.url = 1; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.514
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.614
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl8
+***  v1   vsl|No VSL chunk found (child not started ?)
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl8' now active
+**   top  === varnish v1 -errvcl {Expected '=' got '+='} {
+**** v1   CLI TX|vcl.inline vcl9 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_backend_response { set beresp.do_gzip += 1; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.615
+***  v1   debug|Could not delete 'vcl_vcl9.1634893374.141281/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Expected '=' got '+='
+**** v1   CLI RX|(program line 144), at
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 55)
+**** v1   CLI RX|        sub vcl_backend_response { set beresp.do_gzip += 1; }
+**** v1   CLI RX|------------------------------------------------------##-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Expected '=' got '+='")
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl10 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_backend_response { set beresp.do_gzip = true; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.714
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.776
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl10
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl10' now active
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl11 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_backend_response { set beresp.do_gzip = false; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.814
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.914
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.929
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl11
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl11' now active
+**   top  === varnish v1 -errvcl {Symbol not found: 'mu'} {
+**** v1   CLI TX|vcl.inline vcl12 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_backend_response { set beresp.do_gzip = mu; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.930
+***  v1   debug|Could not delete 'vcl_vcl12.1634893374.455819/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Symbol not found: 'mu'
+**** v1   CLI RX|At: ('<vcl.inline>' Line 4 Pos 57) -- (Pos 58)
+**** v1   CLI RX|        sub vcl_backend_response { set beresp.do_gzip = mu; }
+**** v1   CLI RX|--------------------------------------------------------##---
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Symbol not found: 'mu'")
+**   top  === varnish v1 -errvcl {Variable cannot be unset} {
+**** v1   CLI TX|vcl.inline vcl13 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_backend_response { unset beresp.do_gzip; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.931
+***  v1   debug|Could not delete 'vcl_vcl13.1634893374.456835/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 42) -- (Pos 55)
+**** v1   CLI RX|        sub vcl_backend_response { unset beresp.do_gzip; }
+**** v1   CLI RX|-----------------------------------------##############---
+**** v1   CLI RX|
+**** v1   CLI RX|Variable cannot be unset.
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Variable cannot be unset")
+**   top  === varnish v1 -errvcl {Variable cannot be set.} {
+**** v1   CLI TX|vcl.inline vcl14 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_backend_fetch { set bereq.body = "foo"; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.932
+***  v1   debug|Could not delete 'vcl_vcl14.1634893374.457822/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 37) -- (Pos 46)
+**** v1   CLI RX|        sub vcl_backend_fetch { set bereq.body = "foo"; }
+**** v1   CLI RX|------------------------------------##########-----------
+**** v1   CLI RX|
+**** v1   CLI RX|Variable cannot be set.
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Variable cannot be set.")
+**   top  === varnish v1 -errvcl {Unknown token '<<' when looking for STRI...
+**** v1   CLI TX|vcl.inline vcl15 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_recv { ban (<<); }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.933
+***  v1   debug|Could not delete 'vcl_vcl15.1634893374.458843/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Unknown token '<<' when looking for STRING
+**** v1   CLI RX|
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 29)
+**** v1   CLI RX|        sub vcl_recv { ban (<<); }
+**** v1   CLI RX|----------------------------##----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Unknown token '<<' when looking for STRING")
+**   top  === varnish v1 -errvcl {Symbol not found} {
+**** v1   CLI TX|vcl.inline vcl16 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_recv { ban_hash (if); }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.934
+***  v1   debug|Could not delete 'vcl_vcl16.1634893374.459800/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Symbol not found: 'ban_hash'
+**** v1   CLI RX|At: ('<vcl.inline>' Line 4 Pos 24) -- (Pos 31)
+**** v1   CLI RX|        sub vcl_recv { ban_hash (if); }
+**** v1   CLI RX|-----------------------########--------
+**** v1   CLI RX|
+**** v1   CLI RX|Symbol not found.
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 33)
+**** v1   CLI RX|        sub vcl_recv { ban_hash (if); }
+**** v1   CLI RX|--------------------------------#------
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Symbol not found")
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl17 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_recv { ban ("req.url ~ foo"); }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.014
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   1.083
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl17
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl17' now active
+**   top  === varnish v1 -errvcl "Symbol not found" {
+**** v1   CLI TX|vcl.inline vcl18 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_recv { kluf ; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.084
+***  v1   debug|Could not delete 'vcl_vcl18.1634893374.610172/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Symbol not found: 'kluf'
+**** v1   CLI RX|At: ('<vcl.inline>' Line 4 Pos 24) -- (Pos 27)
+**** v1   CLI RX|        sub vcl_recv { kluf ; }
+**** v1   CLI RX|-----------------------####----
+**** v1   CLI RX|
+**** v1   CLI RX|Symbol not found.
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 29)
+**** v1   CLI RX|        sub vcl_recv { kluf ; }
+**** v1   CLI RX|----------------------------#--
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Symbol not found")
+**   top  === varnish v1 -errvcl {Unknown token '<<' when looking for STRI...
+**** v1   CLI TX|vcl.inline vcl19 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_synth { synthetic( << "foo"; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.085
+***  v1   debug|Could not delete 'vcl_vcl19.1634893374.611301/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Unknown token '<<' when looking for STRING
+**** v1   CLI RX|
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 36)
+**** v1   CLI RX|        sub vcl_synth { synthetic( << "foo"; }
+**** v1   CLI RX|-----------------------------------##---------
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Unknown token '<<' when looking for STRING")
+**   top  === varnish v1 -errvcl {Missing argument.} {
+**** v1   CLI TX|vcl.inline vcl20 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_recv { return(synth); }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.086
+***  v1   debug|Could not delete 'vcl_vcl20.1634893374.612347/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Missing argument.
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 36)
+**** v1   CLI RX|        sub vcl_recv { return(synth); }
+**** v1   CLI RX|-----------------------------------#---
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Missing argument.")
+**   top  === varnish v1 -errvcl {Arguments not allowed.} {
+**** v1   CLI TX|vcl.inline vcl21 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_recv { return(pipe(XXX); }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.087
+***  v1   debug|Could not delete 'vcl_vcl21.1634893374.613390/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Arguments not allowed.
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 35)
+**** v1   CLI RX|        sub vcl_recv { return(pipe(XXX); }
+**** v1   CLI RX|----------------------------------#-------
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Arguments not allowed.")
+**   top  === varnish v1 -errvcl {Expected return action name.} {
+**** v1   CLI TX|vcl.inline vcl22 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_recv { return(foobar); }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.088
+***  v1   debug|Could not delete 'vcl_vcl22.1634893374.614441/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Expected return action name.
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 31)
+**** v1   CLI RX|        sub vcl_recv { return(foobar); }
+**** v1   CLI RX|------------------------------######----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Expected return action name.")
+**   top  === varnish v1 -errvcl {Not a valid action in subroutine 'vcl_re...
+**** v1   CLI TX|vcl.inline vcl23 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend foo { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tsynthetic("XXX");
+**** v1   CLI TX|\t\treturn (synth(503));
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.090
+***  v1   debug|Could not delete 'vcl_vcl23.1634893374.615633/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** dT   1.091
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|('<vcl.inline>' Line 5 Pos 17) -- (Pos 25)
+**** v1   CLI RX|                synthetic("XXX");
+**** v1   CLI RX|----------------#########--------
+**** v1   CLI RX|
+**** v1   CLI RX|Not a valid action in subroutine 'vcl_recv'.
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Not a valid action in subroutine 'vcl_recv'")
+**   top  === varnish v1 -errvcl {Symbol 'vcl_recv' has wrong type (sub):}...
+**** v1   CLI TX|vcl.inline vcl24 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\treturn (vcl(vcl_recv));
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.092
+***  v1   debug|Could not delete 'vcl_vcl24.1634893374.617656/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Symbol 'vcl_recv' has wrong type (sub): 
+**** v1   CLI RX|At: ('<vcl.inline>' Line 4 Pos 29) -- (Pos 36)
+**** v1   CLI RX|                return (vcl(vcl_recv));
+**** v1   CLI RX|----------------------------########---
+**** v1   CLI RX|
+**** v1   CLI RX|Symbol was defined here: ('<vcl.inline>' Line 3 Pos 13)
+**** v1   CLI RX|        sub vcl_recv {
+**** v1   CLI RX|------------########--
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Symbol 'vcl_recv' has wrong type (sub):")
+**   top  === varnish v1 -syntax 4.0 -errvcl {Symbol not found:} {
+**** v1   CLI TX|vcl.inline vcl25 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.0;
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\treturn (vcl(vcl_recv));
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.093
+***  v1   debug|Could not delete 'vcl_vcl25.1634893374.618968/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Symbol not found: 'vcl_recv'
+**** v1   CLI RX|At: ('<vcl.inline>' Line 4 Pos 29) -- (Pos 36)
+**** v1   CLI RX|                return (vcl(vcl_recv));
+**** v1   CLI RX|----------------------------########---
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Symbol not found:")
+**   top  === varnish v1 -errvcl {Syntax error} {
+**** v1   CLI TX|vcl.inline vcl26 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\timport directors;
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tset req.backend_hint = directors.round_robin.backend();
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.094
+***  v1   debug|Could not delete 'vcl_vcl26.1634893374.620114/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Syntax error.While compiling function call:
+**** v1   CLI RX|
+**** v1   CLI RX|('<vcl.inline>' Line 5 Pos 40) -- (Pos 68)
+**** v1   CLI RX|                set req.backend_hint = directors.round_robin.backend();
+**** v1   CLI RX|---------------------------------------#############################---
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Syntax error")
+**   top  === varnish v1 -errvcl {Syntax error} {
+**** v1   CLI TX|vcl.inline vcl27 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\timport directors;
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tdirectors.round_robin.backend();
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.096
+***  v1   debug|Could not delete 'vcl_vcl27.1634893374.621583/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Syntax error.While compiling function call:
+**** v1   CLI RX|
+**** v1   CLI RX|('<vcl.inline>' Line 5 Pos 17) -- (Pos 45)
+**** v1   CLI RX|                directors.round_robin.backend();
+**** v1   CLI RX|----------------#############################---
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Syntax error")
+**   top  === varnish v1 -errvcl {Expected '.' got ';'} {
+**** v1   CLI TX|vcl.inline vcl28 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\timport directors;
+**** v1   CLI TX|\tsub vcl_init {
+**** v1   CLI TX|\t\tnew rr = directors.round_robin();
+**** v1   CLI TX|\t\trr;
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.097
+***  v1   debug|Could not delete 'vcl_vcl28.1634893374.622947/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Expected '.' got ';'
+**** v1   CLI RX|(program line 1447), at
+**** v1   CLI RX|('<vcl.inline>' Line 6 Pos 19)
+**** v1   CLI RX|                rr;
+**** v1   CLI RX|------------------#
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Expected '.' got ';'")
+*    top  RESETTING after ./tests/v00018.vtc
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  101
+**** v1   CLI RX|Unknown request in manager process (child not running).
+**** v1   CLI RX|Type 'help' for more info.
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   CLI RX  300
+**** v1   CLI RX|Child in state stopped
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+**** dT   1.098
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   1.115
+***  v1   vsl|No VSL chunk found (child not started ?)
+**   v1   WAIT4 pid=107663 status=0x0000 (user 0.832069 sys 0.156533)
+*    top  TEST ./tests/v00018.vtc completed
+#    top  TEST ./tests/v00018.vtc passed (1.115)

@@ -1,0 +1,830 @@
+/*-
+ * Copyright (c) 2006 Verdens Gang AS
+ * Copyright (c) 2006-2015 Varnish Software AS
+ * All rights reserved.
+ *
+ * Author: Dag-Erling Smørgrav <des@des.no>
+ *
+ * SPDX-License-Identifier: BSD-2-Clause
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#include "config.h"
+
+#ifdef WITH_UNWIND
+#  include <libunwind.h>
+#else
+#  include <execinfo.h>
+#endif
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+
+#include "cache_varnishd.h"
+#include "cache_transport.h"
+
+#include "cache_filter.h"
+#include "common/heritage.h"
+#include "waiter/waiter.h"
+
+#include "storage/storage.h"
+#include "vcli_serve.h"
+#include "vtim.h"
+#include "vcs.h"
+
+/*
+ * The panic string is constructed in a VSB, then copied to the
+ * shared memory.
+ *
+ * It can be extracted post-mortem from a core dump using gdb:
+ *
+ * (gdb) p *(char **)((char *)pan_vsb+8)
+ *
+ */
+
+#ifdef GCOVING
+    int __gcov_flush(void);
+#endif
+
+static struct vsb pan_vsb_storage, *pan_vsb;
+static pthread_mutex_t panicstr_mtx;
+
+static void pan_sess(struct vsb *, const struct sess *);
+static void pan_req(struct vsb *, const struct req *);
+
+/*--------------------------------------------------------------------*/
+
+static const char *
+boc_state_2str(enum boc_state_e e)
+{
+	switch (e) {
+#define BOC_STATE(U,l) case BOS_##U: return(#l);
+#include "tbl/boc_state.h"
+	default:
+		return ("?");
+	}
+}
+
+/*--------------------------------------------------------------------*/
+
+const char *
+sess_close_2str(enum sess_close sc, int want_desc)
+{
+	switch (sc) {
+	case SC_NULL:		return (want_desc ? "(null)" : "NULL");
+#define SESS_CLOSE(nm, s, err, desc)			\
+	case SC_##nm: return(want_desc ? desc : #nm);
+#include "tbl/sess_close.h"
+
+	default:		return (want_desc ? "(invalid)" : "INVALID");
+	}
+}
+
+/*--------------------------------------------------------------------*/
+
+#define N_ALREADY 256
+static const void *already_list[N_ALREADY];
+static int already_idx;
+
+int
+PAN_already(struct vsb *vsb, const void *ptr)
+{
+	int i;
+
+	if (ptr == NULL) {
+		VSB_cat(vsb, "},\n");
+		return (1);
+	}
+	for (i = 0; i < already_idx; i++) {
+		if (already_list[i] == ptr) {
+			VSB_cat(vsb, "  [Already dumped, see above]\n");
+			VSB_cat(vsb, "},\n");
+			return (1);
+		}
+	}
+	if (already_idx < N_ALREADY)
+		already_list[already_idx++] = ptr;
+	return (0);
+}
+
+/*--------------------------------------------------------------------*/
+
+static void
+pan_htc(struct vsb *vsb, const struct http_conn *htc)
+{
+
+	VSB_printf(vsb, "http_conn = %p {\n", htc);
+	if (PAN_already(vsb, htc))
+		return;
+	VSB_indent(vsb, 2);
+	PAN_CheckMagic(vsb, htc, HTTP_CONN_MAGIC);
+	if (htc->rfd != NULL)
+		VSB_printf(vsb, "fd = %d (@%p),\n", *htc->rfd, htc->rfd);
+	VSB_printf(vsb, "doclose = %s,\n", sess_close_2str(htc->doclose, 0));
+	WS_Panic(htc->ws, vsb);
+	VSB_printf(vsb, "{rxbuf_b, rxbuf_e} = {%p, %p},\n",
+	    htc->rxbuf_b, htc->rxbuf_e);
+	VSB_printf(vsb, "{pipeline_b, pipeline_e} = {%p, %p},\n",
+	    htc->pipeline_b, htc->pipeline_e);
+	VSB_printf(vsb, "content_length = %jd,\n",
+	    (intmax_t)htc->content_length);
+	VSB_printf(vsb, "body_status = %s,\n",
+	    htc->body_status ? htc->body_status->name : "NULL");
+	VSB_printf(vsb, "first_byte_timeout = %f,\n",
+	    htc->first_byte_timeout);
+	VSB_printf(vsb, "between_bytes_timeout = %f,\n",
+	    htc->between_bytes_timeout);
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+}
+
+/*--------------------------------------------------------------------*/
+
+static void
+pan_http(struct vsb *vsb, const char *id, const struct http *h)
+{
+	int i;
+
+	VSB_printf(vsb, "http[%s] = %p {\n", id, h);
+	if (PAN_already(vsb, h))
+		return;
+	VSB_indent(vsb, 2);
+	PAN_CheckMagic(vsb, h, HTTP_MAGIC);
+	WS_Panic(h->ws, vsb);
+	VSB_cat(vsb, "hdrs {\n");
+	VSB_indent(vsb, 2);
+	for (i = 0; i < h->nhd; ++i) {
+		if (h->hd[i].b == NULL && h->hd[i].e == NULL)
+			continue;
+		VSB_printf(vsb, "\"%.*s\",\n",
+		    (int)(h->hd[i].e - h->hd[i].b), h->hd[i].b);
+	}
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+}
+
+/*--------------------------------------------------------------------*/
+static void
+pan_boc(struct vsb *vsb, const struct boc *boc)
+{
+	VSB_printf(vsb, "boc = %p {\n", boc);
+	if (PAN_already(vsb, boc))
+		return;
+	VSB_indent(vsb, 2);
+	PAN_CheckMagic(vsb, boc, BOC_MAGIC);
+	VSB_printf(vsb, "refcnt = %u,\n", boc->refcount);
+	VSB_printf(vsb, "state = %s,\n", boc_state_2str(boc->state));
+	VSB_printf(vsb, "vary = %p,\n", boc->vary);
+	VSB_printf(vsb, "stevedore_priv = %p,\n", boc->stevedore_priv);
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+}
+
+/*--------------------------------------------------------------------*/
+
+static void
+pan_objcore(struct vsb *vsb, const char *typ, const struct objcore *oc)
+{
+	const char *p;
+
+	VSB_printf(vsb, "objcore[%s] = %p {\n", typ, oc);
+	if (PAN_already(vsb, oc))
+		return;
+	VSB_indent(vsb, 2);
+	PAN_CheckMagic(vsb, oc, OBJCORE_MAGIC);
+	VSB_printf(vsb, "refcnt = %d,\n", oc->refcnt);
+	VSB_cat(vsb, "flags = {");
+
+/*lint -save -esym(438,p) -esym(838,p) -e539 */
+	p = "";
+#define OC_FLAG(U, l, v) \
+	if (oc->flags & v) { VSB_printf(vsb, "%s" #l, p); p = ", "; }
+#include "tbl/oc_flags.h"
+	VSB_cat(vsb, "},\n");
+	VSB_cat(vsb, "exp_flags = {");
+	p = "";
+#define OC_EXP_FLAG(U, l, v) \
+	if (oc->exp_flags & v) { VSB_printf(vsb, "%s" #l, p); p = ", "; }
+#include "tbl/oc_exp_flags.h"
+/*lint -restore */
+	VSB_cat(vsb, "},\n");
+
+	if (oc->boc != NULL)
+		pan_boc(vsb, oc->boc);
+	VSB_printf(vsb, "exp = {%f, %f, %f, %f},\n",
+	    oc->t_origin, oc->ttl, oc->grace, oc->keep);
+	VSB_printf(vsb, "objhead = %p,\n", oc->objhead);
+	VSB_printf(vsb, "stevedore = %p", oc->stobj->stevedore);
+	if (oc->stobj->stevedore != NULL) {
+		VSB_printf(vsb, " (%s", oc->stobj->stevedore->name);
+		if (strlen(oc->stobj->stevedore->ident))
+			VSB_printf(vsb, " %s", oc->stobj->stevedore->ident);
+		VSB_cat(vsb, ")");
+		if (oc->stobj->stevedore->panic) {
+			VSB_cat(vsb, " {\n");
+			VSB_indent(vsb, 2);
+			oc->stobj->stevedore->panic(vsb, oc);
+			VSB_indent(vsb, -2);
+			VSB_cat(vsb, "}");
+		}
+	}
+	VSB_cat(vsb, ",\n");
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+}
+
+/*--------------------------------------------------------------------*/
+
+static void
+pan_wrk(struct vsb *vsb, const struct worker *wrk)
+{
+	const char *hand;
+	unsigned m, u;
+	const char *p;
+
+	VSB_printf(vsb, "worker = %p {\n", wrk);
+	if (PAN_already(vsb, wrk))
+		return;
+	VSB_indent(vsb, 2);
+	PAN_CheckMagic(vsb, wrk, WORKER_MAGIC);
+	WS_Panic(wrk->aws, vsb);
+
+	m = wrk->cur_method;
+	VSB_cat(vsb, "VCL::method = ");
+	if (m == 0) {
+		VSB_cat(vsb, "none,\n");
+		return;
+	}
+	if (!(m & 1))
+		VSB_cat(vsb, "inside ");
+	m &= ~1;
+	hand = VCL_Method_Name(m);
+	if (hand != NULL)
+		VSB_printf(vsb, "%s,\n", hand);
+	else
+		VSB_printf(vsb, "0x%x,\n", m);
+
+	hand = VCL_Return_Name(wrk->handling);
+	if (hand != NULL)
+		VSB_printf(vsb, "VCL::return = %s,\n", hand);
+	else
+		VSB_printf(vsb, "VCL::return = 0x%x,\n", wrk->handling);
+	VSB_cat(vsb, "VCL::methods = {");
+	m = wrk->seen_methods;
+	p = "";
+	for (u = 1; m ; u <<= 1) {
+		if (m & u) {
+			VSB_printf(vsb, "%s%s", p, VCL_Method_Name(u));
+			m &= ~u;
+			p = ", ";
+		}
+	}
+	VSB_cat(vsb, "},\n");
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+}
+
+static void
+pan_vfp(struct vsb *vsb, const struct vfp_ctx *vfc)
+{
+	struct vfp_entry *vfe;
+
+	VSB_printf(vsb, "vfc = %p {\n", vfc);
+	VSB_indent(vsb, 2);
+	PAN_CheckMagic(vsb, vfc, VFP_CTX_MAGIC);
+	VSB_printf(vsb, "failed = %d,\n", vfc->failed);
+	VSB_printf(vsb, "req = %p,\n", vfc->req);
+	VSB_printf(vsb, "resp = %p,\n", vfc->resp);
+	VSB_printf(vsb, "wrk = %p,\n", vfc->wrk);
+	VSB_printf(vsb, "oc = %p,\n", vfc->oc);
+
+	if (!VTAILQ_EMPTY(&vfc->vfp)) {
+		VSB_cat(vsb, "filters = {\n");
+		VSB_indent(vsb, 2);
+		VTAILQ_FOREACH(vfe, &vfc->vfp, list) {
+			VSB_printf(vsb, "%s = %p {\n", vfe->vfp->name, vfe);
+			VSB_indent(vsb, 2);
+			VSB_printf(vsb, "priv1 = %p,\n", vfe->priv1);
+			VSB_printf(vsb, "priv2 = %zd,\n", vfe->priv2);
+			VSB_printf(vsb, "closed = %d\n", vfe->closed);
+			VSB_indent(vsb, -2);
+			VSB_cat(vsb, "},\n");
+		}
+		VSB_indent(vsb, -2);
+		VSB_cat(vsb, "},\n");
+	}
+
+	VSB_printf(vsb, "obj_flags = 0x%x,\n", vfc->obj_flags);
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+}
+
+static void
+pan_vdp(struct vsb *vsb, const struct vdp_ctx *vdc)
+{
+	struct vdp_entry *vde;
+
+	VSB_printf(vsb, "vdc = %p {\n", vdc);
+	VSB_indent(vsb, 2);
+	PAN_CheckMagic(vsb, vdc, VDP_CTX_MAGIC);
+	VSB_printf(vsb, "nxt = %p,\n", vdc->nxt);
+	VSB_printf(vsb, "retval = %d,\n", vdc->retval);
+
+	if (!VTAILQ_EMPTY(&vdc->vdp)) {
+		VSB_cat(vsb, "filters = {\n");
+		VSB_indent(vsb, 2);
+		VTAILQ_FOREACH(vde, &vdc->vdp, list)
+			VSB_printf(vsb, "%s = %p { priv = %p }\n",
+			    vde->vdp->name, vde, vde->priv);
+		VSB_indent(vsb, -2);
+		VSB_cat(vsb, "},\n");
+	}
+
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+}
+
+static void
+pan_busyobj(struct vsb *vsb, const struct busyobj *bo)
+{
+	const char *p;
+
+	VSB_printf(vsb, "busyobj = %p {\n", bo);
+	if (PAN_already(vsb, bo))
+		return;
+	VSB_indent(vsb, 2);
+	PAN_CheckMagic(vsb, bo, BUSYOBJ_MAGIC);
+	VSB_printf(vsb, "end = %p,\n", bo->end);
+	VSB_printf(vsb, "retries = %u,\n", bo->retries);
+
+	if (bo->req != NULL)
+		pan_req(vsb, bo->req);
+	if (bo->sp != NULL)
+		pan_sess(vsb, bo->sp);
+	if (bo->wrk != NULL)
+		pan_wrk(vsb, bo->wrk);
+
+	if (bo->vfc != NULL)
+		pan_vfp(vsb, bo->vfc);
+	if (bo->filter_list != NULL)
+		VSB_printf(vsb, "filter_list = \"%s\",\n", bo->filter_list);
+
+	WS_Panic(bo->ws, vsb);
+	VSB_printf(vsb, "ws_bo = %p,\n", (void *)bo->ws_bo);
+
+	// bereq0 left out
+	if (bo->bereq != NULL && bo->bereq->ws != NULL)
+		pan_http(vsb, "bereq", bo->bereq);
+	if (bo->beresp != NULL && bo->beresp->ws != NULL)
+		pan_http(vsb, "beresp", bo->beresp);
+	if (bo->stale_oc)
+		pan_objcore(vsb, "stale_oc", bo->stale_oc);
+	if (bo->fetch_objcore)
+		pan_objcore(vsb, "fetch", bo->fetch_objcore);
+
+	if (VALID_OBJ(bo->htc, HTTP_CONN_MAGIC))
+		pan_htc(vsb, bo->htc);
+
+	// fetch_task left out
+
+	VSB_cat(vsb, "flags = {");
+	p = "";
+/*lint -save -esym(438,p) -e539 */
+#define BO_FLAG(l, r, w, f, d)					\
+	if (bo->l) { VSB_printf(vsb, "%s" #l, p); p = ", "; }
+#include "tbl/bo_flags.h"
+/*lint -restore */
+	VSB_cat(vsb, "},\n");
+
+	// timeouts/timers/acct/storage left out
+
+	VDI_Panic(bo->director_req, vsb, "director_req");
+	if (bo->director_resp == bo->director_req)
+		VSB_cat(vsb, "director_resp = director_req,\n");
+	else
+		VDI_Panic(bo->director_resp, vsb, "director_resp");
+	VCL_Panic(vsb, "vcl", bo->vcl);
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+}
+
+/*--------------------------------------------------------------------*/
+
+static void
+pan_top(struct vsb *vsb, const struct reqtop *top)
+{
+	VSB_printf(vsb, "top = %p {\n", top);
+	if (PAN_already(vsb, top))
+		return;
+	VSB_indent(vsb, 2);
+	pan_req(vsb, top->topreq);
+	pan_privs(vsb, top->privs);
+	VCL_Panic(vsb, "vcl0", top->vcl0);
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+}
+
+/*--------------------------------------------------------------------*/
+
+static void
+pan_req(struct vsb *vsb, const struct req *req)
+{
+	const char *stp;
+	const struct transport *xp;
+
+	VSB_printf(vsb, "req = %p {\n", req);
+	if (PAN_already(vsb, req))
+		return;
+	VSB_indent(vsb, 2);
+	PAN_CheckMagic(vsb, req, REQ_MAGIC);
+	xp = req->transport;
+	VSB_printf(vsb, "vxid = %u, transport = %s", VXID(req->vsl->wid),
+	    xp == NULL ? "NULL" : xp->name);
+
+	if (xp != NULL && xp->req_panic != NULL) {
+		VSB_cat(vsb, " {\n");
+		VSB_indent(vsb, 2);
+		xp->req_panic(vsb, req);
+		VSB_indent(vsb, -2);
+		VSB_cat(vsb, "}");
+	}
+	VSB_cat(vsb, "\n");
+	switch (req->req_step) {
+#define REQ_STEP(l, u, arg) case R_STP_##u: stp = "R_STP_" #u; break;
+#include "tbl/steps.h"
+		default: stp = NULL;
+	}
+	if (stp != NULL)
+		VSB_printf(vsb, "step = %s,\n", stp);
+	else
+		VSB_printf(vsb, "step = 0x%x,\n", req->req_step);
+
+	VSB_printf(vsb, "req_body = %s,\n",
+	    req->req_body_status ? req->req_body_status->name : "NULL");
+
+	if (req->err_code)
+		VSB_printf(vsb,
+		    "err_code = %d, err_reason = %s,\n", req->err_code,
+		    req->err_reason ? req->err_reason : "(null)");
+
+	VSB_printf(vsb, "restarts = %u, esi_level = %u,\n",
+	    req->restarts, req->esi_level);
+
+	if (req->sp != NULL)
+		pan_sess(vsb, req->sp);
+
+	if (req->wrk != NULL)
+		pan_wrk(vsb, req->wrk);
+
+	WS_Panic(req->ws, vsb);
+	if (VALID_OBJ(req->htc, HTTP_CONN_MAGIC))
+		pan_htc(vsb, req->htc);
+	pan_http(vsb, "req", req->http);
+	if (req->resp != NULL && req->resp->ws != NULL)
+		pan_http(vsb, "resp", req->resp);
+	if (req->vdc != NULL)
+		pan_vdp(vsb, req->vdc);
+
+	VCL_Panic(vsb, "vcl", req->vcl);
+
+	if (req->body_oc != NULL)
+		pan_objcore(vsb, "BODY", req->body_oc);
+	if (req->objcore != NULL)
+		pan_objcore(vsb, "REQ", req->objcore);
+
+	VSB_cat(vsb, "flags = {\n");
+	VSB_indent(vsb, 2);
+#define REQ_FLAG(l, r, w, d) if (req->l) VSB_printf(vsb, #l ",\n");
+#include "tbl/req_flags.h"
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+
+	pan_privs(vsb, req->privs);
+
+	if (req->top != NULL)
+		pan_top(vsb, req->top);
+
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+}
+
+/*--------------------------------------------------------------------*/
+
+static void
+pan_sess(struct vsb *vsb, const struct sess *sp)
+{
+	const char *ci;
+	const char *cp;
+	const struct transport *xp;
+
+	VSB_printf(vsb, "sp = %p {\n", sp);
+	if (PAN_already(vsb, sp))
+		return;
+	VSB_indent(vsb, 2);
+	PAN_CheckMagic(vsb, sp, SESS_MAGIC);
+	xp = XPORT_ByNumber(sp->sattr[SA_TRANSPORT]);
+	VSB_printf(vsb, "fd = %d, vxid = %u,\n",
+	    sp->fd, VXID(sp->vxid));
+	VSB_printf(vsb, "t_open = %f,\n", sp->t_open);
+	VSB_printf(vsb, "t_idle = %f,\n", sp->t_idle);
+	WS_Panic(sp->ws, vsb);
+	VSB_printf(vsb, "transport = %s",
+	    xp == NULL ? "<none>" : xp->name);
+	if (xp != NULL && xp->sess_panic != NULL) {
+		VSB_cat(vsb, " {\n");
+		VSB_indent(vsb, 2);
+		xp->sess_panic(vsb, sp);
+		VSB_indent(vsb, -2);
+		VSB_cat(vsb, "}");
+	}
+	VSB_cat(vsb, "\n");
+	ci = SES_Get_String_Attr(sp, SA_CLIENT_IP);
+	cp = SES_Get_String_Attr(sp, SA_CLIENT_PORT);
+	if (VALID_OBJ(sp->listen_sock, LISTEN_SOCK_MAGIC))
+		VSB_printf(vsb, "client = %s %s %s,\n", ci, cp,
+			   sp->listen_sock->endpoint);
+	else
+		VSB_printf(vsb, "client = %s %s <unknown>\n", ci, cp);
+
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "},\n");
+}
+
+/*--------------------------------------------------------------------*/
+
+#ifdef WITH_UNWIND
+
+static void
+pan_backtrace(struct vsb *vsb)
+{
+	unw_cursor_t cursor; unw_context_t uc;
+	unw_word_t ip, sp;
+	unw_word_t offp;
+	char fname[1024];
+	int ret;
+
+	VSB_cat(vsb, "Backtrace:\n");
+	VSB_indent(vsb, 2);
+
+	ret = unw_getcontext(&uc);
+	if (ret != 0) {
+		VSB_printf(vsb, "Backtrace not available "
+		    "(unw_getcontext returned %d)\n", ret);
+		return;
+	}
+	ret = unw_init_local(&cursor, &uc);
+	if (ret != 0) {
+		VSB_printf(vsb, "Backtrace not available "
+		    "(unw_init_local returned %d)\n", ret);
+		return;
+	}
+	while (unw_step(&cursor) > 0) {
+		fname[0] = '\0';
+		ip = sp = 0;
+		unw_get_reg(&cursor, UNW_REG_IP, &ip);
+		unw_get_reg(&cursor, UNW_REG_SP, &sp);
+		unw_get_proc_name(&cursor, fname, sizeof(fname), &offp);
+		VSB_printf(vsb, "ip=0x%lx, sp=0x%lx <%s+0x%lx>\n", (long) ip,
+		    (long) sp, fname[0] ? fname : "<unknown>", (long)offp);
+	}
+
+	VSB_indent(vsb, -2);
+}
+
+#else /* WITH_UNWIND */
+
+#define BACKTRACE_LEVELS	10
+
+static void
+pan_backtrace(struct vsb *vsb)
+{
+	void *array[BACKTRACE_LEVELS];
+	size_t size;
+	size_t i;
+	char **strings;
+	char *p;
+	char buf[32];
+
+	size = backtrace (array, BACKTRACE_LEVELS);
+	if (size > BACKTRACE_LEVELS) {
+		VSB_printf(vsb, "Backtrace not available (ret=%zu)\n", size);
+		return;
+	}
+	VSB_cat(vsb, "Backtrace:\n");
+	VSB_indent(vsb, 2);
+	for (i = 0; i < size; i++) {
+		bprintf(buf, "%p", array[i]);
+		VSB_printf(vsb, "%s: ", buf);
+		strings = backtrace_symbols(&array[i], 1);
+		if (strings == NULL || strings[0] == NULL) {
+			VSB_cat(vsb, "(?)");
+		} else {
+			p = strings[0];
+			if (!memcmp(buf, p, strlen(buf))) {
+				p += strlen(buf);
+				if (*p == ':')
+					p++;
+				while (*p == ' ')
+					p++;
+			}
+			VSB_printf(vsb, "%s", p);
+		}
+		VSB_cat(vsb, "\n");
+		free(strings);
+	}
+	VSB_indent(vsb, -2);
+}
+
+#endif /* WITH_UNWIND */
+
+#ifdef HAVE_PTHREAD_GETATTR_NP
+static void
+pan_threadattr(struct vsb *vsb)
+{
+	pthread_attr_t attr[1];
+	size_t sz;
+	void *addr;
+
+	if (pthread_getattr_np(pthread_self(), attr) != 0)
+		return;
+
+	VSB_cat(vsb, "pthread.attr = {\n");
+	VSB_indent(vsb, 2);
+
+	if (pthread_attr_getguardsize(attr, &sz) == 0)
+		VSB_printf(vsb, "guard = %zu,\n", sz);
+	if (pthread_attr_getstack(attr, &addr, &sz) == 0) {
+		VSB_printf(vsb, "stack_bottom = %p,\n", addr);
+		VSB_printf(vsb, "stack_top = %p,\n", (char *)addr + sz);
+		VSB_printf(vsb, "stack_size = %zu,\n", sz);
+	}
+	VSB_indent(vsb, -2);
+	VSB_cat(vsb, "}\n");
+	(void) pthread_attr_destroy(attr);
+}
+#endif
+
+/*--------------------------------------------------------------------*/
+
+static void __attribute__((__noreturn__))
+pan_ic(const char *func, const char *file, int line, const char *cond,
+    enum vas_e kind)
+{
+	const char *q;
+	struct req *req;
+	struct busyobj *bo;
+	struct sigaction sa;
+	int err = errno;
+
+	AZ(pthread_mutex_lock(&panicstr_mtx)); /* Won't be released,
+						  we're going to die
+						  anyway */
+
+	/*
+	 * should we trigger a SIGSEGV while handling a panic, our sigsegv
+	 * handler would hide the panic, so we need to reset the handler to
+	 * default
+	 */
+	memset(&sa, 0, sizeof sa);
+	sa.sa_handler = SIG_DFL;
+	(void)sigaction(SIGSEGV, &sa, NULL);
+	/* Set SIGABRT back to default so the final abort() has the
+	   desired effect */
+	(void)sigaction(SIGABRT, &sa, NULL);
+
+	switch (kind) {
+	case VAS_WRONG:
+		VSB_printf(pan_vsb,
+		    "Wrong turn at %s:%d:\n%s\n", file, line, cond);
+		break;
+	case VAS_VCL:
+		VSB_printf(pan_vsb,
+		    "Panic from VCL:\n  %s\n", cond);
+		break;
+	case VAS_MISSING:
+		VSB_printf(pan_vsb,
+		    "Missing errorhandling code in %s(), %s line %d:\n"
+		    "  Condition(%s) not true.\n",
+		    func, file, line, cond);
+		break;
+	case VAS_INCOMPLETE:
+		VSB_printf(pan_vsb,
+		    "Incomplete code in %s(), %s line %d:\n",
+		    func, file, line);
+		break;
+	case VAS_ASSERT:
+	default:
+		VSB_printf(pan_vsb,
+		    "Assert error in %s(), %s line %d:\n"
+		    "  Condition(%s) not true.\n",
+		    func, file, line, cond);
+		break;
+	}
+	VSB_printf(pan_vsb, "version = %s, vrt api = %u.%u\n",
+	    VCS_String("V"), VRT_MAJOR_VERSION, VRT_MINOR_VERSION);
+	VSB_printf(pan_vsb, "ident = %s,%s\n",
+	    heritage.ident, Waiter_GetName());
+	VSB_printf(pan_vsb, "now = %f (mono), %f (real)\n",
+	    VTIM_mono(), VTIM_real());
+
+	pan_backtrace(pan_vsb);
+
+	if (err)
+		VSB_printf(pan_vsb, "errno = %d (%s)\n", err, vstrerror(err));
+
+	VSB_printf(pan_vsb, "pthread.self = %p\n", TRUST_ME(pthread_self()));
+
+	q = THR_GetName();
+	if (q != NULL)
+		VSB_printf(pan_vsb, "pthread.name = (%s)\n", q);
+
+#ifdef HAVE_PTHREAD_GETATTR_NP
+	pan_threadattr(pan_vsb);
+#endif
+
+	if (!FEATURE(FEATURE_SHORT_PANIC)) {
+		req = THR_GetRequest();
+		VSB_cat(pan_vsb, "thr.");
+		pan_req(pan_vsb, req);
+		if (req != NULL)
+			VSL_Flush(req->vsl, 0);
+		bo = THR_GetBusyobj();
+		VSB_cat(pan_vsb, "thr.");
+		pan_busyobj(pan_vsb, bo);
+		if (bo != NULL)
+			VSL_Flush(bo->vsl, 0);
+		VMOD_Panic(pan_vsb);
+	} else {
+		VSB_cat(pan_vsb, "Feature short panic suppressed details.\n");
+	}
+	VSB_cat(pan_vsb, "\n");
+	VSB_putc(pan_vsb, '\0');	/* NUL termination */
+
+#ifdef GCOVING
+	__gcov_flush();
+#endif
+	abort();
+}
+
+/*--------------------------------------------------------------------*/
+
+static void v_noreturn_ v_matchproto_(cli_func_t)
+ccf_panic(struct cli *cli, const char * const *av, void *priv)
+{
+
+	(void)cli;
+	(void)av;
+	AZ(priv);
+	AZ(strcmp("", "You asked for it"));
+	/* NOTREACHED */
+	abort();
+}
+
+/*--------------------------------------------------------------------*/
+
+static struct cli_proto debug_cmds[] = {
+	{ CLICMD_DEBUG_PANIC_WORKER,		"d",	ccf_panic },
+	{ NULL }
+};
+
+/*--------------------------------------------------------------------*/
+
+void
+PAN_Init(void)
+{
+
+	AZ(pthread_mutex_init(&panicstr_mtx, NULL));
+	VAS_Fail_Func = pan_ic;
+	pan_vsb = &pan_vsb_storage;
+	AN(heritage.panic_str);
+	AN(heritage.panic_str_len);
+	AN(VSB_init(pan_vsb, heritage.panic_str, heritage.panic_str_len));
+	VSB_cat(pan_vsb, "This is a test\n");
+	AZ(VSB_finish(pan_vsb));
+	VSB_clear(pan_vsb);
+	heritage.panic_str[0] = '\0';
+	CLI_AddFuncs(debug_cmds);
+}

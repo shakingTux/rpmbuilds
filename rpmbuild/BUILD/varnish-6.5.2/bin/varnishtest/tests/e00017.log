@@ -1,0 +1,2344 @@
+**** dT   0.000
+*    top  TEST ./tests/e00017.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 42209
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.65092.3d3a8dbf
+**   top  === varnishtest "Aggressive use of ESI include"
+*    top  VTEST Aggressive use of ESI include
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=38431
+**** s1   macro def s1_sock=127.0.0.1 38431
+*    s1   Listen on 127.0.0.1 38431
+**   top  === varnish v1 -vcl+backend {
+**   s1   Started on 127.0.0.1 38431 (1 iterations)
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.65092.3d3a8dbf/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 46395' -P /tmp/vtc.65092.3d3a8dbf/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.65092.3d3a8dbf/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 46395' -P /tmp/vtc.65092.3d3a8dbf/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 65111
+**** v1   macro def v1_pid=65111
+**** v1   macro def v1_name=/tmp/vtc.65092.3d3a8dbf/v1
+**** dT   0.013
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.111
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 7
+**** dT   0.112
+***  v1   CLI RX  107
+**** v1   CLI RX|wqnjrasttdkakimuigiduxwrcnntbddf
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth 4662dc6e6a4e21ab7b2839c7efb13d510e06087e8511b741c5528ce1c75b6b87
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** dT   0.113
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "38431"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_backend_response {
+**** v1   CLI TX|\t\tset beresp.do_esi = true;
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.213
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.263
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.266
+***  v1   debug|Debug: Child (65124) Started
+**** dT   0.292
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (65124) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 42671
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+**** dT   0.293
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 42671
+**   v1   Listen on 127.0.0.1 42671
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=42671
+**** v1   macro def v1_sock=127.0.0.1 42671
+**** dT   0.313
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892819.975162/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892819.975162/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 42671
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 42671
+
+**** dT   0.393
+**   top  === client c1 {
+**   top  === client c1 -run
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 42671 (1 iterations)
+***  c1   Connect to 127.0.0.1 42671
+***  c1   connected fd 17 from 127.0.0.1 51196 to 127.0.0.1 42671
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.394
+***  s1   accepted fd 6 127.0.0.1 34552
+**   s1   === rxreq
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1002\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 103
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1002
+**** s1   bodylen = 0
+**   s1   === txresp -body {
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 4224\r
+**** s1   txresp|\r
+**** s1   txresp|
+**** s1   txresp|\t\t<html>
+**** s1   txresp|\t\tBefore include
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/00"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/01"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/02"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/03"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/04"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/05"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/06"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/07"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/08"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/09"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/10"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/11"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/12"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/13"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/14"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/15"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/16"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/17"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/18"/>
+**** s1   txresp|\t\t<esi:include src="/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/19"/>
+**** s1   txresp|\t\tAfter include
+**** s1   txresp|\t
+**   s1   === rxreq
+**** dT   0.395
+**   c1   === rxresp
+**** dT   0.406
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/00 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1004\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/00
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1004
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 00</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 00</pre> 
+**   s1   === rxreq
+**** dT   0.407
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:53:40 GMT\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|Transfer-Encoding: chunked\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 187
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** c1   http[ 4] |X-Varnish: 1001
+**** c1   http[ 5] |Age: 0
+**** c1   http[ 6] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 7] |Accept-Ranges: bytes
+**** c1   http[ 8] |Connection: keep-alive
+**** c1   http[ 9] |Transfer-Encoding: chunked
+**** c1   len|001d\r
+**** c1   chunk|
+**** c1   chunk|\t\t<html>
+**** c1   chunk|\t\tBefore include
+**** c1   chunk|\t\t
+**** dT   0.413
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 51196 a0 127.0.0.1 42671 1634892820.255642 25
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|       1002 Begin           b bereq 1001 fetch
+**** v1   vsl|       1002 VCL_use         b vcl1
+**** v1   vsl|       1002 Timestamp       b Start: 1634892820.255904 0.000000 0.000000
+**** v1   vsl|       1002 BereqMethod     b GET
+**** v1   vsl|       1002 BereqURL        b /
+**** v1   vsl|       1002 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1002 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1002 BereqHeader     b X-Varnish: 1002
+**** v1   vsl|       1002 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1002 VCL_return      b fetch
+**** v1   vsl|       1002 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 connect
+**** v1   vsl|       1002 Timestamp       b Bereq: 1634892820.256072 0.000167 0.000167
+**** v1   vsl|       1002 Timestamp       b Beresp: 1634892820.256613 0.000708 0.000541
+**** v1   vsl|       1002 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1002 BerespStatus    b 200
+**** v1   vsl|       1002 BerespReason    b OK
+**** v1   vsl|       1002 BerespHeader    b Content-Length: 4224
+**** v1   vsl|       1002 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1002 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1002 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1002 VCL_return      b deliver
+**** v1   vsl|       1002 Filters         b  esi
+**** v1   vsl|       1002 Storage         b malloc s0
+**** v1   vsl|       1002 Fetch_Body      b 3 length -
+**** v1   vsl|       1002 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1002 Timestamp       b BerespBody: 1634892820.267182 0.011277 0.010568
+**** v1   vsl|       1002 Length          b 4224
+**** v1   vsl|       1002 BereqAcct       b 103 0 103 41 4224 4265
+**** v1   vsl|       1002 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8010fb0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8010fb0 e=1634892950.256613 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.989380 f=0x0
+**** dT   0.418
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/01 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1006\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/01
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1006
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 01</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 01</pre> 
+**   s1   === rxreq
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 00</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.429
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/02 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1008\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/02
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1008
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 02</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 02</pre> 
+**   s1   === rxreq
+**** dT   0.430
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 01</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.440
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 02</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.441
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/03 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1010\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/03
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1010
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 03</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 03</pre> 
+**   s1   === rxreq
+**** dT   0.451
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 03</pre> 
+**** dT   0.452
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/04 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1012\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/04
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1012
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 04</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 04</pre> 
+**** dT   0.453
+**   s1   === rxreq
+**** dT   0.463
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 04</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.464
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/05 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1014\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/05
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1014
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 05</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 05</pre> 
+**   s1   === rxreq
+**** dT   0.475
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 05</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.476
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/06 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1016\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/06
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1016
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 06</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 06</pre> 
+**   s1   === rxreq
+**** dT   0.486
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 06</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.488
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/07 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1018\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/07
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1018
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 07</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 07</pre> 
+**   s1   === rxreq
+**** dT   0.498
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 07</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.500
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/08 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1020\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/08
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1020
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 08</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 08</pre> 
+**   s1   === rxreq
+**** dT   0.510
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 08</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.511
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/09 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1022\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/09
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1022
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 09</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 09</pre> 
+**   s1   === rxreq
+**** dT   0.514
+**** v1   vsl|       1004 Begin           b bereq 1003 fetch
+**** v1   vsl|       1004 VCL_use         b vcl1
+**** v1   vsl|       1004 Timestamp       b Start: 1634892820.267437 0.000000 0.000000
+**** v1   vsl|       1004 BereqMethod     b GET
+**** v1   vsl|       1004 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/00
+**** v1   vsl|       1004 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1004 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1004 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1004 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1004 BereqHeader     b X-Varnish: 1004
+**** v1   vsl|       1004 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1004 VCL_return      b fetch
+**** v1   vsl|       1004 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1004 Timestamp       b Bereq: 1634892820.267493 0.000055 0.000055
+**** v1   vsl|       1004 Timestamp       b Beresp: 1634892820.268584 0.001146 0.001091
+**** v1   vsl|       1004 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1004 BerespStatus    b 200
+**** v1   vsl|       1004 BerespReason    b OK
+**** v1   vsl|       1004 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1004 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1004 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1004 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1004 VCL_return      b deliver
+**** v1   vsl|       1004 Filters         b  esi
+**** v1   vsl|       1004 Storage         b malloc s0
+**** v1   vsl|       1004 Fetch_Body      b 3 length -
+**** v1   vsl|       1004 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1004 Timestamp       b BerespBody: 1634892820.278753 0.011315 0.010169
+**** v1   vsl|       1004 Length          b 29
+**** v1   vsl|       1004 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1004 End             b 
+**** v1   vsl|       1003 Begin           c req 1001 esi
+**** v1   vsl|       1003 Timestamp       c Start: 1634892820.267404 0.000000 0.000000
+**** v1   vsl|       1003 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/00
+**** v1   vsl|       1003 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1003 ReqMethod       c GET
+**** v1   vsl|       1003 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/00
+**** v1   vsl|       1003 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1003 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1003 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1003 VCL_call        c RECV
+**** v1   vsl|       1003 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1003 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1003 VCL_return      c hash
+**** v1   vsl|       1003 VCL_call        c HASH
+**** v1   vsl|       1003 VCL_return      c lookup
+**** v1   vsl|       1003 VCL_call        c MISS
+**** v1   vsl|       1003 VCL_return      c fetch
+**** v1   vsl|       1003 Link            c bereq 1004 fetch
+**** v1   vsl|       1003 Timestamp       c Fetch: 1634892820.278792 0.011387 0.011387
+**** v1   vsl|       1003 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1003 RespStatus      c 200
+**** v1   vsl|       1003 RespReason      c OK
+**** v1   vsl|       1003 RespHeader      c Content-Length: 29
+**** v1   vsl|       1003 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1003 RespHeader      c X-Varnish: 1003
+**** v1   vsl|       1003 RespHeader      c Age: 0
+**** v1   vsl|       1003 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1003 VCL_call        c DELIVER
+**** v1   vsl|       1003 VCL_return      c deliver
+**** v1   vsl|       1003 Timestamp       c Process: 1634892820.278811 0.011407 0.000019
+**** v1   vsl|       1003 Filters         c 
+**** v1   vsl|       1003 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1003 Timestamp       c Resp: 1634892820.278902 0.011498 0.000090
+**** v1   vsl|       1003 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1003 End             c 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.977594 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8031290 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8031290 e=1634892950.268584 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.977583 f=0x0
+**** v1   vsl|       1006 Begin           b bereq 1005 fetch
+**** v1   vsl|       1006 VCL_use         b vcl1
+**** v1   vsl|       1006 Timestamp       b Start: 1634892820.279074 0.000000 0.000000
+**** v1   vsl|       1006 BereqMethod     b GET
+**** v1   vsl|       1006 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/01
+**** v1   vsl|       1006 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1006 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1006 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1006 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1006 BereqHeader     b X-Varnish: 1006
+**** v1   vsl|       1006 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1006 VCL_return      b fetch
+**** v1   vsl|       1006 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1006 Timestamp       b Bereq: 1634892820.279132 0.000057 0.000057
+**** v1   vsl|       1006 Timestamp       b Beresp: 1634892820.280377 0.001302 0.001245
+**** v1   vsl|       1006 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1006 BerespStatus    b 200
+**** v1   vsl|       1006 BerespReason    b OK
+**** v1   vsl|       1006 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1006 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1006 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1006 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1006 VCL_return      b deliver
+**** v1   vsl|       1006 Filters         b  esi
+**** v1   vsl|       1006 Storage         b malloc s0
+**** v1   vsl|       1006 Fetch_Body      b 3 length -
+**** v1   vsl|       1006 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1006 Timestamp       b BerespBody: 1634892820.290618 0.011544 0.010241
+**** v1   vsl|       1006 Length          b 29
+**** v1   vsl|       1006 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1006 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.965955 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f80314c0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f80314c0 e=1634892950.280377 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.965941 f=0x0
+**** v1   vsl|       1005 Begin           c req 1001 esi
+**** v1   vsl|       1005 Timestamp       c Start: 1634892820.278976 0.000000 0.000000
+**** v1   vsl|       1005 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/01
+**** v1   vsl|       1005 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1005 ReqMethod       c GET
+**** v1   vsl|       1005 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/01
+**** v1   vsl|       1005 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1005 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1005 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1005 VCL_call        c RECV
+**** v1   vsl|       1005 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1005 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1005 VCL_return      c hash
+**** v1   vsl|       1005 VCL_call        c HASH
+**** v1   vsl|       1005 VCL_return      c lookup
+**** v1   vsl|       1005 VCL_call        c MISS
+**** v1   vsl|       1005 VCL_return      c fetch
+**** v1   vsl|       1005 Link            c bereq 1006 fetch
+**** v1   vsl|       1005 Timestamp       c Fetch: 1634892820.290682 0.011706 0.011706
+**** v1   vsl|       1005 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1005 RespStatus      c 200
+**** v1   vsl|       1005 RespReason      c OK
+**** v1   vsl|       1005 RespHeader      c Content-Length: 29
+**** v1   vsl|       1005 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1005 RespHeader      c X-Varnish: 1005
+**** v1   vsl|       1005 RespHeader      c Age: 0
+**** v1   vsl|       1005 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1005 VCL_call        c DELIVER
+**** v1   vsl|       1005 VCL_return      c deliver
+**** v1   vsl|       1005 Timestamp       c Process: 1634892820.290696 0.011720 0.000014
+**** v1   vsl|       1005 Filters         c 
+**** v1   vsl|       1005 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1005 Timestamp       c Resp: 1634892820.290789 0.011813 0.000092
+**** v1   vsl|       1005 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1005 End             c 
+**** v1   vsl|       1008 Begin           b bereq 1007 fetch
+**** v1   vsl|       1008 VCL_use         b vcl1
+**** v1   vsl|       1008 Timestamp       b Start: 1634892820.290861 0.000000 0.000000
+**** v1   vsl|       1008 BereqMethod     b GET
+**** v1   vsl|       1008 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/02
+**** v1   vsl|       1008 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1008 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1008 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1008 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1008 BereqHeader     b X-Varnish: 1008
+**** v1   vsl|       1008 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1008 VCL_return      b fetch
+**** v1   vsl|       1008 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1008 Timestamp       b Bereq: 1634892820.290914 0.000052 0.000052
+**** v1   vsl|       1008 Timestamp       b Beresp: 1634892820.291996 0.001134 0.001082
+**** v1   vsl|       1008 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1008 BerespStatus    b 200
+**** v1   vsl|       1008 BerespReason    b OK
+**** v1   vsl|       1008 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1008 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1008 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1008 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1008 VCL_return      b deliver
+**** v1   vsl|       1008 Filters         b  esi
+**** v1   vsl|       1008 Storage         b malloc s0
+**** v1   vsl|       1008 Fetch_Body      b 3 length -
+**** v1   vsl|       1008 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1008 Timestamp       b BerespBody: 1634892820.302203 0.011342 0.010207
+**** v1   vsl|       1008 Length          b 29
+**** v1   vsl|       1008 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1008 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.954371 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8031720 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8031720 e=1634892950.291996 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.954360 f=0x0
+**** v1   vsl|       1007 Begin           c req 1001 esi
+**** v1   vsl|       1007 Timestamp       c Start: 1634892820.290825 0.000000 0.000000
+**** v1   vsl|       1007 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/02
+**** v1   vsl|       1007 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1007 ReqMethod       c GET
+**** v1   vsl|       1007 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/02
+**** v1   vsl|       1007 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1007 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1007 VCL_call        c RECV
+**** v1   vsl|       1007 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1007 VCL_return      c hash
+**** v1   vsl|       1007 VCL_call        c HASH
+**** v1   vsl|       1007 VCL_return      c lookup
+**** v1   vsl|       1007 VCL_call        c MISS
+**** v1   vsl|       1007 VCL_return      c fetch
+**** v1   vsl|       1007 Link            c bereq 1008 fetch
+**** v1   vsl|       1007 Timestamp       c Fetch: 1634892820.302263 0.011438 0.011438
+**** v1   vsl|       1007 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1007 RespStatus      c 200
+**** v1   vsl|       1007 RespReason      c OK
+**** v1   vsl|       1007 RespHeader      c Content-Length: 29
+**** v1   vsl|       1007 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1007 RespHeader      c X-Varnish: 1007
+**** v1   vsl|       1007 RespHeader      c Age: 0
+**** v1   vsl|       1007 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1007 VCL_call        c DELIVER
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 Timestamp       c Process: 1634892820.302277 0.011451 0.000013
+**** v1   vsl|       1007 Filters         c 
+**** v1   vsl|       1007 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1007 Timestamp       c Resp: 1634892820.302354 0.011529 0.000077
+**** v1   vsl|       1007 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1007 End             c 
+**** v1   vsl|       1010 Begin           b bereq 1009 fetch
+**** v1   vsl|       1010 VCL_use         b vcl1
+**** v1   vsl|       1010 Timestamp       b Start: 1634892820.302461 0.000000 0.000000
+**** v1   vsl|       1010 BereqMethod     b GET
+**** v1   vsl|       1010 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/03
+**** v1   vsl|       1010 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1010 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1010 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1010 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1010 BereqHeader     b X-Varnish: 1010
+**** v1   vsl|       1010 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1010 VCL_return      b fetch
+**** v1   vsl|       1010 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1010 Timestamp       b Bereq: 1634892820.302507 0.000046 0.000046
+**** v1   vsl|       1010 Timestamp       b Beresp: 1634892820.303617 0.001156 0.001109
+**** v1   vsl|       1010 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1010 BerespStatus    b 200
+**** v1   vsl|       1010 BerespReason    b OK
+**** v1   vsl|       1010 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1010 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1010 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1010 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1010 VCL_return      b deliver
+**** v1   vsl|       1010 Filters         b  esi
+**** v1   vsl|       1010 Storage         b malloc s0
+**** v1   vsl|       1010 Fetch_Body      b 3 length -
+**** v1   vsl|       1010 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1010 Timestamp       b BerespBody: 1634892820.313811 0.011350 0.010194
+**** v1   vsl|       1010 Length          b 29
+**** v1   vsl|       1010 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1010 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.942793 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8031980 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8031980 e=1634892950.303617 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.942774 f=0x0
+**** v1   vsl|       1009 Begin           c req 1001 esi
+**** v1   vsl|       1009 Timestamp       c Start: 1634892820.302425 0.000000 0.000000
+**** v1   vsl|       1009 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/03
+**** v1   vsl|       1009 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1009 ReqMethod       c GET
+**** v1   vsl|       1009 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/03
+**** v1   vsl|       1009 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1009 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1009 VCL_call        c RECV
+**** v1   vsl|       1009 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1009 VCL_return      c hash
+**** v1   vsl|       1009 VCL_call        c HASH
+**** v1   vsl|       1009 VCL_return      c lookup
+**** v1   vsl|       1009 VCL_call        c MISS
+**** v1   vsl|       1009 VCL_return      c fetch
+**** v1   vsl|       1009 Link            c bereq 1010 fetch
+**** v1   vsl|       1009 Timestamp       c Fetch: 1634892820.313851 0.011425 0.011425
+**** v1   vsl|       1009 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1009 RespStatus      c 200
+**** v1   vsl|       1009 RespReason      c OK
+**** v1   vsl|       1009 RespHeader      c Content-Length: 29
+**** v1   vsl|       1009 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1009 RespHeader      c X-Varnish: 1009
+**** v1   vsl|       1009 RespHeader      c Age: 0
+**** v1   vsl|       1009 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1009 VCL_call        c DELIVER
+**** v1   vsl|       1009 VCL_return      c deliver
+**** v1   vsl|       1009 Timestamp       c Process: 1634892820.313865 0.011439 0.000013
+**** v1   vsl|       1009 Filters         c 
+**** v1   vsl|       1009 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1009 Timestamp       c Resp: 1634892820.313937 0.011511 0.000072
+**** v1   vsl|       1009 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1009 End             c 
+**** v1   vsl|       1012 Begin           b bereq 1011 fetch
+**** v1   vsl|       1012 VCL_use         b vcl1
+**** v1   vsl|       1012 Timestamp       b Start: 1634892820.314010 0.000000 0.000000
+**** v1   vsl|       1012 BereqMethod     b GET
+**** v1   vsl|       1012 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/04
+**** v1   vsl|       1012 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1012 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1012 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1012 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1012 BereqHeader     b X-Varnish: 1012
+**** v1   vsl|       1012 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1012 VCL_return      b fetch
+**** v1   vsl|       1012 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1012 Timestamp       b Bereq: 1634892820.314084 0.000074 0.000074
+**** v1   vsl|       1012 Timestamp       b Beresp: 1634892820.315178 0.001168 0.001093
+**** v1   vsl|       1012 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1012 BerespStatus    b 200
+**** v1   vsl|       1012 BerespReason    b OK
+**** v1   vsl|       1012 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1012 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1012 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1012 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1012 VCL_return      b deliver
+**** v1   vsl|       1012 Filters         b  esi
+**** v1   vsl|       1012 Storage         b malloc s0
+**** v1   vsl|       1012 Fetch_Body      b 3 length -
+**** v1   vsl|       1012 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1012 Timestamp       b BerespBody: 1634892820.325333 0.011323 0.010155
+**** v1   vsl|       1012 Length          b 29
+**** v1   vsl|       1012 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1012 End             b 
+**** v1   vsl|       1011 Begin           c req 1001 esi
+**** v1   vsl|       1011 Timestamp       c Start: 1634892820.313972 0.000000 0.000000
+**** v1   vsl|       1011 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/04
+**** v1   vsl|       1011 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1011 ReqMethod       c GET
+**** v1   vsl|       1011 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/04
+**** v1   vsl|       1011 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1011 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1011 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1011 VCL_call        c RECV
+**** v1   vsl|       1011 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1011 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1011 VCL_return      c hash
+**** v1   vsl|       1011 VCL_call        c HASH
+**** v1   vsl|       1011 VCL_return      c lookup
+**** v1   vsl|       1011 VCL_call        c MISS
+**** v1   vsl|       1011 VCL_return      c fetch
+**** v1   vsl|       1011 Link            c bereq 1012 fetch
+**** v1   vsl|       1011 Timestamp       c Fetch: 1634892820.325373 0.011400 0.011400
+**** v1   vsl|       1011 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1011 RespStatus      c 200
+**** v1   vsl|       1011 RespReason      c OK
+**** v1   vsl|       1011 RespHeader      c Content-Length: 29
+**** v1   vsl|       1011 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1011 RespHeader      c X-Varnish: 1011
+**** v1   vsl|       1011 RespHeader      c Age: 0
+**** v1   vsl|       1011 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1011 VCL_call        c DELIVER
+**** v1   vsl|       1011 VCL_return      c deliver
+**** v1   vsl|       1011 Timestamp       c Process: 1634892820.325399 0.011426 0.000025
+**** v1   vsl|       1011 Filters         c 
+**** v1   vsl|       1011 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1011 Timestamp       c Resp: 1634892820.325502 0.011530 0.000103
+**** v1   vsl|       1011 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1011 End             c 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.931264 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8031be0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8031be0 e=1634892950.315178 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.931249 f=0x0
+**** v1   vsl|       1014 Begin           b bereq 1013 fetch
+**** v1   vsl|       1014 VCL_use         b vcl1
+**** v1   vsl|       1014 Timestamp       b Start: 1634892820.325617 0.000000 0.000000
+**** v1   vsl|       1014 BereqMethod     b GET
+**** v1   vsl|       1014 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/05
+**** v1   vsl|       1014 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1014 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1014 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1014 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1014 BereqHeader     b X-Varnish: 1014
+**** v1   vsl|       1014 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1014 VCL_return      b fetch
+**** v1   vsl|       1014 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1014 Timestamp       b Bereq: 1634892820.325688 0.000071 0.000071
+**** v1   vsl|       1014 Timestamp       b Beresp: 1634892820.326872 0.001255 0.001183
+**** v1   vsl|       1014 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1014 BerespStatus    b 200
+**** v1   vsl|       1014 BerespReason    b OK
+**** v1   vsl|       1014 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1014 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1014 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1014 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1014 VCL_return      b deliver
+**** v1   vsl|       1014 Filters         b  esi
+**** v1   vsl|       1014 Storage         b malloc s0
+**** v1   vsl|       1014 Fetch_Body      b 3 length -
+**** v1   vsl|       1014 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1014 Timestamp       b BerespBody: 1634892820.337026 0.011409 0.010153
+**** v1   vsl|       1014 Length          b 29
+**** v1   vsl|       1014 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1014 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.919559 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8031e40 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8031e40 e=1634892950.326873 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.919543 f=0x0
+**** v1   vsl|       1013 Begin           c req 1001 esi
+**** v1   vsl|       1013 Timestamp       c Start: 1634892820.325556 0.000000 0.000000
+**** v1   vsl|       1013 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/05
+**** v1   vsl|       1013 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1013 ReqMethod       c GET
+**** v1   vsl|       1013 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/05
+**** v1   vsl|       1013 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1013 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1013 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1013 VCL_call        c RECV
+**** v1   vsl|       1013 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1013 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1013 VCL_return      c hash
+**** v1   vsl|       1013 VCL_call        c HASH
+**** v1   vsl|       1013 VCL_return      c lookup
+**** v1   vsl|       1013 VCL_call        c MISS
+**** v1   vsl|       1013 VCL_return      c fetch
+**** v1   vsl|       1013 Link            c bereq 1014 fetch
+**** v1   vsl|       1013 Timestamp       c Fetch: 1634892820.337075 0.011519 0.011519
+**** v1   vsl|       1013 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1013 RespStatus      c 200
+**** v1   vsl|       1013 RespReason      c OK
+**** v1   vsl|       1013 RespHeader      c Content-Length: 29
+**** v1   vsl|       1013 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1013 RespHeader      c X-Varnish: 1013
+**** v1   vsl|       1013 RespHeader      c Age: 0
+**** v1   vsl|       1013 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1013 VCL_call        c DELIVER
+**** v1   vsl|       1013 VCL_return      c deliver
+**** v1   vsl|       1013 Timestamp       c Process: 1634892820.337096 0.011539 0.000020
+**** v1   vsl|       1013 Filters         c 
+**** v1   vsl|       1013 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1013 Timestamp       c Resp: 1634892820.337175 0.011619 0.000079
+**** v1   vsl|       1013 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1013 End             c 
+**** v1   vsl|       1016 Begin           b bereq 1015 fetch
+**** v1   vsl|       1016 VCL_use         b vcl1
+**** v1   vsl|       1016 Timestamp       b Start: 1634892820.337282 0.000000 0.000000
+**** v1   vsl|       1016 BereqMethod     b GET
+**** v1   vsl|       1016 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/06
+**** v1   vsl|       1016 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1016 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1016 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1016 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1016 BereqHeader     b X-Varnish: 1016
+**** v1   vsl|       1016 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1016 VCL_return      b fetch
+**** v1   vsl|       1016 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1016 Timestamp       b Bereq: 1634892820.337335 0.000053 0.000053
+**** v1   vsl|       1016 Timestamp       b Beresp: 1634892820.338552 0.001270 0.001216
+**** v1   vsl|       1016 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1016 BerespStatus    b 200
+**** v1   vsl|       1016 BerespReason    b OK
+**** v1   vsl|       1016 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1016 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1016 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1016 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1016 VCL_return      b deliver
+**** v1   vsl|       1016 Filters         b  esi
+**** v1   vsl|       1016 Storage         b malloc s0
+**** v1   vsl|       1016 Fetch_Body      b 3 length -
+**** v1   vsl|       1016 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1016 Timestamp       b BerespBody: 1634892820.348702 0.011420 0.010149
+**** v1   vsl|       1016 Length          b 29
+**** v1   vsl|       1016 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1016 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.907884 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f80320a0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f80320a0 e=1634892950.338553 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.907864 f=0x0
+**** v1   vsl|       1015 Begin           c req 1001 esi
+**** v1   vsl|       1015 Timestamp       c Start: 1634892820.337247 0.000000 0.000000
+**** v1   vsl|       1015 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/06
+**** v1   vsl|       1015 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1015 ReqMethod       c GET
+**** v1   vsl|       1015 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/06
+**** v1   vsl|       1015 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1015 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1015 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1015 VCL_call        c RECV
+**** v1   vsl|       1015 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1015 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1015 VCL_return      c hash
+**** v1   vsl|       1015 VCL_call        c HASH
+**** v1   vsl|       1015 VCL_return      c lookup
+**** v1   vsl|       1015 VCL_call        c MISS
+**** v1   vsl|       1015 VCL_return      c fetch
+**** v1   vsl|       1015 Link            c bereq 1016 fetch
+**** v1   vsl|       1015 Timestamp       c Fetch: 1634892820.348738 0.011490 0.011490
+**** v1   vsl|       1015 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1015 RespStatus      c 200
+**** v1   vsl|       1015 RespReason      c OK
+**** v1   vsl|       1015 RespHeader      c Content-Length: 29
+**** v1   vsl|       1015 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1015 RespHeader      c X-Varnish: 1015
+**** v1   vsl|       1015 RespHeader      c Age: 0
+**** v1   vsl|       1015 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1015 VCL_call        c DELIVER
+**** v1   vsl|       1015 VCL_return      c deliver
+**** v1   vsl|       1015 Timestamp       c Process: 1634892820.348752 0.011504 0.000014
+**** v1   vsl|       1015 Filters         c 
+**** v1   vsl|       1015 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1015 Timestamp       c Resp: 1634892820.348832 0.011584 0.000079
+**** v1   vsl|       1015 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1015 End             c 
+**** v1   vsl|       1018 Begin           b bereq 1017 fetch
+**** v1   vsl|       1018 VCL_use         b vcl1
+**** v1   vsl|       1018 Timestamp       b Start: 1634892820.348901 0.000000 0.000000
+**** v1   vsl|       1018 BereqMethod     b GET
+**** v1   vsl|       1018 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/07
+**** v1   vsl|       1018 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1018 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1018 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1018 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1018 BereqHeader     b X-Varnish: 1018
+**** v1   vsl|       1018 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1018 VCL_return      b fetch
+**** v1   vsl|       1018 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1018 Timestamp       b Bereq: 1634892820.348955 0.000053 0.000053
+**** v1   vsl|       1018 Timestamp       b Beresp: 1634892820.350360 0.001458 0.001405
+**** v1   vsl|       1018 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1018 BerespStatus    b 200
+**** v1   vsl|       1018 BerespReason    b OK
+**** v1   vsl|       1018 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1018 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1018 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1018 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1018 VCL_return      b deliver
+**** v1   vsl|       1018 Filters         b  esi
+**** v1   vsl|       1018 Storage         b malloc s0
+**** v1   vsl|       1018 Fetch_Body      b 3 length -
+**** v1   vsl|       1018 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1018 Timestamp       b BerespBody: 1634892820.360532 0.011630 0.010172
+**** v1   vsl|       1018 Length          b 29
+**** v1   vsl|       1018 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1018 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.896052 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8032300 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8032300 e=1634892950.350360 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.896031 f=0x0
+**** v1   vsl|       1017 Begin           c req 1001 esi
+**** v1   vsl|       1017 Timestamp       c Start: 1634892820.348867 0.000000 0.000000
+**** v1   vsl|       1017 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/07
+**** v1   vsl|       1017 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1017 ReqMethod       c GET
+**** v1   vsl|       1017 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/07
+**** v1   vsl|       1017 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1017 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1017 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1017 VCL_call        c RECV
+**** v1   vsl|       1017 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1017 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1017 VCL_return      c hash
+**** v1   vsl|       1017 VCL_call        c HASH
+**** v1   vsl|       1017 VCL_return      c lookup
+**** v1   vsl|       1017 VCL_call        c MISS
+**** v1   vsl|       1017 VCL_return      c fetch
+**** v1   vsl|       1017 Link            c bereq 1018 fetch
+**** v1   vsl|       1017 Timestamp       c Fetch: 1634892820.360608 0.011740 0.011740
+**** v1   vsl|       1017 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1017 RespStatus      c 200
+**** v1   vsl|       1017 RespReason      c OK
+**** v1   vsl|       1017 RespHeader      c Content-Length: 29
+**** v1   vsl|       1017 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1017 RespHeader      c X-Varnish: 1017
+**** v1   vsl|       1017 RespHeader      c Age: 0
+**** v1   vsl|       1017 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1017 VCL_call        c DELIVER
+**** v1   vsl|       1017 VCL_return      c deliver
+**** v1   vsl|       1017 Timestamp       c Process: 1634892820.360631 0.011764 0.000023
+**** v1   vsl|       1017 Filters         c 
+**** v1   vsl|       1017 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1017 Timestamp       c Resp: 1634892820.360751 0.011883 0.000119
+**** v1   vsl|       1017 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1017 End             c 
+**** v1   vsl|       1020 Begin           b bereq 1019 fetch
+**** v1   vsl|       1020 VCL_use         b vcl1
+**** v1   vsl|       1020 Timestamp       b Start: 1634892820.360859 0.000000 0.000000
+**** v1   vsl|       1020 BereqMethod     b GET
+**** v1   vsl|       1020 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/08
+**** v1   vsl|       1020 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1020 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1020 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1020 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1020 BereqHeader     b X-Varnish: 1020
+**** v1   vsl|       1020 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1020 VCL_return      b fetch
+**** v1   vsl|       1020 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1020 Timestamp       b Bereq: 1634892820.360929 0.000070 0.000070
+**** v1   vsl|       1020 Timestamp       b Beresp: 1634892820.362331 0.001472 0.001402
+**** v1   vsl|       1020 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1020 BerespStatus    b 200
+**** v1   vsl|       1020 BerespReason    b OK
+**** v1   vsl|       1020 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1020 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1020 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1020 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1020 VCL_return      b deliver
+**** v1   vsl|       1020 Filters         b  esi
+**** v1   vsl|       1020 Storage         b malloc s0
+**** v1   vsl|       1020 Fetch_Body      b 3 length -
+**** v1   vsl|       1020 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1020 Timestamp       b BerespBody: 1634892820.372543 0.011684 0.010212
+**** v1   vsl|       1020 Length          b 29
+**** v1   vsl|       1020 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1020 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.884060 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f80324a0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f80324a0 e=1634892950.362331 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.884046 f=0x0
+**** v1   vsl|       1019 Begin           c req 1001 esi
+**** v1   vsl|       1019 Timestamp       c Start: 1634892820.360792 0.000000 0.000000
+**** v1   vsl|       1019 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/08
+**** v1   vsl|       1019 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1019 ReqMethod       c GET
+**** v1   vsl|       1019 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/08
+**** v1   vsl|       1019 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1019 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1019 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1019 VCL_call        c RECV
+**** v1   vsl|       1019 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1019 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1019 VCL_return      c hash
+**** v1   vsl|       1019 VCL_call        c HASH
+**** v1   vsl|       1019 VCL_return      c lookup
+**** v1   vsl|       1019 VCL_call        c MISS
+**** v1   vsl|       1019 VCL_return      c fetch
+**** v1   vsl|       1019 Link            c bereq 1020 fetch
+**** v1   vsl|       1019 Timestamp       c Fetch: 1634892820.372579 0.011787 0.011787
+**** v1   vsl|       1019 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1019 RespStatus      c 200
+**** v1   vsl|       1019 RespReason      c OK
+**** v1   vsl|       1019 RespHeader      c Content-Length: 29
+**** v1   vsl|       1019 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1019 RespHeader      c X-Varnish: 1019
+**** v1   vsl|       1019 RespHeader      c Age: 0
+**** v1   vsl|       1019 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1019 VCL_call        c DELIVER
+**** v1   vsl|       1019 VCL_return      c deliver
+**** v1   vsl|       1019 Timestamp       c Process: 1634892820.372596 0.011803 0.000016
+**** v1   vsl|       1019 Filters         c 
+**** v1   vsl|       1019 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1019 Timestamp       c Resp: 1634892820.372674 0.011881 0.000077
+**** v1   vsl|       1019 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1019 End             c 
+**** dT   0.522
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 09</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.523
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/10 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1024\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/10
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1024
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 10</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 10</pre> 
+**   s1   === rxreq
+**** dT   0.534
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 10</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.535
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/11 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1026\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/11
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1026
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 11</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 11</pre> 
+**   s1   === rxreq
+**** dT   0.546
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 11</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.547
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/12 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1028\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/12
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1028
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 12</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 12</pre> 
+**   s1   === rxreq
+**** dT   0.557
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 12</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.559
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/13 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1030\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/13
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1030
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 13</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 13</pre> 
+**   s1   === rxreq
+**** dT   0.569
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 13</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.570
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/14 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1032\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/14
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1032
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 14</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 14</pre> 
+**   s1   === rxreq
+**** dT   0.581
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 14</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.582
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/15 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1034\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/15
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1034
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 15</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 15</pre> 
+**   s1   === rxreq
+**** dT   0.593
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 15</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.594
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/16 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1036\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/16
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1036
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 16</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 16</pre> 
+**   s1   === rxreq
+**** dT   0.604
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 16</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.605
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/17 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1038\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/17
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1038
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 17</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 17</pre> 
+**   s1   === rxreq
+**** dT   0.614
+**** v1   vsl|       1022 Begin           b bereq 1021 fetch
+**** v1   vsl|       1022 VCL_use         b vcl1
+**** v1   vsl|       1022 Timestamp       b Start: 1634892820.372851 0.000000 0.000000
+**** v1   vsl|       1022 BereqMethod     b GET
+**** v1   vsl|       1022 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/09
+**** v1   vsl|       1022 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1022 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1022 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1022 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1022 BereqHeader     b X-Varnish: 1022
+**** v1   vsl|       1022 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1022 VCL_return      b fetch
+**** v1   vsl|       1022 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1022 Timestamp       b Bereq: 1634892820.372946 0.000094 0.000094
+**** v1   vsl|       1022 Timestamp       b Beresp: 1634892820.374020 0.001169 0.001074
+**** v1   vsl|       1022 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1022 BerespStatus    b 200
+**** v1   vsl|       1022 BerespReason    b OK
+**** v1   vsl|       1022 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1022 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1022 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1022 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1022 VCL_return      b deliver
+**** v1   vsl|       1022 Filters         b  esi
+**** v1   vsl|       1022 Storage         b malloc s0
+**** v1   vsl|       1022 Fetch_Body      b 3 length -
+**** v1   vsl|       1022 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1022 Timestamp       b BerespBody: 1634892820.384238 0.011386 0.010217
+**** v1   vsl|       1022 Length          b 29
+**** v1   vsl|       1022 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1022 End             b 
+**** v1   vsl|       1021 Begin           c req 1001 esi
+**** v1   vsl|       1021 Timestamp       c Start: 1634892820.372706 0.000000 0.000000
+**** v1   vsl|       1021 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/09
+**** v1   vsl|       1021 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1021 ReqMethod       c GET
+**** v1   vsl|       1021 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/09
+**** v1   vsl|       1021 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1021 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1021 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1021 VCL_call        c RECV
+**** v1   vsl|       1021 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1021 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1021 VCL_return      c hash
+**** v1   vsl|       1021 VCL_call        c HASH
+**** v1   vsl|       1021 VCL_return      c lookup
+**** v1   vsl|       1021 VCL_call        c MISS
+**** v1   vsl|       1021 VCL_return      c fetch
+**** v1   vsl|       1021 Link            c bereq 1022 fetch
+**** v1   vsl|       1021 Timestamp       c Fetch: 1634892820.384274 0.011567 0.011567
+**** v1   vsl|       1021 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1021 RespStatus      c 200
+**** v1   vsl|       1021 RespReason      c OK
+**** v1   vsl|       1021 RespHeader      c Content-Length: 29
+**** v1   vsl|       1021 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1021 RespHeader      c X-Varnish: 1021
+**** v1   vsl|       1021 RespHeader      c Age: 0
+**** v1   vsl|       1021 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1021 VCL_call        c DELIVER
+**** v1   vsl|       1021 VCL_return      c deliver
+**** v1   vsl|       1021 Timestamp       c Process: 1634892820.384291 0.011584 0.000016
+**** v1   vsl|       1021 Filters         c 
+**** v1   vsl|       1021 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1021 Timestamp       c Resp: 1634892820.384359 0.011652 0.000067
+**** v1   vsl|       1021 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1021 End             c 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.872362 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8032640 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8032640 e=1634892950.374021 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.872348 f=0x0
+**** v1   vsl|       1024 Begin           b bereq 1023 fetch
+**** v1   vsl|       1024 VCL_use         b vcl1
+**** v1   vsl|       1024 Timestamp       b Start: 1634892820.384592 0.000000 0.000000
+**** v1   vsl|       1024 BereqMethod     b GET
+**** v1   vsl|       1024 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/10
+**** v1   vsl|       1024 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1024 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1024 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1024 BereqHeader     b Accept-Encoding: gzip
+**** dT   0.615
+**** v1   vsl|       1024 BereqHeader     b X-Varnish: 1024
+**** v1   vsl|       1024 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1024 VCL_return      b fetch
+**** v1   vsl|       1024 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1024 Timestamp       b Bereq: 1634892820.384689 0.000097 0.000097
+**** v1   vsl|       1024 Timestamp       b Beresp: 1634892820.385821 0.001229 0.001132
+**** v1   vsl|       1024 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1024 BerespStatus    b 200
+**** v1   vsl|       1024 BerespReason    b OK
+**** v1   vsl|       1024 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1024 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1024 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1024 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1024 VCL_return      b deliver
+**** v1   vsl|       1024 Filters         b  esi
+**** v1   vsl|       1024 Storage         b malloc s0
+**** v1   vsl|       1024 Fetch_Body      b 3 length -
+**** v1   vsl|       1024 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1024 Timestamp       b BerespBody: 1634892820.395997 0.011404 0.010175
+**** v1   vsl|       1024 Length          b 29
+**** v1   vsl|       1024 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1024 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.860587 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f80327e0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f80327e0 e=1634892950.385822 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.860571 f=0x0
+**** v1   vsl|       1023 Begin           c req 1001 esi
+**** v1   vsl|       1023 Timestamp       c Start: 1634892820.384393 0.000000 0.000000
+**** v1   vsl|       1023 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/10
+**** v1   vsl|       1023 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1023 ReqMethod       c GET
+**** v1   vsl|       1023 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/10
+**** v1   vsl|       1023 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1023 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1023 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1023 VCL_call        c RECV
+**** v1   vsl|       1023 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1023 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1023 VCL_return      c hash
+**** v1   vsl|       1023 VCL_call        c HASH
+**** v1   vsl|       1023 VCL_return      c lookup
+**** v1   vsl|       1023 VCL_call        c MISS
+**** v1   vsl|       1023 VCL_return      c fetch
+**** v1   vsl|       1023 Link            c bereq 1024 fetch
+**** v1   vsl|       1023 Timestamp       c Fetch: 1634892820.396041 0.011648 0.011648
+**** v1   vsl|       1023 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1023 RespStatus      c 200
+**** v1   vsl|       1023 RespReason      c OK
+**** v1   vsl|       1023 RespHeader      c Content-Length: 29
+**** v1   vsl|       1023 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1023 RespHeader      c X-Varnish: 1023
+**** v1   vsl|       1023 RespHeader      c Age: 0
+**** v1   vsl|       1023 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1023 VCL_call        c DELIVER
+**** v1   vsl|       1023 VCL_return      c deliver
+**** v1   vsl|       1023 Timestamp       c Process: 1634892820.396057 0.011664 0.000015
+**** v1   vsl|       1023 Filters         c 
+**** v1   vsl|       1023 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1023 Timestamp       c Resp: 1634892820.396123 0.011730 0.000066
+**** v1   vsl|       1023 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1023 End             c 
+**** v1   vsl|       1026 Begin           b bereq 1025 fetch
+**** v1   vsl|       1026 VCL_use         b vcl1
+**** v1   vsl|       1026 Timestamp       b Start: 1634892820.396223 0.000000 0.000000
+**** v1   vsl|       1026 BereqMethod     b GET
+**** v1   vsl|       1026 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/11
+**** v1   vsl|       1026 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1026 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1026 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1026 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1026 BereqHeader     b X-Varnish: 1026
+**** v1   vsl|       1026 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1026 VCL_return      b fetch
+**** v1   vsl|       1026 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1026 Timestamp       b Bereq: 1634892820.396281 0.000057 0.000057
+**** v1   vsl|       1026 Timestamp       b Beresp: 1634892820.397686 0.001462 0.001405
+**** v1   vsl|       1026 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1026 BerespStatus    b 200
+**** v1   vsl|       1026 BerespReason    b OK
+**** v1   vsl|       1026 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1026 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1026 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1026 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1026 VCL_return      b deliver
+**** v1   vsl|       1026 Filters         b  esi
+**** v1   vsl|       1026 Storage         b malloc s0
+**** v1   vsl|       1026 Fetch_Body      b 3 length -
+**** v1   vsl|       1026 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1026 Timestamp       b BerespBody: 1634892820.407869 0.011645 0.010182
+**** v1   vsl|       1026 Length          b 29
+**** v1   vsl|       1026 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1026 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.848700 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8032980 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8032980 e=1634892950.397686 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.848678 f=0x0
+**** v1   vsl|       1025 Begin           c req 1001 esi
+**** v1   vsl|       1025 Timestamp       c Start: 1634892820.396187 0.000000 0.000000
+**** v1   vsl|       1025 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/11
+**** v1   vsl|       1025 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1025 ReqMethod       c GET
+**** v1   vsl|       1025 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/11
+**** v1   vsl|       1025 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1025 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1025 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1025 VCL_call        c RECV
+**** v1   vsl|       1025 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1025 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1025 VCL_return      c hash
+**** v1   vsl|       1025 VCL_call        c HASH
+**** v1   vsl|       1025 VCL_return      c lookup
+**** v1   vsl|       1025 VCL_call        c MISS
+**** v1   vsl|       1025 VCL_return      c fetch
+**** v1   vsl|       1025 Link            c bereq 1026 fetch
+**** v1   vsl|       1025 Timestamp       c Fetch: 1634892820.407913 0.011726 0.011726
+**** v1   vsl|       1025 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1025 RespStatus      c 200
+**** v1   vsl|       1025 RespReason      c OK
+**** v1   vsl|       1025 RespHeader      c Content-Length: 29
+**** v1   vsl|       1025 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1025 RespHeader      c X-Varnish: 1025
+**** v1   vsl|       1025 RespHeader      c Age: 0
+**** v1   vsl|       1025 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1025 VCL_call        c DELIVER
+**** v1   vsl|       1025 VCL_return      c deliver
+**** v1   vsl|       1025 Timestamp       c Process: 1634892820.407935 0.011747 0.000021
+**** v1   vsl|       1025 Filters         c 
+**** v1   vsl|       1025 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1025 Timestamp       c Resp: 1634892820.408028 0.011840 0.000092
+**** v1   vsl|       1025 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1025 End             c 
+**** v1   vsl|       1028 Begin           b bereq 1027 fetch
+**** v1   vsl|       1028 VCL_use         b vcl1
+**** v1   vsl|       1028 Timestamp       b Start: 1634892820.408101 0.000000 0.000000
+**** v1   vsl|       1028 BereqMethod     b GET
+**** v1   vsl|       1028 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/12
+**** v1   vsl|       1028 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1028 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1028 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1028 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1028 BereqHeader     b X-Varnish: 1028
+**** v1   vsl|       1028 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1028 VCL_return      b fetch
+**** v1   vsl|       1028 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1028 Timestamp       b Bereq: 1634892820.408161 0.000060 0.000060
+**** v1   vsl|       1028 Timestamp       b Beresp: 1634892820.409505 0.001403 0.001343
+**** v1   vsl|       1028 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1028 BerespStatus    b 200
+**** v1   vsl|       1028 BerespReason    b OK
+**** v1   vsl|       1028 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1028 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1028 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1028 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1028 VCL_return      b deliver
+**** v1   vsl|       1028 Filters         b  esi
+**** v1   vsl|       1028 Storage         b malloc s0
+**** v1   vsl|       1028 Fetch_Body      b 3 length -
+**** v1   vsl|       1028 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1028 Timestamp       b BerespBody: 1634892820.419674 0.011573 0.010169
+**** v1   vsl|       1028 Length          b 29
+**** v1   vsl|       1028 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1028 End             b 
+**** v1   vsl|       1027 Begin           c req 1001 esi
+**** v1   vsl|       1027 Timestamp       c Start: 1634892820.408062 0.000000 0.000000
+**** v1   vsl|       1027 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/12
+**** v1   vsl|       1027 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1027 ReqMethod       c GET
+**** v1   vsl|       1027 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/12
+**** v1   vsl|       1027 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1027 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1027 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1027 VCL_call        c RECV
+**** v1   vsl|       1027 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1027 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1027 VCL_return      c hash
+**** v1   vsl|       1027 VCL_call        c HASH
+**** v1   vsl|       1027 VCL_return      c lookup
+**** v1   vsl|       1027 VCL_call        c MISS
+**** v1   vsl|       1027 VCL_return      c fetch
+**** v1   vsl|       1027 Link            c bereq 1028 fetch
+**** v1   vsl|       1027 Timestamp       c Fetch: 1634892820.419745 0.011682 0.011682
+**** v1   vsl|       1027 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1027 RespStatus      c 200
+**** v1   vsl|       1027 RespReason      c OK
+**** v1   vsl|       1027 RespHeader      c Content-Length: 29
+**** v1   vsl|       1027 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1027 RespHeader      c X-Varnish: 1027
+**** v1   vsl|       1027 RespHeader      c Age: 0
+**** v1   vsl|       1027 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1027 VCL_call        c DELIVER
+**** v1   vsl|       1027 VCL_return      c deliver
+**** v1   vsl|       1027 Timestamp       c Process: 1634892820.419762 0.011699 0.000016
+**** v1   vsl|       1027 Filters         c 
+**** v1   vsl|       1027 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1027 Timestamp       c Resp: 1634892820.419849 0.011786 0.000086
+**** v1   vsl|       1027 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1027 End             c 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.836905 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8032b20 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8032b20 e=1634892950.409505 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.836890 f=0x0
+**** v1   vsl|       1030 Begin           b bereq 1029 fetch
+**** v1   vsl|       1030 VCL_use         b vcl1
+**** v1   vsl|       1030 Timestamp       b Start: 1634892820.419974 0.000000 0.000000
+**** v1   vsl|       1030 BereqMethod     b GET
+**** v1   vsl|       1030 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/13
+**** v1   vsl|       1030 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1030 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1030 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1030 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1030 BereqHeader     b X-Varnish: 1030
+**** v1   vsl|       1030 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1030 VCL_return      b fetch
+**** v1   vsl|       1030 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1030 Timestamp       b Bereq: 1634892820.420042 0.000067 0.000067
+**** v1   vsl|       1030 Timestamp       b Beresp: 1634892820.421211 0.001237 0.001169
+**** v1   vsl|       1030 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1030 BerespStatus    b 200
+**** v1   vsl|       1030 BerespReason    b OK
+**** v1   vsl|       1030 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1030 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1030 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1030 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1030 VCL_return      b deliver
+**** v1   vsl|       1030 Filters         b  esi
+**** v1   vsl|       1030 Storage         b malloc s0
+**** v1   vsl|       1030 Fetch_Body      b 3 length -
+**** v1   vsl|       1030 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1030 Timestamp       b BerespBody: 1634892820.431392 0.011418 0.010180
+**** v1   vsl|       1030 Length          b 29
+**** v1   vsl|       1030 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1030 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.825202 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8032cc0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8032cc0 e=1634892950.421212 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.825184 f=0x0
+**** v1   vsl|       1029 Begin           c req 1001 esi
+**** v1   vsl|       1029 Timestamp       c Start: 1634892820.419883 0.000000 0.000000
+**** v1   vsl|       1029 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/13
+**** v1   vsl|       1029 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1029 ReqMethod       c GET
+**** v1   vsl|       1029 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/13
+**** v1   vsl|       1029 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1029 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1029 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1029 VCL_call        c RECV
+**** v1   vsl|       1029 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1029 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1029 VCL_return      c hash
+**** v1   vsl|       1029 VCL_call        c HASH
+**** v1   vsl|       1029 VCL_return      c lookup
+**** v1   vsl|       1029 VCL_call        c MISS
+**** v1   vsl|       1029 VCL_return      c fetch
+**** v1   vsl|       1029 Link            c bereq 1030 fetch
+**** v1   vsl|       1029 Timestamp       c Fetch: 1634892820.431444 0.011560 0.011560
+**** v1   vsl|       1029 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1029 RespStatus      c 200
+**** v1   vsl|       1029 RespReason      c OK
+**** v1   vsl|       1029 RespHeader      c Content-Length: 29
+**** v1   vsl|       1029 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1029 RespHeader      c X-Varnish: 1029
+**** v1   vsl|       1029 RespHeader      c Age: 0
+**** v1   vsl|       1029 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1029 VCL_call        c DELIVER
+**** v1   vsl|       1029 VCL_return      c deliver
+**** v1   vsl|       1029 Timestamp       c Process: 1634892820.431461 0.011577 0.000016
+**** v1   vsl|       1029 Filters         c 
+**** v1   vsl|       1029 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1029 Timestamp       c Resp: 1634892820.431581 0.011697 0.000120
+**** v1   vsl|       1029 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1029 End             c 
+**** v1   vsl|       1032 Begin           b bereq 1031 fetch
+**** v1   vsl|       1032 VCL_use         b vcl1
+**** v1   vsl|       1032 Timestamp       b Start: 1634892820.431746 0.000000 0.000000
+**** v1   vsl|       1032 BereqMethod     b GET
+**** v1   vsl|       1032 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/14
+**** v1   vsl|       1032 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1032 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1032 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1032 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1032 BereqHeader     b X-Varnish: 1032
+**** v1   vsl|       1032 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1032 VCL_return      b fetch
+**** v1   vsl|       1032 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1032 Timestamp       b Bereq: 1634892820.431831 0.000084 0.000084
+**** v1   vsl|       1032 Timestamp       b Beresp: 1634892820.433017 0.001271 0.001186
+**** v1   vsl|       1032 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1032 BerespStatus    b 200
+**** v1   vsl|       1032 BerespReason    b OK
+**** v1   vsl|       1032 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1032 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1032 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1032 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1032 VCL_return      b deliver
+**** v1   vsl|       1032 Filters         b  esi
+**** v1   vsl|       1032 Storage         b malloc s0
+**** v1   vsl|       1032 Fetch_Body      b 3 length -
+**** v1   vsl|       1032 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1032 Timestamp       b BerespBody: 1634892820.443190 0.011444 0.010173
+**** v1   vsl|       1032 Length          b 29
+**** v1   vsl|       1032 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1032 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.813381 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8032e60 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8032e60 e=1634892950.433017 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.813368 f=0x0
+**** v1   vsl|       1031 Begin           c req 1001 esi
+**** v1   vsl|       1031 Timestamp       c Start: 1634892820.431659 0.000000 0.000000
+**** v1   vsl|       1031 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/14
+**** v1   vsl|       1031 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1031 ReqMethod       c GET
+**** v1   vsl|       1031 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/14
+**** v1   vsl|       1031 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1031 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1031 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1031 VCL_call        c RECV
+**** v1   vsl|       1031 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1031 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1031 VCL_return      c hash
+**** v1   vsl|       1031 VCL_call        c HASH
+**** v1   vsl|       1031 VCL_return      c lookup
+**** v1   vsl|       1031 VCL_call        c MISS
+**** v1   vsl|       1031 VCL_return      c fetch
+**** v1   vsl|       1031 Link            c bereq 1032 fetch
+**** v1   vsl|       1031 Timestamp       c Fetch: 1634892820.443255 0.011596 0.011596
+**** v1   vsl|       1031 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1031 RespStatus      c 200
+**** v1   vsl|       1031 RespReason      c OK
+**** v1   vsl|       1031 RespHeader      c Content-Length: 29
+**** v1   vsl|       1031 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1031 RespHeader      c X-Varnish: 1031
+**** v1   vsl|       1031 RespHeader      c Age: 0
+**** v1   vsl|       1031 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1031 VCL_call        c DELIVER
+**** v1   vsl|       1031 VCL_return      c deliver
+**** v1   vsl|       1031 Timestamp       c Process: 1634892820.443270 0.011611 0.000014
+**** v1   vsl|       1031 Filters         c 
+**** v1   vsl|       1031 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1031 Timestamp       c Resp: 1634892820.443355 0.011696 0.000085
+**** v1   vsl|       1031 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1031 End             c 
+**** v1   vsl|       1034 Begin           b bereq 1033 fetch
+**** v1   vsl|       1034 VCL_use         b vcl1
+**** v1   vsl|       1034 Timestamp       b Start: 1634892820.443440 0.000000 0.000000
+**** v1   vsl|       1034 BereqMethod     b GET
+**** v1   vsl|       1034 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/15
+**** v1   vsl|       1034 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1034 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1034 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1034 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1034 BereqHeader     b X-Varnish: 1034
+**** v1   vsl|       1034 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1034 VCL_return      b fetch
+**** v1   vsl|       1034 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1034 Timestamp       b Bereq: 1634892820.443498 0.000058 0.000058
+**** v1   vsl|       1034 Timestamp       b Beresp: 1634892820.444723 0.001283 0.001225
+**** v1   vsl|       1034 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1034 BerespStatus    b 200
+**** v1   vsl|       1034 BerespReason    b OK
+**** v1   vsl|       1034 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1034 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1034 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1034 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1034 VCL_return      b deliver
+**** v1   vsl|       1034 Filters         b  esi
+**** v1   vsl|       1034 Storage         b malloc s0
+**** v1   vsl|       1034 Fetch_Body      b 3 length -
+**** v1   vsl|       1034 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1034 Timestamp       b BerespBody: 1634892820.454896 0.011456 0.010172
+**** v1   vsl|       1034 Length          b 29
+**** v1   vsl|       1034 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1034 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.801675 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8033000 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8033000 e=1634892950.444724 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.801659 f=0x0
+**** v1   vsl|       1033 Begin           c req 1001 esi
+**** v1   vsl|       1033 Timestamp       c Start: 1634892820.443388 0.000000 0.000000
+**** v1   vsl|       1033 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/15
+**** v1   vsl|       1033 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1033 ReqMethod       c GET
+**** v1   vsl|       1033 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/15
+**** v1   vsl|       1033 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1033 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1033 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1033 VCL_call        c RECV
+**** v1   vsl|       1033 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1033 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1033 VCL_return      c hash
+**** v1   vsl|       1033 VCL_call        c HASH
+**** v1   vsl|       1033 VCL_return      c lookup
+**** v1   vsl|       1033 VCL_call        c MISS
+**** v1   vsl|       1033 VCL_return      c fetch
+**** v1   vsl|       1033 Link            c bereq 1034 fetch
+**** v1   vsl|       1033 Timestamp       c Fetch: 1634892820.455004 0.011616 0.011616
+**** v1   vsl|       1033 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1033 RespStatus      c 200
+**** v1   vsl|       1033 RespReason      c OK
+**** v1   vsl|       1033 RespHeader      c Content-Length: 29
+**** v1   vsl|       1033 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1033 RespHeader      c X-Varnish: 1033
+**** v1   vsl|       1033 RespHeader      c Age: 0
+**** v1   vsl|       1033 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1033 VCL_call        c DELIVER
+**** v1   vsl|       1033 VCL_return      c deliver
+**** v1   vsl|       1033 Timestamp       c Process: 1634892820.455021 0.011632 0.000016
+**** v1   vsl|       1033 Filters         c 
+**** v1   vsl|       1033 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1033 Timestamp       c Resp: 1634892820.455106 0.011718 0.000085
+**** v1   vsl|       1033 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1033 End             c 
+**** v1   vsl|       1036 Begin           b bereq 1035 fetch
+**** v1   vsl|       1036 VCL_use         b vcl1
+**** v1   vsl|       1036 Timestamp       b Start: 1634892820.455177 0.000000 0.000000
+**** v1   vsl|       1036 BereqMethod     b GET
+**** v1   vsl|       1036 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/16
+**** v1   vsl|       1036 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1036 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1036 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1036 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1036 BereqHeader     b X-Varnish: 1036
+**** v1   vsl|       1036 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1036 VCL_return      b fetch
+**** v1   vsl|       1036 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1036 Timestamp       b Bereq: 1634892820.455227 0.000050 0.000050
+**** v1   vsl|       1036 Timestamp       b Beresp: 1634892820.456391 0.001214 0.001164
+**** v1   vsl|       1036 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1036 BerespStatus    b 200
+**** v1   vsl|       1036 BerespReason    b OK
+**** v1   vsl|       1036 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1036 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1036 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1036 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1036 VCL_return      b deliver
+**** v1   vsl|       1036 Filters         b  esi
+**** v1   vsl|       1036 Storage         b malloc s0
+**** v1   vsl|       1036 Fetch_Body      b 3 length -
+**** v1   vsl|       1036 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1036 Timestamp       b BerespBody: 1634892820.466591 0.011413 0.010199
+**** v1   vsl|       1036 Length          b 29
+**** v1   vsl|       1036 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1036 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.789977 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f80331a0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f80331a0 e=1634892950.456392 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.789963 f=0x0
+**** v1   vsl|       1035 Begin           c req 1001 esi
+**** v1   vsl|       1035 Timestamp       c Start: 1634892820.455139 0.000000 0.000000
+**** v1   vsl|       1035 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/16
+**** v1   vsl|       1035 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1035 ReqMethod       c GET
+**** v1   vsl|       1035 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/16
+**** v1   vsl|       1035 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1035 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1035 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1035 VCL_call        c RECV
+**** v1   vsl|       1035 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1035 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1035 VCL_return      c hash
+**** v1   vsl|       1035 VCL_call        c HASH
+**** v1   vsl|       1035 VCL_return      c lookup
+**** v1   vsl|       1035 VCL_call        c MISS
+**** v1   vsl|       1035 VCL_return      c fetch
+**** v1   vsl|       1035 Link            c bereq 1036 fetch
+**** v1   vsl|       1035 Timestamp       c Fetch: 1634892820.466660 0.011521 0.011521
+**** v1   vsl|       1035 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1035 RespStatus      c 200
+**** v1   vsl|       1035 RespReason      c OK
+**** v1   vsl|       1035 RespHeader      c Content-Length: 29
+**** v1   vsl|       1035 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1035 RespHeader      c X-Varnish: 1035
+**** v1   vsl|       1035 RespHeader      c Age: 0
+**** v1   vsl|       1035 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1035 VCL_call        c DELIVER
+**** v1   vsl|       1035 VCL_return      c deliver
+**** v1   vsl|       1035 Timestamp       c Process: 1634892820.466675 0.011536 0.000015
+**** v1   vsl|       1035 Filters         c 
+**** v1   vsl|       1035 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1035 Timestamp       c Resp: 1634892820.466767 0.011628 0.000092
+**** v1   vsl|       1035 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1035 End             c 
+**** dT   0.616
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 17</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.617
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/18 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1040\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/18
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1040
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 18</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 18</pre> 
+**   s1   === rxreq
+**** dT   0.627
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 18</pre> 
+**** c1   len|003\r
+**** c1   chunk|
+**** c1   chunk|\t\t
+**** dT   0.628
+**** s1   rxhdr|GET /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/19 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1042\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 287
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/19
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1042
+**** s1   bodylen = 0
+**   s1   === txresp -body { <pre>Included file 19</pre> }
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 29\r
+**** s1   txresp|\r
+**** s1   txresp| <pre>Included file 19</pre> 
+**** dT   0.629
+***  s1   shutting fd 6
+**   s1   Ending
+**** dT   0.640
+**** c1   len|001d\r
+**** c1   chunk| <pre>Included file 19</pre> 
+**** c1   len|0012\r
+**** c1   chunk|
+**** c1   chunk|\t\tAfter include
+**** c1   chunk|\t
+**** c1   len|0\r
+**** c1   chunked|
+**** c1   chunked|\t\t<html>
+**** c1   chunked|\t\tBefore include
+**** c1   chunked|\t\t <pre>Included file 00</pre> 
+**** c1   chunked|\t\t <pre>Included file 01</pre> 
+**** c1   chunked|\t\t <pre>Included file 02</pre> 
+**** c1   chunked|\t\t <pre>Included file 03</pre> 
+**** c1   chunked|\t\t <pre>Included file 04</pre> 
+**** c1   chunked|\t\t <pre>Included file 05</pre> 
+**** c1   chunked|\t\t <pre>Included file 06</pre> 
+**** c1   chunked|\t\t <pre>Included file 07</pre> 
+**** c1   chunked|\t\t <pre>Included file 08</pre> 
+**** c1   chunked|\t\t <pre>Included file 09</pre> 
+**** c1   chunked|\t\t <pre>Included file 10</pre> 
+**** c1   chunked|\t\t <pre>Included file 11</pre> 
+**** c1   chunked|\t\t <pre>Included file 12</pre> 
+**** c1   chunked|\t\t <pre>Included file 13</pre> 
+**** c1   chunked|\t\t <pre>Included file 14</pre> 
+**** c1   chunked|\t\t <pre>Included file 15</pre> 
+**** c1   chunked|\t\t <pre>Included file 16</pre> 
+**** c1   chunked|\t\t <pre>Included file 17</pre> 
+**** c1   chunked|\t\t <pre>Included file 18</pre> 
+**** c1   chunked|\t\t <pre>Included file 19</pre> 
+**** c1   chunked|\t\tAfter include
+**** c1   chunked|\t
+**** c1   bodylen = 684
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+**   c1   === expect resp.bodylen == 684
+**** c1   EXPECT resp.bodylen (684) == "684" match
+***  c1   closing fd 17
+**   c1   Ending
+**   top  === varnish v1 -expect esi_errors == 0
+**** dT   0.641
+**   v1   as expected: esi_errors (0) == 0
+*    top  RESETTING after ./tests/e00017.vtc
+**   s1   Waiting for server (4/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:53:40 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   0.715
+**** v1   vsl|       1038 Begin           b bereq 1037 fetch
+**** v1   vsl|       1038 VCL_use         b vcl1
+**** v1   vsl|       1038 Timestamp       b Start: 1634892820.466849 0.000000 0.000000
+**** v1   vsl|       1038 BereqMethod     b GET
+**** v1   vsl|       1038 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/17
+**** v1   vsl|       1038 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1038 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1038 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1038 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1038 BereqHeader     b X-Varnish: 1038
+**** v1   vsl|       1038 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1038 VCL_return      b fetch
+**** v1   vsl|       1038 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1038 Timestamp       b Bereq: 1634892820.466905 0.000055 0.000055
+**** v1   vsl|       1038 Timestamp       b Beresp: 1634892820.468024 0.001174 0.001119
+**** v1   vsl|       1038 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1038 BerespStatus    b 200
+**** v1   vsl|       1038 BerespReason    b OK
+**** v1   vsl|       1038 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1038 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1038 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1038 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1038 VCL_return      b deliver
+**** v1   vsl|       1038 Filters         b  esi
+**** v1   vsl|       1038 Storage         b malloc s0
+**** v1   vsl|       1038 Fetch_Body      b 3 length -
+**** v1   vsl|       1038 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1038 Timestamp       b BerespBody: 1634892820.478184 0.011334 0.010159
+**** v1   vsl|       1038 Length          b 29
+**** v1   vsl|       1038 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1038 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.778359 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8033340 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8033340 e=1634892950.468024 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.778345 f=0x0
+**** v1   vsl|       1037 Begin           c req 1001 esi
+**** v1   vsl|       1037 Timestamp       c Start: 1634892820.466801 0.000000 0.000000
+**** v1   vsl|       1037 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/17
+**** v1   vsl|       1037 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1037 ReqMethod       c GET
+**** v1   vsl|       1037 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/17
+**** v1   vsl|       1037 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1037 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1037 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1037 VCL_call        c RECV
+**** v1   vsl|       1037 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1037 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1037 VCL_return      c hash
+**** v1   vsl|       1037 VCL_call        c HASH
+**** v1   vsl|       1037 VCL_return      c lookup
+**** v1   vsl|       1037 VCL_call        c MISS
+**** v1   vsl|       1037 VCL_return      c fetch
+**** v1   vsl|       1037 Link            c bereq 1038 fetch
+**** v1   vsl|       1037 Timestamp       c Fetch: 1634892820.478276 0.011475 0.011475
+**** v1   vsl|       1037 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1037 RespStatus      c 200
+**** v1   vsl|       1037 RespReason      c OK
+**** v1   vsl|       1037 RespHeader      c Content-Length: 29
+**** v1   vsl|       1037 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1037 RespHeader      c X-Varnish: 1037
+**** v1   vsl|       1037 RespHeader      c Age: 0
+**** v1   vsl|       1037 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1037 VCL_call        c DELIVER
+**** v1   vsl|       1037 VCL_return      c deliver
+**** v1   vsl|       1037 Timestamp       c Process: 1634892820.478292 0.011491 0.000016
+**** v1   vsl|       1037 Filters         c 
+**** v1   vsl|       1037 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1037 Timestamp       c Resp: 1634892820.478379 0.011578 0.000087
+**** v1   vsl|       1037 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1037 End             c 
+**** v1   vsl|       1040 Begin           b bereq 1039 fetch
+**** v1   vsl|       1040 VCL_use         b vcl1
+**** v1   vsl|       1040 Timestamp       b Start: 1634892820.478451 0.000000 0.000000
+**** v1   vsl|       1040 BereqMethod     b GET
+**** v1   vsl|       1040 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/18
+**** v1   vsl|       1040 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1040 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1040 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1040 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1040 BereqHeader     b X-Varnish: 1040
+**** v1   vsl|       1040 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1040 VCL_return      b fetch
+**** v1   vsl|       1040 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1040 Timestamp       b Bereq: 1634892820.478502 0.000051 0.000051
+**** v1   vsl|       1040 Timestamp       b Beresp: 1634892820.479555 0.001104 0.001053
+**** v1   vsl|       1040 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1040 BerespStatus    b 200
+**** v1   vsl|       1040 BerespReason    b OK
+**** v1   vsl|       1040 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1040 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1040 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1040 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1040 VCL_return      b deliver
+**** v1   vsl|       1040 Filters         b  esi
+**** v1   vsl|       1040 Storage         b malloc s0
+**** v1   vsl|       1040 Fetch_Body      b 3 length -
+**** v1   vsl|       1040 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1040 Timestamp       b BerespBody: 1634892820.489716 0.011265 0.010160
+**** v1   vsl|       1040 Length          b 29
+**** v1   vsl|       1040 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1040 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.766859 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f80334e0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f80334e0 e=1634892950.479556 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.766847 f=0x0
+**** v1   vsl|       1039 Begin           c req 1001 esi
+**** v1   vsl|       1039 Timestamp       c Start: 1634892820.478413 0.000000 0.000000
+**** v1   vsl|       1039 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/18
+**** v1   vsl|       1039 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1039 ReqMethod       c GET
+**** v1   vsl|       1039 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/18
+**** v1   vsl|       1039 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1039 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1039 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1039 VCL_call        c RECV
+**** v1   vsl|       1039 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1039 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1039 VCL_return      c hash
+**** v1   vsl|       1039 VCL_call        c HASH
+**** v1   vsl|       1039 VCL_return      c lookup
+**** v1   vsl|       1039 VCL_call        c MISS
+**** v1   vsl|       1039 VCL_return      c fetch
+**** v1   vsl|       1039 Link            c bereq 1040 fetch
+**** v1   vsl|       1039 Timestamp       c Fetch: 1634892820.489775 0.011362 0.011362
+**** v1   vsl|       1039 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1039 RespStatus      c 200
+**** v1   vsl|       1039 RespReason      c OK
+**** v1   vsl|       1039 RespHeader      c Content-Length: 29
+**** dT   0.716
+**** v1   vsl|       1039 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1039 RespHeader      c X-Varnish: 1039
+**** v1   vsl|       1039 RespHeader      c Age: 0
+**** v1   vsl|       1039 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1039 VCL_call        c DELIVER
+**** v1   vsl|       1039 VCL_return      c deliver
+**** v1   vsl|       1039 Timestamp       c Process: 1634892820.489790 0.011377 0.000015
+**** v1   vsl|       1039 Filters         c 
+**** v1   vsl|       1039 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1039 Timestamp       c Resp: 1634892820.489876 0.011463 0.000086
+**** v1   vsl|       1039 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1039 End             c 
+**** v1   vsl|       1042 Begin           b bereq 1041 fetch
+**** v1   vsl|       1042 VCL_use         b vcl1
+**** v1   vsl|       1042 Timestamp       b Start: 1634892820.489987 0.000000 0.000000
+**** v1   vsl|       1042 BereqMethod     b GET
+**** v1   vsl|       1042 BereqURL        b /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/19
+**** v1   vsl|       1042 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1042 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1042 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1042 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1042 BereqHeader     b X-Varnish: 1042
+**** v1   vsl|       1042 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1042 VCL_return      b fetch
+**** v1   vsl|       1042 BackendOpen     b 28 s1 127.0.0.1 38431 127.0.0.1 34552 reuse
+**** v1   vsl|       1042 Timestamp       b Bereq: 1634892820.490043 0.000056 0.000056
+**** v1   vsl|       1042 Timestamp       b Beresp: 1634892820.491132 0.001145 0.001088
+**** v1   vsl|       1042 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1042 BerespStatus    b 200
+**** v1   vsl|       1042 BerespReason    b OK
+**** v1   vsl|       1042 BerespHeader    b Content-Length: 29
+**** v1   vsl|       1042 BerespHeader    b Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1042 TTL             b RFC 120 10 0 1634892820 1634892820 1634892820 0 0 cacheable
+**** v1   vsl|       1042 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1042 VCL_return      b deliver
+**** v1   vsl|       1042 Filters         b  esi
+**** v1   vsl|       1042 Storage         b malloc s0
+**** v1   vsl|       1042 Fetch_Body      b 3 length -
+**** v1   vsl|       1042 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1042 Timestamp       b BerespBody: 1634892820.501307 0.011319 0.010174
+**** v1   vsl|       1042 Length          b 29
+**** v1   vsl|       1042 BereqAcct       b 287 0 287 39 29 68
+**** v1   vsl|       1042 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.755266 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fb8f8033680 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fb8f8033680 e=1634892950.491132 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fb8f8010fb0 e=129.755254 f=0x0
+**** v1   vsl|       1041 Begin           c req 1001 esi
+**** v1   vsl|       1041 Timestamp       c Start: 1634892820.489949 0.000000 0.000000
+**** v1   vsl|       1041 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/19
+**** v1   vsl|       1041 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1041 ReqMethod       c GET
+**** v1   vsl|       1041 ReqURL          c /some/very/long/url/with/dozen/of/information/for/esi/subquery/to/munch/and/also/to/try/to/make/object/workspace/explode/by/dumping/a/core/in/some/obscure/directory/on/my/file/system/19
+**** v1   vsl|       1041 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1041 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1041 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1041 VCL_call        c RECV
+**** v1   vsl|       1041 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1041 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1041 VCL_return      c hash
+**** v1   vsl|       1041 VCL_call        c HASH
+**** v1   vsl|       1041 VCL_return      c lookup
+**** v1   vsl|       1041 VCL_call        c MISS
+**** v1   vsl|       1041 VCL_return      c fetch
+**** v1   vsl|       1041 Link            c bereq 1042 fetch
+**** v1   vsl|       1041 Timestamp       c Fetch: 1634892820.501369 0.011419 0.011419
+**** v1   vsl|       1041 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1041 RespStatus      c 200
+**** v1   vsl|       1041 RespReason      c OK
+**** v1   vsl|       1041 RespHeader      c Content-Length: 29
+**** v1   vsl|       1041 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1041 RespHeader      c X-Varnish: 1041
+**** v1   vsl|       1041 RespHeader      c Age: 0
+**** v1   vsl|       1041 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1041 VCL_call        c DELIVER
+**** v1   vsl|       1041 VCL_return      c deliver
+**** v1   vsl|       1041 Timestamp       c Process: 1634892820.501385 0.011435 0.000015
+**** v1   vsl|       1041 Filters         c 
+**** v1   vsl|       1041 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1041 Timestamp       c Resp: 1634892820.501448 0.011499 0.000063
+**** v1   vsl|       1041 ReqAcct         c 0 0 0 0 29 29
+**** v1   vsl|       1041 End             c 
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892820.255799 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892820.255799 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 51196 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1001 VCL_return      c hash
+**** v1   vsl|       1001 VCL_call        c HASH
+**** v1   vsl|       1001 VCL_return      c lookup
+**** v1   vsl|       1001 VCL_call        c MISS
+**** v1   vsl|       1001 VCL_return      c fetch
+**** v1   vsl|       1001 Link            c bereq 1002 fetch
+**** v1   vsl|       1001 Timestamp       c Fetch: 1634892820.267244 0.011444 0.011444
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 200
+**** v1   vsl|       1001 RespReason      c OK
+**** v1   vsl|       1001 RespHeader      c Content-Length: 4224
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 08:53:40 GMT
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 RespHeader      c Age: 0
+**** v1   vsl|       1001 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1001 VCL_call        c DELIVER
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634892820.267265 0.011466 0.000021
+**** v1   vsl|       1001 Filters         c  esi
+**** v1   vsl|       1001 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1001 RespUnset       c Content-Length: 4224
+**** v1   vsl|       1001 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1001 RespHeader      c Transfer-Encoding: chunked
+**** v1   vsl|       1001 Link            c req 1003 esi
+**** v1   vsl|       1001 Link            c req 1005 esi
+**** v1   vsl|       1001 Link            c req 1007 esi
+**** v1   vsl|       1001 Link            c req 1009 esi
+**** v1   vsl|       1001 Link            c req 1011 esi
+**** v1   vsl|       1001 Link            c req 1013 esi
+**** v1   vsl|       1001 Link            c req 1015 esi
+**** v1   vsl|       1001 Link            c req 1017 esi
+**** v1   vsl|       1001 Link            c req 1019 esi
+**** v1   vsl|       1001 Link            c req 1021 esi
+**** v1   vsl|       1001 Link            c req 1023 esi
+**** v1   vsl|       1001 Link            c req 1025 esi
+**** v1   vsl|       1001 Link            c req 1027 esi
+**** v1   vsl|       1001 Link            c req 1029 esi
+**** v1   vsl|       1001 Link            c req 1031 esi
+**** v1   vsl|       1001 Link            c req 1033 esi
+**** v1   vsl|       1001 Link            c req 1035 esi
+**** v1   vsl|       1001 Link            c req 1037 esi
+**** v1   vsl|       1001 Link            c req 1039 esi
+**** v1   vsl|       1001 Link            c req 1041 esi
+**** v1   vsl|       1001 Timestamp       c Resp: 1634892820.501488 0.245688 0.234222
+**** v1   vsl|       1001 ReqAcct         c 35 0 35 187 998 1185
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 SessClose       c REM_CLOSE 0.247
+**** v1   vsl|       1000 End             c 
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 134 Backend name   Admin      Probe    Health     Last change
+vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:53:40 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.642
+***  v1   debug|Info: Child (65124) ended
+***  v1   debug|Info: Child (65124) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+**** dT   1.643
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   1.717
+**   v1   WAIT4 pid=65111 status=0x0000 (user 0.145496 sys 0.041138)
+**** dT   1.718
+*    top  TEST ./tests/e00017.vtc completed
+#    top  TEST ./tests/e00017.vtc passed (1.718)

@@ -1,0 +1,916 @@
+**** dT   0.000
+*    top  TEST ./tests/r01140.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 33063
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.81035.04105649
+**   top  === varnishtest "Transient-salvaged objects ttl should be shorte...
+*    top  VTEST Transient-salvaged objects ttl should be shortened - #1140
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=38999
+**** s1   macro def s1_sock=127.0.0.1 38999
+*    s1   Listen on 127.0.0.1 38999
+**   top  === varnish v1 -arg "-p nuke_limit=0 -p shortlived=0" \
+**   s1   Started on 127.0.0.1 38999 (1 iterations)
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.81035.04105649/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 33633' -P /tmp/vtc.81035.04105649/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p nuke_limit=0 -p shortlived=0 -sdefault,1m
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.81035.04105649/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 33633' -P /tmp/vtc.81035.04105649/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p nuke_limit=0 -p shortlived=0 -sdefault,1m
+***  v1   PID: 81054
+**** v1   macro def v1_pid=81054
+**** v1   macro def v1_name=/tmp/vtc.81035.04105649/v1
+**** dT   0.013
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.111
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 7
+***  v1   CLI RX  107
+**** v1   CLI RX|hwqovqdmdxlqxrjnbgeiakeekjaebwzp
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** dT   0.112
+**** v1   CLI TX|auth 6a4dc147498466d91554e94c77ae7da82dab7edf82fbb3ecac79916e53f62e7c
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "38999"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_backend_response {
+**** v1   CLI TX|\t\tset beresp.do_stream = false;
+**** v1   CLI TX|\t\t# Unset Date header to not change the object sizes
+**** v1   CLI TX|\t\tunset beresp.http.Date;
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.213
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.270
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.273
+***  v1   debug|Debug: Child (81066) Started
+**** dT   0.300
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (81066) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 46807
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 46807
+**   v1   Listen on 127.0.0.1 46807
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=46807
+**** v1   macro def v1_sock=127.0.0.1 46807
+**** dT   0.313
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892990.546844/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892990.546844/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 46807
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 46807
+
+**** dT   0.400
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 46807 (1 iterations)
+***  c1   Connect to 127.0.0.1 46807
+**** dT   0.401
+***  c1   connected fd 17 from 127.0.0.1 54964 to 127.0.0.1 46807
+**   c1   === txreq -url /url1
+**** c1   txreq|GET /url1 HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+***  s1   accepted fd 5 127.0.0.1 59444
+**   s1   === rxreq
+**** s1   rxhdr|GET /url1 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1002\r
+**** s1   rxhdr|\r
+**** dT   0.402
+**** s1   rxhdrlen = 107
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/url1
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1002
+**** s1   bodylen = 0
+**   s1   === expect req.url == /url1
+**** s1   EXPECT req.url (/url1) == "/url1" match
+**   s1   === txresp -bodylen 1048408
+**** dT   0.404
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 1048408\r
+**** s1   txresp|\r
+**** s1   txresp|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** s1   txresp|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** s1   txresp|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** s1   txresp|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** s1   txresp|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** s1   txresp|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** s1   txresp|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** s1   txresp|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** s1   txresp|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** s1   txresp|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** s1   txresp|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** s1   txresp|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** s1   txresp|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** s1   txresp|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** s1   txresp|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** s1   txresp|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** s1   txresp|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** s1   txresp|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** s1   txresp|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** s1   txresp|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** s1   txresp|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** s1   txresp|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** s1   txresp|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** s1   txresp|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** s1   txresp|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** s1   txresp|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** s1   txresp|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** s1   txresp|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** s1   txresp|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** s1   txresp|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** s1   txresp|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** s1   txresp|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** s1   txresp|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** s1   txresp|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** s1   txresp|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** s1   txresp|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** s1   txresp|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** s1   txresp|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** s1   txresp|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** s1   txresp|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** s1   txresp|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** s1   txresp|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** s1   txresp|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** s1   txresp|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** s1   txresp|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** s1   txresp|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** s1   txresp|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** s1   txresp|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** s1   txresp|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** s1   txresp|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** s1   txresp|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** s1   txresp|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** s1   txresp|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** s1   txresp|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** s1   txresp|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** s1   txresp|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** s1   txresp|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** s1   txresp|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** s1   txresp|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** s1   txresp|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** s1   txresp|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** s1   txresp|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** s1   txresp|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** s1   txresp|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** s1   txresp|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** s1   txresp|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** s1   txresp|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** s1   txresp|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** s1   txresp|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** s1   txresp|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** s1   txresp|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** s1   txresp|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** s1   txresp|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** s1   txresp|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** s1   txresp|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** s1   txresp|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** s1   txresp|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** s1   txresp|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** s1   txresp|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** s1   txresp|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** s1   txresp|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** s1   txresp|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** s1   txresp|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** s1   txresp|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** s1   txresp|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** s1   txresp|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** s1   txresp|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** s1   txresp|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** s1   txresp|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** s1   txresp|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** s1   txresp|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** s1   txresp||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** s1   txresp|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** s1   txresp|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** s1   txresp|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** s1   txresp|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** s1   txresp|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** s1   txresp|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** s1   txresp|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** s1   txresp|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** s1   txresp|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** s1   txresp|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** s1   txresp|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** s1   txresp|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** s1   txresp|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** s1   txresp|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** s1   txresp|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** s1   txresp|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** s1   txresp|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** s1   txresp|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** s1   txresp|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** s1   txresp|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** s1   txresp|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** s1   txresp|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** s1   txresp|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** s1   txresp|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** s1   txresp|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** s1   txresp|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** s1   txresp|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** s1   txresp|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** s1   txresp|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** s1   txresp|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** s1   txresp|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** s1   txresp|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** s1   txresp|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** s1   txresp|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** s1   txresp|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** s1   txresp|CDEFGHIJKLMNOPQRSTUV
+**** s1   txresp| [...] (1040260)
+**** dT   0.405
+**   s1   === rxreq
+**** dT   0.413
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 54964 a0 127.0.0.1 46807 1634892990.835327 25
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** dT   0.416
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 1048408\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 147
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 1048408
+**** c1   http[ 4] |X-Varnish: 1001
+**** c1   http[ 5] |Age: 0
+**** c1   http[ 6] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 7] |Accept-Ranges: bytes
+**** c1   http[ 8] |Connection: keep-alive
+**** dT   0.417
+**** c1   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c1   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c1   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c1   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c1   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c1   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c1   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c1   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c1   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c1   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c1   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c1   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c1   c-l|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c1   c-l|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c1   c-l|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c1   c-l|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c1   c-l|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c1   c-l|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c1   c-l|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c1   c-l|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c1   c-l|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c1   c-l|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c1   c-l|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c1   c-l|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c1   c-l|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c1   c-l|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c1   c-l|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c1   c-l|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c1   c-l|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c1   c-l|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c1   c-l|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c1   c-l|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c1   c-l|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c1   c-l|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c1   c-l|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c1   c-l|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** c1   c-l|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** c1   c-l|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** c1   c-l|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** c1   c-l|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** c1   c-l|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** c1   c-l|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** c1   c-l|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** c1   c-l|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** c1   c-l|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** c1   c-l|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** c1   c-l|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** c1   c-l|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** c1   c-l|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** c1   c-l|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** c1   c-l|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** c1   c-l|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** c1   c-l|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** c1   c-l|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** c1   c-l|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** c1   c-l|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** c1   c-l|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** c1   c-l|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** c1   c-l|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** c1   c-l|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** c1   c-l|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** c1   c-l|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** c1   c-l|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** c1   c-l|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** c1   c-l|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** c1   c-l|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** c1   c-l|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** c1   c-l|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** c1   c-l|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** c1   c-l|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** c1   c-l|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** c1   c-l|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** c1   c-l|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** c1   c-l|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** c1   c-l|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** c1   c-l|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** c1   c-l|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** c1   c-l|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** c1   c-l|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** c1   c-l|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** c1   c-l|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** c1   c-l|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** c1   c-l|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** c1   c-l|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** c1   c-l|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** c1   c-l|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** c1   c-l|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** c1   c-l|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** c1   c-l|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** c1   c-l|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** c1   c-l|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** c1   c-l||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** c1   c-l|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** c1   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c1   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c1   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c1   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c1   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c1   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c1   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c1   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c1   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c1   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c1   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c1   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c1   c-l|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c1   c-l|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c1   c-l|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c1   c-l|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c1   c-l|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c1   c-l|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c1   c-l|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c1   c-l|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c1   c-l|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c1   c-l|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c1   c-l|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c1   c-l|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c1   c-l|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c1   c-l|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c1   c-l|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c1   c-l|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c1   c-l|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c1   c-l|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c1   c-l|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c1   c-l|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c1   c-l|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c1   c-l|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c1   c-l|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c1   c-l| [...] (1040216)
+**** c1   bodylen = 1048408
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+**   c1   === expect resp.bodylen == 1048408
+**** c1   EXPECT resp.bodylen (1048408) == "1048408" match
+***  c1   closing fd 17
+**   c1   Ending
+**   top  === delay .1
+***  top  delaying 0.1 second(s)
+**** dT   0.513
+**** v1   vsl|       1002 Begin           b bereq 1001 fetch
+**** v1   vsl|       1002 VCL_use         b vcl1
+**** v1   vsl|       1002 Timestamp       b Start: 1634892990.835515 0.000000 0.000000
+**** v1   vsl|       1002 BereqMethod     b GET
+**** v1   vsl|       1002 BereqURL        b /url1
+**** v1   vsl|       1002 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1002 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1002 BereqHeader     b X-Varnish: 1002
+**** v1   vsl|       1002 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1002 VCL_return      b fetch
+**** v1   vsl|       1002 BackendOpen     b 28 s1 127.0.0.1 38999 127.0.0.1 59444 connect
+**** v1   vsl|       1002 Timestamp       b Bereq: 1634892990.835708 0.000193 0.000193
+**** v1   vsl|       1002 Timestamp       b Beresp: 1634892990.838962 0.003446 0.003253
+**** v1   vsl|       1002 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1002 BerespStatus    b 200
+**** v1   vsl|       1002 BerespReason    b OK
+**** v1   vsl|       1002 BerespHeader    b Content-Length: 1048408
+**** v1   vsl|       1002 BerespHeader    b Date: Fri, 22 Oct 2021 08:56:30 GMT
+**** v1   vsl|       1002 TTL             b RFC 120 10 0 1634892991 1634892991 1634892990 0 0 cacheable
+**** v1   vsl|       1002 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1002 BerespUnset     b Date: Fri, 22 Oct 2021 08:56:30 GMT
+**** v1   vsl|       1002 VCL_return      b deliver
+**** v1   vsl|       1002 Filters         b 
+**** v1   vsl|       1002 Storage         b malloc s0
+**** v1   vsl|       1002 Fetch_Body      b 3 length -
+**** v1   vsl|       1002 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1002 Timestamp       b BerespBody: 1634892990.850013 0.014497 0.011051
+**** v1   vsl|       1002 Length          b 1048408
+**** v1   vsl|       1002 BereqAcct       b 107 0 107 44 1048408 1048452
+**** v1   vsl|       1002 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fe8fc010fb0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fe8fc010fb0 e=1634893120.838962 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fe8fc010fb0 e=129.988924 f=0x0
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892990.835417 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892990.835417 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 54964 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /url1
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1001 VCL_return      c hash
+**** v1   vsl|       1001 VCL_call        c HASH
+**** v1   vsl|       1001 VCL_return      c lookup
+**** v1   vsl|       1001 VCL_call        c MISS
+**** v1   vsl|       1001 VCL_return      c fetch
+**** v1   vsl|       1001 Link            c bereq 1002 fetch
+**** v1   vsl|       1001 Timestamp       c Fetch: 1634892990.850042 0.014625 0.014625
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 200
+**** v1   vsl|       1001 RespReason      c OK
+**** v1   vsl|       1001 RespHeader      c Content-Length: 1048408
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 RespHeader      c Age: 0
+**** v1   vsl|       1001 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1001 VCL_call        c DELIVER
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634892990.850075 0.014657 0.000032
+**** v1   vsl|       1001 Filters         c 
+**** v1   vsl|       1001 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1001 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1001 Timestamp       c Resp: 1634892990.850366 0.014949 0.000291
+**** v1   vsl|       1001 ReqAcct         c 39 0 39 147 1048408 1048555
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 SessClose       c REM_CLOSE 0.016
+**** v1   vsl|       1000 End             c 
+**** dT   0.517
+**   top  === varnish v1 -expect SM?.s0.g_space < 1000
+**** dT   0.518
+**   v1   as expected: SM?.s0.g_space (0) < 1000
+**   top  === client c1 {
+**   c1   Starting client
+**** dT   0.519
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 46807 (1 iterations)
+***  c1   Connect to 127.0.0.1 46807
+***  c1   connected fd 19 from 127.0.0.1 54968 to 127.0.0.1 46807
+**   c1   === txreq -url /url2
+**** c1   txreq|GET /url2 HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.520
+**** s1   rxhdr|GET /url2 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1005\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 107
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/url2
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1005
+**** s1   bodylen = 0
+**   s1   === expect req.url == /url2
+**** s1   EXPECT req.url (/url2) == "/url2" match
+**   s1   === txresp -bodylen 1024
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 1024\r
+**** s1   txresp|\r
+**** s1   txresp|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** s1   txresp|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** s1   txresp|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** s1   txresp|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** s1   txresp|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** s1   txresp|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** s1   txresp|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** s1   txresp|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** s1   txresp|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** s1   txresp|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** s1   txresp|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** s1   txresp|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** s1   txresp|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** s1   txresp|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** s1   txresp|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** s1   txresp|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**   s1   === rxreq
+**** dT   0.531
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 1024\r
+**** c1   rxhdr|X-Varnish: 1004\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 144
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 1024
+**** c1   http[ 4] |X-Varnish: 1004
+**** c1   http[ 5] |Age: 0
+**** c1   http[ 6] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 7] |Accept-Ranges: bytes
+**** c1   http[ 8] |Connection: keep-alive
+**** c1   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c1   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c1   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c1   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c1   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c1   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c1   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c1   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c1   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c1   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c1   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c1   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c1   c-l|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c1   c-l|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c1   c-l|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c1   c-l|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c1   bodylen = 1024
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+**   c1   === expect resp.bodylen == 1024
+**** c1   EXPECT resp.bodylen (1024) == "1024" match
+***  c1   closing fd 19
+**   c1   Ending
+**   top  === delay .1
+***  top  delaying 0.1 second(s)
+**** dT   0.614
+**** v1   vsl|       1003 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1003 SessOpen        c 127.0.0.1 54968 a0 127.0.0.1 46807 1634892990.953332 26
+**** v1   vsl|       1003 Link            c req 1004 rxreq
+**** v1   vsl|       1005 Begin           b bereq 1004 fetch
+**** v1   vsl|       1005 VCL_use         b vcl1
+**** v1   vsl|       1005 Timestamp       b Start: 1634892990.953568 0.000000 0.000000
+**** v1   vsl|       1005 BereqMethod     b GET
+**** v1   vsl|       1005 BereqURL        b /url2
+**** v1   vsl|       1005 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1005 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1005 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1005 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1005 BereqHeader     b X-Varnish: 1005
+**** v1   vsl|       1005 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1005 VCL_return      b fetch
+**** v1   vsl|       1005 BackendOpen     b 28 s1 127.0.0.1 38999 127.0.0.1 59444 reuse
+**** v1   vsl|       1005 Timestamp       b Bereq: 1634892990.953655 0.000086 0.000086
+**** v1   vsl|       1005 Timestamp       b Beresp: 1634892990.954449 0.000880 0.000794
+**** v1   vsl|       1005 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1005 BerespStatus    b 200
+**** v1   vsl|       1005 BerespReason    b OK
+**** v1   vsl|       1005 BerespHeader    b Content-Length: 1024
+**** v1   vsl|       1005 BerespHeader    b Date: Fri, 22 Oct 2021 08:56:30 GMT
+**** v1   vsl|       1005 TTL             b RFC 120 10 0 1634892991 1634892991 1634892990 0 0 cacheable
+**** v1   vsl|       1005 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1005 BerespUnset     b Date: Fri, 22 Oct 2021 08:56:30 GMT
+**** v1   vsl|       1005 VCL_return      b deliver
+**** v1   vsl|       1005 Filters         b 
+**** v1   vsl|       1005 ExpKill         b LRU reached nuke_limit
+**** v1   vsl|       1005 Storage         b malloc Transient
+**** v1   vsl|       1005 Fetch_Body      b 3 length -
+**** v1   vsl|       1005 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1005 Timestamp       b BerespBody: 1634892990.964702 0.011134 0.010253
+**** v1   vsl|       1005 Length          b 1024
+**** v1   vsl|       1005 BereqAcct       b 107 0 107 41 1024 1065
+**** v1   vsl|       1005 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fe8fc010fb0 e=129.874249 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fe8e8000bb0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fe8e8000bb0 e=1634892990.954449 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fe8e8000bb0 e=-0.010277 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Expired x=1005 t=-0
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fe8fc010fb0 e=129.874232 f=0x0
+**** v1   vsl|       1004 Begin           c req 1003 rxreq
+**** v1   vsl|       1004 Timestamp       c Start: 1634892990.953492 0.000000 0.000000
+**** v1   vsl|       1004 Timestamp       c Req: 1634892990.953492 0.000000 0.000000
+**** v1   vsl|       1004 VCL_use         c vcl1
+**** v1   vsl|       1004 ReqStart        c 127.0.0.1 54968 a0
+**** v1   vsl|       1004 ReqMethod       c GET
+**** v1   vsl|       1004 ReqURL          c /url2
+**** v1   vsl|       1004 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1004 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1004 VCL_call        c RECV
+**** v1   vsl|       1004 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1004 VCL_return      c hash
+**** v1   vsl|       1004 VCL_call        c HASH
+**** v1   vsl|       1004 VCL_return      c lookup
+**** v1   vsl|       1004 VCL_call        c MISS
+**** v1   vsl|       1004 VCL_return      c fetch
+**** v1   vsl|       1004 Link            c bereq 1005 fetch
+**** v1   vsl|       1004 Timestamp       c Fetch: 1634892990.964764 0.011271 0.011271
+**** v1   vsl|       1004 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1004 RespStatus      c 200
+**** v1   vsl|       1004 RespReason      c OK
+**** v1   vsl|       1004 RespHeader      c Content-Length: 1024
+**** v1   vsl|       1004 RespHeader      c X-Varnish: 1004
+**** v1   vsl|       1004 RespHeader      c Age: 0
+**** v1   vsl|       1004 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1004 VCL_call        c DELIVER
+**** v1   vsl|       1004 VCL_return      c deliver
+**** v1   vsl|       1004 Timestamp       c Process: 1634892990.964778 0.011286 0.000014
+**** v1   vsl|       1004 Filters         c 
+**** v1   vsl|       1004 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1004 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1004 Timestamp       c Resp: 1634892990.964849 0.011356 0.000070
+**** v1   vsl|       1004 ReqAcct         c 39 0 39 144 1024 1168
+**** v1   vsl|       1004 End             c 
+**** v1   vsl|       1003 SessClose       c REM_CLOSE 0.012
+**** v1   vsl|       1003 End             c 
+**** dT   0.631
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 46807 (1 iterations)
+***  c1   Connect to 127.0.0.1 46807
+**** dT   0.632
+***  c1   connected fd 19 from 127.0.0.1 54970 to 127.0.0.1 46807
+**   c1   === txreq -url /url2
+**** c1   txreq|GET /url2 HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** s1   rxhdr|GET /url2 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1008\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 107
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/url2
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1008
+**** s1   bodylen = 0
+**   s1   === expect req.url == /url2
+**** s1   EXPECT req.url (/url2) == "/url2" match
+**   s1   === txresp -bodylen 1025
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 1025\r
+**** s1   txresp|\r
+**** s1   txresp|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** s1   txresp|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** s1   txresp|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** s1   txresp|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** s1   txresp|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** s1   txresp|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** s1   txresp|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** s1   txresp|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** s1   txresp|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** s1   txresp|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** s1   txresp|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** s1   txresp|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** s1   txresp|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** s1   txresp|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** s1   txresp|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** s1   txresp|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** s1   txresp|
+***  s1   shutting fd 5
+**   s1   Ending
+**** dT   0.643
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 1025\r
+**** c1   rxhdr|X-Varnish: 1007\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 144
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 1025
+**** c1   http[ 4] |X-Varnish: 1007
+**** c1   http[ 5] |Age: 0
+**** c1   http[ 6] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 7] |Accept-Ranges: bytes
+**** c1   http[ 8] |Connection: keep-alive
+**** c1   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c1   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c1   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c1   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c1   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c1   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c1   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c1   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c1   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c1   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c1   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c1   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c1   c-l|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c1   c-l|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c1   c-l|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c1   c-l|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c1   c-l|
+**** c1   bodylen = 1025
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+**   c1   === expect resp.bodylen == 1025
+**** c1   EXPECT resp.bodylen (1025) == "1025" match
+***  c1   closing fd 19
+**   c1   Ending
+*    top  RESETTING after ./tests/r01140.vtc
+**   s1   Waiting for server (4/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+**** dT   0.644
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:56:30 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   0.714
+**** v1   vsl|       1006 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1006 SessOpen        c 127.0.0.1 54970 a0 127.0.0.1 46807 1634892991.066217 27
+**** v1   vsl|       1006 Link            c req 1007 rxreq
+**** v1   vsl|       1008 Begin           b bereq 1007 fetch
+**** v1   vsl|       1008 VCL_use         b vcl1
+**** v1   vsl|       1008 Timestamp       b Start: 1634892991.066370 0.000000 0.000000
+**** v1   vsl|       1008 BereqMethod     b GET
+**** v1   vsl|       1008 BereqURL        b /url2
+**** v1   vsl|       1008 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1008 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1008 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1008 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1008 BereqHeader     b X-Varnish: 1008
+**** v1   vsl|       1008 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1008 VCL_return      b fetch
+**** v1   vsl|       1008 BackendOpen     b 28 s1 127.0.0.1 38999 127.0.0.1 59444 reuse
+**** v1   vsl|       1008 Timestamp       b Bereq: 1634892991.066426 0.000056 0.000056
+**** v1   vsl|       1008 Timestamp       b Beresp: 1634892991.067014 0.000644 0.000587
+**** v1   vsl|       1008 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1008 BerespStatus    b 200
+**** v1   vsl|       1008 BerespReason    b OK
+**** v1   vsl|       1008 BerespHeader    b Content-Length: 1025
+**** v1   vsl|       1008 BerespHeader    b Date: Fri, 22 Oct 2021 08:56:31 GMT
+**** v1   vsl|       1008 TTL             b RFC 120 10 0 1634892991 1634892991 1634892991 0 0 cacheable
+**** v1   vsl|       1008 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1008 BerespUnset     b Date: Fri, 22 Oct 2021 08:56:31 GMT
+**** v1   vsl|       1008 VCL_return      b deliver
+**** v1   vsl|       1008 Filters         b 
+**** v1   vsl|       1008 ExpKill         b LRU reached nuke_limit
+**** v1   vsl|       1008 Storage         b malloc Transient
+**** v1   vsl|       1008 Fetch_Body      b 3 length -
+**** v1   vsl|       1008 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1008 Timestamp       b BerespBody: 1634892991.077159 0.010789 0.010144
+**** v1   vsl|       1008 Length          b 1025
+**** v1   vsl|       1008 BereqAcct       b 107 0 107 41 1025 1066
+**** v1   vsl|       1008 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fe8fc010fb0 e=129.761786 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fe8fc021270 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fe8fc021270 e=1634892991.067015 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fe8fc021270 e=-0.010173 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Expired x=1008 t=-0
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fe8fc010fb0 e=129.761770 f=0x0
+**** v1   vsl|       1007 Begin           c req 1006 rxreq
+**** v1   vsl|       1007 Timestamp       c Start: 1634892991.066311 0.000000 0.000000
+**** v1   vsl|       1007 Timestamp       c Req: 1634892991.066311 0.000000 0.000000
+**** v1   vsl|       1007 VCL_use         c vcl1
+**** v1   vsl|       1007 ReqStart        c 127.0.0.1 54970 a0
+**** v1   vsl|       1007 ReqMethod       c GET
+**** v1   vsl|       1007 ReqURL          c /url2
+**** v1   vsl|       1007 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1007 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1007 VCL_call        c RECV
+**** v1   vsl|       1007 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1007 VCL_return      c hash
+**** v1   vsl|       1007 VCL_call        c HASH
+**** v1   vsl|       1007 VCL_return      c lookup
+**** v1   vsl|       1007 VCL_call        c MISS
+**** v1   vsl|       1007 VCL_return      c fetch
+**** v1   vsl|       1007 Link            c bereq 1008 fetch
+**** v1   vsl|       1007 Timestamp       c Fetch: 1634892991.077188 0.010876 0.010876
+**** v1   vsl|       1007 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1007 RespStatus      c 200
+**** v1   vsl|       1007 RespReason      c OK
+**** v1   vsl|       1007 RespHeader      c Content-Length: 1025
+**** v1   vsl|       1007 RespHeader      c X-Varnish: 1007
+**** v1   vsl|       1007 RespHeader      c Age: 0
+**** v1   vsl|       1007 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1007 VCL_call        c DELIVER
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 Timestamp       c Process: 1634892991.077200 0.010888 0.000011
+**** v1   vsl|       1007 Filters         c 
+**** v1   vsl|       1007 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1007 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1007 Timestamp       c Resp: 1634892991.077250 0.010938 0.000050
+**** v1   vsl|       1007 ReqAcct         c 39 0 39 144 1025 1169
+**** v1   vsl|       1007 End             c 
+**** v1   vsl|       1006 SessClose       c REM_CLOSE 0.012
+**** v1   vsl|       1006 End             c 
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 134 Backend name   Admin      Probe    Health     Last change
+vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:56:30 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.644
+***  v1   debug|Info: Child (81066) ended
+***  v1   debug|Info: Child (81066) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+**** dT   1.645
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** dT   1.646
+**** v1   STDOUT EOF
+**** dT   1.716
+**   v1   WAIT4 pid=81054 status=0x0000 (user 0.136065 sys 0.050353)
+*    top  TEST ./tests/r01140.vtc completed
+#    top  TEST ./tests/r01140.vtc passed (1.717)

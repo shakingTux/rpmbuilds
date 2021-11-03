@@ -1,0 +1,195 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Actions &#8212; Varnish version 6.5.2 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Backend servers" href="vcl-backends.html" />
+    <link rel="prev" title="Request and response VCL objects" href="vcl-variables.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="vcl-backends.html" title="Backend servers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="vcl-variables.html" title="Request and response VCL objects"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Varnish version 6.5.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >The Varnish Users Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="vcl.html" accesskey="U">VCL - Varnish Configuration Language</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="actions">
+<span id="user-guide-vcl-actions"></span><h1>Actions<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h1>
+<p>Actions are used with the <code class="docutils literal notranslate"><span class="pre">return(&lt;action&gt;)</span></code> keyword, which returns
+control from subroutines back to varnish. The action determines how
+processing in varnish continues as shown in <a class="reference internal" href="../reference/states.html#reference-states"><span class="std std-ref">Varnish Processing States</span></a>.</p>
+<p>Common actions are documented here, while additional actions specific
+to only one or some subroutines are documented in
+<a class="reference internal" href="vcl-built-in-subs.html#vcl-built-in-subs"><span class="std std-ref">Built in subroutines</span></a> as well as which action can be used from
+which built in subroutine.</p>
+<div class="section" id="common-actions-for-the-client-and-backend-side">
+<h2>common actions for the client and backend side<a class="headerlink" href="#common-actions-for-the-client-and-backend-side" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fail">
+<span id="id1"></span><h3><code class="docutils literal notranslate"><span class="pre">fail</span></code><a class="headerlink" href="#fail" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Transition to <a class="reference internal" href="vcl-built-in-subs.html#vcl-synth"><span class="std std-ref">vcl_synth</span></a> on the client side as for
+<code class="docutils literal notranslate"><span class="pre">return(synth(503,</span> <span class="pre">&quot;VCL</span> <span class="pre">Failed&quot;))</span></code>, but with any request state
+changes undone as if <code class="docutils literal notranslate"><span class="pre">std.rollback()</span></code> was called and forcing a
+connection close.</p>
+<p>Intended for fatal errors, for which only minimal error handling is
+possible.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="common-actions-for-the-client-side">
+<h2>common actions for the client side<a class="headerlink" href="#common-actions-for-the-client-side" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="synth-status-code-reason">
+<span id="synth"></span><h3><code class="docutils literal notranslate"><span class="pre">synth(status</span> <span class="pre">code,</span> <span class="pre">reason)</span></code><a class="headerlink" href="#synth-status-code-reason" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Transition to <a class="reference internal" href="vcl-built-in-subs.html#vcl-synth"><span class="std std-ref">vcl_synth</span></a> with <code class="docutils literal notranslate"><span class="pre">resp.status</span></code> and
+<code class="docutils literal notranslate"><span class="pre">resp.reason</span></code> being preset to the arguments of <code class="docutils literal notranslate"><span class="pre">synth()</span></code>.</div></blockquote>
+</div>
+<div class="section" id="pass">
+<span id="id2"></span><h3><code class="docutils literal notranslate"><span class="pre">pass</span></code><a class="headerlink" href="#pass" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Switch to pass mode, making the current request not use the cache
+and not putting its response into it. Control will eventually pass to
+<a class="reference internal" href="vcl-built-in-subs.html#vcl-pass"><span class="std std-ref">vcl_pass</span></a>.</div></blockquote>
+</div>
+<div class="section" id="pipe">
+<span id="id3"></span><h3><code class="docutils literal notranslate"><span class="pre">pipe</span></code><a class="headerlink" href="#pipe" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Switch to pipe mode. Control will eventually pass to
+<a class="reference internal" href="vcl-built-in-subs.html#vcl-pipe"><span class="std std-ref">vcl_pipe</span></a>.</div></blockquote>
+</div>
+<div class="section" id="restart">
+<span id="id4"></span><h3><code class="docutils literal notranslate"><span class="pre">restart</span></code><a class="headerlink" href="#restart" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Restart the transaction. Increases the <code class="docutils literal notranslate"><span class="pre">req.restarts</span></code> counter.</p>
+<p>If the number of restarts is higher than the <em>max_restarts</em>
+parameter, control is passed to <a class="reference internal" href="vcl-built-in-subs.html#vcl-synth"><span class="std std-ref">vcl_synth</span></a> as for
+<code class="docutils literal notranslate"><span class="pre">return(synth(503,</span> <span class="pre">&quot;Too</span> <span class="pre">many</span> <span class="pre">restarts&quot;))</span></code></p>
+<p>For a restart, all modifications to <code class="docutils literal notranslate"><span class="pre">req</span></code> attributes are
+preserved except for <code class="docutils literal notranslate"><span class="pre">req.restarts</span></code> and <code class="docutils literal notranslate"><span class="pre">req.xid</span></code>, which need
+to change by design.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="common-actions-for-the-backend-side">
+<h2>common actions for the backend side<a class="headerlink" href="#common-actions-for-the-backend-side" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="abandon">
+<span id="id5"></span><h3><code class="docutils literal notranslate"><span class="pre">abandon</span></code><a class="headerlink" href="#abandon" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Abandon the backend request. Unless the backend request was a
+background fetch, control is passed to <a class="reference internal" href="vcl-built-in-subs.html#vcl-synth"><span class="std std-ref">vcl_synth</span></a> on the
+client side with <code class="docutils literal notranslate"><span class="pre">resp.status</span></code> preset to 503.</div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Actions</a><ul>
+<li><a class="reference internal" href="#common-actions-for-the-client-and-backend-side">common actions for the client and backend side</a><ul>
+<li><a class="reference internal" href="#fail"><code class="docutils literal notranslate"><span class="pre">fail</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#common-actions-for-the-client-side">common actions for the client side</a><ul>
+<li><a class="reference internal" href="#synth-status-code-reason"><code class="docutils literal notranslate"><span class="pre">synth(status</span> <span class="pre">code,</span> <span class="pre">reason)</span></code></a></li>
+<li><a class="reference internal" href="#pass"><code class="docutils literal notranslate"><span class="pre">pass</span></code></a></li>
+<li><a class="reference internal" href="#pipe"><code class="docutils literal notranslate"><span class="pre">pipe</span></code></a></li>
+<li><a class="reference internal" href="#restart"><code class="docutils literal notranslate"><span class="pre">restart</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#common-actions-for-the-backend-side">common actions for the backend side</a><ul>
+<li><a class="reference internal" href="#abandon"><code class="docutils literal notranslate"><span class="pre">abandon</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="vcl-variables.html"
+                        title="previous chapter">Request and response VCL objects</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="vcl-backends.html"
+                        title="next chapter">Backend servers</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/users-guide/vcl-actions.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="vcl-backends.html" title="Backend servers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="vcl-variables.html" title="Request and response VCL objects"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Varnish version 6.5.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >The Varnish Users Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="vcl.html" >VCL - Varnish Configuration Language</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2014, Varnish Software AS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

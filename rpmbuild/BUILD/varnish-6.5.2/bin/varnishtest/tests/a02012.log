@@ -1,0 +1,186 @@
+**** dT   0.000
+*    top  TEST ./tests/a02012.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 34647
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.45545.3b15e5e6
+**   top  === varnishtest "padded DATA frames"
+*    top  VTEST padded DATA frames
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=43129
+**** s1   macro def s1_sock=127.0.0.1 43129
+*    s1   Listen on 127.0.0.1 43129
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   c1   Waiting for client
+**   s1   Started on 127.0.0.1 43129 (1 iterations)
+**   c1   Started on 127.0.0.1 43129 (1 iterations)
+***  c1   Connect to 127.0.0.1 43129
+**** dT   0.001
+***  c1   connected fd 6 from 127.0.0.1 58464 to 127.0.0.1 43129
+***  s1   accepted fd 5 127.0.0.1 58464
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**   s1   === stream 1 {
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** s1   Not in H/2 mode, do what's needed
+**   s1   === rxpri
+**** dT   0.011
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f9bfc001530
+**   s1   === stream 0 {
+**   s1   Starting stream 0x7f9c040014e0
+**** dT   0.012
+**   c1   Waiting for stream 0
+**   s1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   s1   === txsettings
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+**   s1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === txsettings -ack
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   s1   === txsettings -ack
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+**   s1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  s1   flag: ACK
+**** c1   EXPECT settings.ack (true) == "true" match
+**   s1   === expect settings.ack == true
+**   c1   Ending stream 0
+**** s1   EXPECT settings.ack (true) == "true" match
+**   s1   Ending stream 0
+**   s1   Starting stream 0x7f9c04002770
+**   c1   Starting stream 0x7f9bfc002730
+**   s1   Waiting for stream 1
+**   s1   === rxreq
+**   c1   Waiting for stream 1
+**   c1   === txreq
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 36
+***  s1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 36
+***  s1   flag: END_STREAM
+**** s1   header[ 0]: :path : /
+**** s1   header[ 1]: :method : GET
+**** s1   header[ 2]: :scheme : http
+**   s1   === sendhex "00 00 04 01 0c 00 00 00 01 02 88 12 34"
+**   c1   === rxresp
+**** s1   sendhex|  00 00 04 01 0c 00 00 00 01 02 88 12 34
+**** s1   sendhex|\x00\x00\x04\x01\x0c\x00\x00\x00\x01\x02\x88\x124
+**   s1   === sendhex "00 00 08 00 09 00 00 00 01 04 66 6f 6f 6e 6e 6e 6e"
+**** s1   sendhex|  00 00 08 00 09 00 00 00 01 04 66 6f 6f 6e 6e 6e
+**** s1   sendhex|  6e
+**** s1   sendhex|\x00\x00\x08\x00\t\x00\x00\x00\x01\x04foonnnn
+***  c1   rx: stream: 1, type: HEADERS (1), flags: 0x0c, size: 4
+***  c1   flag: END_TYPE_HEADERS
+**** c1   padding:   2
+**   s1   Ending stream 1
+**** c1   header[ 0]: :status : 200
+**   s1   === stream 3 {
+***  c1   rx: stream: 1, type: DATA (0), flags: 0x09, size: 8
+***  c1   flag: END_STREAM
+**   s1   Starting stream 0x7f9c040038b0
+**** c1   padding:   4
+**   c1   === expect resp.bodylen == 3
+**   s1   Waiting for stream 3
+**** c1   EXPECT resp.bodylen (3) == "3" match
+**   s1   === rxreq
+**   c1   === expect resp.body == "foo"
+**** c1   EXPECT resp.body (foo) == "foo" match
+**   c1   Ending stream 1
+**   c1   === stream 3 {
+**   c1   Starting stream 0x7f9bfc003810
+**   c1   Waiting for stream 3
+**   c1   === txreq
+***  c1   tx: stream: 3, type: HEADERS (1), flags: 0x05, size: 36
+***  s1   rx: stream: 3, type: HEADERS (1), flags: 0x05, size: 36
+***  s1   flag: END_STREAM
+**** s1   header[ 0]: :path : /
+**** s1   header[ 1]: :method : GET
+**** s1   header[ 2]: :scheme : http
+**   s1   === txresp -nostrend
+***  s1   tx: stream: 3, type: HEADERS (1), flags: 0x04, size: 13
+**   s1   === txdata -data "bull" -pad "frog" -nostrend
+***  s1   tx: stream: 3, type: DATA (0), flags: 0x08, size: 9
+**   s1   === txdata -data "terrier" -padlen 17
+***  s1   tx: stream: 3, type: DATA (0), flags: 0x09, size: 25
+**   s1   === txdata -datalen 4 -padlen 2
+***  s1   tx: stream: 3, type: DATA (0), flags: 0x09, size: 7
+**   s1   Ending stream 3
+**   s1   === stream 5 {
+**   s1   Starting stream 0x7f9c040049b0
+**   s1   Waiting for stream 5
+**   s1   === rxreq
+**   c1   === rxhdrs
+***  c1   rx: stream: 3, type: HEADERS (1), flags: 0x04, size: 13
+***  c1   flag: END_TYPE_HEADERS
+**** c1   header[ 0]: :status : 200
+**   c1   === rxdata
+***  c1   rx: stream: 3, type: DATA (0), flags: 0x08, size: 9
+***  c1   flag: PADDED
+**** c1   padding:   4
+**   c1   === expect frame.size == 9
+**** c1   EXPECT frame.size (9) == "9" match
+**   c1   === expect resp.body == "bull"
+**** c1   EXPECT resp.body (bull) == "bull" match
+**   c1   === rxdata
+**** dT   0.013
+***  c1   rx: stream: 3, type: DATA (0), flags: 0x09, size: 25
+***  c1   flag: END_STREAM
+**** c1   padding:  17
+**   c1   === expect frame.size == 25
+**** c1   EXPECT frame.size (25) == "25" match
+**   c1   === expect resp.body == "bullterrier"
+**** c1   EXPECT resp.body (bullterrier) == "bullterrier" match
+**   c1   === rxdata
+***  c1   rx: stream: 3, type: DATA (0), flags: 0x09, size: 7
+***  c1   flag: END_STREAM
+**** c1   padding:   2
+**   c1   === expect frame.size == 7
+**** c1   EXPECT frame.size (7) == "7" match
+**   c1   Ending stream 3
+**   c1   === stream 5 {
+**   c1   Starting stream 0x7f9bfc004940
+**   c1   Waiting for stream 5
+**   c1   === txreq
+***  c1   tx: stream: 5, type: HEADERS (1), flags: 0x05, size: 36
+***  s1   rx: stream: 5, type: HEADERS (1), flags: 0x05, size: 36
+***  s1   flag: END_STREAM
+**** s1   header[ 0]: :path : /
+**** s1   header[ 1]: :method : GET
+**** s1   header[ 2]: :scheme : http
+**   s1   === txresp -pad "pwepew"
+**   c1   === rxresp
+***  s1   tx: stream: 5, type: HEADERS (1), flags: 0x0d, size: 20
+***  c1   rx: stream: 5, type: HEADERS (1), flags: 0x0d, size: 20
+***  c1   flag: END_STREAM
+**** c1   padding:   6
+**** c1   header[ 0]: :status : 200
+**   s1   Ending stream 5
+**   c1   === expect frame.padding == 6
+**** c1   EXPECT frame.padding (6) == "6" match
+***  s1   shutting fd 5
+**   s1   Ending
+**   c1   Ending stream 5
+***  c1   closing fd 6
+**   c1   Ending
+**** dT   0.014
+*    top  RESETTING after ./tests/a02012.vtc
+**   s1   Waiting for server (4/-1)
+*    top  TEST ./tests/a02012.vtc completed
+#    top  TEST ./tests/a02012.vtc passed (0.067)

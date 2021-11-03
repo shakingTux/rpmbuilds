@@ -1,0 +1,3595 @@
+**** dT   0.000
+*    top  TEST ./tests/cookie_r00028.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 42561
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/./tests
+**** top  macro def tmpdir=/tmp/vtc.43984.2efbaed2
+**   top  === varnishtest "Test issue https://github.com/varnish/varnish-m...
+*    top  VTEST Test issue https://github.com/varnish/varnish-modules/issues/28
+**   top  === varnish v1 -vcl {
+**** dT   0.003
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.43984.2efbaed2/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 37033' -P /tmp/vtc.43984.2efbaed2/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie && exec varnishd  -d -n /tmp/vtc.43984.2efbaed2/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 37033' -P /tmp/vtc.43984.2efbaed2/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 44002
+**** v1   macro def v1_pid=44002
+**** v1   macro def v1_name=/tmp/vtc.43984.2efbaed2/v1
+**** dT   0.011
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.109
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 5
+***  v1   CLI RX  107
+**** v1   CLI RX|onkkizbddfsxmtdipiqwcudsywhesktk
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth f994b9b3a9408a312e327450be63a0c8c49d0621d6f3cd7b401a8c8b4aedc8ca
+**** dT   0.110
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\timport cookie;
+**** v1   CLI TX|\tbackend be none;
+**** v1   CLI TX|\tsub vcl_recv { return (synth(200)); }
+**** v1   CLI TX|\tsub vcl_synth {
+**** v1   CLI TX|\t\tcookie.parse(req.http.cookie);
+**** v1   CLI TX|\t\tset resp.http.X-foo = cookie.get_string();
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.210
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.262
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.264
+***  v1   debug|Debug: Child (44048) Started
+**** dT   0.290
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (44048) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+**** dT   0.310
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892520.490175/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892520.490175/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** dT   0.390
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 40341
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+**** dT   0.391
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 40341
+**   v1   Listen on 127.0.0.1 40341
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=40341
+**** v1   macro def v1_sock=127.0.0.1 40341
+**   top  === client c1 {
+**   top  === client c2 {
+**   top  === client c1 -repeat 2 -run
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 40341 (2 iterations)
+***  c1   Connect to 127.0.0.1 40341
+***  c1   connected fd 15 from 127.0.0.1 55152 to 127.0.0.1 40341
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.392
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1001
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1001</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.393
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1002\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1002
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1002</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.394
+**   c1   === rxresp
+**** dT   0.395
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1003\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1003
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1003</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.396
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1004\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1004
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1004</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.397
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1005\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1005
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1005</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.398
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1006\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1006
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1006</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.399
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1007\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1007
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1007</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.400
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1008\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1008
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1008</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.401
+**   c1   === rxresp
+**** dT   0.402
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1009\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1009
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1009</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.403
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1010\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1010
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1010</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+***  c1   closing fd 15
+***  c1   Connect to 127.0.0.1 40341
+***  c1   connected fd 15 from 127.0.0.1 55154 to 127.0.0.1 40341
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.405
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1012\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1012
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1012</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.406
+**   c1   === rxresp
+**** dT   0.407
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1013\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1013
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1013</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.408
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1014\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1014
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1014</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.409
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1015\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1015
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1015</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.410
+**   c1   === rxresp
+**** dT   0.411
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 40341
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 40341
+
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 55152 a0 127.0.0.1 40341 1634892520.771025 25
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892520.771189 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892520.771189 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 55152 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 VCL_return      c synth
+**** v1   vsl|       1001 VCL_call        c HASH
+**** v1   vsl|       1001 VCL_return      c lookup
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 200
+**** v1   vsl|       1001 RespReason      c OK
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1001 RespHeader      c Server: Varnish
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 VCL_call        c SYNTH
+**** v1   vsl|       1001 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1001 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1001 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1001 RespHeader      c Retry-After: 5
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634892520.771289 0.000100 0.000100
+**** v1   vsl|       1001 RespHeader      c Content-Length: 227
+**** v1   vsl|       1001 Storage         c malloc Transient
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1016\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** v1   vsl|       1001 Filters         c 
+**** c1   rxhdrlen = 309
+**** v1   vsl|       1001 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1001 RespHeader      c Connection: keep-alive
+**** c1   http[ 0] |HTTP/1.1
+**** v1   vsl|       1001 Timestamp       c Resp: 1634892520.771331 0.000142 0.000042
+**** c1   http[ 1] |200
+**** v1   vsl|       1001 ReqAcct         c 131 0 131 309 227 536
+**** c1   http[ 2] |OK
+**** v1   vsl|       1001 End             c 
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1000 Link            c req 1002 rxreq
+**** c1   http[ 4] |Server: Varnish
+**** v1   vsl|       1002 Begin           c req 1000 rxreq
+**** c1   http[ 5] |X-Varnish: 1016
+**** v1   vsl|       1002 Timestamp       c Start: 1634892520.772514 0.000000 0.000000
+**** v1   vsl|       1002 Timestamp       c Req: 1634892520.772514 0.000000 0.000000
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1002 VCL_use         c vcl1
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1002 ReqStart        c 127.0.0.1 55152 a0
+**** c1   http[ 8] |Retry-After: 5
+**** v1   vsl|       1002 ReqMethod       c GET
+**** c1   http[ 9] |Content-Length: 227
+**** v1   vsl|       1002 ReqURL          c /
+**** c1   http[10] |Accept-Ranges: bytes
+**** v1   vsl|       1002 ReqProtocol     c HTTP/1.1
+**** c1   http[11] |Connection: keep-alive
+**** v1   vsl|       1002 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1002 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1002 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1002 VCL_call        c RECV
+**** v1   vsl|       1002 VCL_return      c synth
+**** v1   vsl|       1002 VCL_call        c HASH
+**** v1   vsl|       1002 VCL_return      c lookup
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1016</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** v1   vsl|       1002 RespProtocol    c HTTP/1.1
+**** c1   bodylen = 227
+**** v1   vsl|       1002 RespStatus      c 200
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** v1   vsl|       1002 RespReason      c OK
+**** v1   vsl|       1002 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1002 RespHeader      c Server: Varnish
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**** v1   vsl|       1002 RespHeader      c X-Varnish: 1002
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** v1   vsl|       1002 VCL_call        c SYNTH
+**** v1   vsl|       1002 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1002 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1002 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1002 RespHeader      c Retry-After: 5
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** v1   vsl|       1002 VCL_return      c deliver
+**** v1   vsl|       1002 Timestamp       c Process: 1634892520.772543 0.000029 0.000029
+**** v1   vsl|       1002 RespHeader      c Content-Length: 227
+**** v1   vsl|       1002 Storage         c malloc Transient
+**** v1   vsl|       1002 Filters         c 
+**** v1   vsl|       1002 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1002 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1002 Timestamp       c Resp: 1634892520.772568 0.000053 0.000024
+**** v1   vsl|       1002 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1002 End             c 
+**** v1   vsl|       1000 Link            c req 1003 rxreq
+**** v1   vsl|       1003 Begin           c req 1000 rxreq
+**** v1   vsl|       1003 Timestamp       c Start: 1634892520.773647 0.000000 0.000000
+**** v1   vsl|       1003 Timestamp       c Req: 1634892520.773647 0.000000 0.000000
+**** v1   vsl|       1003 VCL_use         c vcl1
+**** v1   vsl|       1003 ReqStart        c 127.0.0.1 55152 a0
+**** v1   vsl|       1003 ReqMethod       c GET
+**** v1   vsl|       1003 ReqURL          c /
+**** v1   vsl|       1003 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1003 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1003 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1003 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1003 VCL_call        c RECV
+**** v1   vsl|       1003 VCL_return      c synth
+**** v1   vsl|       1003 VCL_call        c HASH
+**** v1   vsl|       1003 VCL_return      c lookup
+**** v1   vsl|       1003 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1003 RespStatus      c 200
+**** v1   vsl|       1003 RespReason      c OK
+**** v1   vsl|       1003 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1003 RespHeader      c Server: Varnish
+**** v1   vsl|       1003 RespHeader      c X-Varnish: 1003
+**** v1   vsl|       1003 VCL_call        c SYNTH
+**** v1   vsl|       1003 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1003 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1003 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1003 RespHeader      c Retry-After: 5
+**** v1   vsl|       1003 VCL_return      c deliver
+**** v1   vsl|       1003 Timestamp       c Process: 1634892520.773670 0.000022 0.000022
+**** v1   vsl|       1003 RespHeader      c Content-Length: 227
+**** v1   vsl|       1003 Storage         c malloc Transient
+**** v1   vsl|       1003 Filters         c 
+**** v1   vsl|       1003 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1003 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1003 Timestamp       c Resp: 1634892520.773691 0.000043 0.000021
+**** v1   vsl|       1003 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1003 End             c 
+**** v1   vsl|       1000 Link            c req 1004 rxreq
+**** v1   vsl|       1004 Begin           c req 1000 rxreq
+**** v1   vsl|       1004 Timestamp       c Start: 1634892520.774876 0.000000 0.000000
+**** v1   vsl|       1004 Timestamp       c Req: 1634892520.774876 0.000000 0.000000
+**** v1   vsl|       1004 VCL_use         c vcl1
+**** v1   vsl|       1004 ReqStart        c 127.0.0.1 55152 a0
+**** v1   vsl|       1004 ReqMethod       c GET
+**** v1   vsl|       1004 ReqURL          c /
+**** v1   vsl|       1004 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1004 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1004 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1004 VCL_call        c RECV
+**** v1   vsl|       1004 VCL_return      c synth
+**** v1   vsl|       1004 VCL_call        c HASH
+**** v1   vsl|       1004 VCL_return      c lookup
+**** v1   vsl|       1004 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1004 RespStatus      c 200
+**** v1   vsl|       1004 RespReason      c OK
+**** v1   vsl|       1004 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1004 RespHeader      c Server: Varnish
+**** v1   vsl|       1004 RespHeader      c X-Varnish: 1004
+**** v1   vsl|       1004 VCL_call        c SYNTH
+**** v1   vsl|       1004 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1004 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1004 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1004 RespHeader      c Retry-After: 5
+**** v1   vsl|       1004 VCL_return      c deliver
+**** v1   vsl|       1004 Timestamp       c Process: 1634892520.774906 0.000030 0.000030
+**** v1   vsl|       1004 RespHeader      c Content-Length: 227
+**** v1   vsl|       1004 Storage         c malloc Transient
+**** v1   vsl|       1004 Filters         c 
+**** v1   vsl|       1004 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1004 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1004 Timestamp       c Resp: 1634892520.774931 0.000054 0.000024
+**** v1   vsl|       1004 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1004 End             c 
+**** v1   vsl|       1000 Link            c req 1005 rxreq
+**** v1   vsl|       1005 Begin           c req 1000 rxreq
+**** v1   vsl|       1005 Timestamp       c Start: 1634892520.776032 0.000000 0.000000
+**** v1   vsl|       1005 Timestamp       c Req: 1634892520.776032 0.000000 0.000000
+**** v1   vsl|       1005 VCL_use         c vcl1
+**   c1   === rxresp
+**** v1   vsl|       1005 ReqStart        c 127.0.0.1 55152 a0
+**** v1   vsl|       1005 ReqMethod       c GET
+**** v1   vsl|       1005 ReqURL          c /
+**** v1   vsl|       1005 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1005 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1005 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1005 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1005 VCL_call        c RECV
+**** v1   vsl|       1005 VCL_return      c synth
+**** v1   vsl|       1005 VCL_call        c HASH
+**** v1   vsl|       1005 VCL_return      c lookup
+**** v1   vsl|       1005 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1005 RespStatus      c 200
+**** v1   vsl|       1005 RespReason      c OK
+**** v1   vsl|       1005 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1005 RespHeader      c Server: Varnish
+**** v1   vsl|       1005 RespHeader      c X-Varnish: 1005
+**** v1   vsl|       1005 VCL_call        c SYNTH
+**** v1   vsl|       1005 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1005 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1005 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1005 RespHeader      c Retry-After: 5
+**** v1   vsl|       1005 VCL_return      c deliver
+**** v1   vsl|       1005 Timestamp       c Process: 1634892520.776055 0.000023 0.000023
+**** v1   vsl|       1005 RespHeader      c Content-Length: 227
+**** v1   vsl|       1005 Storage         c malloc Transient
+**** v1   vsl|       1005 Filters         c 
+**** v1   vsl|       1005 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1005 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1005 Timestamp       c Resp: 1634892520.776076 0.000043 0.000020
+**** v1   vsl|       1005 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1005 End             c 
+**** v1   vsl|       1000 Link            c req 1006 rxreq
+**** v1   vsl|       1006 Begin           c req 1000 rxreq
+**** v1   vsl|       1006 Timestamp       c Start: 1634892520.777158 0.000000 0.000000
+**** v1   vsl|       1006 Timestamp       c Req: 1634892520.777158 0.000000 0.000000
+**** v1   vsl|       1006 VCL_use         c vcl1
+**** v1   vsl|       1006 ReqStart        c 127.0.0.1 55152 a0
+**** v1   vsl|       1006 ReqMethod       c GET
+**** v1   vsl|       1006 ReqURL          c /
+**** v1   vsl|       1006 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1006 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1006 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1006 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1006 VCL_call        c RECV
+**** v1   vsl|       1006 VCL_return      c synth
+**** v1   vsl|       1006 VCL_call        c HASH
+**** v1   vsl|       1006 VCL_return      c lookup
+**** v1   vsl|       1006 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1006 RespStatus      c 200
+**** v1   vsl|       1006 RespReason      c OK
+**** v1   vsl|       1006 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1006 RespHeader      c Server: Varnish
+**** v1   vsl|       1006 RespHeader      c X-Varnish: 1006
+**** v1   vsl|       1006 VCL_call        c SYNTH
+**** v1   vsl|       1006 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1006 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1006 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1006 RespHeader      c Retry-After: 5
+**** v1   vsl|       1006 VCL_return      c deliver
+**** v1   vsl|       1006 Timestamp       c Process: 1634892520.777180 0.000021 0.000021
+**** v1   vsl|       1006 RespHeader      c Content-Length: 227
+**** v1   vsl|       1006 Storage         c malloc Transient
+**** v1   vsl|       1006 Filters         c 
+**** v1   vsl|       1006 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1006 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1006 Timestamp       c Resp: 1634892520.777200 0.000041 0.000019
+**** v1   vsl|       1006 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1006 End             c 
+**** v1   vsl|       1000 Link            c req 1007 rxreq
+**** v1   vsl|       1007 Begin           c req 1000 rxreq
+**** v1   vsl|       1007 Timestamp       c Start: 1634892520.778285 0.000000 0.000000
+**** v1   vsl|       1007 Timestamp       c Req: 1634892520.778285 0.000000 0.000000
+**** v1   vsl|       1007 VCL_use         c vcl1
+**** v1   vsl|       1007 ReqStart        c 127.0.0.1 55152 a0
+**** v1   vsl|       1007 ReqMethod       c GET
+**** v1   vsl|       1007 ReqURL          c /
+**** v1   vsl|       1007 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1007 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1007 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1007 VCL_call        c RECV
+**** v1   vsl|       1007 VCL_return      c synth
+**** v1   vsl|       1007 VCL_call        c HASH
+**** v1   vsl|       1007 VCL_return      c lookup
+**** v1   vsl|       1007 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1007 RespStatus      c 200
+**** v1   vsl|       1007 RespReason      c OK
+**** v1   vsl|       1007 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1007 RespHeader      c Server: Varnish
+**** v1   vsl|       1007 RespHeader      c X-Varnish: 1007
+**** v1   vsl|       1007 VCL_call        c SYNTH
+**** v1   vsl|       1007 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1007 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1007 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1007 RespHeader      c Retry-After: 5
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 Timestamp       c Process: 1634892520.778307 0.000021 0.000021
+**** v1   vsl|       1007 RespHeader      c Content-Length: 227
+**** v1   vsl|       1007 Storage         c malloc Transient
+**** v1   vsl|       1007 Filters         c 
+**** v1   vsl|       1007 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1007 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1007 Timestamp       c Resp: 1634892520.778327 0.000041 0.000019
+**** v1   vsl|       1007 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1007 End             c 
+**** v1   vsl|       1000 Link            c req 1008 rxreq
+**** v1   vsl|       1008 Begin           c req 1000 rxreq
+**** v1   vsl|       1008 Timestamp       c Start: 1634892520.779451 0.000000 0.000000
+**** v1   vsl|       1008 Timestamp       c Req: 1634892520.779451 0.000000 0.000000
+**** v1   vsl|       1008 VCL_use         c vcl1
+**** v1   vsl|       1008 ReqStart        c 127.0.0.1 55152 a0
+**** v1   vsl|       1008 ReqMethod       c GET
+**** v1   vsl|       1008 ReqURL          c /
+**** v1   vsl|       1008 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1008 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1008 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1008 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1008 VCL_call        c RECV
+**** v1   vsl|       1008 VCL_return      c synth
+**** v1   vsl|       1008 VCL_call        c HASH
+**** v1   vsl|       1008 VCL_return      c lookup
+**** v1   vsl|       1008 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1008 RespStatus      c 200
+**** v1   vsl|       1008 RespReason      c OK
+**** v1   vsl|       1008 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1008 RespHeader      c Server: Varnish
+**** v1   vsl|       1008 RespHeader      c X-Varnish: 1008
+**** v1   vsl|       1008 VCL_call        c SYNTH
+**** v1   vsl|       1008 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1008 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1008 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1008 RespHeader      c Retry-After: 5
+**** v1   vsl|       1008 VCL_return      c deliver
+**** v1   vsl|       1008 Timestamp       c Process: 1634892520.779474 0.000023 0.000023
+**** v1   vsl|       1008 RespHeader      c Content-Length: 227
+**** v1   vsl|       1008 Storage         c malloc Transient
+**** v1   vsl|       1008 Filters         c 
+**** v1   vsl|       1008 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1008 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1008 Timestamp       c Resp: 1634892520.779496 0.000044 0.000021
+**** v1   vsl|       1008 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1008 End             c 
+**** v1   vsl|       1000 Link            c req 1009 rxreq
+**** v1   vsl|       1009 Begin           c req 1000 rxreq
+**** v1   vsl|       1009 Timestamp       c Start: 1634892520.780585 0.000000 0.000000
+**** v1   vsl|       1009 Timestamp       c Req: 1634892520.780585 0.000000 0.000000
+**** v1   vsl|       1009 VCL_use         c vcl1
+**** v1   vsl|       1009 ReqStart        c 127.0.0.1 55152 a0
+**** v1   vsl|       1009 ReqMethod       c GET
+**** v1   vsl|       1009 ReqURL          c /
+**** v1   vsl|       1009 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1009 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1009 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1009 VCL_call        c RECV
+**** v1   vsl|       1009 VCL_return      c synth
+**** v1   vsl|       1009 VCL_call        c HASH
+**** v1   vsl|       1009 VCL_return      c lookup
+**** v1   vsl|       1009 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1009 RespStatus      c 200
+**** v1   vsl|       1009 RespReason      c OK
+**** v1   vsl|       1009 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1009 RespHeader      c Server: Varnish
+**** v1   vsl|       1009 RespHeader      c X-Varnish: 1009
+**** v1   vsl|       1009 VCL_call        c SYNTH
+**** v1   vsl|       1009 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1009 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1009 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1009 RespHeader      c Retry-After: 5
+**** v1   vsl|       1009 VCL_return      c deliver
+**** v1   vsl|       1009 Timestamp       c Process: 1634892520.780607 0.000022 0.000022
+**** v1   vsl|       1009 RespHeader      c Content-Length: 227
+**** v1   vsl|       1009 Storage         c malloc Transient
+**** v1   vsl|       1009 Filters         c 
+**** v1   vsl|       1009 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1009 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1009 Timestamp       c Resp: 1634892520.780634 0.000048 0.000026
+**** v1   vsl|       1009 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1009 End             c 
+**** v1   vsl|       1000 Link            c req 1010 rxreq
+**** v1   vsl|       1010 Begin           c req 1000 rxreq
+**** v1   vsl|       1010 Timestamp       c Start: 1634892520.781712 0.000000 0.000000
+**** v1   vsl|       1010 Timestamp       c Req: 1634892520.781712 0.000000 0.000000
+**** v1   vsl|       1010 VCL_use         c vcl1
+**** v1   vsl|       1010 ReqStart        c 127.0.0.1 55152 a0
+**** v1   vsl|       1010 ReqMethod       c GET
+**** v1   vsl|       1010 ReqURL          c /
+**** v1   vsl|       1010 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1010 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1010 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1010 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1010 VCL_call        c RECV
+**** v1   vsl|       1010 VCL_return      c synth
+**** v1   vsl|       1010 VCL_call        c HASH
+**** v1   vsl|       1010 VCL_return      c lookup
+**** v1   vsl|       1010 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1010 RespStatus      c 200
+**** v1   vsl|       1010 RespReason      c OK
+**** v1   vsl|       1010 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1010 RespHeader      c Server: Varnish
+**** v1   vsl|       1010 RespHeader      c X-Varnish: 1010
+**** v1   vsl|       1010 VCL_call        c SYNTH
+**** v1   vsl|       1010 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1010 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1010 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1010 RespHeader      c Retry-After: 5
+**** v1   vsl|       1010 VCL_return      c deliver
+**** v1   vsl|       1010 Timestamp       c Process: 1634892520.781732 0.000020 0.000020
+**** v1   vsl|       1010 RespHeader      c Content-Length: 227
+**** v1   vsl|       1010 Storage         c malloc Transient
+**** v1   vsl|       1010 Filters         c 
+**** v1   vsl|       1010 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1010 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1010 Timestamp       c Resp: 1634892520.781752 0.000040 0.000019
+**** v1   vsl|       1010 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1010 End             c 
+**** v1   vsl|       1000 SessClose       c REM_CLOSE 0.012
+**** v1   vsl|       1000 End             c 
+**** v1   vsl|       1011 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1011 SessOpen        c 127.0.0.1 55154 a0 127.0.0.1 40341 1634892520.783087 26
+**** v1   vsl|       1011 Link            c req 1012 rxreq
+**** v1   vsl|       1012 Begin           c req 1011 rxreq
+**** v1   vsl|       1012 Timestamp       c Start: 1634892520.783220 0.000000 0.000000
+**** v1   vsl|       1012 Timestamp       c Req: 1634892520.783220 0.000000 0.000000
+**** v1   vsl|       1012 VCL_use         c vcl1
+**** v1   vsl|       1012 ReqStart        c 127.0.0.1 55154 a0
+**** v1   vsl|       1012 ReqMethod       c GET
+**** v1   vsl|       1012 ReqURL          c /
+**** v1   vsl|       1012 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1012 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1012 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1012 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1012 VCL_call        c RECV
+**** v1   vsl|       1012 VCL_return      c synth
+**** v1   vsl|       1012 VCL_call        c HASH
+**** v1   vsl|       1012 VCL_return      c lookup
+**** v1   vsl|       1012 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1012 RespStatus      c 200
+**** v1   vsl|       1012 RespReason      c OK
+**** v1   vsl|       1012 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1012 RespHeader      c Server: Varnish
+**** v1   vsl|       1012 RespHeader      c X-Varnish: 1012
+**** v1   vsl|       1012 VCL_call        c SYNTH
+**** v1   vsl|       1012 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1012 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1012 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1012 RespHeader      c Retry-After: 5
+**** v1   vsl|       1012 VCL_return      c deliver
+**** v1   vsl|       1012 Timestamp       c Process: 1634892520.783253 0.000032 0.000032
+**** v1   vsl|       1012 RespHeader      c Content-Length: 227
+**** v1   vsl|       1012 Storage         c malloc Transient
+**** v1   vsl|       1012 Filters         c 
+**** v1   vsl|       1012 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1012 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1012 Timestamp       c Resp: 1634892520.783280 0.000059 0.000026
+**** v1   vsl|       1012 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1012 End             c 
+**** v1   vsl|       1011 Link            c req 1013 rxreq
+**** v1   vsl|       1013 Begin           c req 1011 rxreq
+**** v1   vsl|       1013 Timestamp       c Start: 1634892520.785528 0.000000 0.000000
+**** v1   vsl|       1013 Timestamp       c Req: 1634892520.785528 0.000000 0.000000
+**** v1   vsl|       1013 VCL_use         c vcl1
+**** v1   vsl|       1013 ReqStart        c 127.0.0.1 55154 a0
+**** v1   vsl|       1013 ReqMethod       c GET
+**** v1   vsl|       1013 ReqURL          c /
+**** v1   vsl|       1013 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1013 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1013 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1013 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1013 VCL_call        c RECV
+**** v1   vsl|       1013 VCL_return      c synth
+**** v1   vsl|       1013 VCL_call        c HASH
+**** v1   vsl|       1013 VCL_return      c lookup
+**** v1   vsl|       1013 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1013 RespStatus      c 200
+**** v1   vsl|       1013 RespReason      c OK
+**** v1   vsl|       1013 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1013 RespHeader      c Server: Varnish
+**** v1   vsl|       1013 RespHeader      c X-Varnish: 1013
+**** v1   vsl|       1013 VCL_call        c SYNTH
+**** v1   vsl|       1013 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1013 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1013 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1013 RespHeader      c Retry-After: 5
+**** v1   vsl|       1013 VCL_return      c deliver
+**** v1   vsl|       1013 Timestamp       c Process: 1634892520.785559 0.000030 0.000030
+**** v1   vsl|       1013 RespHeader      c Content-Length: 227
+**** v1   vsl|       1013 Storage         c malloc Transient
+**** v1   vsl|       1013 Filters         c 
+**** v1   vsl|       1013 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1013 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1013 Timestamp       c Resp: 1634892520.785585 0.000056 0.000025
+**** v1   vsl|       1013 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1013 End             c 
+**** v1   vsl|       1011 Link            c req 1014 rxreq
+**** v1   vsl|       1014 Begin           c req 1011 rxreq
+**** v1   vsl|       1014 Timestamp       c Start: 1634892520.787261 0.000000 0.000000
+**** v1   vsl|       1014 Timestamp       c Req: 1634892520.787261 0.000000 0.000000
+**** v1   vsl|       1014 VCL_use         c vcl1
+**** v1   vsl|       1014 ReqStart        c 127.0.0.1 55154 a0
+**** v1   vsl|       1014 ReqMethod       c GET
+**** v1   vsl|       1014 ReqURL          c /
+**** v1   vsl|       1014 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1014 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1014 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1014 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1014 VCL_call        c RECV
+**** v1   vsl|       1014 VCL_return      c synth
+**** v1   vsl|       1014 VCL_call        c HASH
+**** v1   vsl|       1014 VCL_return      c lookup
+**** v1   vsl|       1014 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1014 RespStatus      c 200
+**** v1   vsl|       1014 RespReason      c OK
+**** v1   vsl|       1014 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1014 RespHeader      c Server: Varnish
+**** v1   vsl|       1014 RespHeader      c X-Varnish: 1014
+**** v1   vsl|       1014 VCL_call        c SYNTH
+**** v1   vsl|       1014 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1014 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1014 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1014 RespHeader      c Retry-After: 5
+**** v1   vsl|       1014 VCL_return      c deliver
+**** v1   vsl|       1014 Timestamp       c Process: 1634892520.787294 0.000032 0.000032
+**** v1   vsl|       1014 RespHeader      c Content-Length: 227
+**** v1   vsl|       1014 Storage         c malloc Transient
+**** v1   vsl|       1014 Filters         c 
+**** v1   vsl|       1014 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1014 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1014 Timestamp       c Resp: 1634892520.787320 0.000058 0.000025
+**** v1   vsl|       1014 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1014 End             c 
+**** v1   vsl|       1011 Link            c req 1015 rxreq
+**** v1   vsl|       1015 Begin           c req 1011 rxreq
+**** v1   vsl|       1015 Timestamp       c Start: 1634892520.788438 0.000000 0.000000
+**** v1   vsl|       1015 Timestamp       c Req: 1634892520.788438 0.000000 0.000000
+**** v1   vsl|       1015 VCL_use         c vcl1
+**** v1   vsl|       1015 ReqStart        c 127.0.0.1 55154 a0
+**** v1   vsl|       1015 ReqMethod       c GET
+**** v1   vsl|       1015 ReqURL          c /
+**** v1   vsl|       1015 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1015 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1015 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1015 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1015 VCL_call        c RECV
+**** v1   vsl|       1015 VCL_return      c synth
+**** v1   vsl|       1015 VCL_call        c HASH
+**** v1   vsl|       1015 VCL_return      c lookup
+**** v1   vsl|       1015 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1015 RespStatus      c 200
+**** v1   vsl|       1015 RespReason      c OK
+**** v1   vsl|       1015 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1015 RespHeader      c Server: Varnish
+**** v1   vsl|       1015 RespHeader      c X-Varnish: 1015
+**** v1   vsl|       1015 VCL_call        c SYNTH
+**** v1   vsl|       1015 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1015 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1015 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1015 RespHeader      c Retry-After: 5
+**** v1   vsl|       1015 VCL_return      c deliver
+**** v1   vsl|       1015 Timestamp       c Process: 1634892520.788462 0.000023 0.000023
+**** v1   vsl|       1015 RespHeader      c Content-Length: 227
+**** v1   vsl|       1015 Storage         c malloc Transient
+**** v1   vsl|       1015 Filters         c 
+**** v1   vsl|       1015 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1015 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1015 Timestamp       c Resp: 1634892520.788484 0.000046 0.000022
+**** v1   vsl|       1015 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1015 End             c 
+**** v1   vsl|       1011 Link            c req 1016 rxreq
+**** v1   vsl|       1016 Begin           c req 1011 rxreq
+**** v1   vsl|       1016 Timestamp       c Start: 1634892520.789627 0.000000 0.000000
+**** v1   vsl|       1016 Timestamp       c Req: 1634892520.789627 0.000000 0.000000
+**** v1   vsl|       1016 VCL_use         c vcl1
+**** v1   vsl|       1016 ReqStart        c 127.0.0.1 55154 a0
+**** v1   vsl|       1016 ReqMethod       c GET
+**** v1   vsl|       1016 ReqURL          c /
+**** v1   vsl|       1016 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1016 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1016 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1016 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1016 VCL_call        c RECV
+**** v1   vsl|       1016 VCL_return      c synth
+**** v1   vsl|       1016 VCL_call        c HASH
+**** v1   vsl|       1016 VCL_return      c lookup
+**** v1   vsl|       1016 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1016 RespStatus      c 200
+**** v1   vsl|       1016 RespReason      c OK
+**** v1   vsl|       1016 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1016 RespHeader      c Server: Varnish
+**** v1   vsl|       1016 RespHeader      c X-Varnish: 1016
+**** v1   vsl|       1016 VCL_call        c SYNTH
+**** v1   vsl|       1016 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1016 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1016 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1016 RespHeader      c Retry-After: 5
+**** v1   vsl|       1016 VCL_return      c deliver
+**** v1   vsl|       1016 Timestamp       c Process: 1634892520.789660 0.000033 0.000033
+**** v1   vsl|       1016 RespHeader      c Content-Length: 227
+**** v1   vsl|       1016 Storage         c malloc Transient
+**** v1   vsl|       1016 Filters         c 
+**** v1   vsl|       1016 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1016 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1016 Timestamp       c Resp: 1634892520.789691 0.000063 0.000030
+**** v1   vsl|       1016 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1016 End             c 
+**** v1   vsl|       1011 Link            c req 1017 rxreq
+**** v1   vsl|       1017 Begin           c req 1011 rxreq
+**** v1   vsl|       1017 Timestamp       c Start: 1634892520.790847 0.000000 0.000000
+**** v1   vsl|       1017 Timestamp       c Req: 1634892520.790847 0.000000 0.000000
+**** v1   vsl|       1017 VCL_use         c vcl1
+**** v1   vsl|       1017 ReqStart        c 127.0.0.1 55154 a0
+**** v1   vsl|       1017 ReqMethod       c GET
+**** v1   vsl|       1017 ReqURL          c /
+**** v1   vsl|       1017 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1017 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1017 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1017 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1017 VCL_call        c RECV
+**** v1   vsl|       1017 VCL_return      c synth
+**** v1   vsl|       1017 VCL_call        c HASH
+**** v1   vsl|       1017 VCL_return      c lookup
+**** v1   vsl|       1017 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1017 RespStatus      c 200
+**** v1   vsl|       1017 RespReason      c OK
+**** v1   vsl|       1017 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1017 RespHeader      c Server: Varnish
+**** v1   vsl|       1017 RespHeader      c X-Varnish: 1017
+**** v1   vsl|       1017 VCL_call        c SYNTH
+**** v1   vsl|       1017 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1017 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1017 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1017 RespHeader      c Retry-After: 5
+**** v1   vsl|       1017 VCL_return      c deliver
+**** v1   vsl|       1017 Timestamp       c Process: 1634892520.790871 0.000024 0.000024
+**** v1   vsl|       1017 RespHeader      c Content-Length: 227
+**** v1   vsl|       1017 Storage         c malloc Transient
+**** v1   vsl|       1017 Filters         c 
+**** v1   vsl|       1017 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1017 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1017 Timestamp       c Resp: 1634892520.790898 0.000051 0.000027
+**** v1   vsl|       1017 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1017 End             c 
+**** dT   0.412
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1017\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1017
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1017</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.413
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1018\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1018
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1018</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.414
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1019\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1019
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1019</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.415
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1020\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1020
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1020</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.416
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1021\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1021
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1021</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+***  c1   closing fd 15
+**   c1   Ending
+**   top  === client c2 -repeat 2 -run
+**   c2   Starting client
+**** dT   0.417
+**   c2   Waiting for client
+**   c2   Started on 127.0.0.1 40341 (2 iterations)
+***  c2   Connect to 127.0.0.1 40341
+***  c2   connected fd 15 from 127.0.0.1 55156 to 127.0.0.1 40341
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.418
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1023\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1023
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1023</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.419
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1024\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1024
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1024</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.420
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1025\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1025
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1025</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.421
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1026\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1026
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1026</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**** dT   0.422
+**   c2   === rxresp
+**** dT   0.423
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1027\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1027
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1027</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.424
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1028\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1028
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1028</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.425
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1029\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1029
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1029</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.426
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1030\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1030
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1030</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.427
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1031\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1031
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1031</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.428
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1032\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1032
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1032</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+***  c2   closing fd 15
+***  c2   Connect to 127.0.0.1 40341
+***  c2   connected fd 15 from 127.0.0.1 55158 to 127.0.0.1 40341
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**** dT   0.429
+**   c2   === rxresp
+**** dT   0.430
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1034\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1034
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1034</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.431
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1035\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1035
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1035</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.432
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1036\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** dT   0.433
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1036
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1036</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.434
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1037\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1037
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1037</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.435
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1038\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1038
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1038</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.436
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1039\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1039
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1039</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.437
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1040\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1040
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1040</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.438
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1041\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1041
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1041</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**** dT   0.439
+**   c2   === rxresp
+**** dT   0.440
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1042\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1042
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1042</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+**   c2   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.441
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:40 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1043\r
+**** c2   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 309
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1043
+**** c2   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1043</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c2   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+***  c2   closing fd 15
+**   c2   Ending
+*    top  RESETTING after ./tests/cookie_r00028.vtc
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin    Probe    Health    Last change
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   0.511
+**** v1   vsl|       1011 Link            c req 1018 rxreq
+**** v1   vsl|       1018 Begin           c req 1011 rxreq
+**** v1   vsl|       1018 Timestamp       c Start: 1634892520.791989 0.000000 0.000000
+**** v1   vsl|       1018 Timestamp       c Req: 1634892520.791989 0.000000 0.000000
+**** v1   vsl|       1018 VCL_use         c vcl1
+**** v1   vsl|       1018 ReqStart        c 127.0.0.1 55154 a0
+**** v1   vsl|       1018 ReqMethod       c GET
+**** v1   vsl|       1018 ReqURL          c /
+**** v1   vsl|       1018 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1018 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1018 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1018 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1018 VCL_call        c RECV
+**** v1   vsl|       1018 VCL_return      c synth
+**** v1   vsl|       1018 VCL_call        c HASH
+**** v1   vsl|       1018 VCL_return      c lookup
+**** v1   vsl|       1018 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1018 RespStatus      c 200
+**** v1   vsl|       1018 RespReason      c OK
+**** v1   vsl|       1018 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1018 RespHeader      c Server: Varnish
+**** v1   vsl|       1018 RespHeader      c X-Varnish: 1018
+**** v1   vsl|       1018 VCL_call        c SYNTH
+**** v1   vsl|       1018 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1018 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1018 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1018 RespHeader      c Retry-After: 5
+**** v1   vsl|       1018 VCL_return      c deliver
+**** v1   vsl|       1018 Timestamp       c Process: 1634892520.792010 0.000021 0.000021
+**** v1   vsl|       1018 RespHeader      c Content-Length: 227
+**** v1   vsl|       1018 Storage         c malloc Transient
+**** v1   vsl|       1018 Filters         c 
+**** v1   vsl|       1018 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1018 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1018 Timestamp       c Resp: 1634892520.792031 0.000041 0.000020
+**** v1   vsl|       1018 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1018 End             c 
+**** v1   vsl|       1011 Link            c req 1019 rxreq
+**** v1   vsl|       1019 Begin           c req 1011 rxreq
+**** v1   vsl|       1019 Timestamp       c Start: 1634892520.793109 0.000000 0.000000
+**** v1   vsl|       1019 Timestamp       c Req: 1634892520.793109 0.000000 0.000000
+**** v1   vsl|       1019 VCL_use         c vcl1
+**** v1   vsl|       1019 ReqStart        c 127.0.0.1 55154 a0
+**** v1   vsl|       1019 ReqMethod       c GET
+**** v1   vsl|       1019 ReqURL          c /
+**** v1   vsl|       1019 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1019 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1019 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1019 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1019 VCL_call        c RECV
+**** v1   vsl|       1019 VCL_return      c synth
+**** v1   vsl|       1019 VCL_call        c HASH
+**** v1   vsl|       1019 VCL_return      c lookup
+**** v1   vsl|       1019 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1019 RespStatus      c 200
+**** v1   vsl|       1019 RespReason      c OK
+**** v1   vsl|       1019 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1019 RespHeader      c Server: Varnish
+**** v1   vsl|       1019 RespHeader      c X-Varnish: 1019
+**** v1   vsl|       1019 VCL_call        c SYNTH
+**** v1   vsl|       1019 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1019 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1019 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1019 RespHeader      c Retry-After: 5
+**** v1   vsl|       1019 VCL_return      c deliver
+**** v1   vsl|       1019 Timestamp       c Process: 1634892520.793130 0.000020 0.000020
+**** v1   vsl|       1019 RespHeader      c Content-Length: 227
+**** v1   vsl|       1019 Storage         c malloc Transient
+**** dT   0.512
+**** v1   vsl|       1019 Filters         c 
+**** v1   vsl|       1019 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1019 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1019 Timestamp       c Resp: 1634892520.793150 0.000040 0.000020
+**** v1   vsl|       1019 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1019 End             c 
+**** v1   vsl|       1011 Link            c req 1020 rxreq
+**** v1   vsl|       1020 Begin           c req 1011 rxreq
+**** v1   vsl|       1020 Timestamp       c Start: 1634892520.794245 0.000000 0.000000
+**** v1   vsl|       1020 Timestamp       c Req: 1634892520.794245 0.000000 0.000000
+**** v1   vsl|       1020 VCL_use         c vcl1
+**** v1   vsl|       1020 ReqStart        c 127.0.0.1 55154 a0
+**** v1   vsl|       1020 ReqMethod       c GET
+**** v1   vsl|       1020 ReqURL          c /
+**** v1   vsl|       1020 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1020 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1020 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1020 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1020 VCL_call        c RECV
+**** v1   vsl|       1020 VCL_return      c synth
+**** v1   vsl|       1020 VCL_call        c HASH
+**** v1   vsl|       1020 VCL_return      c lookup
+**** v1   vsl|       1020 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1020 RespStatus      c 200
+**** v1   vsl|       1020 RespReason      c OK
+**** v1   vsl|       1020 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1020 RespHeader      c Server: Varnish
+**** v1   vsl|       1020 RespHeader      c X-Varnish: 1020
+**** v1   vsl|       1020 VCL_call        c SYNTH
+**** v1   vsl|       1020 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1020 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1020 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1020 RespHeader      c Retry-After: 5
+**** v1   vsl|       1020 VCL_return      c deliver
+**** v1   vsl|       1020 Timestamp       c Process: 1634892520.794265 0.000020 0.000020
+**** v1   vsl|       1020 RespHeader      c Content-Length: 227
+**** v1   vsl|       1020 Storage         c malloc Transient
+**** v1   vsl|       1020 Filters         c 
+**** v1   vsl|       1020 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1020 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1020 Timestamp       c Resp: 1634892520.794286 0.000040 0.000020
+**** v1   vsl|       1020 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1020 End             c 
+**** v1   vsl|       1011 Link            c req 1021 rxreq
+**** v1   vsl|       1021 Begin           c req 1011 rxreq
+**** v1   vsl|       1021 Timestamp       c Start: 1634892520.795386 0.000000 0.000000
+**** v1   vsl|       1021 Timestamp       c Req: 1634892520.795386 0.000000 0.000000
+**** v1   vsl|       1021 VCL_use         c vcl1
+**** v1   vsl|       1021 ReqStart        c 127.0.0.1 55154 a0
+**** v1   vsl|       1021 ReqMethod       c GET
+**** v1   vsl|       1021 ReqURL          c /
+**** v1   vsl|       1021 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1021 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1021 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1021 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1021 VCL_call        c RECV
+**** v1   vsl|       1021 VCL_return      c synth
+**** v1   vsl|       1021 VCL_call        c HASH
+**** v1   vsl|       1021 VCL_return      c lookup
+**** v1   vsl|       1021 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1021 RespStatus      c 200
+**** v1   vsl|       1021 RespReason      c OK
+**** v1   vsl|       1021 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1021 RespHeader      c Server: Varnish
+**** v1   vsl|       1021 RespHeader      c X-Varnish: 1021
+**** v1   vsl|       1021 VCL_call        c SYNTH
+**** v1   vsl|       1021 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1021 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1021 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1021 RespHeader      c Retry-After: 5
+**** v1   vsl|       1021 VCL_return      c deliver
+**** v1   vsl|       1021 Timestamp       c Process: 1634892520.795409 0.000023 0.000023
+**** v1   vsl|       1021 RespHeader      c Content-Length: 227
+**** v1   vsl|       1021 Storage         c malloc Transient
+**** v1   vsl|       1021 Filters         c 
+**** v1   vsl|       1021 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1021 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1021 Timestamp       c Resp: 1634892520.795430 0.000044 0.000020
+**** v1   vsl|       1021 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1021 End             c 
+**** v1   vsl|       1011 SessClose       c REM_CLOSE 0.013
+**** v1   vsl|       1011 End             c 
+**** v1   vsl|       1022 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1022 SessOpen        c 127.0.0.1 55156 a0 127.0.0.1 40341 1634892520.796789 27
+**** v1   vsl|       1022 Link            c req 1023 rxreq
+**** v1   vsl|       1023 Begin           c req 1022 rxreq
+**** v1   vsl|       1023 Timestamp       c Start: 1634892520.796879 0.000000 0.000000
+**** v1   vsl|       1023 Timestamp       c Req: 1634892520.796879 0.000000 0.000000
+**** v1   vsl|       1023 VCL_use         c vcl1
+**** v1   vsl|       1023 ReqStart        c 127.0.0.1 55156 a0
+**** v1   vsl|       1023 ReqMethod       c GET
+**** v1   vsl|       1023 ReqURL          c /
+**** v1   vsl|       1023 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1023 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1023 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1023 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1023 VCL_call        c RECV
+**** v1   vsl|       1023 VCL_return      c synth
+**** v1   vsl|       1023 VCL_call        c HASH
+**** v1   vsl|       1023 VCL_return      c lookup
+**** v1   vsl|       1023 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1023 RespStatus      c 200
+**** v1   vsl|       1023 RespReason      c OK
+**** v1   vsl|       1023 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1023 RespHeader      c Server: Varnish
+**** v1   vsl|       1023 RespHeader      c X-Varnish: 1023
+**** v1   vsl|       1023 VCL_call        c SYNTH
+**** v1   vsl|       1023 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1023 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1023 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1023 RespHeader      c Retry-After: 5
+**** v1   vsl|       1023 VCL_return      c deliver
+**** v1   vsl|       1023 Timestamp       c Process: 1634892520.796909 0.000030 0.000030
+**** v1   vsl|       1023 RespHeader      c Content-Length: 227
+**** v1   vsl|       1023 Storage         c malloc Transient
+**** v1   vsl|       1023 Filters         c 
+**** v1   vsl|       1023 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1023 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1023 Timestamp       c Resp: 1634892520.796936 0.000057 0.000026
+**** v1   vsl|       1023 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1023 End             c 
+**** v1   vsl|       1022 Link            c req 1024 rxreq
+**** v1   vsl|       1024 Begin           c req 1022 rxreq
+**** v1   vsl|       1024 Timestamp       c Start: 1634892520.798085 0.000000 0.000000
+**** v1   vsl|       1024 Timestamp       c Req: 1634892520.798085 0.000000 0.000000
+**** v1   vsl|       1024 VCL_use         c vcl1
+**** v1   vsl|       1024 ReqStart        c 127.0.0.1 55156 a0
+**** v1   vsl|       1024 ReqMethod       c GET
+**** v1   vsl|       1024 ReqURL          c /
+**** v1   vsl|       1024 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1024 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1024 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1024 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1024 VCL_call        c RECV
+**** v1   vsl|       1024 VCL_return      c synth
+**** v1   vsl|       1024 VCL_call        c HASH
+**** v1   vsl|       1024 VCL_return      c lookup
+**** v1   vsl|       1024 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1024 RespStatus      c 200
+**** v1   vsl|       1024 RespReason      c OK
+**** v1   vsl|       1024 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1024 RespHeader      c Server: Varnish
+**** v1   vsl|       1024 RespHeader      c X-Varnish: 1024
+**** v1   vsl|       1024 VCL_call        c SYNTH
+**** v1   vsl|       1024 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1024 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1024 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1024 RespHeader      c Retry-After: 5
+**** v1   vsl|       1024 VCL_return      c deliver
+**** v1   vsl|       1024 Timestamp       c Process: 1634892520.798110 0.000025 0.000025
+**** v1   vsl|       1024 RespHeader      c Content-Length: 227
+**** v1   vsl|       1024 Storage         c malloc Transient
+**** v1   vsl|       1024 Filters         c 
+**** v1   vsl|       1024 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1024 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1024 Timestamp       c Resp: 1634892520.798134 0.000049 0.000023
+**** v1   vsl|       1024 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1024 End             c 
+**** v1   vsl|       1022 Link            c req 1025 rxreq
+**** v1   vsl|       1025 Begin           c req 1022 rxreq
+**** v1   vsl|       1025 Timestamp       c Start: 1634892520.799340 0.000000 0.000000
+**** v1   vsl|       1025 Timestamp       c Req: 1634892520.799340 0.000000 0.000000
+**** v1   vsl|       1025 VCL_use         c vcl1
+**** v1   vsl|       1025 ReqStart        c 127.0.0.1 55156 a0
+**** v1   vsl|       1025 ReqMethod       c GET
+**** v1   vsl|       1025 ReqURL          c /
+**** v1   vsl|       1025 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1025 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1025 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1025 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1025 VCL_call        c RECV
+**** v1   vsl|       1025 VCL_return      c synth
+**** v1   vsl|       1025 VCL_call        c HASH
+**** v1   vsl|       1025 VCL_return      c lookup
+**** v1   vsl|       1025 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1025 RespStatus      c 200
+**** v1   vsl|       1025 RespReason      c OK
+**** v1   vsl|       1025 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1025 RespHeader      c Server: Varnish
+**** v1   vsl|       1025 RespHeader      c X-Varnish: 1025
+**** v1   vsl|       1025 VCL_call        c SYNTH
+**** v1   vsl|       1025 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1025 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1025 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1025 RespHeader      c Retry-After: 5
+**** v1   vsl|       1025 VCL_return      c deliver
+**** v1   vsl|       1025 Timestamp       c Process: 1634892520.799365 0.000025 0.000025
+**** v1   vsl|       1025 RespHeader      c Content-Length: 227
+**** v1   vsl|       1025 Storage         c malloc Transient
+**** v1   vsl|       1025 Filters         c 
+**** v1   vsl|       1025 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1025 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1025 Timestamp       c Resp: 1634892520.799389 0.000048 0.000023
+**** v1   vsl|       1025 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1025 End             c 
+**** v1   vsl|       1022 Link            c req 1026 rxreq
+**** v1   vsl|       1026 Begin           c req 1022 rxreq
+**** v1   vsl|       1026 Timestamp       c Start: 1634892520.800472 0.000000 0.000000
+**** v1   vsl|       1026 Timestamp       c Req: 1634892520.800472 0.000000 0.000000
+**** v1   vsl|       1026 VCL_use         c vcl1
+**** v1   vsl|       1026 ReqStart        c 127.0.0.1 55156 a0
+**** v1   vsl|       1026 ReqMethod       c GET
+**** v1   vsl|       1026 ReqURL          c /
+**** v1   vsl|       1026 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1026 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1026 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1026 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1026 VCL_call        c RECV
+**** v1   vsl|       1026 VCL_return      c synth
+**** v1   vsl|       1026 VCL_call        c HASH
+**** v1   vsl|       1026 VCL_return      c lookup
+**** v1   vsl|       1026 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1026 RespStatus      c 200
+**** v1   vsl|       1026 RespReason      c OK
+**** v1   vsl|       1026 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1026 RespHeader      c Server: Varnish
+**** v1   vsl|       1026 RespHeader      c X-Varnish: 1026
+**** v1   vsl|       1026 VCL_call        c SYNTH
+**** v1   vsl|       1026 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1026 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1026 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1026 RespHeader      c Retry-After: 5
+**** v1   vsl|       1026 VCL_return      c deliver
+**** v1   vsl|       1026 Timestamp       c Process: 1634892520.800493 0.000021 0.000021
+**** v1   vsl|       1026 RespHeader      c Content-Length: 227
+**** v1   vsl|       1026 Storage         c malloc Transient
+**** v1   vsl|       1026 Filters         c 
+**** v1   vsl|       1026 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1026 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1026 Timestamp       c Resp: 1634892520.800514 0.000041 0.000020
+**** v1   vsl|       1026 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1026 End             c 
+**** v1   vsl|       1022 Link            c req 1027 rxreq
+**** v1   vsl|       1027 Begin           c req 1022 rxreq
+**** v1   vsl|       1027 Timestamp       c Start: 1634892520.801602 0.000000 0.000000
+**** v1   vsl|       1027 Timestamp       c Req: 1634892520.801602 0.000000 0.000000
+**** v1   vsl|       1027 VCL_use         c vcl1
+**** v1   vsl|       1027 ReqStart        c 127.0.0.1 55156 a0
+**** v1   vsl|       1027 ReqMethod       c GET
+**** v1   vsl|       1027 ReqURL          c /
+**** v1   vsl|       1027 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1027 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1027 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1027 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1027 VCL_call        c RECV
+**** v1   vsl|       1027 VCL_return      c synth
+**** v1   vsl|       1027 VCL_call        c HASH
+**** v1   vsl|       1027 VCL_return      c lookup
+**** v1   vsl|       1027 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1027 RespStatus      c 200
+**** v1   vsl|       1027 RespReason      c OK
+**** v1   vsl|       1027 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1027 RespHeader      c Server: Varnish
+**** v1   vsl|       1027 RespHeader      c X-Varnish: 1027
+**** v1   vsl|       1027 VCL_call        c SYNTH
+**** v1   vsl|       1027 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1027 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1027 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1027 RespHeader      c Retry-After: 5
+**** v1   vsl|       1027 VCL_return      c deliver
+**** v1   vsl|       1027 Timestamp       c Process: 1634892520.801623 0.000021 0.000021
+**** v1   vsl|       1027 RespHeader      c Content-Length: 227
+**** v1   vsl|       1027 Storage         c malloc Transient
+**** v1   vsl|       1027 Filters         c 
+**** v1   vsl|       1027 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1027 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1027 Timestamp       c Resp: 1634892520.801643 0.000041 0.000020
+**** v1   vsl|       1027 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1027 End             c 
+**** v1   vsl|       1022 Link            c req 1028 rxreq
+**** v1   vsl|       1028 Begin           c req 1022 rxreq
+**** v1   vsl|       1028 Timestamp       c Start: 1634892520.802757 0.000000 0.000000
+**** v1   vsl|       1028 Timestamp       c Req: 1634892520.802757 0.000000 0.000000
+**** v1   vsl|       1028 VCL_use         c vcl1
+**** v1   vsl|       1028 ReqStart        c 127.0.0.1 55156 a0
+**** v1   vsl|       1028 ReqMethod       c GET
+**** v1   vsl|       1028 ReqURL          c /
+**** v1   vsl|       1028 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1028 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1028 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1028 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1028 VCL_call        c RECV
+**** v1   vsl|       1028 VCL_return      c synth
+**** v1   vsl|       1028 VCL_call        c HASH
+**** v1   vsl|       1028 VCL_return      c lookup
+**** v1   vsl|       1028 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1028 RespStatus      c 200
+**** v1   vsl|       1028 RespReason      c OK
+**** v1   vsl|       1028 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1028 RespHeader      c Server: Varnish
+**** v1   vsl|       1028 RespHeader      c X-Varnish: 1028
+**** v1   vsl|       1028 VCL_call        c SYNTH
+**** v1   vsl|       1028 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1028 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1028 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1028 RespHeader      c Retry-After: 5
+**** v1   vsl|       1028 VCL_return      c deliver
+**** v1   vsl|       1028 Timestamp       c Process: 1634892520.802779 0.000021 0.000021
+**** v1   vsl|       1028 RespHeader      c Content-Length: 227
+**** v1   vsl|       1028 Storage         c malloc Transient
+**** v1   vsl|       1028 Filters         c 
+**** v1   vsl|       1028 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1028 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1028 Timestamp       c Resp: 1634892520.802800 0.000043 0.000021
+**** v1   vsl|       1028 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1028 End             c 
+**** v1   vsl|       1022 Link            c req 1029 rxreq
+**** v1   vsl|       1029 Begin           c req 1022 rxreq
+**** v1   vsl|       1029 Timestamp       c Start: 1634892520.803875 0.000000 0.000000
+**** v1   vsl|       1029 Timestamp       c Req: 1634892520.803875 0.000000 0.000000
+**** v1   vsl|       1029 VCL_use         c vcl1
+**** v1   vsl|       1029 ReqStart        c 127.0.0.1 55156 a0
+**** v1   vsl|       1029 ReqMethod       c GET
+**** v1   vsl|       1029 ReqURL          c /
+**** v1   vsl|       1029 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1029 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1029 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1029 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1029 VCL_call        c RECV
+**** v1   vsl|       1029 VCL_return      c synth
+**** v1   vsl|       1029 VCL_call        c HASH
+**** v1   vsl|       1029 VCL_return      c lookup
+**** v1   vsl|       1029 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1029 RespStatus      c 200
+**** v1   vsl|       1029 RespReason      c OK
+**** v1   vsl|       1029 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1029 RespHeader      c Server: Varnish
+**** v1   vsl|       1029 RespHeader      c X-Varnish: 1029
+**** v1   vsl|       1029 VCL_call        c SYNTH
+**** v1   vsl|       1029 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1029 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1029 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1029 RespHeader      c Retry-After: 5
+**** v1   vsl|       1029 VCL_return      c deliver
+**** v1   vsl|       1029 Timestamp       c Process: 1634892520.803895 0.000019 0.000019
+**** v1   vsl|       1029 RespHeader      c Content-Length: 227
+**** v1   vsl|       1029 Storage         c malloc Transient
+**** v1   vsl|       1029 Filters         c 
+**** v1   vsl|       1029 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1029 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1029 Timestamp       c Resp: 1634892520.803914 0.000039 0.000019
+**** v1   vsl|       1029 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1029 End             c 
+**** v1   vsl|       1022 Link            c req 1030 rxreq
+**** v1   vsl|       1030 Begin           c req 1022 rxreq
+**** v1   vsl|       1030 Timestamp       c Start: 1634892520.805000 0.000000 0.000000
+**** v1   vsl|       1030 Timestamp       c Req: 1634892520.805000 0.000000 0.000000
+**** v1   vsl|       1030 VCL_use         c vcl1
+**** v1   vsl|       1030 ReqStart        c 127.0.0.1 55156 a0
+**** v1   vsl|       1030 ReqMethod       c GET
+**** v1   vsl|       1030 ReqURL          c /
+**** v1   vsl|       1030 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1030 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1030 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1030 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1030 VCL_call        c RECV
+**** v1   vsl|       1030 VCL_return      c synth
+**** v1   vsl|       1030 VCL_call        c HASH
+**** v1   vsl|       1030 VCL_return      c lookup
+**** v1   vsl|       1030 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1030 RespStatus      c 200
+**** v1   vsl|       1030 RespReason      c OK
+**** v1   vsl|       1030 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1030 RespHeader      c Server: Varnish
+**** v1   vsl|       1030 RespHeader      c X-Varnish: 1030
+**** v1   vsl|       1030 VCL_call        c SYNTH
+**** v1   vsl|       1030 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1030 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1030 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1030 RespHeader      c Retry-After: 5
+**** v1   vsl|       1030 VCL_return      c deliver
+**** v1   vsl|       1030 Timestamp       c Process: 1634892520.805020 0.000020 0.000020
+**** v1   vsl|       1030 RespHeader      c Content-Length: 227
+**** v1   vsl|       1030 Storage         c malloc Transient
+**** v1   vsl|       1030 Filters         c 
+**** v1   vsl|       1030 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1030 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1030 Timestamp       c Resp: 1634892520.805040 0.000040 0.000020
+**** v1   vsl|       1030 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1030 End             c 
+**** v1   vsl|       1022 Link            c req 1031 rxreq
+**** v1   vsl|       1031 Begin           c req 1022 rxreq
+**** v1   vsl|       1031 Timestamp       c Start: 1634892520.806138 0.000000 0.000000
+**** v1   vsl|       1031 Timestamp       c Req: 1634892520.806138 0.000000 0.000000
+**** v1   vsl|       1031 VCL_use         c vcl1
+**** v1   vsl|       1031 ReqStart        c 127.0.0.1 55156 a0
+**** v1   vsl|       1031 ReqMethod       c GET
+**** v1   vsl|       1031 ReqURL          c /
+**** v1   vsl|       1031 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1031 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1031 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1031 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1031 VCL_call        c RECV
+**** v1   vsl|       1031 VCL_return      c synth
+**** v1   vsl|       1031 VCL_call        c HASH
+**** v1   vsl|       1031 VCL_return      c lookup
+**** v1   vsl|       1031 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1031 RespStatus      c 200
+**** v1   vsl|       1031 RespReason      c OK
+**** v1   vsl|       1031 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1031 RespHeader      c Server: Varnish
+**** v1   vsl|       1031 RespHeader      c X-Varnish: 1031
+**** v1   vsl|       1031 VCL_call        c SYNTH
+**** v1   vsl|       1031 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1031 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1031 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1031 RespHeader      c Retry-After: 5
+**** v1   vsl|       1031 VCL_return      c deliver
+**** v1   vsl|       1031 Timestamp       c Process: 1634892520.806157 0.000019 0.000019
+**** v1   vsl|       1031 RespHeader      c Content-Length: 227
+**** v1   vsl|       1031 Storage         c malloc Transient
+**** v1   vsl|       1031 Filters         c 
+**** v1   vsl|       1031 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1031 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1031 Timestamp       c Resp: 1634892520.806178 0.000040 0.000020
+**** v1   vsl|       1031 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1031 End             c 
+**** v1   vsl|       1022 Link            c req 1032 rxreq
+**** v1   vsl|       1032 Begin           c req 1022 rxreq
+**** v1   vsl|       1032 Timestamp       c Start: 1634892520.807268 0.000000 0.000000
+**** v1   vsl|       1032 Timestamp       c Req: 1634892520.807268 0.000000 0.000000
+**** v1   vsl|       1032 VCL_use         c vcl1
+**** v1   vsl|       1032 ReqStart        c 127.0.0.1 55156 a0
+**** v1   vsl|       1032 ReqMethod       c GET
+**** v1   vsl|       1032 ReqURL          c /
+**** v1   vsl|       1032 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1032 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1032 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1032 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1032 VCL_call        c RECV
+**** v1   vsl|       1032 VCL_return      c synth
+**** v1   vsl|       1032 VCL_call        c HASH
+**** v1   vsl|       1032 VCL_return      c lookup
+**** v1   vsl|       1032 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1032 RespStatus      c 200
+**** v1   vsl|       1032 RespReason      c OK
+**** v1   vsl|       1032 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1032 RespHeader      c Server: Varnish
+**** v1   vsl|       1032 RespHeader      c X-Varnish: 1032
+**** v1   vsl|       1032 VCL_call        c SYNTH
+**** v1   vsl|       1032 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1032 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1032 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1032 RespHeader      c Retry-After: 5
+**** v1   vsl|       1032 VCL_return      c deliver
+**** v1   vsl|       1032 Timestamp       c Process: 1634892520.807291 0.000022 0.000022
+**** v1   vsl|       1032 RespHeader      c Content-Length: 227
+**** v1   vsl|       1032 Storage         c malloc Transient
+**** v1   vsl|       1032 Filters         c 
+**** v1   vsl|       1032 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1032 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1032 Timestamp       c Resp: 1634892520.807311 0.000042 0.000020
+**** v1   vsl|       1032 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1032 End             c 
+**** v1   vsl|       1022 SessClose       c REM_CLOSE 0.012
+**** v1   vsl|       1022 End             c 
+**** v1   vsl|       1033 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1033 SessOpen        c 127.0.0.1 55158 a0 127.0.0.1 40341 1634892520.808563 25
+**** v1   vsl|       1033 Link            c req 1034 rxreq
+**** v1   vsl|       1034 Begin           c req 1033 rxreq
+**** v1   vsl|       1034 Timestamp       c Start: 1634892520.808710 0.000000 0.000000
+**** v1   vsl|       1034 Timestamp       c Req: 1634892520.808710 0.000000 0.000000
+**** v1   vsl|       1034 VCL_use         c vcl1
+**** v1   vsl|       1034 ReqStart        c 127.0.0.1 55158 a0
+**** v1   vsl|       1034 ReqMethod       c GET
+**** v1   vsl|       1034 ReqURL          c /
+**** v1   vsl|       1034 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1034 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1034 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1034 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1034 VCL_call        c RECV
+**** v1   vsl|       1034 VCL_return      c synth
+**** v1   vsl|       1034 VCL_call        c HASH
+**** v1   vsl|       1034 VCL_return      c lookup
+**** v1   vsl|       1034 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1034 RespStatus      c 200
+**** v1   vsl|       1034 RespReason      c OK
+**** v1   vsl|       1034 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1034 RespHeader      c Server: Varnish
+**** v1   vsl|       1034 RespHeader      c X-Varnish: 1034
+**** v1   vsl|       1034 VCL_call        c SYNTH
+**** v1   vsl|       1034 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1034 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1034 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1034 RespHeader      c Retry-After: 5
+**** v1   vsl|       1034 VCL_return      c deliver
+**** v1   vsl|       1034 Timestamp       c Process: 1634892520.808750 0.000039 0.000039
+**** v1   vsl|       1034 RespHeader      c Content-Length: 227
+**** v1   vsl|       1034 Storage         c malloc Transient
+**** v1   vsl|       1034 Filters         c 
+**** v1   vsl|       1034 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1034 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1034 Timestamp       c Resp: 1634892520.808789 0.000078 0.000039
+**** v1   vsl|       1034 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1034 End             c 
+**** v1   vsl|       1033 Link            c req 1035 rxreq
+**** v1   vsl|       1035 Begin           c req 1033 rxreq
+**** v1   vsl|       1035 Timestamp       c Start: 1634892520.810305 0.000000 0.000000
+**** v1   vsl|       1035 Timestamp       c Req: 1634892520.810305 0.000000 0.000000
+**** v1   vsl|       1035 VCL_use         c vcl1
+**** v1   vsl|       1035 ReqStart        c 127.0.0.1 55158 a0
+**** v1   vsl|       1035 ReqMethod       c GET
+**** v1   vsl|       1035 ReqURL          c /
+**** v1   vsl|       1035 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1035 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1035 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1035 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1035 VCL_call        c RECV
+**** v1   vsl|       1035 VCL_return      c synth
+**** v1   vsl|       1035 VCL_call        c HASH
+**** v1   vsl|       1035 VCL_return      c lookup
+**** v1   vsl|       1035 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1035 RespStatus      c 200
+**** v1   vsl|       1035 RespReason      c OK
+**** v1   vsl|       1035 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1035 RespHeader      c Server: Varnish
+**** v1   vsl|       1035 RespHeader      c X-Varnish: 1035
+**** v1   vsl|       1035 VCL_call        c SYNTH
+**** v1   vsl|       1035 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1035 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1035 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1035 RespHeader      c Retry-After: 5
+**** v1   vsl|       1035 VCL_return      c deliver
+**** v1   vsl|       1035 Timestamp       c Process: 1634892520.810334 0.000028 0.000028
+**** v1   vsl|       1035 RespHeader      c Content-Length: 227
+**** v1   vsl|       1035 Storage         c malloc Transient
+**** v1   vsl|       1035 Filters         c 
+**** v1   vsl|       1035 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1035 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1035 Timestamp       c Resp: 1634892520.810359 0.000053 0.000025
+**** v1   vsl|       1035 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1035 End             c 
+**** v1   vsl|       1033 Link            c req 1036 rxreq
+**** v1   vsl|       1036 Begin           c req 1033 rxreq
+**** v1   vsl|       1036 Timestamp       c Start: 1634892520.811493 0.000000 0.000000
+**** v1   vsl|       1036 Timestamp       c Req: 1634892520.811493 0.000000 0.000000
+**** v1   vsl|       1036 VCL_use         c vcl1
+**** v1   vsl|       1036 ReqStart        c 127.0.0.1 55158 a0
+**** v1   vsl|       1036 ReqMethod       c GET
+**** v1   vsl|       1036 ReqURL          c /
+**** v1   vsl|       1036 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1036 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1036 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1036 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1036 VCL_call        c RECV
+**** v1   vsl|       1036 VCL_return      c synth
+**** v1   vsl|       1036 VCL_call        c HASH
+**** v1   vsl|       1036 VCL_return      c lookup
+**** v1   vsl|       1036 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1036 RespStatus      c 200
+**** v1   vsl|       1036 RespReason      c OK
+**** v1   vsl|       1036 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1036 RespHeader      c Server: Varnish
+**** v1   vsl|       1036 RespHeader      c X-Varnish: 1036
+**** v1   vsl|       1036 VCL_call        c SYNTH
+**** v1   vsl|       1036 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1036 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1036 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1036 RespHeader      c Retry-After: 5
+**** v1   vsl|       1036 VCL_return      c deliver
+**** v1   vsl|       1036 Timestamp       c Process: 1634892520.811517 0.000024 0.000024
+**** v1   vsl|       1036 RespHeader      c Content-Length: 227
+**** v1   vsl|       1036 Storage         c malloc Transient
+**** v1   vsl|       1036 Filters         c 
+**** v1   vsl|       1036 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1036 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1036 Timestamp       c Resp: 1634892520.811540 0.000046 0.000022
+**** v1   vsl|       1036 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1036 End             c 
+**** v1   vsl|       1033 Link            c req 1037 rxreq
+**** v1   vsl|       1037 Begin           c req 1033 rxreq
+**** v1   vsl|       1037 Timestamp       c Start: 1634892520.812703 0.000000 0.000000
+**** v1   vsl|       1037 Timestamp       c Req: 1634892520.812703 0.000000 0.000000
+**** v1   vsl|       1037 VCL_use         c vcl1
+**** v1   vsl|       1037 ReqStart        c 127.0.0.1 55158 a0
+**** v1   vsl|       1037 ReqMethod       c GET
+**** v1   vsl|       1037 ReqURL          c /
+**** v1   vsl|       1037 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1037 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1037 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1037 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1037 VCL_call        c RECV
+**** v1   vsl|       1037 VCL_return      c synth
+**** v1   vsl|       1037 VCL_call        c HASH
+**** v1   vsl|       1037 VCL_return      c lookup
+**** v1   vsl|       1037 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1037 RespStatus      c 200
+**** v1   vsl|       1037 RespReason      c OK
+**** v1   vsl|       1037 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1037 RespHeader      c Server: Varnish
+**** v1   vsl|       1037 RespHeader      c X-Varnish: 1037
+**** v1   vsl|       1037 VCL_call        c SYNTH
+**** v1   vsl|       1037 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1037 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1037 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1037 RespHeader      c Retry-After: 5
+**** v1   vsl|       1037 VCL_return      c deliver
+**** v1   vsl|       1037 Timestamp       c Process: 1634892520.812728 0.000025 0.000025
+**** v1   vsl|       1037 RespHeader      c Content-Length: 227
+**** v1   vsl|       1037 Storage         c malloc Transient
+**** v1   vsl|       1037 Filters         c 
+**** v1   vsl|       1037 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1037 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1037 Timestamp       c Resp: 1634892520.812750 0.000047 0.000022
+**** v1   vsl|       1037 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1037 End             c 
+**** v1   vsl|       1033 Link            c req 1038 rxreq
+**** v1   vsl|       1038 Begin           c req 1033 rxreq
+**** v1   vsl|       1038 Timestamp       c Start: 1634892520.813830 0.000000 0.000000
+**** v1   vsl|       1038 Timestamp       c Req: 1634892520.813830 0.000000 0.000000
+**** v1   vsl|       1038 VCL_use         c vcl1
+**** v1   vsl|       1038 ReqStart        c 127.0.0.1 55158 a0
+**** v1   vsl|       1038 ReqMethod       c GET
+**** v1   vsl|       1038 ReqURL          c /
+**** v1   vsl|       1038 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1038 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1038 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1038 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1038 VCL_call        c RECV
+**** v1   vsl|       1038 VCL_return      c synth
+**** v1   vsl|       1038 VCL_call        c HASH
+**** v1   vsl|       1038 VCL_return      c lookup
+**** v1   vsl|       1038 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1038 RespStatus      c 200
+**** v1   vsl|       1038 RespReason      c OK
+**** v1   vsl|       1038 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1038 RespHeader      c Server: Varnish
+**** v1   vsl|       1038 RespHeader      c X-Varnish: 1038
+**** v1   vsl|       1038 VCL_call        c SYNTH
+**** v1   vsl|       1038 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1038 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1038 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1038 RespHeader      c Retry-After: 5
+**** v1   vsl|       1038 VCL_return      c deliver
+**** v1   vsl|       1038 Timestamp       c Process: 1634892520.813851 0.000021 0.000021
+**** v1   vsl|       1038 RespHeader      c Content-Length: 227
+**** v1   vsl|       1038 Storage         c malloc Transient
+**** v1   vsl|       1038 Filters         c 
+**** v1   vsl|       1038 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1038 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1038 Timestamp       c Resp: 1634892520.813871 0.000041 0.000020
+**** v1   vsl|       1038 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1038 End             c 
+**** v1   vsl|       1033 Link            c req 1039 rxreq
+**** v1   vsl|       1039 Begin           c req 1033 rxreq
+**** v1   vsl|       1039 Timestamp       c Start: 1634892520.815127 0.000000 0.000000
+**** v1   vsl|       1039 Timestamp       c Req: 1634892520.815127 0.000000 0.000000
+**** v1   vsl|       1039 VCL_use         c vcl1
+**** v1   vsl|       1039 ReqStart        c 127.0.0.1 55158 a0
+**** v1   vsl|       1039 ReqMethod       c GET
+**** v1   vsl|       1039 ReqURL          c /
+**** v1   vsl|       1039 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1039 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1039 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1039 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1039 VCL_call        c RECV
+**** v1   vsl|       1039 VCL_return      c synth
+**** v1   vsl|       1039 VCL_call        c HASH
+**** v1   vsl|       1039 VCL_return      c lookup
+**** v1   vsl|       1039 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1039 RespStatus      c 200
+**** v1   vsl|       1039 RespReason      c OK
+**** v1   vsl|       1039 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1039 RespHeader      c Server: Varnish
+**** v1   vsl|       1039 RespHeader      c X-Varnish: 1039
+**** v1   vsl|       1039 VCL_call        c SYNTH
+**** v1   vsl|       1039 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1039 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1039 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1039 RespHeader      c Retry-After: 5
+**** v1   vsl|       1039 VCL_return      c deliver
+**** v1   vsl|       1039 Timestamp       c Process: 1634892520.815151 0.000024 0.000024
+**** v1   vsl|       1039 RespHeader      c Content-Length: 227
+**** v1   vsl|       1039 Storage         c malloc Transient
+**** v1   vsl|       1039 Filters         c 
+**** v1   vsl|       1039 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1039 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1039 Timestamp       c Resp: 1634892520.815175 0.000047 0.000023
+**** v1   vsl|       1039 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1039 End             c 
+**** v1   vsl|       1033 Link            c req 1040 rxreq
+**** v1   vsl|       1040 Begin           c req 1033 rxreq
+**** v1   vsl|       1040 Timestamp       c Start: 1634892520.816274 0.000000 0.000000
+**** v1   vsl|       1040 Timestamp       c Req: 1634892520.816274 0.000000 0.000000
+**** v1   vsl|       1040 VCL_use         c vcl1
+**** v1   vsl|       1040 ReqStart        c 127.0.0.1 55158 a0
+**** v1   vsl|       1040 ReqMethod       c GET
+**** v1   vsl|       1040 ReqURL          c /
+**** v1   vsl|       1040 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1040 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1040 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1040 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1040 VCL_call        c RECV
+**** v1   vsl|       1040 VCL_return      c synth
+**** v1   vsl|       1040 VCL_call        c HASH
+**** v1   vsl|       1040 VCL_return      c lookup
+**** v1   vsl|       1040 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1040 RespStatus      c 200
+**** v1   vsl|       1040 RespReason      c OK
+**** v1   vsl|       1040 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1040 RespHeader      c Server: Varnish
+**** v1   vsl|       1040 RespHeader      c X-Varnish: 1040
+**** v1   vsl|       1040 VCL_call        c SYNTH
+**** v1   vsl|       1040 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1040 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1040 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1040 RespHeader      c Retry-After: 5
+**** v1   vsl|       1040 VCL_return      c deliver
+**** v1   vsl|       1040 Timestamp       c Process: 1634892520.816295 0.000020 0.000020
+**** v1   vsl|       1040 RespHeader      c Content-Length: 227
+**** v1   vsl|       1040 Storage         c malloc Transient
+**** v1   vsl|       1040 Filters         c 
+**** v1   vsl|       1040 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1040 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1040 Timestamp       c Resp: 1634892520.816316 0.000041 0.000020
+**** v1   vsl|       1040 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1040 End             c 
+**** v1   vsl|       1033 Link            c req 1041 rxreq
+**** v1   vsl|       1041 Begin           c req 1033 rxreq
+**** v1   vsl|       1041 Timestamp       c Start: 1634892520.817407 0.000000 0.000000
+**** v1   vsl|       1041 Timestamp       c Req: 1634892520.817407 0.000000 0.000000
+**** v1   vsl|       1041 VCL_use         c vcl1
+**** v1   vsl|       1041 ReqStart        c 127.0.0.1 55158 a0
+**** v1   vsl|       1041 ReqMethod       c GET
+**** v1   vsl|       1041 ReqURL          c /
+**** v1   vsl|       1041 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1041 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1041 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1041 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1041 VCL_call        c RECV
+**** v1   vsl|       1041 VCL_return      c synth
+**** v1   vsl|       1041 VCL_call        c HASH
+**** v1   vsl|       1041 VCL_return      c lookup
+**** v1   vsl|       1041 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1041 RespStatus      c 200
+**** v1   vsl|       1041 RespReason      c OK
+**** v1   vsl|       1041 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1041 RespHeader      c Server: Varnish
+**** v1   vsl|       1041 RespHeader      c X-Varnish: 1041
+**** v1   vsl|       1041 VCL_call        c SYNTH
+**** v1   vsl|       1041 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1041 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1041 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1041 RespHeader      c Retry-After: 5
+**** v1   vsl|       1041 VCL_return      c deliver
+**** v1   vsl|       1041 Timestamp       c Process: 1634892520.817429 0.000021 0.000021
+**** v1   vsl|       1041 RespHeader      c Content-Length: 227
+**** v1   vsl|       1041 Storage         c malloc Transient
+**** v1   vsl|       1041 Filters         c 
+**** v1   vsl|       1041 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1041 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1041 Timestamp       c Resp: 1634892520.817449 0.000041 0.000020
+**** v1   vsl|       1041 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1041 End             c 
+**** v1   vsl|       1033 Link            c req 1042 rxreq
+**** v1   vsl|       1042 Begin           c req 1033 rxreq
+**** v1   vsl|       1042 Timestamp       c Start: 1634892520.818572 0.000000 0.000000
+**** v1   vsl|       1042 Timestamp       c Req: 1634892520.818572 0.000000 0.000000
+**** v1   vsl|       1042 VCL_use         c vcl1
+**** v1   vsl|       1042 ReqStart        c 127.0.0.1 55158 a0
+**** v1   vsl|       1042 ReqMethod       c GET
+**** v1   vsl|       1042 ReqURL          c /
+**** v1   vsl|       1042 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1042 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1042 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1042 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1042 VCL_call        c RECV
+**** v1   vsl|       1042 VCL_return      c synth
+**** v1   vsl|       1042 VCL_call        c HASH
+**** v1   vsl|       1042 VCL_return      c lookup
+**** v1   vsl|       1042 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1042 RespStatus      c 200
+**** v1   vsl|       1042 RespReason      c OK
+**** v1   vsl|       1042 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1042 RespHeader      c Server: Varnish
+**** v1   vsl|       1042 RespHeader      c X-Varnish: 1042
+**** v1   vsl|       1042 VCL_call        c SYNTH
+**** v1   vsl|       1042 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1042 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1042 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1042 RespHeader      c Retry-After: 5
+**** v1   vsl|       1042 VCL_return      c deliver
+**** v1   vsl|       1042 Timestamp       c Process: 1634892520.818596 0.000023 0.000023
+**** v1   vsl|       1042 RespHeader      c Content-Length: 227
+**** v1   vsl|       1042 Storage         c malloc Transient
+**** v1   vsl|       1042 Filters         c 
+**** v1   vsl|       1042 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1042 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1042 Timestamp       c Resp: 1634892520.818617 0.000045 0.000021
+**** v1   vsl|       1042 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1042 End             c 
+**** v1   vsl|       1033 Link            c req 1043 rxreq
+**** v1   vsl|       1043 Begin           c req 1033 rxreq
+**** v1   vsl|       1043 Timestamp       c Start: 1634892520.819811 0.000000 0.000000
+**** v1   vsl|       1043 Timestamp       c Req: 1634892520.819811 0.000000 0.000000
+**** v1   vsl|       1043 VCL_use         c vcl1
+**** v1   vsl|       1043 ReqStart        c 127.0.0.1 55158 a0
+**** v1   vsl|       1043 ReqMethod       c GET
+**** v1   vsl|       1043 ReqURL          c /
+**** v1   vsl|       1043 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1043 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1043 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1043 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1043 VCL_call        c RECV
+**** v1   vsl|       1043 VCL_return      c synth
+**** v1   vsl|       1043 VCL_call        c HASH
+**** v1   vsl|       1043 VCL_return      c lookup
+**** v1   vsl|       1043 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1043 RespStatus      c 200
+**** v1   vsl|       1043 RespReason      c OK
+**** v1   vsl|       1043 RespHeader      c Date: Fri, 22 Oct 2021 08:48:40 GMT
+**** v1   vsl|       1043 RespHeader      c Server: Varnish
+**** v1   vsl|       1043 RespHeader      c X-Varnish: 1043
+**** v1   vsl|       1043 VCL_call        c SYNTH
+**** v1   vsl|       1043 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1043 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1043 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1043 RespHeader      c Retry-After: 5
+**** v1   vsl|       1043 VCL_return      c deliver
+**** v1   vsl|       1043 Timestamp       c Process: 1634892520.819838 0.000026 0.000026
+**** v1   vsl|       1043 RespHeader      c Content-Length: 227
+**** v1   vsl|       1043 Storage         c malloc Transient
+**** v1   vsl|       1043 Filters         c 
+**** v1   vsl|       1043 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1043 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1043 Timestamp       c Resp: 1634892520.819872 0.000060 0.000034
+**** v1   vsl|       1043 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1043 End             c 
+**** v1   vsl|       1033 SessClose       c REM_CLOSE 0.013
+**** v1   vsl|       1033 End             c 
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 55 Backend name   Admin    Probe    Health    Last change
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.442
+***  v1   debug|Info: Child (44048) ended
+***  v1   debug|Info: Child (44048) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** dT   1.443
+**** v1   STDOUT EOF
+**** dT   1.514
+**   v1   WAIT4 pid=44002 status=0x0000 (user 0.134725 sys 0.037620)
+*    top  TEST ./tests/cookie_r00028.vtc completed
+#    top  TEST ./tests/cookie_r00028.vtc passed (1.515)

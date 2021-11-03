@@ -1,0 +1,1398 @@
+**** dT   0.000
+*    top  TEST ./tests/m00015.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 35459
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.69193.1d7a6cd7
+**   top  === varnishtest "Test std.real() conversion and std.round"
+*    top  VTEST Test std.real() conversion and std.round
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=45845
+**** s1   macro def s1_sock=127.0.0.1 45845
+*    s1   Listen on 127.0.0.1 45845
+**   top  === varnish v1 -vcl+backend {
+**   s1   Started on 127.0.0.1 45845 (1 iterations)
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.69193.1d7a6cd7/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 40465' -P /tmp/vtc.69193.1d7a6cd7/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.69193.1d7a6cd7/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 40465' -P /tmp/vtc.69193.1d7a6cd7/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 69212
+**** v1   macro def v1_pid=69212
+**** v1   macro def v1_name=/tmp/vtc.69193.1d7a6cd7/v1
+**** dT   0.012
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.111
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 7
+***  v1   CLI RX  107
+**** v1   CLI RX|jsmyfucjsmweboiqhhebznvyjucwrcsd
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth 8a27a3bafcbfb441d3a4566df6a7b1576210b13a9add19d717f8ff0c13ab0178
+**** dT   0.112
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "45845"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport std;
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_deliver {
+**** v1   CLI TX|\t\tset resp.http.t0 = std.real(req.http.foo, 0.0);
+**** v1   CLI TX|\t\tset resp.http.t1 = std.real(req.http.bar, 0.0);
+**** v1   CLI TX|\t\tset resp.http.t2 = std.real(req.http.nonexistent, 0.0);
+**** v1   CLI TX|\t\tset resp.http.t3 = std.real("1.", 0.0);
+**** v1   CLI TX|\t\tset resp.http.t4 = std.real("1.0", 0.0);
+**** v1   CLI TX|\t\tset resp.http.t5 = std.real("1.0 ", 0.0);
+**** v1   CLI TX|\t\tset resp.http.t6 = std.real(" 1.0", 0.0);
+**** v1   CLI TX|\t\tset resp.http.t7 = std.real(" 1.0 ", 0.0);
+**** v1   CLI TX|\t\tset resp.http.t8 = std.round(42.42);
+**** v1   CLI TX|\t\tset resp.http.t9 = std.round(-42.42);
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.213
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.304
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.307
+***  v1   debug|Debug: Child (69224) Started
+**** dT   0.333
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (69224) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 37241
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+**** dT   0.334
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 37241
+**   v1   Listen on 127.0.0.1 37241
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=37241
+**** v1   macro def v1_sock=127.0.0.1 37241
+**** dT   0.413
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892863.526978/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892863.526978/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 37241
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 37241
+
+**** dT   0.434
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 37241 (1 iterations)
+***  c1   Connect to 127.0.0.1 37241
+***  c1   connected fd 17 from 127.0.0.1 39724 to 127.0.0.1 37241
+**   c1   === txreq -hdr "foo: 1.00" -hdr "bar: 1.00a"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: 1.00\r
+**** c1   txreq|bar: 1.00a\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.435
+***  s1   accepted fd 5 127.0.0.1 46198
+**   s1   === rxreq
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|foo: 1.00\r
+**** s1   rxhdr|bar: 1.00a\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1002\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 126
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |foo: 1.00
+**** s1   http[ 4] |bar: 1.00a
+**** s1   http[ 5] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 6] |host: 127.0.0.1
+**** s1   http[ 7] |Accept-Encoding: gzip
+**** s1   http[ 8] |X-Varnish: 1002
+**** s1   bodylen = 0
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 5
+**   s1   Ending
+**** dT   0.436
+**   c1   === rxresp
+**** dT   0.447
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:23 GMT\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|t0: 1.000\r
+**** c1   rxhdr|t1: 0.000\r
+**** c1   rxhdr|t2: 0.000\r
+**** c1   rxhdr|t3: 1.000\r
+**** c1   rxhdr|t4: 1.000\r
+**** c1   rxhdr|t5: 1.000\r
+**** c1   rxhdr|t6: 1.000\r
+**** c1   rxhdr|t7: 1.000\r
+**** c1   rxhdr|t8: 42.000\r
+**** c1   rxhdr|t9: -42.000\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 291
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** c1   http[ 5] |X-Varnish: 1001
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |t0: 1.000
+**** c1   http[ 9] |t1: 0.000
+**** c1   http[10] |t2: 0.000
+**** c1   http[11] |t3: 1.000
+**** c1   http[12] |t4: 1.000
+**** c1   http[13] |t5: 1.000
+**** c1   http[14] |t6: 1.000
+**** c1   http[15] |t7: 1.000
+**** c1   http[16] |t8: 42.000
+**** c1   http[17] |t9: -42.000
+**** c1   http[18] |Accept-Ranges: bytes
+**** c1   http[19] |Connection: keep-alive
+**** c1   bodylen = 0
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+**   c1   === expect resp.http.t0 == 1.000
+**** c1   EXPECT resp.http.t0 (1.000) == "1.000" match
+**   c1   === expect resp.http.t1 == 0.000
+**** c1   EXPECT resp.http.t1 (0.000) == "0.000" match
+**   c1   === expect resp.http.t2 == 0.000
+**** c1   EXPECT resp.http.t2 (0.000) == "0.000" match
+**   c1   === expect resp.http.t3 == 1.000
+**** c1   EXPECT resp.http.t3 (1.000) == "1.000" match
+**   c1   === expect resp.http.t4 == 1.000
+**** c1   EXPECT resp.http.t4 (1.000) == "1.000" match
+**   c1   === expect resp.http.t5 == 1.000
+**** c1   EXPECT resp.http.t5 (1.000) == "1.000" match
+**   c1   === expect resp.http.t6 == 1.000
+**** c1   EXPECT resp.http.t6 (1.000) == "1.000" match
+**   c1   === expect resp.http.t7 == 1.000
+**** c1   EXPECT resp.http.t7 (1.000) == "1.000" match
+**   c1   === expect resp.http.t8 == 42.000
+**** c1   EXPECT resp.http.t8 (42.000) == "42.000" match
+**   c1   === expect resp.http.t9 == -42.000
+**** c1   EXPECT resp.http.t9 (-42.000) == "-42.000" match
+***  c1   closing fd 17
+**   c1   Ending
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl2 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "45845"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport std;
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_deliver {
+**** v1   CLI TX|\t\tset resp.http.converted = std.real(req.http.foo, 0);
+**** v1   CLI TX|
+**** v1   CLI TX|\t\tif (req.http.nofb) {
+**** v1   CLI TX|\t\t\tset resp.http.nofb = std.real(req.http.foo);
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|
+**** v1   CLI TX|\t\tif (req.http.bool) {
+**** v1   CLI TX|\t\t\tset resp.http.bool =
+**** v1   CLI TX|\t\t\t    std.real(bool=req.http.bool != "");
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.http.bytes) {
+**** v1   CLI TX|\t\t\tset resp.http.bytes =
+**** v1   CLI TX|\t\t\t    std.real(bytes=std.bytes(req.http.bytes));
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.http.duration) {
+**** v1   CLI TX|\t\t\tset resp.http.duration =
+**** v1   CLI TX|\t\t\t    std.real(duration=std.duration(req.http.duration));
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.http.integer) {
+**** v1   CLI TX|\t\t\tset resp.http.integer =
+**** v1   CLI TX|\t\t\t    std.real(integer=std.integer(req.http.integer));
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.http.time) {
+**** v1   CLI TX|\t\t\tset resp.http.time =
+**** v1   CLI TX|\t\t\t    std.real(time=std.time(req.http.time));
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.513
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 39724 a0 127.0.0.1 37241 1634892863.849185 25
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|       1002 Begin           b bereq 1001 fetch
+**** v1   vsl|       1002 VCL_use         b vcl1
+**** v1   vsl|       1002 Timestamp       b Start: 1634892863.849478 0.000000 0.000000
+**** v1   vsl|       1002 BereqMethod     b GET
+**** v1   vsl|       1002 BereqURL        b /
+**** v1   vsl|       1002 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1002 BereqHeader     b foo: 1.00
+**** v1   vsl|       1002 BereqHeader     b bar: 1.00a
+**** v1   vsl|       1002 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1002 BereqHeader     b X-Varnish: 1002
+**** v1   vsl|       1002 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1002 VCL_return      b fetch
+**** v1   vsl|       1002 BackendOpen     b 28 s1 127.0.0.1 45845 127.0.0.1 46198 connect
+**** v1   vsl|       1002 Timestamp       b Bereq: 1634892863.849646 0.000168 0.000168
+**** v1   vsl|       1002 Timestamp       b Beresp: 1634892863.850263 0.000784 0.000616
+**** v1   vsl|       1002 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1002 BerespStatus    b 200
+**** v1   vsl|       1002 BerespReason    b OK
+**** v1   vsl|       1002 BerespHeader    b Content-Length: 0
+**** v1   vsl|       1002 BerespHeader    b Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1002 TTL             b RFC 120 10 0 1634892864 1634892864 1634892863 0 0 cacheable
+**** v1   vsl|       1002 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1002 VCL_return      b deliver
+**** v1   vsl|       1002 Filters         b 
+**** v1   vsl|       1002 Storage         b malloc s0
+**** v1   vsl|       1002 Fetch_Body      b 0 none -
+**** v1   vsl|       1002 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1002 Timestamp       b BerespBody: 1634892863.860478 0.010999 0.010215
+**** v1   vsl|       1002 Length          b 0
+**** v1   vsl|       1002 BereqAcct       b 126 0 126 38 0 38
+**** v1   vsl|       1002 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f1bdc010fb0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f1bdc010fb0 e=1634892993.850263 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f1bdc010fb0 e=129.989740 f=0x0
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892863.849370 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892863.849370 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 39724 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c foo: 1.00
+**** v1   vsl|       1001 ReqHeader       c bar: 1.00a
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1001 VCL_return      c hash
+**** v1   vsl|       1001 VCL_call        c HASH
+**** v1   vsl|       1001 VCL_return      c lookup
+**** v1   vsl|       1001 VCL_call        c MISS
+**** v1   vsl|       1001 VCL_return      c fetch
+**** v1   vsl|       1001 Link            c bereq 1002 fetch
+**** v1   vsl|       1001 Timestamp       c Fetch: 1634892863.860534 0.011163 0.011163
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 200
+**** v1   vsl|       1001 RespReason      c OK
+**** v1   vsl|       1001 RespHeader      c Content-Length: 0
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 RespHeader      c Age: 0
+**** v1   vsl|       1001 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1001 VCL_call        c DELIVER
+**** v1   vsl|       1001 RespHeader      c t0: 1.000
+**** v1   vsl|       1001 RespHeader      c t1: 0.000
+**** v1   vsl|       1001 RespHeader      c t2: 0.000
+**** v1   vsl|       1001 RespHeader      c t3: 1.000
+**** v1   vsl|       1001 RespHeader      c t4: 1.000
+**** v1   vsl|       1001 RespHeader      c t5: 1.000
+**** v1   vsl|       1001 RespHeader      c t6: 1.000
+**** v1   vsl|       1001 RespHeader      c t7: 1.000
+**** v1   vsl|       1001 RespHeader      c t8: 42.000
+**** v1   vsl|       1001 RespHeader      c t9: -42.000
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634892863.860594 0.011224 0.000060
+**** v1   vsl|       1001 Filters         c 
+**** v1   vsl|       1001 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1001 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1001 Timestamp       c Resp: 1634892863.860667 0.011297 0.000073
+**** v1   vsl|       1001 ReqAcct         c 58 0 58 291 0 291
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 SessClose       c REM_CLOSE 0.013
+**** v1   vsl|       1000 End             c 
+**** dT   0.649
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl2
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl2' now active
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 37241 (1 iterations)
+***  c1   Connect to 127.0.0.1 37241
+***  c1   connected fd 5 from 127.0.0.1 39728 to 127.0.0.1 37241
+**** dT   0.650
+**   c1   === txreq -hdr "foo: 1" \
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: 1\r
+**** c1   txreq|bool: whatever\r
+**** c1   txreq|bytes: 1b\r
+**** c1   txreq|duration: 1s\r
+**** c1   txreq|integer: 1\r
+**** c1   txreq|time: Thu, 01 Jan 1970 00:00:01 GMT\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.651
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:23 GMT\r
+**** c1   rxhdr|X-Varnish: 1004 1002\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|converted: 1.000\r
+**** c1   rxhdr|bool: 1.000\r
+**** c1   rxhdr|bytes: 1.000\r
+**** c1   rxhdr|duration: 1.000\r
+**** c1   rxhdr|integer: 1.000\r
+**** c1   rxhdr|time: 1.000\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 274
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** c1   http[ 5] |X-Varnish: 1004 1002
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |converted: 1.000
+**** c1   http[ 9] |bool: 1.000
+**** c1   http[10] |bytes: 1.000
+**** c1   http[11] |duration: 1.000
+**** c1   http[12] |integer: 1.000
+**** c1   http[13] |time: 1.000
+**** c1   http[14] |Accept-Ranges: bytes
+**** c1   http[15] |Connection: keep-alive
+**** c1   bodylen = 0
+**   c1   === expect resp.http.converted == 1.000
+**** c1   EXPECT resp.http.converted (1.000) == "1.000" match
+**   c1   === expect resp.http.bool == 1.000
+**** c1   EXPECT resp.http.bool (1.000) == "1.000" match
+**   c1   === expect resp.http.duration == 1.000
+**** c1   EXPECT resp.http.duration (1.000) == "1.000" match
+**   c1   === expect resp.http.bytes == 1.000
+**** c1   EXPECT resp.http.bytes (1.000) == "1.000" match
+**   c1   === expect resp.http.integer == 1.000
+**** c1   EXPECT resp.http.integer (1.000) == "1.000" match
+**   c1   === expect resp.http.time == 1.000
+**** c1   EXPECT resp.http.time (1.000) == "1.000" match
+**   c1   === txreq -hdr "foo: -1"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: -1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.652
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:23 GMT\r
+**** c1   rxhdr|X-Varnish: 1005 1002\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|converted: -1.000\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 202
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** c1   http[ 5] |X-Varnish: 1005 1002
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |converted: -1.000
+**** c1   http[ 9] |Accept-Ranges: bytes
+**** c1   http[10] |Connection: keep-alive
+**** c1   bodylen = 0
+**   c1   === expect resp.http.converted == -1.000
+**** c1   EXPECT resp.http.converted (-1.000) == "-1.000" match
+**   c1   === txreq -hdr "foo: 0"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: 0\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.653
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:23 GMT\r
+**** c1   rxhdr|X-Varnish: 1006 1002\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|converted: 0.000\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 201
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** c1   http[ 5] |X-Varnish: 1006 1002
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |converted: 0.000
+**** c1   http[ 9] |Accept-Ranges: bytes
+**** c1   http[10] |Connection: keep-alive
+**** c1   bodylen = 0
+**   c1   === expect resp.http.converted == 0.000
+**** c1   EXPECT resp.http.converted (0.000) == "0.000" match
+**   c1   === txreq -hdr "foo: 9007199254740991" \
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: 9007199254740991\r
+**** c1   txreq|bytes: 9007199254740991b\r
+**** c1   txreq|duration: 9007199254740991s\r
+**** c1   txreq|integer: 9007199254740991\r
+**** c1   txreq|time: 9007199254740991\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.654
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:23 GMT\r
+**** c1   rxhdr|X-Varnish: 1007 1002\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|converted: 9007199254740991.000\r
+**** c1   rxhdr|bytes: 9007199254740991.000\r
+**** c1   rxhdr|duration: 9007199254740991.000\r
+**** c1   rxhdr|integer: 9007199254740991.000\r
+**** c1   rxhdr|time: 9007199254740991.000\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 336
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** c1   http[ 5] |X-Varnish: 1007 1002
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |converted: 9007199254740991.000
+**** dT   0.655
+**** c1   http[ 9] |bytes: 9007199254740991.000
+**** c1   http[10] |duration: 9007199254740991.000
+**** c1   http[11] |integer: 9007199254740991.000
+**** c1   http[12] |time: 9007199254740991.000
+**** c1   http[13] |Accept-Ranges: bytes
+**** c1   http[14] |Connection: keep-alive
+**** c1   bodylen = 0
+**   c1   === expect resp.http.converted == 9007199254740991.000
+**** c1   EXPECT resp.http.converted (9007199254740991.000) == "9007199254740991.000" match
+**   c1   === expect resp.http.bytes == 9007199254740991.000
+**** c1   EXPECT resp.http.bytes (9007199254740991.000) == "9007199254740991.000" match
+**   c1   === expect resp.http.duration == 9007199254740991.000
+**** c1   EXPECT resp.http.duration (9007199254740991.000) == "9007199254740991.000" match
+**   c1   === expect resp.http.integer == 9007199254740991.000
+**** c1   EXPECT resp.http.integer (9007199254740991.000) == "9007199254740991.000" match
+**   c1   === expect resp.http.time == 9007199254740991.000
+**** c1   EXPECT resp.http.time (9007199254740991.000) == "9007199254740991.000" match
+**   c1   === txreq -hdr "foo: -9007199254740991" \
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: -9007199254740991\r
+**** c1   txreq|duration: -9007199254740991s\r
+**** c1   txreq|integer: -9007199254740991\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.656
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:23 GMT\r
+**** c1   rxhdr|X-Varnish: 1008 1002\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|converted: -9007199254740991.000\r
+**** c1   rxhdr|duration: -9007199254740991.000\r
+**** c1   rxhdr|integer: -9007199254740991.000\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 282
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** c1   http[ 5] |X-Varnish: 1008 1002
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |converted: -9007199254740991.000
+**** c1   http[ 9] |duration: -9007199254740991.000
+**** c1   http[10] |integer: -9007199254740991.000
+**** c1   http[11] |Accept-Ranges: bytes
+**** c1   http[12] |Connection: keep-alive
+**** c1   bodylen = 0
+**   c1   === expect resp.http.converted == -9007199254740991.000
+**** c1   EXPECT resp.http.converted (-9007199254740991.000) == "-9007199254740991.000" match
+**   c1   === expect resp.http.duration == -9007199254740991.000
+**** c1   EXPECT resp.http.duration (-9007199254740991.000) == "-9007199254740991.000" match
+**   c1   === expect resp.http.integer == -9007199254740991.000
+**** c1   EXPECT resp.http.integer (-9007199254740991.000) == "-9007199254740991.000" match
+**   c1   === txreq -hdr "foo: bar"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: bar\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:23 GMT\r
+**** c1   rxhdr|X-Varnish: 1009 1002\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|converted: 0.000\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 201
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** c1   http[ 5] |X-Varnish: 1009 1002
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |converted: 0.000
+**** c1   http[ 9] |Accept-Ranges: bytes
+**** c1   http[10] |Connection: keep-alive
+**** c1   bodylen = 0
+**   c1   === expect resp.http.converted == 0.000
+**** c1   EXPECT resp.http.converted (0.000) == "0.000" match
+**   c1   === txreq -hdr "foo: 9007199254740992"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: 9007199254740992\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.657
+**   c1   === rxresp
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:23 GMT\r
+**** c1   rxhdr|X-Varnish: 1010 1002\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|converted: 9007199254740992.000\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 216
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** c1   http[ 5] |X-Varnish: 1010 1002
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |converted: 9007199254740992.000
+**** c1   http[ 9] |Accept-Ranges: bytes
+**** c1   http[10] |Connection: keep-alive
+**** c1   bodylen = 0
+**   c1   === expect resp.http.converted == 9007199254740992.000
+**** c1   EXPECT resp.http.converted (9007199254740992.000) == "9007199254740992.000" match
+**   c1   === txreq -hdr "foo: -9007199254740992"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: -9007199254740992\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.658
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:23 GMT\r
+**** c1   rxhdr|X-Varnish: 1011 1002\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|converted: -9007199254740992.000\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 217
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** c1   http[ 5] |X-Varnish: 1011 1002
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |converted: -9007199254740992.000
+**** c1   http[ 9] |Accept-Ranges: bytes
+**** c1   http[10] |Connection: keep-alive
+**** c1   bodylen = 0
+**   c1   === expect resp.http.converted == -9007199254740992.000
+**** c1   EXPECT resp.http.converted (-9007199254740992.000) == "-9007199254740992.000" match
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 37241 (1 iterations)
+***  c1   Connect to 127.0.0.1 37241
+**** dT   0.659
+***  c1   connected fd 5 from 127.0.0.1 39730 to 127.0.0.1 37241
+**   c1   === txreq -hdr "nofb: NAN"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|nofb: NAN\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.660
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:24 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1013\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:54:24 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1013
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1013</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 37241 (1 iterations)
+***  c1   Connect to 127.0.0.1 37241
+***  c1   connected fd 5 from 127.0.0.1 39732 to 127.0.0.1 37241
+**   c1   === txreq -hdr "nofb: -INF"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|nofb: -INF\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.661
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:24 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1015\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:54:24 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1015
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1015</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 37241 (1 iterations)
+***  c1   Connect to 127.0.0.1 37241
+***  c1   connected fd 5 from 127.0.0.1 39734 to 127.0.0.1 37241
+**   c1   === txreq -hdr "nofb: x"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|nofb: x\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.662
+**   c1   === rxresp
+**** dT   0.663
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:24 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1017\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:54:24 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1017
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1017</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+***  c1   closing fd 5
+**   c1   Ending
+*    top  RESETTING after ./tests/m00015.vtc
+**   s1   Waiting for server (4/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl2.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:54:24 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   0.714
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl2 vcl_vcl2.1634892863.862023/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl2.1634892863.862023/vgc.so" as "vcl2"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl2
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1003 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1003 SessOpen        c 127.0.0.1 39728 a0 127.0.0.1 37241 1634892864.064316 26
+**** v1   vsl|       1003 Link            c req 1004 rxreq
+**** v1   vsl|       1004 Begin           c req 1003 rxreq
+**** v1   vsl|       1004 Timestamp       c Start: 1634892864.064473 0.000000 0.000000
+**** v1   vsl|       1004 Timestamp       c Req: 1634892864.064473 0.000000 0.000000
+**** v1   vsl|       1004 VCL_use         c vcl2
+**** v1   vsl|       1004 ReqStart        c 127.0.0.1 39728 a0
+**** v1   vsl|       1004 ReqMethod       c GET
+**** v1   vsl|       1004 ReqURL          c /
+**** v1   vsl|       1004 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1004 ReqHeader       c foo: 1
+**** v1   vsl|       1004 ReqHeader       c bool: whatever
+**** v1   vsl|       1004 ReqHeader       c bytes: 1b
+**** v1   vsl|       1004 ReqHeader       c duration: 1s
+**** v1   vsl|       1004 ReqHeader       c integer: 1
+**** v1   vsl|       1004 ReqHeader       c time: Thu, 01 Jan 1970 00:00:01 GMT
+**** v1   vsl|       1004 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1004 VCL_call        c RECV
+**** v1   vsl|       1004 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1004 VCL_return      c hash
+**** v1   vsl|       1004 VCL_call        c HASH
+**** v1   vsl|       1004 VCL_return      c lookup
+**** v1   vsl|       1004 Hit             c 1002 119.785789 10.000000 0.000000
+**** v1   vsl|       1004 VCL_call        c HIT
+**** v1   vsl|       1004 VCL_return      c deliver
+**** v1   vsl|       1004 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1004 RespStatus      c 200
+**** v1   vsl|       1004 RespReason      c OK
+**** v1   vsl|       1004 RespHeader      c Content-Length: 0
+**** v1   vsl|       1004 RespHeader      c Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1004 RespHeader      c X-Varnish: 1004 1002
+**** v1   vsl|       1004 RespHeader      c Age: 0
+**** v1   vsl|       1004 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1004 VCL_call        c DELIVER
+**** v1   vsl|       1004 RespHeader      c converted: 1.000
+**** v1   vsl|       1004 RespHeader      c bool: 1.000
+**** v1   vsl|       1004 RespHeader      c bytes: 1.000
+**** v1   vsl|       1004 RespHeader      c duration: 1.000
+**** v1   vsl|       1004 RespHeader      c integer: 1.000
+**** v1   vsl|       1004 RespHeader      c time: 1.000
+**** v1   vsl|       1004 VCL_return      c deliver
+**** v1   vsl|       1004 Timestamp       c Process: 1634892864.064560 0.000086 0.000086
+**** v1   vsl|       1004 Filters         c 
+**** v1   vsl|       1004 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1004 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1004 Timestamp       c Resp: 1634892864.064596 0.000122 0.000035
+**** v1   vsl|       1004 ReqAcct         c 133 0 133 274 0 274
+**** v1   vsl|       1004 End             c 
+**** v1   vsl|       1003 Link            c req 1005 rxreq
+**** v1   vsl|       1005 Begin           c req 1003 rxreq
+**** v1   vsl|       1005 Timestamp       c Start: 1634892864.065955 0.000000 0.000000
+**** v1   vsl|       1005 Timestamp       c Req: 1634892864.065955 0.000000 0.000000
+**** v1   vsl|       1005 VCL_use         c vcl2
+**** v1   vsl|       1005 ReqStart        c 127.0.0.1 39728 a0
+**** v1   vsl|       1005 ReqMethod       c GET
+**** v1   vsl|       1005 ReqURL          c /
+**** v1   vsl|       1005 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1005 ReqHeader       c foo: -1
+**** v1   vsl|       1005 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1005 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1005 VCL_call        c RECV
+**** v1   vsl|       1005 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1005 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1005 VCL_return      c hash
+**** v1   vsl|       1005 VCL_call        c HASH
+**** v1   vsl|       1005 VCL_return      c lookup
+**** v1   vsl|       1005 Hit             c 1002 119.784308 10.000000 0.000000
+**** v1   vsl|       1005 VCL_call        c HIT
+**** v1   vsl|       1005 VCL_return      c deliver
+**** v1   vsl|       1005 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1005 RespStatus      c 200
+**** v1   vsl|       1005 RespReason      c OK
+**** v1   vsl|       1005 RespHeader      c Content-Length: 0
+**** v1   vsl|       1005 RespHeader      c Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1005 RespHeader      c X-Varnish: 1005 1002
+**** v1   vsl|       1005 RespHeader      c Age: 0
+**** v1   vsl|       1005 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1005 VCL_call        c DELIVER
+**** v1   vsl|       1005 RespHeader      c converted: -1.000
+**** v1   vsl|       1005 VCL_return      c deliver
+**** v1   vsl|       1005 Timestamp       c Process: 1634892864.065994 0.000039 0.000039
+**** v1   vsl|       1005 Filters         c 
+**** v1   vsl|       1005 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1005 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1005 Timestamp       c Resp: 1634892864.066019 0.000064 0.000025
+**** v1   vsl|       1005 ReqAcct         c 44 0 44 202 0 202
+**** v1   vsl|       1005 End             c 
+**** v1   vsl|       1003 Link            c req 1006 rxreq
+**** v1   vsl|       1006 Begin           c req 1003 rxreq
+**** v1   vsl|       1006 Timestamp       c Start: 1634892864.067006 0.000000 0.000000
+**** v1   vsl|       1006 Timestamp       c Req: 1634892864.067006 0.000000 0.000000
+**** v1   vsl|       1006 VCL_use         c vcl2
+**** v1   vsl|       1006 ReqStart        c 127.0.0.1 39728 a0
+**** v1   vsl|       1006 ReqMethod       c GET
+**** v1   vsl|       1006 ReqURL          c /
+**** v1   vsl|       1006 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1006 ReqHeader       c foo: 0
+**** v1   vsl|       1006 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1006 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1006 VCL_call        c RECV
+**** v1   vsl|       1006 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1006 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1006 VCL_return      c hash
+**** v1   vsl|       1006 VCL_call        c HASH
+**** v1   vsl|       1006 VCL_return      c lookup
+**** v1   vsl|       1006 Hit             c 1002 119.783257 10.000000 0.000000
+**** v1   vsl|       1006 VCL_call        c HIT
+**** v1   vsl|       1006 VCL_return      c deliver
+**** v1   vsl|       1006 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1006 RespStatus      c 200
+**** v1   vsl|       1006 RespReason      c OK
+**** v1   vsl|       1006 RespHeader      c Content-Length: 0
+**** v1   vsl|       1006 RespHeader      c Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1006 RespHeader      c X-Varnish: 1006 1002
+**** v1   vsl|       1006 RespHeader      c Age: 0
+**** v1   vsl|       1006 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1006 VCL_call        c DELIVER
+**** v1   vsl|       1006 RespHeader      c converted: 0.000
+**** v1   vsl|       1006 VCL_return      c deliver
+**** v1   vsl|       1006 Timestamp       c Process: 1634892864.067041 0.000034 0.000034
+**** v1   vsl|       1006 Filters         c 
+**** v1   vsl|       1006 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1006 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1006 Timestamp       c Resp: 1634892864.067064 0.000057 0.000023
+**** v1   vsl|       1006 ReqAcct         c 43 0 43 201 0 201
+**** v1   vsl|       1006 End             c 
+**** v1   vsl|       1003 Link            c req 1007 rxreq
+**** v1   vsl|       1007 Begin           c req 1003 rxreq
+**** v1   vsl|       1007 Timestamp       c Start: 1634892864.068018 0.000000 0.000000
+**** v1   vsl|       1007 Timestamp       c Req: 1634892864.068018 0.000000 0.000000
+**** v1   vsl|       1007 VCL_use         c vcl2
+**** v1   vsl|       1007 ReqStart        c 127.0.0.1 39728 a0
+**** v1   vsl|       1007 ReqMethod       c GET
+**** v1   vsl|       1007 ReqURL          c /
+**** v1   vsl|       1007 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1007 ReqHeader       c foo: 9007199254740991
+**** v1   vsl|       1007 ReqHeader       c bytes: 9007199254740991b
+**** v1   vsl|       1007 ReqHeader       c duration: 9007199254740991s
+**** v1   vsl|       1007 ReqHeader       c integer: 9007199254740991
+**** v1   vsl|       1007 ReqHeader       c time: 9007199254740991
+**** v1   vsl|       1007 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1007 VCL_call        c RECV
+**** v1   vsl|       1007 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1007 VCL_return      c hash
+**** v1   vsl|       1007 VCL_call        c HASH
+**** v1   vsl|       1007 VCL_return      c lookup
+**** v1   vsl|       1007 Hit             c 1002 119.782245 10.000000 0.000000
+**** v1   vsl|       1007 VCL_call        c HIT
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1007 RespStatus      c 200
+**** v1   vsl|       1007 RespReason      c OK
+**** v1   vsl|       1007 RespHeader      c Content-Length: 0
+**** v1   vsl|       1007 RespHeader      c Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1007 RespHeader      c X-Varnish: 1007 1002
+**** v1   vsl|       1007 RespHeader      c Age: 0
+**** v1   vsl|       1007 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1007 VCL_call        c DELIVER
+**** v1   vsl|       1007 RespHeader      c converted: 9007199254740991.000
+**** v1   vsl|       1007 RespHeader      c bytes: 9007199254740991.000
+**** v1   vsl|       1007 RespHeader      c duration: 9007199254740991.000
+**** v1   vsl|       1007 RespHeader      c integer: 9007199254740991.000
+**** v1   vsl|       1007 RespHeader      c time: 9007199254740991.000
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 Timestamp       c Process: 1634892864.068066 0.000048 0.000048
+**** v1   vsl|       1007 Filters         c 
+**** v1   vsl|       1007 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1007 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1007 Timestamp       c Resp: 1634892864.068089 0.000071 0.000023
+**** v1   vsl|       1007 ReqAcct         c 164 0 164 336 0 336
+**** v1   vsl|       1007 End             c 
+**** v1   vsl|       1003 Link            c req 1008 rxreq
+**** v1   vsl|       1008 Begin           c req 1003 rxreq
+**** v1   vsl|       1008 Timestamp       c Start: 1634892864.069466 0.000000 0.000000
+**** v1   vsl|       1008 Timestamp       c Req: 1634892864.069466 0.000000 0.000000
+**** v1   vsl|       1008 VCL_use         c vcl2
+**** v1   vsl|       1008 ReqStart        c 127.0.0.1 39728 a0
+**** v1   vsl|       1008 ReqMethod       c GET
+**** v1   vsl|       1008 ReqURL          c /
+**** v1   vsl|       1008 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1008 ReqHeader       c foo: -9007199254740991
+**** v1   vsl|       1008 ReqHeader       c duration: -9007199254740991s
+**** v1   vsl|       1008 ReqHeader       c integer: -9007199254740991
+**** v1   vsl|       1008 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1008 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1008 VCL_call        c RECV
+**** v1   vsl|       1008 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1008 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1008 VCL_return      c hash
+**** v1   vsl|       1008 VCL_call        c HASH
+**** v1   vsl|       1008 VCL_return      c lookup
+**** v1   vsl|       1008 Hit             c 1002 119.780797 10.000000 0.000000
+**** v1   vsl|       1008 VCL_call        c HIT
+**** v1   vsl|       1008 VCL_return      c deliver
+**** v1   vsl|       1008 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1008 RespStatus      c 200
+**** v1   vsl|       1008 RespReason      c OK
+**** v1   vsl|       1008 RespHeader      c Content-Length: 0
+**** v1   vsl|       1008 RespHeader      c Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1008 RespHeader      c X-Varnish: 1008 1002
+**** v1   vsl|       1008 RespHeader      c Age: 0
+**** v1   vsl|       1008 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1008 VCL_call        c DELIVER
+**** v1   vsl|       1008 RespHeader      c converted: -9007199254740991.000
+**** v1   vsl|       1008 RespHeader      c duration: -9007199254740991.000
+**** v1   vsl|       1008 RespHeader      c integer: -9007199254740991.000
+**** v1   vsl|       1008 VCL_return      c deliver
+**** v1   vsl|       1008 Timestamp       c Process: 1634892864.069498 0.000032 0.000032
+**** v1   vsl|       1008 Filters         c 
+**** v1   vsl|       1008 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1008 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1008 Timestamp       c Resp: 1634892864.069517 0.000051 0.000018
+**** v1   vsl|       1008 ReqAcct         c 117 0 117 282 0 282
+**** v1   vsl|       1008 End             c 
+**** v1   vsl|       1003 Link            c req 1009 rxreq
+**** v1   vsl|       1009 Begin           c req 1003 rxreq
+**** v1   vsl|       1009 Timestamp       c Start: 1634892864.070588 0.000000 0.000000
+**** v1   vsl|       1009 Timestamp       c Req: 1634892864.070588 0.000000 0.000000
+**** v1   vsl|       1009 VCL_use         c vcl2
+**** v1   vsl|       1009 ReqStart        c 127.0.0.1 39728 a0
+**** v1   vsl|       1009 ReqMethod       c GET
+**** v1   vsl|       1009 ReqURL          c /
+**** v1   vsl|       1009 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1009 ReqHeader       c foo: bar
+**** v1   vsl|       1009 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1009 VCL_call        c RECV
+**** v1   vsl|       1009 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1009 VCL_return      c hash
+**** v1   vsl|       1009 VCL_call        c HASH
+**** v1   vsl|       1009 VCL_return      c lookup
+**** v1   vsl|       1009 Hit             c 1002 119.779675 10.000000 0.000000
+**** v1   vsl|       1009 VCL_call        c HIT
+**** v1   vsl|       1009 VCL_return      c deliver
+**** v1   vsl|       1009 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1009 RespStatus      c 200
+**** v1   vsl|       1009 RespReason      c OK
+**** v1   vsl|       1009 RespHeader      c Content-Length: 0
+**** v1   vsl|       1009 RespHeader      c Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1009 RespHeader      c X-Varnish: 1009 1002
+**** v1   vsl|       1009 RespHeader      c Age: 0
+**** v1   vsl|       1009 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1009 VCL_call        c DELIVER
+**** v1   vsl|       1009 RespHeader      c converted: 0.000
+**** v1   vsl|       1009 VCL_return      c deliver
+**** v1   vsl|       1009 Timestamp       c Process: 1634892864.070614 0.000025 0.000025
+**** v1   vsl|       1009 Filters         c 
+**** v1   vsl|       1009 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1009 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1009 Timestamp       c Resp: 1634892864.070633 0.000044 0.000018
+**** v1   vsl|       1009 ReqAcct         c 45 0 45 201 0 201
+**** v1   vsl|       1009 End             c 
+**** v1   vsl|       1003 Link            c req 1010 rxreq
+**** v1   vsl|       1010 Begin           c req 1003 rxreq
+**** v1   vsl|       1010 Timestamp       c Start: 1634892864.071416 0.000000 0.000000
+**** v1   vsl|       1010 Timestamp       c Req: 1634892864.071416 0.000000 0.000000
+**** v1   vsl|       1010 VCL_use         c vcl2
+**** v1   vsl|       1010 ReqStart        c 127.0.0.1 39728 a0
+**** v1   vsl|       1010 ReqMethod       c GET
+**** v1   vsl|       1010 ReqURL          c /
+**** v1   vsl|       1010 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1010 ReqHeader       c foo: 9007199254740992
+**** v1   vsl|       1010 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1010 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1010 VCL_call        c RECV
+**** v1   vsl|       1010 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1010 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1010 VCL_return      c hash
+**** v1   vsl|       1010 VCL_call        c HASH
+**** v1   vsl|       1010 VCL_return      c lookup
+**** v1   vsl|       1010 Hit             c 1002 119.778847 10.000000 0.000000
+**** v1   vsl|       1010 VCL_call        c HIT
+**** v1   vsl|       1010 VCL_return      c deliver
+**** v1   vsl|       1010 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1010 RespStatus      c 200
+**** v1   vsl|       1010 RespReason      c OK
+**** v1   vsl|       1010 RespHeader      c Content-Length: 0
+**** v1   vsl|       1010 RespHeader      c Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1010 RespHeader      c X-Varnish: 1010 1002
+**** v1   vsl|       1010 RespHeader      c Age: 0
+**** v1   vsl|       1010 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1010 VCL_call        c DELIVER
+**** v1   vsl|       1010 RespHeader      c converted: 9007199254740992.000
+**** v1   vsl|       1010 VCL_return      c deliver
+**** v1   vsl|       1010 Timestamp       c Process: 1634892864.071441 0.000025 0.000025
+**** v1   vsl|       1010 Filters         c 
+**** v1   vsl|       1010 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1010 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1010 Timestamp       c Resp: 1634892864.071458 0.000042 0.000016
+**** v1   vsl|       1010 ReqAcct         c 58 0 58 216 0 216
+**** v1   vsl|       1010 End             c 
+**** v1   vsl|       1003 Link            c req 1011 rxreq
+**** v1   vsl|       1011 Begin           c req 1003 rxreq
+**** v1   vsl|       1011 Timestamp       c Start: 1634892864.072231 0.000000 0.000000
+**** v1   vsl|       1011 Timestamp       c Req: 1634892864.072231 0.000000 0.000000
+**** v1   vsl|       1011 VCL_use         c vcl2
+**** v1   vsl|       1011 ReqStart        c 127.0.0.1 39728 a0
+**** v1   vsl|       1011 ReqMethod       c GET
+**** v1   vsl|       1011 ReqURL          c /
+**** v1   vsl|       1011 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1011 ReqHeader       c foo: -9007199254740992
+**** v1   vsl|       1011 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1011 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1011 VCL_call        c RECV
+**** v1   vsl|       1011 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1011 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1011 VCL_return      c hash
+**** v1   vsl|       1011 VCL_call        c HASH
+**** v1   vsl|       1011 VCL_return      c lookup
+**** v1   vsl|       1011 Hit             c 1002 119.778032 10.000000 0.000000
+**** v1   vsl|       1011 VCL_call        c HIT
+**** v1   vsl|       1011 VCL_return      c deliver
+**** v1   vsl|       1011 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1011 RespStatus      c 200
+**** v1   vsl|       1011 RespReason      c OK
+**** v1   vsl|       1011 RespHeader      c Content-Length: 0
+**** v1   vsl|       1011 RespHeader      c Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1011 RespHeader      c X-Varnish: 1011 1002
+**** v1   vsl|       1011 RespHeader      c Age: 0
+**** v1   vsl|       1011 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1011 VCL_call        c DELIVER
+**** v1   vsl|       1011 RespHeader      c converted: -9007199254740992.000
+**** v1   vsl|       1011 VCL_return      c deliver
+**** v1   vsl|       1011 Timestamp       c Process: 1634892864.072254 0.000022 0.000022
+**** v1   vsl|       1011 Filters         c 
+**** v1   vsl|       1011 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1011 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1011 Timestamp       c Resp: 1634892864.072270 0.000038 0.000015
+**** v1   vsl|       1011 ReqAcct         c 59 0 59 217 0 217
+**** v1   vsl|       1011 End             c 
+**** v1   vsl|       1003 SessClose       c REM_CLOSE 0.009
+**** v1   vsl|       1003 End             c 
+**** v1   vsl|       1012 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1012 SessOpen        c 127.0.0.1 39730 a0 127.0.0.1 37241 1634892864.073462 27
+**** v1   vsl|       1012 Link            c req 1013 rxreq
+**** v1   vsl|       1013 Begin           c req 1012 rxreq
+**** v1   vsl|       1013 Timestamp       c Start: 1634892864.073552 0.000000 0.000000
+**** v1   vsl|       1013 Timestamp       c Req: 1634892864.073552 0.000000 0.000000
+**** v1   vsl|       1013 VCL_use         c vcl2
+**** v1   vsl|       1013 ReqStart        c 127.0.0.1 39730 a0
+**** v1   vsl|       1013 ReqMethod       c GET
+**** v1   vsl|       1013 ReqURL          c /
+**** v1   vsl|       1013 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1013 ReqHeader       c nofb: NAN
+**** v1   vsl|       1013 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1013 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1013 VCL_call        c RECV
+**** v1   vsl|       1013 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1013 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1013 VCL_return      c hash
+**** v1   vsl|       1013 VCL_call        c HASH
+**** v1   vsl|       1013 VCL_return      c lookup
+**** v1   vsl|       1013 Hit             c 1002 119.776711 10.000000 0.000000
+**** v1   vsl|       1013 VCL_call        c HIT
+**** v1   vsl|       1013 VCL_return      c deliver
+**** v1   vsl|       1013 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1013 RespStatus      c 200
+**** v1   vsl|       1013 RespReason      c OK
+**** v1   vsl|       1013 RespHeader      c Content-Length: 0
+**** v1   vsl|       1013 RespHeader      c Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1013 RespHeader      c X-Varnish: 1013 1002
+**** v1   vsl|       1013 RespHeader      c Age: 0
+**** v1   vsl|       1013 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1013 VCL_call        c DELIVER
+**** v1   vsl|       1013 RespHeader      c converted: 0.000
+**** v1   vsl|       1013 VCL_Error       c std.real: conversion failed
+**** v1   vsl|       1013 RespHeader      c nofb: 0.000
+**** v1   vsl|       1013 VCL_return      c fail
+**** v1   vsl|       1013 Timestamp       c Process: 1634892864.073593 0.000041 0.000041
+**** v1   vsl|       1013 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1013 RespStatus      c 503
+**** v1   vsl|       1013 RespReason      c VCL failed
+**** v1   vsl|       1013 RespHeader      c Date: Fri, 22 Oct 2021 08:54:24 GMT
+**** v1   vsl|       1013 RespHeader      c Server: Varnish
+**** v1   vsl|       1013 RespHeader      c X-Varnish: 1013
+**** v1   vsl|       1013 VCL_call        c SYNTH
+**** v1   vsl|       1013 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1013 RespHeader      c Retry-After: 5
+**** v1   vsl|       1013 VCL_return      c deliver
+**** v1   vsl|       1013 Timestamp       c Process: 1634892864.073611 0.000059 0.000018
+**** v1   vsl|       1013 RespHeader      c Content-Length: 251
+**** v1   vsl|       1013 Storage         c malloc Transient
+**** v1   vsl|       1013 Filters         c 
+**** v1   vsl|       1013 RespHeader      c Connection: close
+**** v1   vsl|       1013 Timestamp       c Resp: 1634892864.073652 0.000100 0.000040
+**** v1   vsl|       1013 ReqAcct         c 46 0 46 194 251 445
+**** v1   vsl|       1013 End             c 
+**** v1   vsl|       1012 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1012 End             c 
+**** v1   vsl|       1014 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1014 SessOpen        c 127.0.0.1 39732 a0 127.0.0.1 37241 1634892864.074910 25
+**** v1   vsl|       1014 Link            c req 1015 rxreq
+**** v1   vsl|       1015 Begin           c req 1014 rxreq
+**** v1   vsl|       1015 Timestamp       c Start: 1634892864.075013 0.000000 0.000000
+**** v1   vsl|       1015 Timestamp       c Req: 1634892864.075013 0.000000 0.000000
+**** v1   vsl|       1015 VCL_use         c vcl2
+**** v1   vsl|       1015 ReqStart        c 127.0.0.1 39732 a0
+**** v1   vsl|       1015 ReqMethod       c GET
+**** v1   vsl|       1015 ReqURL          c /
+**** v1   vsl|       1015 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1015 ReqHeader       c nofb: -INF
+**** v1   vsl|       1015 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1015 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1015 VCL_call        c RECV
+**** v1   vsl|       1015 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1015 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1015 VCL_return      c hash
+**** v1   vsl|       1015 VCL_call        c HASH
+**** v1   vsl|       1015 VCL_return      c lookup
+**** v1   vsl|       1015 Hit             c 1002 119.775250 10.000000 0.000000
+**** v1   vsl|       1015 VCL_call        c HIT
+**** v1   vsl|       1015 VCL_return      c deliver
+**** v1   vsl|       1015 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1015 RespStatus      c 200
+**** v1   vsl|       1015 RespReason      c OK
+**** v1   vsl|       1015 RespHeader      c Content-Length: 0
+**** v1   vsl|       1015 RespHeader      c Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1015 RespHeader      c X-Varnish: 1015 1002
+**** v1   vsl|       1015 RespHeader      c Age: 0
+**** v1   vsl|       1015 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1015 VCL_call        c DELIVER
+**** v1   vsl|       1015 RespHeader      c converted: 0.000
+**** v1   vsl|       1015 VCL_Error       c std.real: conversion failed
+**** v1   vsl|       1015 RespHeader      c nofb: 0.000
+**** v1   vsl|       1015 VCL_return      c fail
+**** v1   vsl|       1015 Timestamp       c Process: 1634892864.075052 0.000039 0.000039
+**** v1   vsl|       1015 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1015 RespStatus      c 503
+**** v1   vsl|       1015 RespReason      c VCL failed
+**** v1   vsl|       1015 RespHeader      c Date: Fri, 22 Oct 2021 08:54:24 GMT
+**** v1   vsl|       1015 RespHeader      c Server: Varnish
+**** v1   vsl|       1015 RespHeader      c X-Varnish: 1015
+**** v1   vsl|       1015 VCL_call        c SYNTH
+**** v1   vsl|       1015 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1015 RespHeader      c Retry-After: 5
+**** v1   vsl|       1015 VCL_return      c deliver
+**** v1   vsl|       1015 Timestamp       c Process: 1634892864.075069 0.000055 0.000016
+**** v1   vsl|       1015 RespHeader      c Content-Length: 251
+**** v1   vsl|       1015 Storage         c malloc Transient
+**** v1   vsl|       1015 Filters         c 
+**** v1   vsl|       1015 RespHeader      c Connection: close
+**** v1   vsl|       1015 Timestamp       c Resp: 1634892864.075111 0.000097 0.000041
+**** v1   vsl|       1015 ReqAcct         c 47 0 47 194 251 445
+**** v1   vsl|       1015 End             c 
+**** v1   vsl|       1014 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1014 End             c 
+**** v1   vsl|       1016 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1016 SessOpen        c 127.0.0.1 39734 a0 127.0.0.1 37241 1634892864.076325 26
+**** v1   vsl|       1016 Link            c req 1017 rxreq
+**** v1   vsl|       1017 Begin           c req 1016 rxreq
+**** v1   vsl|       1017 Timestamp       c Start: 1634892864.076408 0.000000 0.000000
+**** v1   vsl|       1017 Timestamp       c Req: 1634892864.076408 0.000000 0.000000
+**** v1   vsl|       1017 VCL_use         c vcl2
+**** v1   vsl|       1017 ReqStart        c 127.0.0.1 39734 a0
+**** v1   vsl|       1017 ReqMethod       c GET
+**** v1   vsl|       1017 ReqURL          c /
+**** v1   vsl|       1017 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1017 ReqHeader       c nofb: x
+**** v1   vsl|       1017 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1017 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1017 VCL_call        c RECV
+**** v1   vsl|       1017 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1017 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1017 VCL_return      c hash
+**** v1   vsl|       1017 VCL_call        c HASH
+**** v1   vsl|       1017 VCL_return      c lookup
+**** v1   vsl|       1017 Hit             c 1002 119.773854 10.000000 0.000000
+**** v1   vsl|       1017 VCL_call        c HIT
+**** v1   vsl|       1017 VCL_return      c deliver
+**** v1   vsl|       1017 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1017 RespStatus      c 200
+**** v1   vsl|       1017 RespReason      c OK
+**** v1   vsl|       1017 RespHeader      c Content-Length: 0
+**** v1   vsl|       1017 RespHeader      c Date: Fri, 22 Oct 2021 08:54:23 GMT
+**** v1   vsl|       1017 RespHeader      c X-Varnish: 1017 1002
+**** v1   vsl|       1017 RespHeader      c Age: 0
+**** v1   vsl|       1017 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1017 VCL_call        c DELIVER
+**** v1   vsl|       1017 RespHeader      c converted: 0.000
+**** v1   vsl|       1017 VCL_Error       c std.real: conversion failed
+**** v1   vsl|       1017 RespHeader      c nofb: 0.000
+**** v1   vsl|       1017 VCL_return      c fail
+**** v1   vsl|       1017 Timestamp       c Process: 1634892864.076448 0.000039 0.000039
+**** v1   vsl|       1017 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1017 RespStatus      c 503
+**** v1   vsl|       1017 RespReason      c VCL failed
+**** v1   vsl|       1017 RespHeader      c Date: Fri, 22 Oct 2021 08:54:24 GMT
+**** v1   vsl|       1017 RespHeader      c Server: Varnish
+**** v1   vsl|       1017 RespHeader      c X-Varnish: 1017
+**** v1   vsl|       1017 VCL_call        c SYNTH
+**** v1   vsl|       1017 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1017 RespHeader      c Retry-After: 5
+**** v1   vsl|       1017 VCL_return      c deliver
+**** v1   vsl|       1017 Timestamp       c Process: 1634892864.076464 0.000055 0.000016
+**** v1   vsl|       1017 RespHeader      c Content-Length: 251
+**** v1   vsl|       1017 Storage         c malloc Transient
+**** v1   vsl|       1017 Filters         c 
+**** v1   vsl|       1017 RespHeader      c Connection: close
+**** v1   vsl|       1017 Timestamp       c Resp: 1634892864.076514 0.000105 0.000050
+**** v1   vsl|       1017 ReqAcct         c 44 0 44 194 251 445
+**** v1   vsl|       1017 End             c 
+**** v1   vsl|       1016 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1016 End             c 
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 134 Backend name   Admin      Probe    Health     Last change
+vcl2.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:54:24 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.663
+***  v1   debug|Info: Child (69224) ended
+***  v1   debug|Info: Child (69224) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+**** dT   1.664
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   1.716
+**   v1   WAIT4 pid=69212 status=0x0000 (user 0.338493 sys 0.076987)
+*    top  TEST ./tests/m00015.vtc completed
+#    top  TEST ./tests/m00015.vtc passed (1.717)

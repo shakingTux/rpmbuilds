@@ -1,0 +1,46 @@
+**** dT   0.000
+*    top  TEST ./tests/j00003.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 43517
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.67707.6f55fd11
+**   top  === varnishtest "-junix bad subarg handling"
+*    top  VTEST -junix bad subarg handling
+**   top  === feature root
+**   top  === shell -err -expect "unknown sub-argument" "varnishd -junix,b...
+**** top  shell_cmd|exec 2>&1 ; varnishd -junix,bla=foo -f ''
+**** dT   0.005
+**** top  shell_out|Error: Unix jail: unknown sub-argument 'bla=foo'
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect "user not found" "varnishd -junix,user=//...
+**** top  shell_cmd|exec 2>&1 ; varnishd -junix,user=/// -f ''
+**** dT   0.011
+**** top  shell_out|Error: Unix jail: /// user not found.
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect "user not found" "varnishd -junix,workuse...
+**** top  shell_cmd|exec 2>&1 ; varnishd -junix,workuser=/// -f ''
+**** dT   0.015
+**** top  shell_out|Error: Unix jail: /// user not found.
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect "group not found" "varnishd -junix,ccgrou...
+**** top  shell_cmd|exec 2>&1 ; varnishd -junix,ccgroup=/// -f ''
+**** dT   0.021
+**** top  shell_out|Error: Unix jail: /// group not found.
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === feature user_varnish
+**** dT   0.022
+*    top  SKIPPING test, lacking feature: user_varnish
+*    top  RESETTING after ./tests/j00003.vtc
+*    top  TEST ./tests/j00003.vtc completed
+#    top  TEST ./tests/j00003.vtc skipped (0.092)

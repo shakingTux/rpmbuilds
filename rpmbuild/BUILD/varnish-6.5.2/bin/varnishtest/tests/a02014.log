@@ -1,0 +1,176 @@
+**** dT   0.000
+*    top  TEST ./tests/a02014.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 32829
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.45609.44b009a7
+**   top  === varnishtest "priority"
+*    top  VTEST priority
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=37429
+**** s1   macro def s1_sock=127.0.0.1 37429
+*    s1   Listen on 127.0.0.1 37429
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   s1   Started on 127.0.0.1 37429 (1 iterations)
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 37429 (1 iterations)
+***  c1   Connect to 127.0.0.1 37429
+***  s1   accepted fd 5 127.0.0.1 51686
+***  c1   connected fd 6 from 127.0.0.1 51686 to 127.0.0.1 37429
+**   s1   === stream 1 {
+**** s1   Not in H/2 mode, do what's needed
+**   s1   === rxpri
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   0.011
+**   s1   === stream 0 {
+**   c1   === stream 0 {
+**   s1   Starting stream 0x7f6de4001470
+**   c1   Starting stream 0x7f6ddc001630
+**   s1   Waiting for stream 0
+**   c1   Waiting for stream 0
+**   s1   === txsettings
+**   c1   === txsettings
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+**   s1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   s1   === txsettings -ack
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+**   s1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  s1   flag: ACK
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   s1   === expect settings.ack == true
+**** s1   EXPECT settings.ack (true) == "true" match
+**   s1   Ending stream 0
+**   s1   Starting stream 0x7f6de4002700
+**   s1   Waiting for stream 1
+**   s1   === rxreq
+**   c1   Starting stream 0x7f6ddc002830
+**   c1   Waiting for stream 1
+**** dT   0.012
+**   c1   === txreq -method GET -url /1 \
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 73
+***  s1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 73
+***  s1   flag: END_STREAM
+**** s1   header[ 0]: :method : GET
+**** s1   header[ 1]: :path : /1
+**** s1   header[ 2]: :scheme : http
+**** s1   header[ 3]: :authority : localhost
+**** s1   header[ 4]: :scheme : http
+**   s1   === txresp
+***  s1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 13
+**   s1   === expect stream.weight == 16
+**** s1   EXPECT stream.weight (16) == "16" match
+**   s1   === expect stream.dependency == 0
+**** s1   EXPECT stream.dependency (0) == "0" match
+**   s1   Ending stream 1
+**   s1   === stream 3 {
+**   s1   Starting stream 0x7f6de40037c0
+**   s1   Waiting for stream 3
+**   s1   === rxreq
+**   c1   === rxresp
+***  c1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 13
+***  c1   flag: END_STREAM
+**** c1   header[ 0]: :status : 200
+**   c1   === expect stream.weight == 16
+**** c1   EXPECT stream.weight (16) == "16" match
+**   c1   === expect stream.dependency == 0
+**** c1   EXPECT stream.dependency (0) == "0" match
+**   c1   Ending stream 1
+**   c1   === stream 3 {
+**   c1   Starting stream 0x7f6ddc003950
+**   c1   Waiting for stream 3
+**   c1   === txreq -req GET -url /3 \
+**** c1   stream->dependency: 5
+**** c1   stream->weight: 123
+***  c1   tx: stream: 3, type: HEADERS (1), flags: 0x25, size: 78
+***  s1   rx: stream: 3, type: HEADERS (1), flags: 0x25, size: 78
+***  s1   flag: END_STREAM
+**** s1   stream->dependency: 5
+**** s1   stream->weight: 123
+**** s1   header[ 0]: :method : GET
+**** s1   header[ 1]: :path : /3
+**** s1   header[ 2]: :scheme : http
+**** s1   header[ 3]: :authority : localhost
+**** s1   header[ 4]: :scheme : http
+**   c1   === rxresp
+**   s1   === txresp
+***  s1   tx: stream: 3, type: HEADERS (1), flags: 0x05, size: 13
+***  c1   rx: stream: 3, type: HEADERS (1), flags: 0x05, size: 13
+***  c1   flag: END_STREAM
+**** c1   header[ 0]: :status : 200
+**   s1   === expect stream.weight == 123
+**** s1   EXPECT stream.weight (123) == "123" match
+**   c1   === expect stream.weight == 123
+**   s1   === expect stream.dependency == 5
+**** s1   EXPECT stream.dependency (5) == "5" match
+**** c1   EXPECT stream.weight (123) == "123" match
+**   s1   === rxprio
+**   c1   === expect stream.dependency == 5
+**** c1   EXPECT stream.dependency (5) == "5" match
+**   c1   === txprio -weight 10 -stream 7
+***  c1   tx: stream: 3, type: PRIORITY (2), flags: 0x00, size: 5
+***  s1   rx: stream: 3, type: PRIORITY (2), flags: 0x00, size: 5
+***  s1   prio->stream: 7
+***  s1   prio->weight: 10
+**   c1   === expect stream.weight == 10
+**** c1   EXPECT stream.weight (10) == "10" match
+**   c1   === expect stream.dependency == 7
+**** c1   EXPECT stream.dependency (7) == "7" match
+**   s1   === expect prio.weight == 10
+**   c1   Ending stream 3
+**** s1   EXPECT prio.weight (10) == "10" match
+**   s1   === expect prio.stream == 7
+**** s1   EXPECT prio.stream (7) == "7" match
+**   s1   === expect stream.weight == 10
+**   c1   === stream 5 {
+**   c1   Starting stream 0x7f6ddc004ad0
+**   c1   Waiting for stream 5
+**** s1   EXPECT stream.weight (10) == "10" match
+**   s1   === expect stream.dependency == 7
+**   c1   === expect stream.weight == 16
+**** s1   EXPECT stream.dependency (7) == "7" match
+**   s1   Ending stream 3
+**** c1   EXPECT stream.weight (16) == "16" match
+**   c1   === expect stream.dependency == 0
+**** c1   EXPECT stream.dependency (0) == "0" match
+**   c1   Ending stream 5
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f6ddc001630
+**   c1   Waiting for stream 0
+***  s1   shutting fd 5
+**   s1   Ending
+**   c1   === expect stream.weight == <undef>
+**** c1   EXPECT stream.weight (<undef>) == "<undef>" match
+**   c1   === expect stream.dependency == <undef>
+**** c1   EXPECT stream.dependency (<undef>) == "<undef>" match
+**   c1   Ending stream 0
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === server s1 -wait
+**   s1   Waiting for server (4/-1)
+*    top  RESETTING after ./tests/a02014.vtc
+*    top  TEST ./tests/a02014.vtc completed
+#    top  TEST ./tests/a02014.vtc passed (0.094)

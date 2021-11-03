@@ -1,0 +1,852 @@
+**** dT   0.000
+*    top  TEST ./tests/b00025.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 46545
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.48161.1939ffc4
+**   top  === varnishtest "more backends"
+*    top  VTEST more backends
+**   top  === varnish v1 -arg "-p vcc_err_unref=off" -vcl {
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.48161.1939ffc4/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 42777' -P /tmp/vtc.48161.1939ffc4/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p vcc_err_unref=off
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.48161.1939ffc4/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 42777' -P /tmp/vtc.48161.1939ffc4/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p vcc_err_unref=off
+***  v1   PID: 48179
+**** v1   macro def v1_pid=48179
+**** v1   macro def v1_name=/tmp/vtc.48161.1939ffc4/v1
+**** dT   0.014
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.113
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 5
+***  v1   CLI RX  107
+**** v1   CLI RX|qxilygfmbcercanvtlrxonkijpazvupe
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth 2bfa7d3e273266ddbe491cab9c59e84350d59eb87a73c9ce211bd269d9367e52
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** dT   0.114
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend d0 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d1 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d2 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d3 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d4 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d5 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d6 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d7 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d8 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d9 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d10 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d11 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d12 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d13 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d14 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d15 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d16 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d17 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d18 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d19 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d20 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d21 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d22 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d23 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d24 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d25 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d26 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d27 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d28 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d29 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d30 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d31 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d32 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d33 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d34 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d35 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d36 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d37 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d38 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d39 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d40 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d41 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d42 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d43 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d44 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d45 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d46 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d47 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d48 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d49 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d50 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d51 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d52 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d53 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d54 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d55 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d56 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d57 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d58 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d59 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d60 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d61 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d62 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d63 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d64 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d65 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d66 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d67 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d68 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d69 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d70 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d71 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d72 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d73 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d74 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d75 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d76 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d77 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\t# end of 1st 8k VSMW cluster on 64bit
+**** v1   CLI TX|\tbackend d78 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d79 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d80 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d81 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d82 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d83 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d84 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d85 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d86 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d87 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d88 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d89 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d90 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d91 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d92 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d93 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d94 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d95 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d96 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d97 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d98 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|\tbackend d99 { .host = "127.0.0.1 46545"; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.214
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.314
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.359
+***  v1   CLI RX  200
+**** dT   0.360
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Unused backend d1, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 17)
+**** v1   CLI RX|        backend d1 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------##-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d10, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 13 Pos 17)
+**** v1   CLI RX|        backend d10 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d11, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 14 Pos 17)
+**** v1   CLI RX|        backend d11 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d12, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 15 Pos 17)
+**** v1   CLI RX|        backend d12 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d13, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 16 Pos 17)
+**** v1   CLI RX|        backend d13 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d14, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 17 Pos 17)
+**** v1   CLI RX|        backend d14 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d15, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 18 Pos 17)
+**** v1   CLI RX|        backend d15 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d16, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 19 Pos 17)
+**** v1   CLI RX|        backend d16 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d17, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 20 Pos 17)
+**** v1   CLI RX|        backend d17 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d18, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 21 Pos 17)
+**** v1   CLI RX|        backend d18 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d19, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 22 Pos 17)
+**** v1   CLI RX|        backend d19 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d2, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 5 Pos 17)
+**** v1   CLI RX|        backend d2 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------##-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d20, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 23 Pos 17)
+**** v1   CLI RX|        backend d20 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d21, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 24 Pos 17)
+**** v1   CLI RX|        backend d21 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d22, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 25 Pos 17)
+**** v1   CLI RX|        backend d22 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d23, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 26 Pos 17)
+**** v1   CLI RX|        backend d23 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d24, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 27 Pos 17)
+**** v1   CLI RX|        backend d24 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d25, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 28 Pos 17)
+**** v1   CLI RX|        backend d25 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d26, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 29 Pos 17)
+**** v1   CLI RX|        backend d26 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d27, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 30 Pos 17)
+**** v1   CLI RX|        backend d27 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d28, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 31 Pos 17)
+**** v1   CLI RX|        backend d28 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d29, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 32 Pos 17)
+**** v1   CLI RX|        backend d29 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d3, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 6 Pos 17)
+**** v1   CLI RX|        backend d3 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------##-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d30, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 33 Pos 17)
+**** v1   CLI RX|        backend d30 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d31, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 34 Pos 17)
+**** v1   CLI RX|        backend d31 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d32, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 35 Pos 17)
+**** v1   CLI RX|        backend d32 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d33, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 36 Pos 17)
+**** v1   CLI RX|        backend d33 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d34, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 37 Pos 17)
+**** v1   CLI RX|        backend d34 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d35, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 38 Pos 17)
+**** v1   CLI RX|        backend d35 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d36, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 39 Pos 17)
+**** v1   CLI RX|        backend d36 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d37, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 40 Pos 17)
+**** v1   CLI RX|        backend d37 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d38, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 41 Pos 17)
+**** v1   CLI RX|        backend d38 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d39, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 42 Pos 17)
+**** v1   CLI RX|        backend d39 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d4, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 7 Pos 17)
+**** v1   CLI RX|        backend d4 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------##-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d40, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 43 Pos 17)
+**** v1   CLI RX|        backend d40 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d41, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 44 Pos 17)
+**** v1   CLI RX|        backend d41 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d42, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 45 Pos 17)
+**** v1   CLI RX|        backend d42 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d43, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 46 Pos 17)
+**** v1   CLI RX|        backend d43 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d44, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 47 Pos 17)
+**** v1   CLI RX|        backend d44 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d45, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 48 Pos 17)
+**** v1   CLI RX|        backend d45 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d46, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 49 Pos 17)
+**** v1   CLI RX|        backend d46 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d47, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 50 Pos 17)
+**** v1   CLI RX|        backend d47 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused backend d48, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 51 Pos 17)
+**** v1   CLI RX|        backend d48 { .host = "127.0.0.1 46545"; }
+**** v1   CLI RX|----------------###-------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused back
+**** v1   CLI RX| [...] (10630)
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.362
+***  v1   debug|Debug: Child (48191) Started
+**** dT   0.389
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (48191) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 44585
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 44585
+**   v1   Listen on 127.0.0.1 44585
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=44585
+**** v1   macro def v1_sock=127.0.0.1 44585
+**** dT   0.414
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892564.224551/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892564.224551/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 44585
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 44585
+
+**** dT   0.489
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 44585 (1 iterations)
+***  c1   Connect to 127.0.0.1 44585
+**** dT   0.490
+***  c1   connected fd 15 from 127.0.0.1 49838 to 127.0.0.1 44585
+**   c1   === txreq -url "/"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.491
+**   c1   === rxresp
+**** dT   0.492
+**** c1   rxhdr|HTTP/1.1 503 Backend fetch failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:49:24 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Content-Length: 281\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 249
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |Backend fetch failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:49:24 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 6] |Retry-After: 5
+**** c1   http[ 7] |X-Varnish: 1001
+**** c1   http[ 8] |Age: 0
+**** c1   http[ 9] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[10] |Content-Length: 281
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 Backend fetch failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 Backend fetch failed</h1>
+**** c1   c-l|    <p>Backend fetch failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1002</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 281
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+***  c1   closing fd 15
+**   c1   Ending
+**   top  === shell -match "d99" "varnishstat -1 -n ${v1_name}"
+**** top  shell_cmd|exec 2>&1 ; varnishstat -1 -n /tmp/vtc.48161.1939ffc4/v1
+**** dT   0.514
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 49838 a0 127.0.0.1 44585 1634892564.600503 22
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|       1002 Begin           b bereq 1001 fetch
+**** v1   vsl|       1002 VCL_use         b vcl1
+**** v1   vsl|       1002 Timestamp       b Start: 1634892564.600880 0.000000 0.000000
+**** v1   vsl|       1002 BereqMethod     b GET
+**** v1   vsl|       1002 BereqURL        b /
+**** v1   vsl|       1002 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1002 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1002 BereqHeader     b X-Varnish: 1002
+**** v1   vsl|       1002 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1002 VCL_return      b fetch
+**** v1   vsl|       1002 FetchError      b backend d0: fail errno 111 (Connection refused)
+**** v1   vsl|       1002 Timestamp       b Beresp: 1634892564.601081 0.000201 0.000201
+**** v1   vsl|       1002 Timestamp       b Error: 1634892564.601085 0.000204 0.000003
+**** v1   vsl|       1002 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1002 BerespStatus    b 503
+**** v1   vsl|       1002 BerespReason    b Backend fetch failed
+**** v1   vsl|       1002 BerespHeader    b Date: Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   vsl|       1002 BerespHeader    b Server: Varnish
+**** v1   vsl|       1002 VCL_call        b BACKEND_ERROR
+**** v1   vsl|       1002 BerespHeader    b Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1002 BerespHeader    b Retry-After: 5
+**** v1   vsl|       1002 VCL_return      b deliver
+**** v1   vsl|       1002 Storage         b malloc Transient
+**** v1   vsl|       1002 Length          b 281
+**** v1   vsl|       1002 BereqAcct       b 0 0 0 0 0 0
+**** v1   vsl|       1002 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7fbad0010fb0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7fbad0010fb0 e=1634892564.601085 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7fbad0010fb0 e=-0.000150 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Expired x=1002 t=-0
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892564.600750 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892564.600750 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 49838 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1001 VCL_return      c hash
+**** v1   vsl|       1001 VCL_call        c HASH
+**** v1   vsl|       1001 VCL_return      c lookup
+**** v1   vsl|       1001 VCL_call        c MISS
+**** v1   vsl|       1001 VCL_return      c fetch
+**** v1   vsl|       1001 Link            c bereq 1002 fetch
+**** v1   vsl|       1001 Timestamp       c Fetch: 1634892564.601250 0.000499 0.000499
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 503
+**** v1   vsl|       1001 RespReason      c Backend fetch failed
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   vsl|       1001 RespHeader      c Server: Varnish
+**** v1   vsl|       1001 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1001 RespHeader      c Retry-After: 5
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 RespHeader      c Age: 0
+**** v1   vsl|       1001 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1001 VCL_call        c DELIVER
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634892564.601272 0.000521 0.000022
+**** v1   vsl|       1001 Filters         c 
+**** v1   vsl|       1001 RespHeader      c Content-Length: 281
+**** v1   vsl|       1001 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1001 Timestamp       c Resp: 1634892564.601315 0.000565 0.000043
+**** v1   vsl|       1001 ReqAcct         c 35 0 35 249 281 530
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 SessClose       c REM_CLOSE 0.002
+**** v1   vsl|       1000 End             c 
+**** dT   0.516
+**** top  shell_out|MGT.uptime                   0         0.00 Management process uptime
+**** top  shell_out|MGT.child_start              1         0.00 Child process started
+**** top  shell_out|MGT.child_exit               0         0.00 Child process normal exit
+**** top  shell_out|MGT.child_stop               0         0.00 Child process unexpected exit
+**** top  shell_out|MGT.child_died               0         0.00 Child process died (signal)
+**** top  shell_out|MGT.child_dump               0         0.00 Child process core dumped
+**** top  shell_out|MGT.child_panic              0         0.00 Child process panic
+**** top  shell_out|MAIN.summs                   4         0.00 stat summ operations
+**** top  shell_out|MAIN.uptime                  0         0.00 Child process uptime
+**** top  shell_out|MAIN.sess_conn               1         0.00 Sessions accepted
+**** top  shell_out|MAIN.sess_fail               0         0.00 Session accept failures
+**** top  shell_out|MAIN.sess_fail_econnaborted            0         0.00 Session accept failures: connection aborted
+**** top  shell_out|MAIN.sess_fail_eintr                   0         0.00 Session accept failures: interrupted system call
+**** top  shell_out|MAIN.sess_fail_emfile                  0         0.00 Session accept failures: too many open files
+**** top  shell_out|MAIN.sess_fail_ebadf                   0         0.00 Session accept failures: bad file descriptor
+**** top  shell_out|MAIN.sess_fail_enomem                  0         0.00 Session accept failures: not enough memory
+**** top  shell_out|MAIN.sess_fail_other                   0         0.00 Session accept failures: other
+**** top  shell_out|MAIN.client_req_400                    0         0.00 Client requests received, subject to 400 errors
+**** top  shell_out|MAIN.client_req_417                    0         0.00 Client requests received, subject to 417 errors
+**** top  shell_out|MAIN.client_req                        1         0.00 Good client requests received
+**** top  shell_out|MAIN.cache_hit                         0         0.00 Cache hits
+**** top  shell_out|MAIN.cache_hit_grace                   0         0.00 Cache grace hits
+**** top  shell_out|MAIN.cache_hitpass                     0         0.00 Cache hits for pass.
+**** top  shell_out|MAIN.cache_hitmiss                     0         0.00 Cache hits for miss.
+**** top  shell_out|MAIN.cache_miss                        1         0.00 Cache misses
+**** top  shell_out|MAIN.beresp_uncacheable                0         0.00 Uncacheable backend responses
+**** top  shell_out|MAIN.beresp_shortlived                 1         0.00 Shortlived objects
+**** top  shell_out|MAIN.backend_conn                      0         0.00 Backend conn. success
+**** top  shell_out|MAIN.backend_unhealthy                 0         0.00 Backend conn. not attempted
+**** top  shell_out|MAIN.backend_busy                      0         0.00 Backend conn. too many
+**** top  shell_out|MAIN.backend_fail                      1         0.00 Backend conn. failures
+**** top  shell_out|MAIN.backend_reuse                     0         0.00 Backend conn. reuses
+**** top  shell_out|MAIN.backend_recycle                   0         0.00 Backend conn. recycles
+**** top  shell_out|MAIN.backend_retry                     0         0.00 Backend conn. retry
+**** top  shell_out|MAIN.fetch_head                        0         0.00 Fetch no body (HEAD)
+**** top  shell_out|MAIN.fetch_length                      0         0.00 Fetch with Length
+**** top  shell_out|MAIN.fetch_chunked                     0         0.00 Fetch chunked
+**** top  shell_out|MAIN.fetch_eof                         0         0.00 Fetch EOF
+**** top  shell_out|MAIN.fetch_bad                         0         0.00 Fetch bad T-E
+**** top  shell_out|MAIN.fetch_none                        0         0.00 Fetch no body
+**** top  shell_out|MAIN.fetch_1xx                         0         0.00 Fetch no body (1xx)
+**** top  shell_out|MAIN.fetch_204                         0         0.00 Fetch no body (204)
+**** top  shell_out|MAIN.fetch_304                         0         0.00 Fetch no body (304)
+**** top  shell_out|MAIN.fetch_failed                      1         0.00 Fetch failed (all causes)
+**** top  shell_out|MAIN.fetch_no_thread                   0         0.00 Fetch failed (no thread)
+**** top  shell_out|MAIN.pools                             2          .   Number of thread pools
+**** top  shell_out|MAIN.threads                          20          .   Total number of threads
+**** top  shell_out|MAIN.threads_limited                   0         0.00 Threads hit max
+**** top  shell_out|MAIN.threads_created                  20         0.00 Threads created
+**** top  shell_out|MAIN.threads_destroyed                 0         0.00 Threads destroyed
+**** top  shell_out|MAIN.threads_failed                    0         0.00 Thread creation failed
+**** top  shell_out|MAIN.thread_queue_len                  0          .   Length of session queue
+**** top  shell_out|MAIN.busy_sleep                        0         0.00 Number of requests sent to sleep on busy objhdr
+**** top  shell_out|MAIN.busy_wakeup                       0         0.00 Number of requests woken after sleep on busy objhdr
+**** top  shell_out|MAIN.busy_killed                       0         0.00 Number of requests killed after sleep on busy objhdr
+**** top  shell_out|MAIN.sess_queued                       0         0.00 Sessions queued for thread
+**** top  shell_out|MAIN.sess_dropped                      0         0.00 Sessions dropped for thread
+**** top  shell_out|MAIN.req_dropped                       0         0.00 Requests dropped
+**** top  shell_out|MAIN.n_object                          0          .   object structs made
+**** top  shell_out|MAIN.n_vampireobject                   0          .   unresurrected objects
+**** top  shell_out|MAIN.n_objectcore                      0          .   objectcore structs made
+**** top  shell_out|MAIN.n_objecthead                      1          .   objecthead structs made
+**** top  shell_out|MAIN.n_backend                       100          .   Number of backends
+**** top  shell_out|MAIN.n_expired                         1         0.00 Number of expired objects
+**** top  shell_out|MAIN.n_lru_nuked                       0         0.00 Number of LRU nuked objects
+**** top  shell_out|MAIN.n_lru_moved                       0         0.00 Number of LRU moved objects
+**** top  shell_out|MAIN.n_lru_limited                     0         0.00 Reached nuke_limit
+**** top  shell_out|MAIN.losthdr                           0         0.00 HTTP header overflows
+**** top  shell_out|MAIN.s_sess                            1         0.00 Total sessions seen
+**** top  shell_out|MAIN.n_pipe                            0          .   Number of ongoing pipe sessions
+**** top  shell_out|MAIN.pipe_limited                      0         0.00 Pipes hit pipe_sess_max
+**** top  shell_out|MAIN.s_pipe                            0         0.00 Total pipe sessions seen
+**** top  shell_out|MAIN.s_pass                            0         0.00 Total pass-ed requests seen
+**** top  shell_out|MAIN.s_fetch                           1         0.00 Total backend fetches initiated
+**** top  shell_out|MAIN.s_synth                           0         0.00 Total synthetic responses made
+**** top  shell_out|MAIN.s_req_hdrbytes                   35         0.00 Request header bytes
+**** top  shell_out|MAIN.s_req_bodybytes                   0         0.00 Request body bytes
+**** top  shell_out|MAIN.s_resp_hdrbytes                 249         0.00 Response header bytes
+**** top  shell_out|MAIN.s_resp_bodybytes                281         0.00 Response body bytes
+**** top  shell_out|MAIN.s_pipe_hdrbytes                   0         0.00 Pipe request header bytes
+**** top  shell_out|MAIN.s_pipe_in                         0         0.00 Piped bytes from client
+**** top  shell_out|MAIN.s_pipe_out                        0         0.00 Piped bytes to client
+**** top  shell_out|MAIN.sess_closed                       0         0.00 Session Closed
+**** top  shell_out|MAIN.sess_closed_err                   0         0.00 Session Closed with error
+**** top  shell_out|MAIN.sess_readahead                    0         0.00 Session Read Ahead
+**** top  shell_out|MAIN.sess_herd                         0         0.00 Session herd
+**** top  shell_out|MAIN.sc_rem_close                      1         0.00 Session OK  REM_CLOSE
+**** top  shell_out|MAIN.sc_req_close                      0         0.00 Session OK  REQ_CLOSE
+**** top  shell_out|MAIN.sc_req_http10                     0         0.00 Session Err REQ_HTTP10
+**** top  shell_out|MAIN.sc_rx_bad                         0         0.00 Session Err RX_BAD
+**** top  shell_out|MAIN.sc_rx_body                        0         0.00 Session Err RX_BODY
+**** top  shell_out|MAIN.sc_rx_junk                        0         0.00 Session Err RX_JUNK
+**** top  shell_out|MAIN.sc_rx_overflow                    0         0.00 Session Err RX_OVERFLOW
+**** top  shell_out|MAIN.sc_rx_timeout                     0         0.00 Session Err RX_TIMEOUT
+**** top  shell_out|MAIN.sc_rx_close_idle                  0         0.00 Session Err RX_CLOSE_IDLE
+**** top  shell_out|MAIN.sc_tx_pipe                        0         0.00 Session OK  TX_PIPE
+**** top  shell_out|MAIN.sc_tx_error                       0         0.00 Session Err TX_ERROR
+**** top  shell_out|MAIN.sc_tx_eof                         0         0.00 Session OK  TX_EOF
+**** top  shell_out|MAIN.sc_resp_close                     0         0.00 Session OK  RESP_CLOSE
+**** top  shell_out|MAIN.sc_overload                       0         0.00 Session Err OVERLOAD
+**** top  shell_out|MAIN.sc_pipe_overflow                  0         0.00 Session Err PIPE_OVERFLOW
+**** top  shell_out|MAIN.sc_range_short                    0         0.00 Session Err RANGE_SHORT
+**** top  shell_out|MAIN.sc_req_http20                     0         0.00 Session Err REQ_HTTP20
+**** top  shell_out|MAIN.sc_vcl_failure                    0         0.00 Session Err VCL_FAILURE
+**** top  shell_out|MAIN.client_resp_500                   0         0.00 Delivery failed due to insufficient workspace.
+**** top  shell_out|MAIN.ws_backend_overflow  
+**** top  shell_out| [...] (199133)
+**** top  shell_status = 0x0000
+**** dT   0.517
+**** top  shell_match succeeded
+*    top  RESETTING after ./tests/b00025.vtc
+**   v1   Wait
+**** v1   CLI TX|backend.list
+**** dT   0.518
+***  v1   CLI RX  200
+**** dT   0.519
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl1.d0        healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d2        healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d3        healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d4        healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d5        healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d6        healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d7        healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d8        healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d9        healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d10       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d11       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d12       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d13       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d14       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d15       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d16       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d17       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d18       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d19       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d20       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d21       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d22       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d23       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d24       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d25       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d26       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d27       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d28       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d29       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d30       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d31       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d32       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d33       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d34       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d35       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d36       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d37       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d38       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d39       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d40       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d41       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d42       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d43       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d44       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d45       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d46       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d47       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d48       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d49       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d50       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d51       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d52       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d53       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d54       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d55       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d56       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d57       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d58       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d59       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d60       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d61       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d62       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d63       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d64       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d65       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d66       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d67       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d68       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d69       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d70       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d71       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d72       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d73       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d74       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d75       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d76       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d77       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d78       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d79       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d80       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d81       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d82       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d83       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d84       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d85       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d86       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d87       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d88       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d89       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d90       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d91       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d92       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d93       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d94       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d95       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d96       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d97       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d98       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**** v1   CLI RX|vcl1.d99       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   0.615
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 7658 Backend name   Admin      Probe    Health     Last change
+vcl1.d0        healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+vcl1.d1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:24 GMT
+vcl1.d2        healthy    0/0   
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.519
+***  v1   debug|Info: Child (48191) ended
+***  v1   debug|Info: Child (48191) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+**** dT   1.520
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   1.616
+**   v1   WAIT4 pid=48179 status=0x0000 (user 0.224171 sys 0.046399)
+*    top  TEST ./tests/b00025.vtc completed
+#    top  TEST ./tests/b00025.vtc passed (1.617)

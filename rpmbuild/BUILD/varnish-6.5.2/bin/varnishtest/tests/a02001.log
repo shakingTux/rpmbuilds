@@ -1,0 +1,180 @@
+**** dT   0.000
+*    top  TEST ./tests/a02001.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 45399
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.45172.04aaf84e
+**   top  === varnishtest "Quickly test all frames"
+*    top  VTEST Quickly test all frames
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=40217
+**** s1   macro def s1_sock=127.0.0.1 40217
+*    s1   Listen on 127.0.0.1 40217
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   s1   Started on 127.0.0.1 40217 (1 iterations)
+**** dT   0.001
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 40217 (1 iterations)
+***  c1   Connect to 127.0.0.1 40217
+***  s1   accepted fd 5 127.0.0.1 47404
+**   s1   === rxpri
+***  c1   connected fd 6 from 127.0.0.1 47404 to 127.0.0.1 40217
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   0.011
+**   s1   === stream 0 {
+**   s1   Starting stream 0x7fb65c001470
+**   s1   Waiting for stream 0
+**   s1   === txprio -stream 23456 -weight 123
+***  s1   tx: stream: 0, type: PRIORITY (2), flags: 0x00, size: 5
+**   c1   === stream 0 {
+**** dT   0.012
+**   c1   Starting stream 0x7fb6540017c0
+**   s1   === txrst -err 2
+**   c1   Waiting for stream 0
+***  s1   tx: stream: 0, type: RST_STREAM (3), flags: 0x00, size: 4
+**   s1   === txsettings -push true -hdrtbl 11111111 -maxstreams 222222 -w...
+**   c1   === rxprio
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 36
+**   s1   === txsettings -ack
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   rx: stream: 0, type: PRIORITY (2), flags: 0x00, size: 5
+**   s1   === txping -data "01234567"
+***  c1   prio->stream: 23456
+***  c1   prio->weight: 123
+***  s1   tx: stream: 0, type: PING (6), flags: 0x00, size: 8
+**   c1   === expect prio.stream == 23456
+**** c1   EXPECT prio.stream (23456) == "23456" match
+**   c1   === expect prio.weight == 123
+**** c1   EXPECT prio.weight (123) == "123" match
+**   c1   === rxrst
+**   s1   === txping -data "abcdefgh" -ack
+***  s1   tx: stream: 0, type: PING (6), flags: 0x01, size: 8
+***  c1   rx: stream: 0, type: RST_STREAM (3), flags: 0x00, size: 4
+**   c1   ouch
+**** c1   rst->err: INTERNAL_ERROR (2)
+**   c1   === expect rst.err >= 2
+**   s1   === txgoaway -laststream 17432423 -err 12 -debug "kangaroo"
+***  s1   tx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 16
+**** c1   EXPECT rst.err (2) >= "2" match
+**   c1   === expect rst.err < 3
+**** c1   EXPECT rst.err (2) < "3" match
+**   c1   === rxsettings
+**   s1   === txwinup -size 500
+***  s1   tx: stream: 0, type: WINDOW_UPDATE (8), flags: 0x00, size: 4
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 36
+**** c1   settings->ENABLE_PUSH (2): 1
+**** c1   settings->HEADER_TABLE_SIZE (1): 11111111
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 222222
+**** c1   settings->INITIAL_WINDOW_SIZE (4): 333333
+**** c1   settings->MAX_FRAME_SIZE (5): 444444
+**** c1   settings->MAX_HEADER_LIST_SIZE (6): 555555
+**   c1   === expect settings.hdrtbl == 11111111
+**   s1   === txresp -body "floubidou"
+**** c1   EXPECT settings.hdrtbl (11111111) == "11111111" match
+**   c1   === expect settings.maxstreams == 222222
+**** c1   EXPECT settings.maxstreams (222222) == "222222" match
+**   c1   === expect settings.winsize == 333333
+**** c1   EXPECT settings.winsize (333333) == "333333" match
+**   c1   === expect settings.framesize == 444444
+***  s1   tx: stream: 0, type: HEADERS (1), flags: 0x04, size: 13
+**** c1   EXPECT settings.framesize (444444) == "444444" match
+**   c1   === expect settings.hdrsize == 555555
+**** c1   EXPECT settings.hdrsize (555555) == "555555" match
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+***  s1   tx: stream: 0, type: DATA (0), flags: 0x01, size: 9
+**   c1   === expect settings.hdrtbl == <undef>
+**** c1   EXPECT settings.hdrtbl (<undef>) == "<undef>" match
+**   c1   === expect settings.maxstreams == <undef>
+**** c1   EXPECT settings.maxstreams (<undef>) == "<undef>" match
+**   s1   === txresp -body "tata"
+**   c1   === expect settings.winsize == <undef>
+**** c1   EXPECT settings.winsize (<undef>) == "<undef>" match
+**   c1   === expect settings.framesize == <undef>
+**** c1   EXPECT settings.framesize (<undef>) == "<undef>" match
+**   c1   === expect settings.hdrsize == <undef>
+**** c1   EXPECT settings.hdrsize (<undef>) == "<undef>" match
+**   c1   === rxping
+***  s1   tx: stream: 0, type: HEADERS (1), flags: 0x04, size: 13
+***  s1   tx: stream: 0, type: DATA (0), flags: 0x01, size: 4
+**   s1   Ending stream 0
+***  c1   rx: stream: 0, type: PING (6), flags: 0x00, size: 8
+**** c1   ping->data: 01234567
+**   c1   === expect ping.ack == "false"
+**** c1   EXPECT ping.ack (false) == "false" match
+**   c1   === expect ping.data == "01234567"
+**** c1   EXPECT ping.data (01234567) == "01234567" match
+**   c1   === expect ping.data != "O1234567"
+**** c1   EXPECT ping.data (01234567) != "O1234567" match
+**   c1   === rxping
+***  c1   rx: stream: 0, type: PING (6), flags: 0x01, size: 8
+***  c1   flag: ACK
+**** c1   ping->data: abcdefgh
+***  s1   shutting fd 5
+**   s1   Ending
+**   c1   === expect ping.ack == "true"
+**** c1   EXPECT ping.ack (true) == "true" match
+**   c1   === expect ping.data == "abcdefgh"
+**** c1   EXPECT ping.data (abcdefgh) == "abcdefgh" match
+**   c1   === expect ping.data != "abcdefgt"
+**** c1   EXPECT ping.data (abcdefgh) != "abcdefgt" match
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 16
+***  c1   goaway->laststream: 17432423
+***  c1   goaway->err: INADEQUATE_SECURITY (12)
+***  c1   goaway->debug: kangaroo
+**   c1   === expect goaway.err == 12
+**** c1   EXPECT goaway.err (12) == "12" match
+**   c1   === expect goaway.laststream == 17432423
+**** c1   EXPECT goaway.laststream (17432423) == "17432423" match
+**   c1   === expect goaway.debug == "kangaroo"
+**** c1   EXPECT goaway.debug (kangaroo) == "kangaroo" match
+**   c1   === rxwinup
+***  c1   rx: stream: 0, type: WINDOW_UPDATE (8), flags: 0x00, size: 4
+***  c1   winup->size: 500
+**   c1   === expect winup.size == 500
+**** c1   EXPECT winup.size (500) == "500" match
+**   c1   === rxhdrs
+***  c1   rx: stream: 0, type: HEADERS (1), flags: 0x04, size: 13
+***  c1   flag: END_TYPE_HEADERS
+**** c1   header[ 0]: :status : 200
+**   c1   === rxdata
+***  c1   rx: stream: 0, type: DATA (0), flags: 0x01, size: 9
+***  c1   flag: END_STREAM
+**   c1   === expect frame.data == "floubidou"
+**** c1   EXPECT frame.data (floubidou) == "floubidou" match
+**   c1   === expect frame.type == 0
+**** c1   EXPECT frame.type (0) == "0" match
+**   c1   === expect frame.size == 9
+**** c1   EXPECT frame.size (9) == "9" match
+**   c1   === expect frame.stream == 0
+**** c1   EXPECT frame.stream (0) == "0" match
+**   c1   === rxresp
+***  c1   rx: stream: 0, type: HEADERS (1), flags: 0x04, size: 13
+***  c1   flag: END_TYPE_HEADERS
+**** c1   header[ 0]: :status : 200
+***  c1   rx: stream: 0, type: DATA (0), flags: 0x01, size: 4
+***  c1   flag: END_STREAM
+**   c1   === expect resp.body == "floubidoutata"
+**** c1   EXPECT resp.body (floubidoutata) == "floubidoutata" match
+**   c1   Ending stream 0
+***  c1   closing fd 6
+**** dT   0.013
+**   c1   Ending
+*    top  RESETTING after ./tests/a02001.vtc
+**   s1   Waiting for server (4/-1)
+*    top  TEST ./tests/a02001.vtc completed
+#    top  TEST ./tests/a02001.vtc passed (0.095)

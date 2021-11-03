@@ -1,0 +1,1979 @@
+**** dT   0.000
+*    top  TEST ./tests/m00049.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 42329
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.72436.49cbadfd
+**   top  === varnishtest "VMOD blob workspace overflow conditions"
+*    top  VTEST VMOD blob workspace overflow conditions
+**   top  === varnish v1 -cliok "param.set vcc_err_unref off"
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.72436.49cbadfd/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 42591' -P /tmp/vtc.72436.49cbadfd/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.72436.49cbadfd/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 42591' -P /tmp/vtc.72436.49cbadfd/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 72454
+**** v1   macro def v1_pid=72454
+**** v1   macro def v1_name=/tmp/vtc.72436.49cbadfd/v1
+**** dT   0.012
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.111
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 5
+***  v1   CLI RX  107
+**** v1   CLI RX|nuyvlhdehyvghkszffzkuaiieplxlgow
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth 6e6bb172647aa211e90bb315e4a6ca05be004357c9c8122bd1b642ad4f79bddf
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** dT   0.112
+**** v1   CLI TX|param.set vcc_err_unref off
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set vcc_err_unref off>
+**   top  === varnish v1 -cliok "param.set debug +syncvsl"
+**** v1   CLI TX|param.set debug +syncvsl
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set debug +syncvsl>
+**   top  === shell {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tcat >vrt_blob.vcl <<-EOF
+**** top  shell_cmd|\timport blob;
+**** top  shell_cmd|\timport std;
+**** top  shell_cmd|\timport vtc;
+**** top  shell_cmd|
+**** top  shell_cmd|\tbackend be none;
+**** top  shell_cmd|
+**** top  shell_cmd|\tsub vcl_recv {
+**** top  shell_cmd|\t\tset req.http.vrt_blob = vtc.typesize("uzp");
+**** top  shell_cmd|\t}
+**** top  shell_cmd|
+**** top  shell_cmd|\tsub shrink {
+**** top  shell_cmd|\t\tstd.log("shrink");
+**** top  shell_cmd|\t\tvtc.workspace_alloc(client, -std.integer(req.http.leave));
+**** top  shell_cmd|\t}
+**** top  shell_cmd|
+**** top  shell_cmd|\tsub leave_struct {
+**** top  shell_cmd|\t\tset req.http.leave = std.integer(req.http.vrt_blob);
+**** top  shell_cmd|\t\tcall shrink;
+**** top  shell_cmd|\t}
+**** top  shell_cmd|
+**** top  shell_cmd|\tsub leave_half_struct {
+**** top  shell_cmd|\t\tset req.http.leave = std.integer(req.http.vrt_blob) / 2;
+**** top  shell_cmd|\t\tcall shrink;
+**** top  shell_cmd|\t}
+**** top  shell_cmd|
+**** top  shell_cmd|\tsub leave_blob {
+**** top  shell_cmd|\t\tset req.http.leave = std.integer(req.http.vrt_blob) +
+**** top  shell_cmd|\t\t    std.integer(req.http.blob);
+**** top  shell_cmd|\t\tcall shrink;
+**** top  shell_cmd|\t}
+**** top  shell_cmd|\tEOF
+**** dT   0.115
+**** top  shell_status = 0x0000
+**   top  === client c-struct {
+**   top  === client c-encode {
+**   top  === client c-decode {
+**   top  === client c-req-hash {
+**   top  === client c-sub {
+**   top  === logexpect l1 -v v1 -i ReqURL,VCL_Error,VCL_Log,VCL_use
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tinclude "/tmp/vtc.72436.49cbadfd/vrt_blob.vcl";
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (req.url ~ "decode") {
+**** v1   CLI TX|\t\t\t# Not enough space to collect the string.
+**** v1   CLI TX|\t\t\tset req.http.leave = 5;
+**** v1   CLI TX|\t\t\tcall shrink;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.url ~ "struct") {
+**** v1   CLI TX|\t\t\t# Enough space to collect the decoded string.
+**** v1   CLI TX|\t\t\t# Not enough space to allocate a blob (aligned).
+**** v1   CLI TX|\t\t\tset req.http.leave = 16;
+**** v1   CLI TX|\t\t\tcall shrink;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.url ~ "encode") {
+**** v1   CLI TX|\t\t\t# Enough space to decode the string.
+**** v1   CLI TX|\t\t\t# Not enough space to encode the blob.
+**** v1   CLI TX|\t\t\tset req.http.blob = 16;
+**** v1   CLI TX|\t\t\tcall leave_blob;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tblob.encode(blob=blob.decode(encoded="1234567890"));
+**** v1   CLI TX|\t\treturn (synth(200));
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.212
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.309
+***  v1   CLI RX  200
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Unused sub leave_half_struct, defined:
+**** v1   CLI RX|('/tmp/vtc.72436.49cbadfd/vrt_blob.vcl' Line 21 Pos 5)
+**** v1   CLI RX|sub leave_half_struct {
+**** v1   CLI RX|----#################--
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused sub leave_struct, defined:
+**** v1   CLI RX|('/tmp/vtc.72436.49cbadfd/vrt_blob.vcl' Line 16 Pos 5)
+**** v1   CLI RX|sub leave_struct {
+**** v1   CLI RX|----############--
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.312
+***  v1   debug|Debug: Child (72468) Started
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.338
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (72468) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+**** dT   0.339
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 41783
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 41783
+**   v1   Listen on 127.0.0.1 41783
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=41783
+**** v1   macro def v1_sock=127.0.0.1 41783
+**** dT   0.413
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892898.173905/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892898.173905/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 41783
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 41783
+
+**** dT   0.439
+**   top  === logexpect l1 {
+**   l1   === expect 0 * VCL_use	vcl1
+**   l1   === expect 0 = ReqURL	decode
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"cannot decode, out of space"
+**   l1   === expect 0 * VCL_use	vcl1
+**   l1   === expect 0 = ReqURL	struct
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"Workspace overflow .blob.decode."
+**   l1   === expect 0 * VCL_use	vcl1
+**   l1   === expect 0 = ReqURL	encode
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"cannot encode, out of space"
+**   top  === client c-decode -run
+**   c-decode Starting client
+**** dT   0.440
+**** l1   begin|
+***  l1   expecting| expect 0 * VCL_use vcl1
+**   c-decode Waiting for client
+**   c-decode Started on 127.0.0.1 41783 (1 iterations)
+***  c-decode Connect to 127.0.0.1 41783
+***  c-decode connected fd 20 from 127.0.0.1 43952 to 127.0.0.1 41783
+**   c-decode === txreq -url "/decode"
+**** c-decode txreq|GET /decode HTTP/1.1\r
+**** c-decode txreq|Host: 127.0.0.1\r
+**** c-decode txreq|\r
+**** dT   0.441
+**   c-decode === rxresp
+**** c-decode rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-decode rxhdr|Date: Fri, 22 Oct 2021 08:54:58 GMT\r
+**** c-decode rxhdr|Server: Varnish\r
+**** c-decode rxhdr|X-Varnish: 1001\r
+**** c-decode rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-decode rxhdr|Retry-After: 5\r
+**** c-decode rxhdr|Content-Length: 251\r
+**** c-decode rxhdr|Connection: close\r
+**** c-decode rxhdr|\r
+**** c-decode rxhdrlen = 194
+**** c-decode http[ 0] |HTTP/1.1
+**** c-decode http[ 1] |503
+**** c-decode http[ 2] |VCL failed
+**** c-decode http[ 3] |Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** c-decode http[ 4] |Server: Varnish
+**** c-decode http[ 5] |X-Varnish: 1001
+**** c-decode http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-decode http[ 7] |Retry-After: 5
+**** c-decode http[ 8] |Content-Length: 251
+**** c-decode http[ 9] |Connection: close
+**** c-decode c-l|<!DOCTYPE html>
+**** c-decode c-l|<html>
+**** c-decode c-l|  <head>
+**** c-decode c-l|    <title>503 VCL failed</title>
+**** c-decode c-l|  </head>
+**** c-decode c-l|  <body>
+**** c-decode c-l|    <h1>Error 503 VCL failed</h1>
+**** c-decode c-l|    <p>VCL failed</p>
+**** c-decode c-l|    <h3>Guru Meditation:</h3>
+**** c-decode c-l|    <p>XID: 1001</p>
+**** c-decode c-l|    <hr>
+**** c-decode c-l|    <p>Varnish cache server</p>
+**** c-decode c-l|  </body>
+**** c-decode c-l|</html>
+**** c-decode bodylen = 251
+**   c-decode === expect resp.status == 503
+**** c-decode EXPECT resp.status (503) == "503" match
+**   c-decode === expect resp.reason == "VCL failed"
+**** c-decode EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-decode === expect_close
+**** c-decode Expecting close (fd = 20)
+**** c-decode fd=20 EOF, as expected
+***  c-decode closing fd 20
+**   c-decode Ending
+**   top  === client c-struct -run
+**   c-struct Starting client
+**   c-struct Waiting for client
+**   c-struct Started on 127.0.0.1 41783 (1 iterations)
+***  c-struct Connect to 127.0.0.1 41783
+**** dT   0.442
+***  c-struct connected fd 20 from 127.0.0.1 43954 to 127.0.0.1 41783
+**   c-struct === txreq -url "/struct"
+**** c-struct txreq|GET /struct HTTP/1.1\r
+**** c-struct txreq|Host: 127.0.0.1\r
+**** c-struct txreq|\r
+**   c-struct === rxresp
+**** c-struct rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-struct rxhdr|Date: Fri, 22 Oct 2021 08:54:58 GMT\r
+**** c-struct rxhdr|Server: Varnish\r
+**** c-struct rxhdr|X-Varnish: 1003\r
+**** c-struct rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-struct rxhdr|Retry-After: 5\r
+**** c-struct rxhdr|Content-Length: 251\r
+**** c-struct rxhdr|Connection: close\r
+**** c-struct rxhdr|\r
+**** c-struct rxhdrlen = 194
+**** c-struct http[ 0] |HTTP/1.1
+**** c-struct http[ 1] |503
+**** c-struct http[ 2] |VCL failed
+**** c-struct http[ 3] |Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** c-struct http[ 4] |Server: Varnish
+**** c-struct http[ 5] |X-Varnish: 1003
+**** c-struct http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-struct http[ 7] |Retry-After: 5
+**** c-struct http[ 8] |Content-Length: 251
+**** c-struct http[ 9] |Connection: close
+**** c-struct c-l|<!DOCTYPE html>
+**** c-struct c-l|<html>
+**** c-struct c-l|  <head>
+**** c-struct c-l|    <title>503 VCL failed</title>
+**** c-struct c-l|  </head>
+**** c-struct c-l|  <body>
+**** c-struct c-l|    <h1>Error 503 VCL failed</h1>
+**** c-struct c-l|    <p>VCL failed</p>
+**** c-struct c-l|    <h3>Guru Meditation:</h3>
+**** c-struct c-l|    <p>XID: 1003</p>
+**** c-struct c-l|    <hr>
+**** c-struct c-l|    <p>Varnish cache server</p>
+**** c-struct c-l|  </body>
+**** c-struct c-l|</html>
+**** c-struct bodylen = 251
+**   c-struct === expect resp.status == 503
+**** c-struct EXPECT resp.status (503) == "503" match
+**   c-struct === expect resp.reason == "VCL failed"
+**** c-struct EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-struct === expect_close
+**** c-struct Expecting close (fd = 20)
+**** c-struct fd=20 EOF, as expected
+***  c-struct closing fd 20
+**   c-struct Ending
+**** dT   0.443
+**   top  === client c-encode -run
+**   c-encode Starting client
+**   c-encode Waiting for client
+**   c-encode Started on 127.0.0.1 41783 (1 iterations)
+***  c-encode Connect to 127.0.0.1 41783
+***  c-encode connected fd 20 from 127.0.0.1 43956 to 127.0.0.1 41783
+**   c-encode === txreq -url "/encode"
+**** c-encode txreq|GET /encode HTTP/1.1\r
+**** c-encode txreq|Host: 127.0.0.1\r
+**** c-encode txreq|\r
+**   c-encode === rxresp
+**** dT   0.444
+**** c-encode rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-encode rxhdr|Date: Fri, 22 Oct 2021 08:54:58 GMT\r
+**** c-encode rxhdr|Server: Varnish\r
+**** c-encode rxhdr|X-Varnish: 1005\r
+**** c-encode rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-encode rxhdr|Retry-After: 5\r
+**** c-encode rxhdr|Content-Length: 251\r
+**** c-encode rxhdr|Connection: close\r
+**** c-encode rxhdr|\r
+**** c-encode rxhdrlen = 194
+**** c-encode http[ 0] |HTTP/1.1
+**** c-encode http[ 1] |503
+**** c-encode http[ 2] |VCL failed
+**** c-encode http[ 3] |Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** c-encode http[ 4] |Server: Varnish
+**** c-encode http[ 5] |X-Varnish: 1005
+**** c-encode http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-encode http[ 7] |Retry-After: 5
+**** c-encode http[ 8] |Content-Length: 251
+**** c-encode http[ 9] |Connection: close
+**** c-encode c-l|<!DOCTYPE html>
+**** c-encode c-l|<html>
+**** c-encode c-l|  <head>
+**** c-encode c-l|    <title>503 VCL failed</title>
+**** c-encode c-l|  </head>
+**** c-encode c-l|  <body>
+**** c-encode c-l|    <h1>Error 503 VCL failed</h1>
+**** c-encode c-l|    <p>VCL failed</p>
+**** c-encode c-l|    <h3>Guru Meditation:</h3>
+**** c-encode c-l|    <p>XID: 1005</p>
+**** c-encode c-l|    <hr>
+**** c-encode c-l|    <p>Varnish cache server</p>
+**** c-encode c-l|  </body>
+**** c-encode c-l|</html>
+**** c-encode bodylen = 251
+**   c-encode === expect resp.status == 503
+**** c-encode EXPECT resp.status (503) == "503" match
+**   c-encode === expect resp.reason == "VCL failed"
+**** c-encode EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-encode === expect_close
+**** c-encode Expecting close (fd = 20)
+**** c-encode fd=20 EOF, as expected
+***  c-encode closing fd 20
+**   c-encode Ending
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   0.450
+**** l1   match|       1001 VCL_use         c vcl1
+***  l1   expecting| expect 0 = ReqURL decode
+**** l1   match|       1001 ReqURL          c /decode
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1001 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error cannot decode, out of space
+**** l1   match|       1001 VCL_Error       c vmod blob error: cannot decode, out of space
+***  l1   expecting| expect 0 * VCL_use vcl1
+**** l1   match|       1003 VCL_use         c vcl1
+***  l1   expecting| expect 0 = ReqURL struct
+**** l1   match|       1003 ReqURL          c /struct
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1003 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error Workspace overflow .blob.decode.
+**** l1   match|       1003 VCL_Error       c Workspace overflow (blob.decode)
+***  l1   expecting| expect 0 * VCL_use vcl1
+**** l1   match|       1005 VCL_use         c vcl1
+***  l1   expecting| expect 0 = ReqURL encode
+**** l1   match|       1005 ReqURL          c /encode
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1005 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error cannot encode, out of space
+**** l1   match|       1005 VCL_Error       c vmod blob error: cannot encode, out of space
+**** l1   end|
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl2 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tinclude "/tmp/vtc.72436.49cbadfd/vrt_blob.vcl";
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (req.url ~ "decode") {
+**** v1   CLI TX|\t\t\t# Not enough space to collect the string.
+**** v1   CLI TX|\t\t\tset req.http.leave = 5;
+**** v1   CLI TX|\t\t\tcall shrink;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.url ~ "struct") {
+**** v1   CLI TX|\t\t\t# Enough space to collect the decoded string.
+**** v1   CLI TX|\t\t\t# Not enough space to allocate a blob.
+**** v1   CLI TX|\t\t\tset req.http.leave = 16;
+**** v1   CLI TX|\t\t\tcall shrink;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.url ~ "encode") {
+**** v1   CLI TX|\t\t\t# Enough space to decode the string.
+**** v1   CLI TX|\t\t\t# Not enough space to encode the blob.
+**** v1   CLI TX|\t\t\tset req.http.blob = 16;
+**** v1   CLI TX|\t\t\tcall leave_blob;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tblob.encode(
+**** v1   CLI TX|\t\t    blob=blob.decode(BASE64, encoded="MTIzNDU2Nzg5MA=="));
+**** v1   CLI TX|\t\treturn (synth(200));
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.513
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 43952 a0 127.0.0.1 41783 1634892898.498409 25
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892898.498703 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892898.498703 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 43952 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /decode
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1001 ReqHeader       c leave: 5
+**** v1   vsl|       1001 VCL_Log         c shrink
+**** v1   vsl|       1001 VCL_Error       c vmod blob error: cannot decode, out of space
+**** v1   vsl|       1001 VCL_return      c fail
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 503
+**** v1   vsl|       1001 RespReason      c VCL failed
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** v1   vsl|       1001 RespHeader      c Server: Varnish
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 VCL_call        c SYNTH
+**** v1   vsl|       1001 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1001 RespHeader      c Retry-After: 5
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634892898.498923 0.000220 0.000220
+**** v1   vsl|       1001 RespHeader      c Content-Length: 251
+**** v1   vsl|       1001 Storage         c malloc Transient
+**** v1   vsl|       1001 Filters         c 
+**** v1   vsl|       1001 RespHeader      c Connection: close
+**** v1   vsl|       1001 Timestamp       c Resp: 1634892898.498982 0.000279 0.000059
+**** v1   vsl|       1001 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 SessClose       c VCL_FAILURE 0.001
+**** v1   vsl|       1000 End             c 
+**** v1   vsl|       1002 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1002 SessOpen        c 127.0.0.1 43954 a0 127.0.0.1 41783 1634892898.500184 26
+**** v1   vsl|       1003 Begin           c req 1002 rxreq
+**** v1   vsl|       1002 Link            c req 1003 rxreq
+**** v1   vsl|       1003 Timestamp       c Start: 1634892898.500255 0.000000 0.000000
+**** v1   vsl|       1003 Timestamp       c Req: 1634892898.500255 0.000000 0.000000
+**** v1   vsl|       1003 VCL_use         c vcl1
+**** v1   vsl|       1003 ReqStart        c 127.0.0.1 43954 a0
+**** v1   vsl|       1003 ReqMethod       c GET
+**** v1   vsl|       1003 ReqURL          c /struct
+**** v1   vsl|       1003 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1003 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1003 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1003 VCL_call        c RECV
+**** v1   vsl|       1003 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1003 ReqHeader       c leave: 16
+**** v1   vsl|       1003 VCL_Log         c shrink
+**** v1   vsl|       1003 VCL_Error       c Workspace overflow (blob.decode)
+**** v1   vsl|       1003 VCL_return      c fail
+**** v1   vsl|       1003 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1003 RespStatus      c 503
+**** v1   vsl|       1003 RespReason      c VCL failed
+**** v1   vsl|       1003 RespHeader      c Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** v1   vsl|       1003 RespHeader      c Server: Varnish
+**** v1   vsl|       1003 RespHeader      c X-Varnish: 1003
+**** v1   vsl|       1003 VCL_call        c SYNTH
+**** v1   vsl|       1003 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1003 RespHeader      c Retry-After: 5
+**** v1   vsl|       1003 VCL_return      c deliver
+**** v1   vsl|       1003 Timestamp       c Process: 1634892898.500297 0.000042 0.000042
+**** v1   vsl|       1003 RespHeader      c Content-Length: 251
+**** v1   vsl|       1003 Storage         c malloc Transient
+**** v1   vsl|       1003 Filters         c 
+**** v1   vsl|       1003 RespHeader      c Connection: close
+**** v1   vsl|       1003 Timestamp       c Resp: 1634892898.500404 0.000148 0.000106
+**** v1   vsl|       1003 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1003 End             c 
+**** v1   vsl|       1002 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1002 End             c 
+**** v1   vsl|       1004 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1004 SessOpen        c 127.0.0.1 43956 a0 127.0.0.1 41783 1634892898.501254 27
+**** v1   vsl|       1005 Begin           c req 1004 rxreq
+**** v1   vsl|       1004 Link            c req 1005 rxreq
+**** v1   vsl|       1005 Timestamp       c Start: 1634892898.501325 0.000000 0.000000
+**** v1   vsl|       1005 Timestamp       c Req: 1634892898.501325 0.000000 0.000000
+**** v1   vsl|       1005 VCL_use         c vcl1
+**** v1   vsl|       1005 ReqStart        c 127.0.0.1 43956 a0
+**** v1   vsl|       1005 ReqMethod       c GET
+**** v1   vsl|       1005 ReqURL          c /encode
+**** v1   vsl|       1005 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1005 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1005 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1005 VCL_call        c RECV
+**** v1   vsl|       1005 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1005 ReqHeader       c blob: 16
+**** v1   vsl|       1005 ReqHeader       c leave: 40
+**** v1   vsl|       1005 VCL_Log         c shrink
+**** v1   vsl|       1005 VCL_Error       c vmod blob error: cannot encode, out of space
+**** v1   vsl|       1005 VCL_return      c fail
+**** v1   vsl|       1005 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1005 RespStatus      c 503
+**** v1   vsl|       1005 RespReason      c VCL failed
+**** v1   vsl|       1005 RespHeader      c Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** v1   vsl|       1005 RespHeader      c Server: Varnish
+**** v1   vsl|       1005 RespHeader      c X-Varnish: 1005
+**** v1   vsl|       1005 VCL_call        c SYNTH
+**** v1   vsl|       1005 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1005 RespHeader      c Retry-After: 5
+**** v1   vsl|       1005 VCL_return      c deliver
+**** v1   vsl|       1005 Timestamp       c Process: 1634892898.501405 0.000079 0.000079
+**** v1   vsl|       1005 RespHeader      c Content-Length: 251
+**** v1   vsl|       1005 Storage         c malloc Transient
+**** v1   vsl|       1005 Filters         c 
+**** v1   vsl|       1005 RespHeader      c Connection: close
+**** v1   vsl|       1005 Timestamp       c Resp: 1634892898.501436 0.000110 0.000031
+**** v1   vsl|       1005 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1005 End             c 
+**** v1   vsl|       1004 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1004 End             c 
+**** dT   0.652
+***  v1   CLI RX  200
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Unused sub leave_half_struct, defined:
+**** v1   CLI RX|('/tmp/vtc.72436.49cbadfd/vrt_blob.vcl' Line 21 Pos 5)
+**** v1   CLI RX|sub leave_half_struct {
+**** v1   CLI RX|----#################--
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused sub leave_struct, defined:
+**** v1   CLI RX|('/tmp/vtc.72436.49cbadfd/vrt_blob.vcl' Line 16 Pos 5)
+**** v1   CLI RX|sub leave_struct {
+**** v1   CLI RX|----############--
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl2
+**** dT   0.653
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl2' now active
+**   top  === logexpect l1 {
+**   l1   === expect 0 * VCL_use	vcl2
+**   l1   === expect 0 = ReqURL	decode
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"cannot decode, out of space"
+**   l1   === expect 0 * VCL_use	vcl2
+**   l1   === expect 0 = ReqURL	struct
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"Workspace overflow .blob.decode."
+**   l1   === expect 0 * VCL_use	vcl2
+**   l1   === expect 0 = ReqURL	encode
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"cannot encode, out of space"
+**   top  === client c-decode -run
+**   c-decode Starting client
+**   c-decode Waiting for client
+**** l1   begin|
+***  l1   expecting| expect 0 * VCL_use vcl2
+**   c-decode Started on 127.0.0.1 41783 (1 iterations)
+***  c-decode Connect to 127.0.0.1 41783
+***  c-decode connected fd 20 from 127.0.0.1 43960 to 127.0.0.1 41783
+**   c-decode === txreq -url "/decode"
+**** c-decode txreq|GET /decode HTTP/1.1\r
+**** c-decode txreq|Host: 127.0.0.1\r
+**** c-decode txreq|\r
+**   c-decode === rxresp
+**** dT   0.654
+**** c-decode rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-decode rxhdr|Date: Fri, 22 Oct 2021 08:54:58 GMT\r
+**** c-decode rxhdr|Server: Varnish\r
+**** c-decode rxhdr|X-Varnish: 1007\r
+**** c-decode rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-decode rxhdr|Retry-After: 5\r
+**** c-decode rxhdr|Content-Length: 251\r
+**** c-decode rxhdr|Connection: close\r
+**** c-decode rxhdr|\r
+**** c-decode rxhdrlen = 194
+**** c-decode http[ 0] |HTTP/1.1
+**** c-decode http[ 1] |503
+**** c-decode http[ 2] |VCL failed
+**** c-decode http[ 3] |Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** c-decode http[ 4] |Server: Varnish
+**** c-decode http[ 5] |X-Varnish: 1007
+**** c-decode http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-decode http[ 7] |Retry-After: 5
+**** c-decode http[ 8] |Content-Length: 251
+**** c-decode http[ 9] |Connection: close
+**** c-decode c-l|<!DOCTYPE html>
+**** c-decode c-l|<html>
+**** c-decode c-l|  <head>
+**** c-decode c-l|    <title>503 VCL failed</title>
+**** c-decode c-l|  </head>
+**** c-decode c-l|  <body>
+**** c-decode c-l|    <h1>Error 503 VCL failed</h1>
+**** c-decode c-l|    <p>VCL failed</p>
+**** c-decode c-l|    <h3>Guru Meditation:</h3>
+**** c-decode c-l|    <p>XID: 1007</p>
+**** c-decode c-l|    <hr>
+**** c-decode c-l|    <p>Varnish cache server</p>
+**** c-decode c-l|  </body>
+**** c-decode c-l|</html>
+**** c-decode bodylen = 251
+**   c-decode === expect resp.status == 503
+**** c-decode EXPECT resp.status (503) == "503" match
+**   c-decode === expect resp.reason == "VCL failed"
+**** c-decode EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-decode === expect_close
+**** c-decode Expecting close (fd = 20)
+**** c-decode fd=20 EOF, as expected
+***  c-decode closing fd 20
+**   c-decode Ending
+**   top  === client c-struct -run
+**   c-struct Starting client
+**   c-struct Waiting for client
+**   c-struct Started on 127.0.0.1 41783 (1 iterations)
+***  c-struct Connect to 127.0.0.1 41783
+***  c-struct connected fd 20 from 127.0.0.1 43962 to 127.0.0.1 41783
+**   c-struct === txreq -url "/struct"
+**** c-struct txreq|GET /struct HTTP/1.1\r
+**** c-struct txreq|Host: 127.0.0.1\r
+**** c-struct txreq|\r
+**   c-struct === rxresp
+**** dT   0.655
+**** c-struct rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-struct rxhdr|Date: Fri, 22 Oct 2021 08:54:58 GMT\r
+**** c-struct rxhdr|Server: Varnish\r
+**** c-struct rxhdr|X-Varnish: 1009\r
+**** c-struct rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-struct rxhdr|Retry-After: 5\r
+**** c-struct rxhdr|Content-Length: 251\r
+**** c-struct rxhdr|Connection: close\r
+**** c-struct rxhdr|\r
+**** c-struct rxhdrlen = 194
+**** c-struct http[ 0] |HTTP/1.1
+**** c-struct http[ 1] |503
+**** c-struct http[ 2] |VCL failed
+**** c-struct http[ 3] |Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** c-struct http[ 4] |Server: Varnish
+**** c-struct http[ 5] |X-Varnish: 1009
+**** c-struct http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-struct http[ 7] |Retry-After: 5
+**** c-struct http[ 8] |Content-Length: 251
+**** c-struct http[ 9] |Connection: close
+**** c-struct c-l|<!DOCTYPE html>
+**** c-struct c-l|<html>
+**** c-struct c-l|  <head>
+**** c-struct c-l|    <title>503 VCL failed</title>
+**** c-struct c-l|  </head>
+**** c-struct c-l|  <body>
+**** c-struct c-l|    <h1>Error 503 VCL failed</h1>
+**** c-struct c-l|    <p>VCL failed</p>
+**** c-struct c-l|    <h3>Guru Meditation:</h3>
+**** c-struct c-l|    <p>XID: 1009</p>
+**** c-struct c-l|    <hr>
+**** c-struct c-l|    <p>Varnish cache server</p>
+**** c-struct c-l|  </body>
+**** c-struct c-l|</html>
+**** c-struct bodylen = 251
+**   c-struct === expect resp.status == 503
+**** c-struct EXPECT resp.status (503) == "503" match
+**   c-struct === expect resp.reason == "VCL failed"
+**** c-struct EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-struct === expect_close
+**** c-struct Expecting close (fd = 20)
+**** c-struct fd=20 EOF, as expected
+***  c-struct closing fd 20
+**   c-struct Ending
+**   top  === client c-encode -run
+**   c-encode Starting client
+**   c-encode Waiting for client
+**   c-encode Started on 127.0.0.1 41783 (1 iterations)
+***  c-encode Connect to 127.0.0.1 41783
+***  c-encode connected fd 20 from 127.0.0.1 43964 to 127.0.0.1 41783
+**   c-encode === txreq -url "/encode"
+**** c-encode txreq|GET /encode HTTP/1.1\r
+**** c-encode txreq|Host: 127.0.0.1\r
+**** c-encode txreq|\r
+**   c-encode === rxresp
+**** dT   0.656
+**** c-encode rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-encode rxhdr|Date: Fri, 22 Oct 2021 08:54:58 GMT\r
+**** c-encode rxhdr|Server: Varnish\r
+**** c-encode rxhdr|X-Varnish: 1011\r
+**** c-encode rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-encode rxhdr|Retry-After: 5\r
+**** c-encode rxhdr|Content-Length: 251\r
+**** c-encode rxhdr|Connection: close\r
+**** c-encode rxhdr|\r
+**** c-encode rxhdrlen = 194
+**** c-encode http[ 0] |HTTP/1.1
+**** c-encode http[ 1] |503
+**** c-encode http[ 2] |VCL failed
+**** c-encode http[ 3] |Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** c-encode http[ 4] |Server: Varnish
+**** c-encode http[ 5] |X-Varnish: 1011
+**** c-encode http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-encode http[ 7] |Retry-After: 5
+**** c-encode http[ 8] |Content-Length: 251
+**** c-encode http[ 9] |Connection: close
+**** c-encode c-l|<!DOCTYPE html>
+**** c-encode c-l|<html>
+**** c-encode c-l|  <head>
+**** c-encode c-l|    <title>503 VCL failed</title>
+**** c-encode c-l|  </head>
+**** c-encode c-l|  <body>
+**** c-encode c-l|    <h1>Error 503 VCL failed</h1>
+**** c-encode c-l|    <p>VCL failed</p>
+**** c-encode c-l|    <h3>Guru Meditation:</h3>
+**** c-encode c-l|    <p>XID: 1011</p>
+**** c-encode c-l|    <hr>
+**** c-encode c-l|    <p>Varnish cache server</p>
+**** c-encode c-l|  </body>
+**** c-encode c-l|</html>
+**** c-encode bodylen = 251
+**   c-encode === expect resp.status == 503
+**** c-encode EXPECT resp.status (503) == "503" match
+**   c-encode === expect resp.reason == "VCL failed"
+**** c-encode EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-encode === expect_close
+**** c-encode Expecting close (fd = 20)
+**** c-encode fd=20 EOF, as expected
+***  c-encode closing fd 20
+**   c-encode Ending
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   0.663
+**** l1   match|       1007 VCL_use         c vcl2
+***  l1   expecting| expect 0 = ReqURL decode
+**** l1   match|       1007 ReqURL          c /decode
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1007 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error cannot decode, out of space
+**** l1   match|       1007 VCL_Error       c vmod blob error: cannot decode, out of space
+***  l1   expecting| expect 0 * VCL_use vcl2
+**** l1   match|       1009 VCL_use         c vcl2
+***  l1   expecting| expect 0 = ReqURL struct
+**** l1   match|       1009 ReqURL          c /struct
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1009 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error Workspace overflow .blob.decode.
+**** l1   match|       1009 VCL_Error       c Workspace overflow (blob.decode)
+***  l1   expecting| expect 0 * VCL_use vcl2
+**** l1   match|       1011 VCL_use         c vcl2
+***  l1   expecting| expect 0 = ReqURL encode
+**** l1   match|       1011 ReqURL          c /encode
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1011 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error cannot encode, out of space
+**** l1   match|       1011 VCL_Error       c vmod blob error: cannot encode, out of space
+**** l1   end|
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl3 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tinclude "/tmp/vtc.72436.49cbadfd/vrt_blob.vcl";
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (req.url ~ "decode") {
+**** v1   CLI TX|\t\t\t# Not enough space to collect the string.
+**** v1   CLI TX|\t\t\tset req.http.leave = 5;
+**** v1   CLI TX|\t\t\tcall shrink;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.url ~ "struct") {
+**** v1   CLI TX|\t\t\t# Enough space to collect the decoded string.
+**** v1   CLI TX|\t\t\t# Not enough space to allocate a blob (aligned).
+**** v1   CLI TX|\t\t\tset req.http.leave = 16;
+**** v1   CLI TX|\t\t\tcall shrink;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.url ~ "encode") {
+**** v1   CLI TX|\t\t\t# Enough space to decode the string.
+**** v1   CLI TX|\t\t\t# Not enough space to encode the blob.
+**** v1   CLI TX|\t\t\tset req.http.blob = 16;
+**** v1   CLI TX|\t\t\tcall leave_blob;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tblob.encode(blob=blob.decode(URL, encoded="1234567890"));
+**** v1   CLI TX|\t\treturn (synth(200));
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.713
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl2 vcl_vcl2.1634892898.508575/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl2.1634892898.508575/vgc.so" as "vcl2"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl2
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1006 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1006 SessOpen        c 127.0.0.1 43960 a0 127.0.0.1 41783 1634892898.711688 25
+**** v1   vsl|       1007 Begin           c req 1006 rxreq
+**** v1   vsl|       1006 Link            c req 1007 rxreq
+**** v1   vsl|       1007 Timestamp       c Start: 1634892898.711753 0.000000 0.000000
+**** v1   vsl|       1007 Timestamp       c Req: 1634892898.711753 0.000000 0.000000
+**** v1   vsl|       1007 VCL_use         c vcl2
+**** v1   vsl|       1007 ReqStart        c 127.0.0.1 43960 a0
+**** v1   vsl|       1007 ReqMethod       c GET
+**** v1   vsl|       1007 ReqURL          c /decode
+**** v1   vsl|       1007 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1007 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1007 VCL_call        c RECV
+**** v1   vsl|       1007 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1007 ReqHeader       c leave: 5
+**** v1   vsl|       1007 VCL_Log         c shrink
+**** v1   vsl|       1007 VCL_Error       c vmod blob error: cannot decode, out of space
+**** v1   vsl|       1007 VCL_return      c fail
+**** v1   vsl|       1007 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1007 RespStatus      c 503
+**** v1   vsl|       1007 RespReason      c VCL failed
+**** v1   vsl|       1007 RespHeader      c Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** v1   vsl|       1007 RespHeader      c Server: Varnish
+**** v1   vsl|       1007 RespHeader      c X-Varnish: 1007
+**** v1   vsl|       1007 VCL_call        c SYNTH
+**** v1   vsl|       1007 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1007 RespHeader      c Retry-After: 5
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 Timestamp       c Process: 1634892898.711836 0.000083 0.000083
+**** v1   vsl|       1007 RespHeader      c Content-Length: 251
+**** v1   vsl|       1007 Storage         c malloc Transient
+**** v1   vsl|       1007 Filters         c 
+**** v1   vsl|       1007 RespHeader      c Connection: close
+**** v1   vsl|       1007 Timestamp       c Resp: 1634892898.711897 0.000144 0.000061
+**** v1   vsl|       1007 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1007 End             c 
+**** v1   vsl|       1006 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1006 End             c 
+**** v1   vsl|       1008 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1008 SessOpen        c 127.0.0.1 43962 a0 127.0.0.1 41783 1634892898.712814 26
+**** v1   vsl|       1009 Begin           c req 1008 rxreq
+**** v1   vsl|       1008 Link            c req 1009 rxreq
+**** v1   vsl|       1009 Timestamp       c Start: 1634892898.712898 0.000000 0.000000
+**** v1   vsl|       1009 Timestamp       c Req: 1634892898.712898 0.000000 0.000000
+**** v1   vsl|       1009 VCL_use         c vcl2
+**** v1   vsl|       1009 ReqStart        c 127.0.0.1 43962 a0
+**** v1   vsl|       1009 ReqMethod       c GET
+**** v1   vsl|       1009 ReqURL          c /struct
+**** v1   vsl|       1009 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1009 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1009 VCL_call        c RECV
+**** v1   vsl|       1009 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1009 ReqHeader       c leave: 16
+**** v1   vsl|       1009 VCL_Log         c shrink
+**** v1   vsl|       1009 VCL_Error       c Workspace overflow (blob.decode)
+**** v1   vsl|       1009 VCL_return      c fail
+**** v1   vsl|       1009 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1009 RespStatus      c 503
+**** v1   vsl|       1009 RespReason      c VCL failed
+**** v1   vsl|       1009 RespHeader      c Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** v1   vsl|       1009 RespHeader      c Server: Varnish
+**** v1   vsl|       1009 RespHeader      c X-Varnish: 1009
+**** v1   vsl|       1009 VCL_call        c SYNTH
+**** v1   vsl|       1009 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1009 RespHeader      c Retry-After: 5
+**** v1   vsl|       1009 VCL_return      c deliver
+**** v1   vsl|       1009 Timestamp       c Process: 1634892898.712966 0.000067 0.000067
+**** v1   vsl|       1009 RespHeader      c Content-Length: 251
+**** v1   vsl|       1009 Storage         c malloc Transient
+**** v1   vsl|       1009 Filters         c 
+**** v1   vsl|       1009 RespHeader      c Connection: close
+**** v1   vsl|       1009 Timestamp       c Resp: 1634892898.712996 0.000097 0.000029
+**** v1   vsl|       1009 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1009 End             c 
+**** v1   vsl|       1008 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1008 End             c 
+**** v1   vsl|       1010 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1010 SessOpen        c 127.0.0.1 43964 a0 127.0.0.1 41783 1634892898.713915 27
+**** v1   vsl|       1011 Begin           c req 1010 rxreq
+**** v1   vsl|       1010 Link            c req 1011 rxreq
+**** v1   vsl|       1011 Timestamp       c Start: 1634892898.713956 0.000000 0.000000
+**** v1   vsl|       1011 Timestamp       c Req: 1634892898.713956 0.000000 0.000000
+**** v1   vsl|       1011 VCL_use         c vcl2
+**** v1   vsl|       1011 ReqStart        c 127.0.0.1 43964 a0
+**** v1   vsl|       1011 ReqMethod       c GET
+**** v1   vsl|       1011 ReqURL          c /encode
+**** v1   vsl|       1011 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1011 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1011 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1011 VCL_call        c RECV
+**** v1   vsl|       1011 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1011 ReqHeader       c blob: 16
+**** v1   vsl|       1011 ReqHeader       c leave: 40
+**** v1   vsl|       1011 VCL_Log         c shrink
+**** v1   vsl|       1011 VCL_Error       c vmod blob error: cannot encode, out of space
+**** v1   vsl|       1011 VCL_return      c fail
+**** v1   vsl|       1011 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1011 RespStatus      c 503
+**** v1   vsl|       1011 RespReason      c VCL failed
+**** v1   vsl|       1011 RespHeader      c Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** v1   vsl|       1011 RespHeader      c Server: Varnish
+**** v1   vsl|       1011 RespHeader      c X-Varnish: 1011
+**** v1   vsl|       1011 VCL_call        c SYNTH
+**** v1   vsl|       1011 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1011 RespHeader      c Retry-After: 5
+**** v1   vsl|       1011 VCL_return      c deliver
+**** v1   vsl|       1011 Timestamp       c Process: 1634892898.714015 0.000059 0.000059
+**** v1   vsl|       1011 RespHeader      c Content-Length: 251
+**** v1   vsl|       1011 Storage         c malloc Transient
+**** v1   vsl|       1011 Filters         c 
+**** v1   vsl|       1011 RespHeader      c Connection: close
+**** v1   vsl|       1011 Timestamp       c Resp: 1634892898.714067 0.000111 0.000052
+**** v1   vsl|       1011 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1011 End             c 
+**** v1   vsl|       1010 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1010 End             c 
+**** dT   0.864
+***  v1   CLI RX  200
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Unused sub leave_half_struct, defined:
+**** v1   CLI RX|('/tmp/vtc.72436.49cbadfd/vrt_blob.vcl' Line 21 Pos 5)
+**** v1   CLI RX|sub leave_half_struct {
+**** v1   CLI RX|----#################--
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused sub leave_struct, defined:
+**** v1   CLI RX|('/tmp/vtc.72436.49cbadfd/vrt_blob.vcl' Line 16 Pos 5)
+**** v1   CLI RX|sub leave_struct {
+**** v1   CLI RX|----############--
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl3
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl3' now active
+**   top  === logexpect l1 {
+**   l1   === expect 0 * VCL_use	vcl3
+**   l1   === expect 0 = ReqURL	decode
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"cannot decode, out of space"
+**   l1   === expect 0 * VCL_use	vcl3
+**   l1   === expect 0 = ReqURL	struct
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"Workspace overflow .blob.decode."
+**   l1   === expect 0 * VCL_use	vcl3
+**   l1   === expect 0 = ReqURL	encode
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"cannot encode, out of space"
+**   top  === client c-decode -run
+**   c-decode Starting client
+**** l1   begin|
+***  l1   expecting| expect 0 * VCL_use vcl3
+**   c-decode Waiting for client
+**   c-decode Started on 127.0.0.1 41783 (1 iterations)
+***  c-decode Connect to 127.0.0.1 41783
+***  c-decode connected fd 20 from 127.0.0.1 43966 to 127.0.0.1 41783
+**   c-decode === txreq -url "/decode"
+**** c-decode txreq|GET /decode HTTP/1.1\r
+**** c-decode txreq|Host: 127.0.0.1\r
+**** c-decode txreq|\r
+**** dT   0.865
+**   c-decode === rxresp
+**** c-decode rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-decode rxhdr|Date: Fri, 22 Oct 2021 08:54:58 GMT\r
+**** c-decode rxhdr|Server: Varnish\r
+**** c-decode rxhdr|X-Varnish: 1013\r
+**** c-decode rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-decode rxhdr|Retry-After: 5\r
+**** c-decode rxhdr|Content-Length: 251\r
+**** c-decode rxhdr|Connection: close\r
+**** c-decode rxhdr|\r
+**** c-decode rxhdrlen = 194
+**** c-decode http[ 0] |HTTP/1.1
+**** c-decode http[ 1] |503
+**** c-decode http[ 2] |VCL failed
+**** c-decode http[ 3] |Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** c-decode http[ 4] |Server: Varnish
+**** c-decode http[ 5] |X-Varnish: 1013
+**** c-decode http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-decode http[ 7] |Retry-After: 5
+**** c-decode http[ 8] |Content-Length: 251
+**** c-decode http[ 9] |Connection: close
+**** c-decode c-l|<!DOCTYPE html>
+**** c-decode c-l|<html>
+**** c-decode c-l|  <head>
+**** c-decode c-l|    <title>503 VCL failed</title>
+**** c-decode c-l|  </head>
+**** c-decode c-l|  <body>
+**** c-decode c-l|    <h1>Error 503 VCL failed</h1>
+**** c-decode c-l|    <p>VCL failed</p>
+**** c-decode c-l|    <h3>Guru Meditation:</h3>
+**** c-decode c-l|    <p>XID: 1013</p>
+**** c-decode c-l|    <hr>
+**** c-decode c-l|    <p>Varnish cache server</p>
+**** c-decode c-l|  </body>
+**** c-decode c-l|</html>
+**** c-decode bodylen = 251
+**   c-decode === expect resp.status == 503
+**** c-decode EXPECT resp.status (503) == "503" match
+**   c-decode === expect resp.reason == "VCL failed"
+**** c-decode EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-decode === expect_close
+**** c-decode Expecting close (fd = 20)
+**** c-decode fd=20 EOF, as expected
+***  c-decode closing fd 20
+**   c-decode Ending
+**   top  === client c-struct -run
+**   c-struct Starting client
+**   c-struct Waiting for client
+**   c-struct Started on 127.0.0.1 41783 (1 iterations)
+***  c-struct Connect to 127.0.0.1 41783
+***  c-struct connected fd 20 from 127.0.0.1 43968 to 127.0.0.1 41783
+**   c-struct === txreq -url "/struct"
+**** c-struct txreq|GET /struct HTTP/1.1\r
+**** c-struct txreq|Host: 127.0.0.1\r
+**** c-struct txreq|\r
+**   c-struct === rxresp
+**** dT   0.866
+**** c-struct rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-struct rxhdr|Date: Fri, 22 Oct 2021 08:54:58 GMT\r
+**** c-struct rxhdr|Server: Varnish\r
+**** c-struct rxhdr|X-Varnish: 1015\r
+**** c-struct rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-struct rxhdr|Retry-After: 5\r
+**** c-struct rxhdr|Content-Length: 251\r
+**** c-struct rxhdr|Connection: close\r
+**** c-struct rxhdr|\r
+**** c-struct rxhdrlen = 194
+**** c-struct http[ 0] |HTTP/1.1
+**** c-struct http[ 1] |503
+**** c-struct http[ 2] |VCL failed
+**** c-struct http[ 3] |Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** c-struct http[ 4] |Server: Varnish
+**** c-struct http[ 5] |X-Varnish: 1015
+**** c-struct http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-struct http[ 7] |Retry-After: 5
+**** c-struct http[ 8] |Content-Length: 251
+**** c-struct http[ 9] |Connection: close
+**** c-struct c-l|<!DOCTYPE html>
+**** c-struct c-l|<html>
+**** c-struct c-l|  <head>
+**** c-struct c-l|    <title>503 VCL failed</title>
+**** c-struct c-l|  </head>
+**** c-struct c-l|  <body>
+**** c-struct c-l|    <h1>Error 503 VCL failed</h1>
+**** c-struct c-l|    <p>VCL failed</p>
+**** c-struct c-l|    <h3>Guru Meditation:</h3>
+**** c-struct c-l|    <p>XID: 1015</p>
+**** c-struct c-l|    <hr>
+**** c-struct c-l|    <p>Varnish cache server</p>
+**** c-struct c-l|  </body>
+**** c-struct c-l|</html>
+**** c-struct bodylen = 251
+**   c-struct === expect resp.status == 503
+**** c-struct EXPECT resp.status (503) == "503" match
+**   c-struct === expect resp.reason == "VCL failed"
+**** c-struct EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-struct === expect_close
+**** c-struct Expecting close (fd = 20)
+**** c-struct fd=20 EOF, as expected
+***  c-struct closing fd 20
+**   c-struct Ending
+**   top  === client c-encode -run
+**   c-encode Starting client
+**   c-encode Waiting for client
+**   c-encode Started on 127.0.0.1 41783 (1 iterations)
+***  c-encode Connect to 127.0.0.1 41783
+***  c-encode connected fd 20 from 127.0.0.1 43970 to 127.0.0.1 41783
+**   c-encode === txreq -url "/encode"
+**** c-encode txreq|GET /encode HTTP/1.1\r
+**** c-encode txreq|Host: 127.0.0.1\r
+**** c-encode txreq|\r
+**** dT   0.867
+**   c-encode === rxresp
+**** c-encode rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-encode rxhdr|Date: Fri, 22 Oct 2021 08:54:58 GMT\r
+**** c-encode rxhdr|Server: Varnish\r
+**** c-encode rxhdr|X-Varnish: 1017\r
+**** c-encode rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-encode rxhdr|Retry-After: 5\r
+**** c-encode rxhdr|Content-Length: 251\r
+**** c-encode rxhdr|Connection: close\r
+**** c-encode rxhdr|\r
+**** c-encode rxhdrlen = 194
+**** c-encode http[ 0] |HTTP/1.1
+**** c-encode http[ 1] |503
+**** c-encode http[ 2] |VCL failed
+**** c-encode http[ 3] |Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** c-encode http[ 4] |Server: Varnish
+**** c-encode http[ 5] |X-Varnish: 1017
+**** c-encode http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-encode http[ 7] |Retry-After: 5
+**** c-encode http[ 8] |Content-Length: 251
+**** c-encode http[ 9] |Connection: close
+**** c-encode c-l|<!DOCTYPE html>
+**** c-encode c-l|<html>
+**** c-encode c-l|  <head>
+**** c-encode c-l|    <title>503 VCL failed</title>
+**** c-encode c-l|  </head>
+**** c-encode c-l|  <body>
+**** c-encode c-l|    <h1>Error 503 VCL failed</h1>
+**** c-encode c-l|    <p>VCL failed</p>
+**** c-encode c-l|    <h3>Guru Meditation:</h3>
+**** c-encode c-l|    <p>XID: 1017</p>
+**** c-encode c-l|    <hr>
+**** c-encode c-l|    <p>Varnish cache server</p>
+**** c-encode c-l|  </body>
+**** c-encode c-l|</html>
+**** c-encode bodylen = 251
+**   c-encode === expect resp.status == 503
+**** c-encode EXPECT resp.status (503) == "503" match
+**   c-encode === expect resp.reason == "VCL failed"
+**** c-encode EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-encode === expect_close
+**** c-encode Expecting close (fd = 20)
+**** c-encode fd=20 EOF, as expected
+***  c-encode closing fd 20
+**   c-encode Ending
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   0.874
+**** l1   match|       1013 VCL_use         c vcl3
+***  l1   expecting| expect 0 = ReqURL decode
+**** l1   match|       1013 ReqURL          c /decode
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1013 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error cannot decode, out of space
+**** l1   match|       1013 VCL_Error       c vmod blob error: cannot decode, out of space
+***  l1   expecting| expect 0 * VCL_use vcl3
+**** l1   match|       1015 VCL_use         c vcl3
+***  l1   expecting| expect 0 = ReqURL struct
+**** l1   match|       1015 ReqURL          c /struct
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1015 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error Workspace overflow .blob.decode.
+**** l1   match|       1015 VCL_Error       c Workspace overflow (blob.decode)
+***  l1   expecting| expect 0 * VCL_use vcl3
+**** l1   match|       1017 VCL_use         c vcl3
+***  l1   expecting| expect 0 = ReqURL encode
+**** l1   match|       1017 ReqURL          c /encode
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1017 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error cannot encode, out of space
+**** l1   match|       1017 VCL_Error       c vmod blob error: cannot encode, out of space
+**** l1   end|
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl4 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tinclude "/tmp/vtc.72436.49cbadfd/vrt_blob.vcl";
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (req.url ~ "decode") {
+**** v1   CLI TX|\t\t\t# Not enough space to collect the string.
+**** v1   CLI TX|\t\t\tset req.http.leave = 5;
+**** v1   CLI TX|\t\t\tcall shrink;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.url ~ "struct") {
+**** v1   CLI TX|\t\t\t# Enough space to collect the decoded string.
+**** v1   CLI TX|\t\t\t# Not enough space to allocate a blob (aligned).
+**** v1   CLI TX|\t\t\tset req.http.leave = 20;
+**** v1   CLI TX|\t\t\tcall shrink;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.url ~ "encode") {
+**** v1   CLI TX|\t\t\t# Enough space to decode the string.
+**** v1   CLI TX|\t\t\t# Not enough space to encode the blob.
+**** v1   CLI TX|\t\t\tset req.http.blob = 20;
+**** v1   CLI TX|\t\t\tcall leave_blob;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tblob.encode(
+**** v1   CLI TX|\t\t    blob=blob.decode(HEX, encoded="31323334353637383930"));
+**** v1   CLI TX|\t\treturn (synth(200));
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.914
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl3 vcl_vcl3.1634892898.721963/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl3.1634892898.721963/vgc.so" as "vcl3"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl3
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1012 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1012 SessOpen        c 127.0.0.1 43966 a0 127.0.0.1 41783 1634892898.922859 25
+**** v1   vsl|       1013 Begin           c req 1012 rxreq
+**** v1   vsl|       1012 Link            c req 1013 rxreq
+**** v1   vsl|       1013 Timestamp       c Start: 1634892898.922949 0.000000 0.000000
+**** v1   vsl|       1013 Timestamp       c Req: 1634892898.922949 0.000000 0.000000
+**** v1   vsl|       1013 VCL_use         c vcl3
+**** v1   vsl|       1013 ReqStart        c 127.0.0.1 43966 a0
+**** v1   vsl|       1013 ReqMethod       c GET
+**** v1   vsl|       1013 ReqURL          c /decode
+**** v1   vsl|       1013 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1013 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1013 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1013 VCL_call        c RECV
+**** v1   vsl|       1013 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1013 ReqHeader       c leave: 5
+**** v1   vsl|       1013 VCL_Log         c shrink
+**** v1   vsl|       1013 VCL_Error       c vmod blob error: cannot decode, out of space
+**** v1   vsl|       1013 VCL_return      c fail
+**** v1   vsl|       1013 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1013 RespStatus      c 503
+**** v1   vsl|       1013 RespReason      c VCL failed
+**** v1   vsl|       1013 RespHeader      c Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** v1   vsl|       1013 RespHeader      c Server: Varnish
+**** v1   vsl|       1013 RespHeader      c X-Varnish: 1013
+**** v1   vsl|       1013 VCL_call        c SYNTH
+**** v1   vsl|       1013 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1013 RespHeader      c Retry-After: 5
+**** v1   vsl|       1013 VCL_return      c deliver
+**** v1   vsl|       1013 Timestamp       c Process: 1634892898.923014 0.000065 0.000065
+**** v1   vsl|       1013 RespHeader      c Content-Length: 251
+**** v1   vsl|       1013 Storage         c malloc Transient
+**** v1   vsl|       1013 Filters         c 
+**** v1   vsl|       1013 RespHeader      c Connection: close
+**** v1   vsl|       1013 Timestamp       c Resp: 1634892898.923050 0.000100 0.000035
+**** v1   vsl|       1013 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1013 End             c 
+**** v1   vsl|       1012 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1012 End             c 
+**** v1   vsl|       1014 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1014 SessOpen        c 127.0.0.1 43968 a0 127.0.0.1 41783 1634892898.923987 26
+**** v1   vsl|       1015 Begin           c req 1014 rxreq
+**** v1   vsl|       1014 Link            c req 1015 rxreq
+**** v1   vsl|       1015 Timestamp       c Start: 1634892898.924023 0.000000 0.000000
+**** v1   vsl|       1015 Timestamp       c Req: 1634892898.924023 0.000000 0.000000
+**** v1   vsl|       1015 VCL_use         c vcl3
+**** v1   vsl|       1015 ReqStart        c 127.0.0.1 43968 a0
+**** v1   vsl|       1015 ReqMethod       c GET
+**** v1   vsl|       1015 ReqURL          c /struct
+**** v1   vsl|       1015 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1015 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1015 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1015 VCL_call        c RECV
+**** v1   vsl|       1015 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1015 ReqHeader       c leave: 16
+**** v1   vsl|       1015 VCL_Log         c shrink
+**** v1   vsl|       1015 VCL_Error       c Workspace overflow (blob.decode)
+**** v1   vsl|       1015 VCL_return      c fail
+**** v1   vsl|       1015 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1015 RespStatus      c 503
+**** v1   vsl|       1015 RespReason      c VCL failed
+**** v1   vsl|       1015 RespHeader      c Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** v1   vsl|       1015 RespHeader      c Server: Varnish
+**** v1   vsl|       1015 RespHeader      c X-Varnish: 1015
+**** v1   vsl|       1015 VCL_call        c SYNTH
+**** v1   vsl|       1015 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1015 RespHeader      c Retry-After: 5
+**** v1   vsl|       1015 VCL_return      c deliver
+**** v1   vsl|       1015 Timestamp       c Process: 1634892898.924069 0.000046 0.000046
+**** v1   vsl|       1015 RespHeader      c Content-Length: 251
+**** v1   vsl|       1015 Storage         c malloc Transient
+**** v1   vsl|       1015 Filters         c 
+**** v1   vsl|       1015 RespHeader      c Connection: close
+**** v1   vsl|       1015 Timestamp       c Resp: 1634892898.924122 0.000099 0.000052
+**** v1   vsl|       1015 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1015 End             c 
+**** v1   vsl|       1014 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1014 End             c 
+**** v1   vsl|       1016 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1016 SessOpen        c 127.0.0.1 43970 a0 127.0.0.1 41783 1634892898.924967 27
+**** v1   vsl|       1017 Begin           c req 1016 rxreq
+**** v1   vsl|       1016 Link            c req 1017 rxreq
+**** v1   vsl|       1017 Timestamp       c Start: 1634892898.925034 0.000000 0.000000
+**** v1   vsl|       1017 Timestamp       c Req: 1634892898.925034 0.000000 0.000000
+**** v1   vsl|       1017 VCL_use         c vcl3
+**** v1   vsl|       1017 ReqStart        c 127.0.0.1 43970 a0
+**** v1   vsl|       1017 ReqMethod       c GET
+**** v1   vsl|       1017 ReqURL          c /encode
+**** v1   vsl|       1017 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1017 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1017 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1017 VCL_call        c RECV
+**** v1   vsl|       1017 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1017 ReqHeader       c blob: 16
+**** v1   vsl|       1017 ReqHeader       c leave: 40
+**** v1   vsl|       1017 VCL_Log         c shrink
+**** v1   vsl|       1017 VCL_Error       c vmod blob error: cannot encode, out of space
+**** v1   vsl|       1017 VCL_return      c fail
+**** v1   vsl|       1017 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1017 RespStatus      c 503
+**** v1   vsl|       1017 RespReason      c VCL failed
+**** v1   vsl|       1017 RespHeader      c Date: Fri, 22 Oct 2021 08:54:58 GMT
+**** v1   vsl|       1017 RespHeader      c Server: Varnish
+**** v1   vsl|       1017 RespHeader      c X-Varnish: 1017
+**** v1   vsl|       1017 VCL_call        c SYNTH
+**** v1   vsl|       1017 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1017 RespHeader      c Retry-After: 5
+**** v1   vsl|       1017 VCL_return      c deliver
+**** v1   vsl|       1017 Timestamp       c Process: 1634892898.925085 0.000051 0.000051
+**** v1   vsl|       1017 RespHeader      c Content-Length: 251
+**** v1   vsl|       1017 Storage         c malloc Transient
+**** v1   vsl|       1017 Filters         c 
+**** v1   vsl|       1017 RespHeader      c Connection: close
+**** v1   vsl|       1017 Timestamp       c Resp: 1634892898.925113 0.000079 0.000028
+**** v1   vsl|       1017 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1017 End             c 
+**** v1   vsl|       1016 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1016 End             c 
+**** dT   1.075
+***  v1   CLI RX  200
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Unused sub leave_half_struct, defined:
+**** v1   CLI RX|('/tmp/vtc.72436.49cbadfd/vrt_blob.vcl' Line 21 Pos 5)
+**** v1   CLI RX|sub leave_half_struct {
+**** v1   CLI RX|----#################--
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|Unused sub leave_struct, defined:
+**** v1   CLI RX|('/tmp/vtc.72436.49cbadfd/vrt_blob.vcl' Line 16 Pos 5)
+**** v1   CLI RX|sub leave_struct {
+**** v1   CLI RX|----############--
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl4
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl4' now active
+**   top  === logexpect l1 {
+**   l1   === expect 0 * VCL_use	vcl4
+**   l1   === expect 0 = ReqURL	decode
+**** dT   1.076
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"cannot decode, out of space"
+**   l1   === expect 0 * VCL_use	vcl4
+**   l1   === expect 0 = ReqURL	struct
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"Workspace overflow .blob.decode."
+**   l1   === expect 0 * VCL_use	vcl4
+**   l1   === expect 0 = ReqURL	encode
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"cannot encode, out of space"
+**   top  === client c-decode -run
+**   c-decode Starting client
+**   c-decode Waiting for client
+**   c-decode Started on 127.0.0.1 41783 (1 iterations)
+***  c-decode Connect to 127.0.0.1 41783
+***  c-decode connected fd 20 from 127.0.0.1 43974 to 127.0.0.1 41783
+**   c-decode === txreq -url "/decode"
+**** c-decode txreq|GET /decode HTTP/1.1\r
+**** c-decode txreq|Host: 127.0.0.1\r
+**** c-decode txreq|\r
+**   c-decode === rxresp
+**** dT   1.077
+**** c-decode rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-decode rxhdr|Date: Fri, 22 Oct 2021 08:54:59 GMT\r
+**** c-decode rxhdr|Server: Varnish\r
+**** c-decode rxhdr|X-Varnish: 1019\r
+**** c-decode rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-decode rxhdr|Retry-After: 5\r
+**** c-decode rxhdr|Content-Length: 251\r
+**** c-decode rxhdr|Connection: close\r
+**** c-decode rxhdr|\r
+**** c-decode rxhdrlen = 194
+**** c-decode http[ 0] |HTTP/1.1
+**** c-decode http[ 1] |503
+**** c-decode http[ 2] |VCL failed
+**** c-decode http[ 3] |Date: Fri, 22 Oct 2021 08:54:59 GMT
+**** c-decode http[ 4] |Server: Varnish
+**** c-decode http[ 5] |X-Varnish: 1019
+**** c-decode http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-decode http[ 7] |Retry-After: 5
+**** c-decode http[ 8] |Content-Length: 251
+**** c-decode http[ 9] |Connection: close
+**** c-decode c-l|<!DOCTYPE html>
+**** c-decode c-l|<html>
+**** c-decode c-l|  <head>
+**** c-decode c-l|    <title>503 VCL failed</title>
+**** c-decode c-l|  </head>
+**** c-decode c-l|  <body>
+**** c-decode c-l|    <h1>Error 503 VCL failed</h1>
+**** c-decode c-l|    <p>VCL failed</p>
+**** c-decode c-l|    <h3>Guru Meditation:</h3>
+**** c-decode c-l|    <p>XID: 1019</p>
+**** c-decode c-l|    <hr>
+**** c-decode c-l|    <p>Varnish cache server</p>
+**** c-decode c-l|  </body>
+**** c-decode c-l|</html>
+**** c-decode bodylen = 251
+**   c-decode === expect resp.status == 503
+**** c-decode EXPECT resp.status (503) == "503" match
+**   c-decode === expect resp.reason == "VCL failed"
+**** c-decode EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-decode === expect_close
+**** c-decode Expecting close (fd = 20)
+**** c-decode fd=20 EOF, as expected
+***  c-decode closing fd 20
+**   c-decode Ending
+**   top  === client c-struct -run
+**   c-struct Starting client
+**   c-struct Waiting for client
+**** l1   begin|
+***  l1   expecting| expect 0 * VCL_use vcl4
+**** l1   match|       1019 VCL_use         c vcl4
+***  l1   expecting| expect 0 = ReqURL decode
+**** l1   match|       1019 ReqURL          c /decode
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1019 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error cannot decode, out of space
+**** l1   match|       1019 VCL_Error       c vmod blob error: cannot decode, out of space
+***  l1   expecting| expect 0 * VCL_use vcl4
+**   c-struct Started on 127.0.0.1 41783 (1 iterations)
+***  c-struct Connect to 127.0.0.1 41783
+**** dT   1.078
+***  c-struct connected fd 20 from 127.0.0.1 43976 to 127.0.0.1 41783
+**   c-struct === txreq -url "/struct"
+**** c-struct txreq|GET /struct HTTP/1.1\r
+**** c-struct txreq|Host: 127.0.0.1\r
+**** c-struct txreq|\r
+**   c-struct === rxresp
+**** dT   1.079
+**** c-struct rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-struct rxhdr|Date: Fri, 22 Oct 2021 08:54:59 GMT\r
+**** c-struct rxhdr|Server: Varnish\r
+**** c-struct rxhdr|X-Varnish: 1021\r
+**** c-struct rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-struct rxhdr|Retry-After: 5\r
+**** c-struct rxhdr|Content-Length: 251\r
+**** c-struct rxhdr|Connection: close\r
+**** c-struct rxhdr|\r
+**** c-struct rxhdrlen = 194
+**** c-struct http[ 0] |HTTP/1.1
+**** c-struct http[ 1] |503
+**** c-struct http[ 2] |VCL failed
+**** c-struct http[ 3] |Date: Fri, 22 Oct 2021 08:54:59 GMT
+**** c-struct http[ 4] |Server: Varnish
+**** c-struct http[ 5] |X-Varnish: 1021
+**** c-struct http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-struct http[ 7] |Retry-After: 5
+**** c-struct http[ 8] |Content-Length: 251
+**** c-struct http[ 9] |Connection: close
+**** c-struct c-l|<!DOCTYPE html>
+**** c-struct c-l|<html>
+**** c-struct c-l|  <head>
+**** c-struct c-l|    <title>503 VCL failed</title>
+**** c-struct c-l|  </head>
+**** c-struct c-l|  <body>
+**** c-struct c-l|    <h1>Error 503 VCL failed</h1>
+**** c-struct c-l|    <p>VCL failed</p>
+**** c-struct c-l|    <h3>Guru Meditation:</h3>
+**** c-struct c-l|    <p>XID: 1021</p>
+**** c-struct c-l|    <hr>
+**** c-struct c-l|    <p>Varnish cache server</p>
+**** c-struct c-l|  </body>
+**** c-struct c-l|</html>
+**** c-struct bodylen = 251
+**   c-struct === expect resp.status == 503
+**** c-struct EXPECT resp.status (503) == "503" match
+**   c-struct === expect resp.reason == "VCL failed"
+**** c-struct EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-struct === expect_close
+**** c-struct Expecting close (fd = 20)
+**** c-struct fd=20 EOF, as expected
+***  c-struct closing fd 20
+**   c-struct Ending
+**   top  === client c-encode -run
+**   c-encode Starting client
+**   c-encode Waiting for client
+**   c-encode Started on 127.0.0.1 41783 (1 iterations)
+***  c-encode Connect to 127.0.0.1 41783
+***  c-encode connected fd 20 from 127.0.0.1 43978 to 127.0.0.1 41783
+**   c-encode === txreq -url "/encode"
+**** c-encode txreq|GET /encode HTTP/1.1\r
+**** c-encode txreq|Host: 127.0.0.1\r
+**** c-encode txreq|\r
+**   c-encode === rxresp
+**** dT   1.080
+**** c-encode rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-encode rxhdr|Date: Fri, 22 Oct 2021 08:54:59 GMT\r
+**** c-encode rxhdr|Server: Varnish\r
+**** c-encode rxhdr|X-Varnish: 1023\r
+**** c-encode rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-encode rxhdr|Retry-After: 5\r
+**** c-encode rxhdr|Content-Length: 251\r
+**** c-encode rxhdr|Connection: close\r
+**** c-encode rxhdr|\r
+**** c-encode rxhdrlen = 194
+**** c-encode http[ 0] |HTTP/1.1
+**** c-encode http[ 1] |503
+**** c-encode http[ 2] |VCL failed
+**** c-encode http[ 3] |Date: Fri, 22 Oct 2021 08:54:59 GMT
+**** c-encode http[ 4] |Server: Varnish
+**** c-encode http[ 5] |X-Varnish: 1023
+**** c-encode http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-encode http[ 7] |Retry-After: 5
+**** c-encode http[ 8] |Content-Length: 251
+**** c-encode http[ 9] |Connection: close
+**** c-encode c-l|<!DOCTYPE html>
+**** c-encode c-l|<html>
+**** c-encode c-l|  <head>
+**** c-encode c-l|    <title>503 VCL failed</title>
+**** c-encode c-l|  </head>
+**** c-encode c-l|  <body>
+**** c-encode c-l|    <h1>Error 503 VCL failed</h1>
+**** c-encode c-l|    <p>VCL failed</p>
+**** c-encode c-l|    <h3>Guru Meditation:</h3>
+**** c-encode c-l|    <p>XID: 1023</p>
+**** c-encode c-l|    <hr>
+**** c-encode c-l|    <p>Varnish cache server</p>
+**** c-encode c-l|  </body>
+**** c-encode c-l|</html>
+**** c-encode bodylen = 251
+**   c-encode === expect resp.status == 503
+**** c-encode EXPECT resp.status (503) == "503" match
+**   c-encode === expect resp.reason == "VCL failed"
+**** c-encode EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-encode === expect_close
+**** c-encode Expecting close (fd = 20)
+**** c-encode fd=20 EOF, as expected
+***  c-encode closing fd 20
+**   c-encode Ending
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   1.088
+**** l1   match|       1021 VCL_use         c vcl4
+***  l1   expecting| expect 0 = ReqURL struct
+**** l1   match|       1021 ReqURL          c /struct
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1021 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error Workspace overflow .blob.decode.
+**** l1   match|       1021 VCL_Error       c Workspace overflow (blob.decode)
+***  l1   expecting| expect 0 * VCL_use vcl4
+**** l1   match|       1023 VCL_use         c vcl4
+***  l1   expecting| expect 0 = ReqURL encode
+**** l1   match|       1023 ReqURL          c /encode
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1023 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error cannot encode, out of space
+**** l1   match|       1023 VCL_Error       c vmod blob error: cannot encode, out of space
+**** l1   end|
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl5 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tinclude "/tmp/vtc.72436.49cbadfd/vrt_blob.vcl";
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_miss {
+**** v1   CLI TX|\t\tif (req.url ~ "req.hash") {
+**** v1   CLI TX|\t\t\t# Not enough to create the req.hash blob.
+**** v1   CLI TX|\t\t\tcall leave_half_struct;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (req.url ~ "struct") {
+**** v1   CLI TX|\t\t\t# Enough for the req.hash blob.
+**** v1   CLI TX|\t\t\t# Not enough for the sub-blob.
+**** v1   CLI TX|\t\t\tcall leave_struct;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tblob.encode(blob=blob.sub(req.hash, 30B));
+**** v1   CLI TX|\t\treturn (synth(200));
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.114
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl4 vcl_vcl4.1634892898.933147/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl4.1634892898.933147/vgc.so" as "vcl4"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl4
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1018 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1018 SessOpen        c 127.0.0.1 43974 a0 127.0.0.1 41783 1634892899.134664 25
+**** v1   vsl|       1019 Begin           c req 1018 rxreq
+**** v1   vsl|       1018 Link            c req 1019 rxreq
+**** v1   vsl|       1019 Timestamp       c Start: 1634892899.134748 0.000000 0.000000
+**** v1   vsl|       1019 Timestamp       c Req: 1634892899.134748 0.000000 0.000000
+**** v1   vsl|       1019 VCL_use         c vcl4
+**** v1   vsl|       1019 ReqStart        c 127.0.0.1 43974 a0
+**** v1   vsl|       1019 ReqMethod       c GET
+**** v1   vsl|       1019 ReqURL          c /decode
+**** v1   vsl|       1019 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1019 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1019 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1019 VCL_call        c RECV
+**** v1   vsl|       1019 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1019 ReqHeader       c leave: 5
+**** v1   vsl|       1019 VCL_Log         c shrink
+**** v1   vsl|       1019 VCL_Error       c vmod blob error: cannot decode, out of space
+**** v1   vsl|       1019 VCL_return      c fail
+**** v1   vsl|       1019 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1019 RespStatus      c 503
+**** v1   vsl|       1019 RespReason      c VCL failed
+**** v1   vsl|       1019 RespHeader      c Date: Fri, 22 Oct 2021 08:54:59 GMT
+**** v1   vsl|       1019 RespHeader      c Server: Varnish
+**** v1   vsl|       1019 RespHeader      c X-Varnish: 1019
+**** v1   vsl|       1019 VCL_call        c SYNTH
+**** v1   vsl|       1019 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1019 RespHeader      c Retry-After: 5
+**** v1   vsl|       1019 VCL_return      c deliver
+**** v1   vsl|       1019 Timestamp       c Process: 1634892899.134822 0.000073 0.000073
+**** v1   vsl|       1019 RespHeader      c Content-Length: 251
+**** v1   vsl|       1019 Storage         c malloc Transient
+**** v1   vsl|       1019 Filters         c 
+**** v1   vsl|       1019 RespHeader      c Connection: close
+**** v1   vsl|       1019 Timestamp       c Resp: 1634892899.134871 0.000122 0.000048
+**** v1   vsl|       1019 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1019 End             c 
+**** v1   vsl|       1018 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1018 End             c 
+**** v1   vsl|       1020 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1020 SessOpen        c 127.0.0.1 43976 a0 127.0.0.1 41783 1634892899.136173 26
+**** v1   vsl|       1021 Begin           c req 1020 rxreq
+**** v1   vsl|       1020 Link            c req 1021 rxreq
+**** v1   vsl|       1021 Timestamp       c Start: 1634892899.136223 0.000000 0.000000
+**** v1   vsl|       1021 Timestamp       c Req: 1634892899.136223 0.000000 0.000000
+**** v1   vsl|       1021 VCL_use         c vcl4
+**** v1   vsl|       1021 ReqStart        c 127.0.0.1 43976 a0
+**** v1   vsl|       1021 ReqMethod       c GET
+**** v1   vsl|       1021 ReqURL          c /struct
+**** v1   vsl|       1021 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1021 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1021 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1021 VCL_call        c RECV
+**** v1   vsl|       1021 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1021 ReqHeader       c leave: 20
+**** v1   vsl|       1021 VCL_Log         c shrink
+**** v1   vsl|       1021 VCL_Error       c Workspace overflow (blob.decode)
+**** v1   vsl|       1021 VCL_return      c fail
+**** v1   vsl|       1021 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1021 RespStatus      c 503
+**** v1   vsl|       1021 RespReason      c VCL failed
+**** v1   vsl|       1021 RespHeader      c Date: Fri, 22 Oct 2021 08:54:59 GMT
+**** v1   vsl|       1021 RespHeader      c Server: Varnish
+**** v1   vsl|       1021 RespHeader      c X-Varnish: 1021
+**** v1   vsl|       1021 VCL_call        c SYNTH
+**** v1   vsl|       1021 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1021 RespHeader      c Retry-After: 5
+**** v1   vsl|       1021 VCL_return      c deliver
+**** v1   vsl|       1021 Timestamp       c Process: 1634892899.136273 0.000050 0.000050
+**** v1   vsl|       1021 RespHeader      c Content-Length: 251
+**** v1   vsl|       1021 Storage         c malloc Transient
+**** v1   vsl|       1021 Filters         c 
+**** v1   vsl|       1021 RespHeader      c Connection: close
+**** v1   vsl|       1021 Timestamp       c Resp: 1634892899.136330 0.000107 0.000056
+**** v1   vsl|       1021 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1021 End             c 
+**** v1   vsl|       1020 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1020 End             c 
+**** v1   vsl|       1022 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1022 SessOpen        c 127.0.0.1 43978 a0 127.0.0.1 41783 1634892899.137453 27
+**** v1   vsl|       1023 Begin           c req 1022 rxreq
+**** v1   vsl|       1022 Link            c req 1023 rxreq
+**** v1   vsl|       1023 Timestamp       c Start: 1634892899.137517 0.000000 0.000000
+**** v1   vsl|       1023 Timestamp       c Req: 1634892899.137517 0.000000 0.000000
+**** v1   vsl|       1023 VCL_use         c vcl4
+**** v1   vsl|       1023 ReqStart        c 127.0.0.1 43978 a0
+**** v1   vsl|       1023 ReqMethod       c GET
+**** v1   vsl|       1023 ReqURL          c /encode
+**** v1   vsl|       1023 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1023 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1023 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1023 VCL_call        c RECV
+**** v1   vsl|       1023 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1023 ReqHeader       c blob: 20
+**** v1   vsl|       1023 ReqHeader       c leave: 44
+**** v1   vsl|       1023 VCL_Log         c shrink
+**** v1   vsl|       1023 VCL_Error       c vmod blob error: cannot encode, out of space
+**** v1   vsl|       1023 VCL_return      c fail
+**** v1   vsl|       1023 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1023 RespStatus      c 503
+**** v1   vsl|       1023 RespReason      c VCL failed
+**** v1   vsl|       1023 RespHeader      c Date: Fri, 22 Oct 2021 08:54:59 GMT
+**** v1   vsl|       1023 RespHeader      c Server: Varnish
+**** v1   vsl|       1023 RespHeader      c X-Varnish: 1023
+**** v1   vsl|       1023 VCL_call        c SYNTH
+**** v1   vsl|       1023 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1023 RespHeader      c Retry-After: 5
+**** v1   vsl|       1023 VCL_return      c deliver
+**** v1   vsl|       1023 Timestamp       c Process: 1634892899.137573 0.000055 0.000055
+**** v1   vsl|       1023 RespHeader      c Content-Length: 251
+**** v1   vsl|       1023 Storage         c malloc Transient
+**** v1   vsl|       1023 Filters         c 
+**** v1   vsl|       1023 RespHeader      c Connection: close
+**** v1   vsl|       1023 Timestamp       c Resp: 1634892899.137608 0.000091 0.000035
+**** v1   vsl|       1023 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1023 End             c 
+**** v1   vsl|       1022 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1022 End             c 
+**** dT   1.276
+***  v1   CLI RX  200
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Unused sub leave_blob, defined:
+**** v1   CLI RX|('/tmp/vtc.72436.49cbadfd/vrt_blob.vcl' Line 26 Pos 5)
+**** v1   CLI RX|sub leave_blob {
+**** v1   CLI RX|----##########--
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl5
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl5' now active
+**   top  === logexpect l1 {
+**   l1   === expect 0 * VCL_use	vcl5
+**   l1   === expect 0 = ReqURL	req.hash
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"Workspace overflow .req.hash."
+**   l1   === expect 0 * VCL_use	vcl5
+**   l1   === expect 0 = ReqURL	struct
+**   l1   === expect 0 = VCL_Log	shrink
+**   l1   === expect 0 = VCL_Error	"Workspace overflow .blob.sub."
+**** dT   1.277
+**   top  === client c-req-hash -run
+**   c-req-hash Starting client
+**** l1   begin|
+***  l1   expecting| expect 0 * VCL_use vcl5
+**   c-req-hash Waiting for client
+**   c-req-hash Started on 127.0.0.1 41783 (1 iterations)
+***  c-req-hash Connect to 127.0.0.1 41783
+***  c-req-hash connected fd 20 from 127.0.0.1 43986 to 127.0.0.1 41783
+**   c-req-hash === txreq -url "/req.hash"
+**** c-req-hash txreq|GET /req.hash HTTP/1.1\r
+**** c-req-hash txreq|Host: 127.0.0.1\r
+**** c-req-hash txreq|\r
+**   c-req-hash === rxresp
+**** dT   1.278
+**** c-req-hash rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-req-hash rxhdr|Date: Fri, 22 Oct 2021 08:54:59 GMT\r
+**** c-req-hash rxhdr|Server: Varnish\r
+**** c-req-hash rxhdr|X-Varnish: 1025\r
+**** c-req-hash rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-req-hash rxhdr|Retry-After: 5\r
+**** c-req-hash rxhdr|Content-Length: 251\r
+**** c-req-hash rxhdr|Connection: close\r
+**** c-req-hash rxhdr|\r
+**** c-req-hash rxhdrlen = 194
+**** c-req-hash http[ 0] |HTTP/1.1
+**** c-req-hash http[ 1] |503
+**** c-req-hash http[ 2] |VCL failed
+**** c-req-hash http[ 3] |Date: Fri, 22 Oct 2021 08:54:59 GMT
+**** c-req-hash http[ 4] |Server: Varnish
+**** c-req-hash http[ 5] |X-Varnish: 1025
+**** c-req-hash http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-req-hash http[ 7] |Retry-After: 5
+**** c-req-hash http[ 8] |Content-Length: 251
+**** c-req-hash http[ 9] |Connection: close
+**** c-req-hash c-l|<!DOCTYPE html>
+**** c-req-hash c-l|<html>
+**** c-req-hash c-l|  <head>
+**** c-req-hash c-l|    <title>503 VCL failed</title>
+**** c-req-hash c-l|  </head>
+**** c-req-hash c-l|  <body>
+**** c-req-hash c-l|    <h1>Error 503 VCL failed</h1>
+**** c-req-hash c-l|    <p>VCL failed</p>
+**** c-req-hash c-l|    <h3>Guru Meditation:</h3>
+**** c-req-hash c-l|    <p>XID: 1025</p>
+**** c-req-hash c-l|    <hr>
+**** c-req-hash c-l|    <p>Varnish cache server</p>
+**** c-req-hash c-l|  </body>
+**** c-req-hash c-l|</html>
+**** c-req-hash bodylen = 251
+**   c-req-hash === expect resp.status == 503
+**** c-req-hash EXPECT resp.status (503) == "503" match
+**   c-req-hash === expect resp.reason == "VCL failed"
+**** c-req-hash EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-req-hash === expect_close
+**** c-req-hash Expecting close (fd = 20)
+**** c-req-hash fd=20 EOF, as expected
+***  c-req-hash closing fd 20
+**   c-req-hash Ending
+**   top  === client c-struct -run
+**   c-struct Starting client
+**   c-struct Waiting for client
+**   c-struct Started on 127.0.0.1 41783 (1 iterations)
+***  c-struct Connect to 127.0.0.1 41783
+***  c-struct connected fd 20 from 127.0.0.1 43988 to 127.0.0.1 41783
+**   c-struct === txreq -url "/struct"
+**** c-struct txreq|GET /struct HTTP/1.1\r
+**** c-struct txreq|Host: 127.0.0.1\r
+**** c-struct txreq|\r
+**   c-struct === rxresp
+**** dT   1.279
+**** c-struct rxhdr|HTTP/1.1 503 VCL failed\r
+**** c-struct rxhdr|Date: Fri, 22 Oct 2021 08:54:59 GMT\r
+**** c-struct rxhdr|Server: Varnish\r
+**** c-struct rxhdr|X-Varnish: 1027\r
+**** c-struct rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c-struct rxhdr|Retry-After: 5\r
+**** c-struct rxhdr|Content-Length: 251\r
+**** c-struct rxhdr|Connection: close\r
+**** c-struct rxhdr|\r
+**** c-struct rxhdrlen = 194
+**** c-struct http[ 0] |HTTP/1.1
+**** c-struct http[ 1] |503
+**** c-struct http[ 2] |VCL failed
+**** c-struct http[ 3] |Date: Fri, 22 Oct 2021 08:54:59 GMT
+**** c-struct http[ 4] |Server: Varnish
+**** c-struct http[ 5] |X-Varnish: 1027
+**** c-struct http[ 6] |Content-Type: text/html; charset=utf-8
+**** c-struct http[ 7] |Retry-After: 5
+**** c-struct http[ 8] |Content-Length: 251
+**** c-struct http[ 9] |Connection: close
+**** c-struct c-l|<!DOCTYPE html>
+**** c-struct c-l|<html>
+**** c-struct c-l|  <head>
+**** c-struct c-l|    <title>503 VCL failed</title>
+**** c-struct c-l|  </head>
+**** c-struct c-l|  <body>
+**** c-struct c-l|    <h1>Error 503 VCL failed</h1>
+**** c-struct c-l|    <p>VCL failed</p>
+**** c-struct c-l|    <h3>Guru Meditation:</h3>
+**** c-struct c-l|    <p>XID: 1027</p>
+**** c-struct c-l|    <hr>
+**** c-struct c-l|    <p>Varnish cache server</p>
+**** c-struct c-l|  </body>
+**** c-struct c-l|</html>
+**** c-struct bodylen = 251
+**   c-struct === expect resp.status == 503
+**** c-struct EXPECT resp.status (503) == "503" match
+**   c-struct === expect resp.reason == "VCL failed"
+**** c-struct EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c-struct === expect_close
+**** c-struct Expecting close (fd = 20)
+**** c-struct fd=20 EOF, as expected
+***  c-struct closing fd 20
+**   c-struct Ending
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   1.287
+**** l1   match|       1025 VCL_use         c vcl5
+***  l1   expecting| expect 0 = ReqURL req.hash
+**** l1   match|       1025 ReqURL          c /req.hash
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1025 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error Workspace overflow .req.hash.
+**** l1   match|       1025 VCL_Error       c Workspace overflow (req.hash)
+***  l1   expecting| expect 0 * VCL_use vcl5
+**** l1   match|       1027 VCL_use         c vcl5
+***  l1   expecting| expect 0 = ReqURL struct
+**** l1   match|       1027 ReqURL          c /struct
+***  l1   expecting| expect 0 = VCL_Log shrink
+**** l1   match|       1027 VCL_Log         c shrink
+***  l1   expecting| expect 0 = VCL_Error Workspace overflow .blob.sub.
+**** l1   match|       1027 VCL_Error       c Workspace overflow (blob.sub)
+**** l1   end|
+*    top  RESETTING after ./tests/m00049.vtc
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin    Probe    Health    Last change
+**   v1   Stop
+**** v1   CLI TX|stop
+**** dT   1.315
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl5 vcl_vcl5.1634892899.146452/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl5.1634892899.146452/vgc.so" as "vcl5"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl5
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1024 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1024 SessOpen        c 127.0.0.1 43986 a0 127.0.0.1 41783 1634892899.335345 25
+**** v1   vsl|       1025 Begin           c req 1024 rxreq
+**** v1   vsl|       1024 Link            c req 1025 rxreq
+**** v1   vsl|       1025 Timestamp       c Start: 1634892899.335436 0.000000 0.000000
+**** v1   vsl|       1025 Timestamp       c Req: 1634892899.335436 0.000000 0.000000
+**** v1   vsl|       1025 VCL_use         c vcl5
+**** v1   vsl|       1025 ReqStart        c 127.0.0.1 43986 a0
+**** v1   vsl|       1025 ReqMethod       c GET
+**** v1   vsl|       1025 ReqURL          c /req.hash
+**** v1   vsl|       1025 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1025 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1025 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1025 VCL_call        c RECV
+**** v1   vsl|       1025 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1025 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1025 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1025 VCL_return      c hash
+**** v1   vsl|       1025 VCL_call        c HASH
+**** v1   vsl|       1025 VCL_return      c lookup
+**** v1   vsl|       1025 VCL_call        c MISS
+**** v1   vsl|       1025 ReqHeader       c leave: 12
+**** v1   vsl|       1025 VCL_Log         c shrink
+**** v1   vsl|       1025 VCL_Error       c Workspace overflow (req.hash)
+**** v1   vsl|       1025 VCL_return      c fail
+**** v1   vsl|       1025 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1025 RespStatus      c 503
+**** v1   vsl|       1025 RespReason      c VCL failed
+**** v1   vsl|       1025 RespHeader      c Date: Fri, 22 Oct 2021 08:54:59 GMT
+**** v1   vsl|       1025 RespHeader      c Server: Varnish
+**** v1   vsl|       1025 RespHeader      c X-Varnish: 1025
+**** v1   vsl|       1025 VCL_call        c SYNTH
+**** v1   vsl|       1025 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1025 RespHeader      c Retry-After: 5
+**** v1   vsl|       1025 VCL_return      c deliver
+**** v1   vsl|       1025 Timestamp       c Process: 1634892899.335512 0.000075 0.000075
+**** v1   vsl|       1025 RespHeader      c Content-Length: 251
+**** v1   vsl|       1025 Storage         c malloc Transient
+**** v1   vsl|       1025 Filters         c 
+**** v1   vsl|       1025 RespHeader      c Connection: close
+**** v1   vsl|       1025 Timestamp       c Resp: 1634892899.335547 0.000110 0.000035
+**** v1   vsl|       1025 ReqAcct         c 43 0 43 194 251 445
+**** v1   vsl|       1025 End             c 
+**** v1   vsl|       1024 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1024 End             c 
+**** v1   vsl|       1026 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1026 SessOpen        c 127.0.0.1 43988 a0 127.0.0.1 41783 1634892899.336488 26
+**** v1   vsl|       1027 Begin           c req 1026 rxreq
+**** v1   vsl|       1026 Link            c req 1027 rxreq
+**** v1   vsl|       1027 Timestamp       c Start: 1634892899.336524 0.000000 0.000000
+**** v1   vsl|       1027 Timestamp       c Req: 1634892899.336524 0.000000 0.000000
+**** v1   vsl|       1027 VCL_use         c vcl5
+**** v1   vsl|       1027 ReqStart        c 127.0.0.1 43988 a0
+**** v1   vsl|       1027 ReqMethod       c GET
+**** v1   vsl|       1027 ReqURL          c /struct
+**** v1   vsl|       1027 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1027 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1027 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1027 VCL_call        c RECV
+**** v1   vsl|       1027 ReqHeader       c vrt_blob: 24
+**** v1   vsl|       1027 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1027 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1027 VCL_return      c hash
+**** v1   vsl|       1027 VCL_call        c HASH
+**** v1   vsl|       1027 VCL_return      c lookup
+**** v1   vsl|       1027 VCL_call        c MISS
+**** v1   vsl|       1027 ReqHeader       c leave: 24
+**** v1   vsl|       1027 VCL_Log         c shrink
+**** v1   vsl|       1027 VCL_Error       c Workspace overflow (blob.sub)
+**** v1   vsl|       1027 VCL_return      c fail
+**** v1   vsl|       1027 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1027 RespStatus      c 503
+**** v1   vsl|       1027 RespReason      c VCL failed
+**** v1   vsl|       1027 RespHeader      c Date: Fri, 22 Oct 2021 08:54:59 GMT
+**** v1   vsl|       1027 RespHeader      c Server: Varnish
+**** v1   vsl|       1027 RespHeader      c X-Varnish: 1027
+**** v1   vsl|       1027 VCL_call        c SYNTH
+**** v1   vsl|       1027 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1027 RespHeader      c Retry-After: 5
+**** v1   vsl|       1027 VCL_return      c deliver
+**** v1   vsl|       1027 Timestamp       c Process: 1634892899.336577 0.000053 0.000053
+**** v1   vsl|       1027 RespHeader      c Content-Length: 251
+**** v1   vsl|       1027 Storage         c malloc Transient
+**** v1   vsl|       1027 Filters         c 
+**** v1   vsl|       1027 RespHeader      c Connection: close
+**** v1   vsl|       1027 Timestamp       c Resp: 1634892899.336630 0.000106 0.000053
+**** v1   vsl|       1027 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1027 End             c 
+**** v1   vsl|       1026 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1026 End             c 
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 55 Backend name   Admin    Probe    Health    Last change
+
+**** dT   1.328
+***  v1   debug|Debug: Stopping Child
+**** dT   1.415
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   2.328
+***  v1   debug|Info: Child (72468) ended
+**** dT   2.329
+***  v1   debug|Info: Child (72468) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** dT   2.330
+**** v1   STDOUT EOF
+**** dT   2.416
+**   v1   WAIT4 pid=72454 status=0x0000 (user 0.873664 sys 0.127839)
+**** dT   2.417
+*    top  TEST ./tests/m00049.vtc completed
+#    top  TEST ./tests/m00049.vtc passed (2.417)

@@ -1,0 +1,41 @@
+**** dT   0.000
+*    top  TEST ./tests/r02321.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 39285
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.92809.4fd6f384
+**   top  === varnishtest "Storage name collisions"
+*    top  VTEST Storage name collisions
+**   top  === shell -err -expect "Error: (-s main=default,100m) 'main' is ...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\texec varnishd -a :0 -f '' -n /tmp/vtc.92809.4fd6f384 \
+**** top  shell_cmd|\t\t-s main=default,10m -s main=default,100m
+**** dT   0.005
+**** top  shell_out|Error: (-s main=default,100m) 'main' is already defined
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect "Error: (-s s0=default,100m) 's0' is alre...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\texec varnishd -a :0 -f '' -n /tmp/vtc.92809.4fd6f384 \
+**** top  shell_cmd|\t\t-s default,10m -s s0=default,100m
+**** dT   0.010
+**** top  shell_out|Error: (-s s0=default,100m) 's0' is already defined
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+**   top  === shell -err -expect "Error: (-s Transient=default,100m) 'Tran...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\texec varnishd -a :0 -f '' -n /tmp/vtc.92809.4fd6f384 \
+**** top  shell_cmd|\t\t-s Transient=default,10m -s Transient=default,100m
+**** dT   0.014
+**** top  shell_out|Error: (-s Transient=default,100m) 'Transient' is already defined
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x00ff
+**** top  shell_expect found
+*    top  RESETTING after ./tests/r02321.vtc
+*    top  TEST ./tests/r02321.vtc completed
+#    top  TEST ./tests/r02321.vtc passed (0.038)

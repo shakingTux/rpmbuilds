@@ -1,0 +1,1072 @@
+**** dT   0.000
+*    top  TEST ./tests/m00038.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 40689
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.71146.4c322d6b
+**   top  === varnishtest "VMOD blob base64 decode() n chars"
+*    top  VTEST VMOD blob base64 decode() n chars
+**   top  === varnish v1 -vcl {
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.71146.4c322d6b/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 36315' -P /tmp/vtc.71146.4c322d6b/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.71146.4c322d6b/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 36315' -P /tmp/vtc.71146.4c322d6b/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 71164
+**** v1   macro def v1_pid=71164
+**** v1   macro def v1_name=/tmp/vtc.71146.4c322d6b/v1
+**** dT   0.012
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.110
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 5
+***  v1   CLI RX  107
+**** v1   CLI RX|ipooepebucnmxahxkqsqrghqrjochblw
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** dT   0.111
+**** v1   CLI TX|auth fc0b3852dfff109c3bccf4812ac210b3cfd04c20c053f3db5de3ca64446697c6
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\timport blob;
+**** v1   CLI TX|\tbackend b None;
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t  return(synth(200));
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_synth {
+**** v1   CLI TX|\t    set req.http.foobarbazquux = "L0hlbGxvIHdvcmxkLw==";
+**** v1   CLI TX|\t    set req.http.pangram
+**** v1   CLI TX|\t      = "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==";
+**** v1   CLI TX|\t    set req.http.hobbes =
+**** v1   CLI TX|{"TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGludWVkIGFuZCBpbmRlZmF0aWdhYmxlIGdlbmVyYXRpb24gb2Yga25vd2xlZGdlLCBleGNlZWRzIHRoZSBzaG9ydCB2ZWhlbWVuY2Ugb2YgYW55IGNhcm5hbCBwbGVhc3VyZS4="};
+**** v1   CLI TX|\t    set req.http.hobbesnopad = regsuball(req.http.hobbes, "=", "");
+**** v1   CLI TX|\t    set req.http.all =
+**** v1   CLI TX|{"AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZaaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnooooppppqqqqrrrrssssttttuuuuvvvvwwwwxxxxyyyyzzzz0000111122223333444455556666777788889999++++////"};
+**** v1   CLI TX|\t    set req.http.allurl =
+**** v1   CLI TX|{"AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZaaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnooooppppqqqqrrrrssssttttuuuuvvvvwwwwxxxxyyyyzzzz0000111122223333444455556666777788889999----____"};
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.dec
+**** v1   CLI TX|\t      = blob.encode(IDENTITY,
+**** v1   CLI TX|\t\t\t    blob=blob.decode(BASE64, 8,
+**** v1   CLI TX|\t\t\t\t\t     req.http.foobarbazquux));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.deceq
+**** v1   CLI TX|\t      = blob.encode(IDENTITY,
+**** v1   CLI TX|\t\t\t    blob=blob.decode(BASE64, 20,
+**** v1   CLI TX|\t\t\t\t\t     req.http.foobarbazquux));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.declong
+**** v1   CLI TX|\t      = blob.encode(IDENTITY,
+**** v1   CLI TX|\t\t\t    blob=blob.decode(BASE64, 30,
+**** v1   CLI TX|\t\t\t\t\t     req.http.foobarbazquux));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.dec2
+**** v1   CLI TX|\t      = blob.encode(IDENTITY,
+**** v1   CLI TX|\t\t\t    blob=blob.decode(BASE64, 12, req.http.pangram));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.b64dechobbes =
+**** v1   CLI TX|\t      blob.encode(IDENTITY,
+**** v1   CLI TX|\t\t\t  blob=blob.decode(BASE64, 24, req.http.hobbes));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.b64decall =
+**** v1   CLI TX|\t       blob.encode(HEX, blob=blob.decode(BASE64, 128, req.http.all));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.urldechobbes =
+**** v1   CLI TX|\t      blob.encode(IDENTITY, blob=blob.decode(BASE64URL, 180,
+**** v1   CLI TX|\t\t\t\t\t\t     req.http.hobbes));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.urldecall =
+**** v1   CLI TX|\t      blob.encode(HEX, blob=blob.decode(BASE64URL, 256,
+**** v1   CLI TX|\t\t\t\t\t\treq.http.allurl));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.nopaddechobbes =
+**** v1   CLI TX|\t      blob.encode(IDENTITY,
+**** v1   CLI TX|\t\t\t      blob=blob.decode(BASE64URLNOPAD, 500,
+**** v1   CLI TX|\t\t\t\t\t       req.http.hobbesnopad));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.nopaddecall =
+**** v1   CLI TX|\t      blob.encode(HEX, blob=blob.decode(BASE64URLNOPAD, 256,
+**** v1   CLI TX|\t\t\t\t\t\t  req.http.allurl));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.b64empty =
+**** v1   CLI TX|\t      blob.encode(IDENTITY, blob=blob.decode(BASE64, 0, ""));
+**** v1   CLI TX|\t    set resp.http.urlempty =
+**** v1   CLI TX|\t      blob.encode(IDENTITY, blob=blob.decode(BASE64URL, 1, ""));
+**** v1   CLI TX|\t    set resp.http.nopadempty =
+**** v1   CLI TX|\t\tblob.encode(IDENTITY,
+**** v1   CLI TX|\t\t\t    blob=blob.decode(BASE64URLNOPAD, 0, ""));
+**** v1   CLI TX|\t    set resp.http.emptypieces =
+**** v1   CLI TX|\t      blob.encode(IDENTITY,
+**** v1   CLI TX|\t      blob=blob.decode(BASE64, 0, req.http.unset + "" + req.http.unset
+**** v1   CLI TX|\t\t\t\t\t   + "" + req.http.unset + ""));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.decenc
+**** v1   CLI TX|\t      = blob.encode(BASE64,
+**** v1   CLI TX|\t\t\t    blob=blob.decode(BASE64, 20,
+**** v1   CLI TX|\t\t\t\t\t     req.http.foobarbazquux));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.l = "L";
+**** v1   CLI TX|\t    set resp.http.dec2pieces
+**** v1   CLI TX|\t      = blob.encode(IDENTITY, blob=blob.decode(BASE64, 8,
+**** v1   CLI TX|\t\t\t\tresp.http.l + "0hlbGxvIHdvcmxkLw=="));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.pad = "==";
+**** v1   CLI TX|\t    set resp.http.dec3pieces
+**** v1   CLI TX|\t      = blob.encode(IDENTITY, blob=blob.decode(BASE64, 12,
+**** v1   CLI TX|\t\t\t\tresp.http.l + "0hlbGxvIHdvcmxkLw"
+**** v1   CLI TX|\t\t\t\t+ resp.http.pad));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.mid1 = "GxvI";
+**** v1   CLI TX|\t    set resp.http.mid2 = "dvcmx";
+**** v1   CLI TX|\t    set resp.http.dec7pieces
+**** v1   CLI TX|\t      = blob.encode(IDENTITY, blob=blob.decode(BASE64, 16,
+**** v1   CLI TX|\t\t\t\tresp.http.l + "0hlb" + resp.http.mid1
+**** v1   CLI TX|\t\t\t\t+ "H" + resp.http.mid2 + "kLw"
+**** v1   CLI TX|\t\t\t\t+ resp.http.pad));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.dec7param
+**** v1   CLI TX|\t      = blob.encode(blob=blob.decode(encoded=resp.http.l
+**** v1   CLI TX|\t\t\t\t+ "0hlb" + resp.http.mid1 + "H" + resp.http.mid2
+**** v1   CLI TX|\t\t\t\t+ "kLw" + resp.http.pad, decoding=BASE64,
+**** v1   CLI TX|\t\t\t\tlength=20), encoding=IDENTITY);
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.decnopad = blob.encode(IDENTITY,
+**** v1   CLI TX|\t\t\t\t     blob=blob.decode(BASE64URLNOPAD, 18,
+**** v1   CLI TX|\t\t\t\t\t\t      "L0hlbGxvIHdvcmxkLw"));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.decnopad2pieces
+**** v1   CLI TX|\t      = blob.encode(IDENTITY, blob=blob.decode(BASE64URLNOPAD, 19,
+**** v1   CLI TX|\t\t\t\tresp.http.l + "0hlbGxvIHdvcmxkLw"));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.decnopad6pieces
+**** v1   CLI TX|\t      = blob.encode(IDENTITY, blob=blob.decode(BASE64URLNOPAD, 18,
+**** v1   CLI TX|\t\t\t\tresp.http.l + "0hlb" + resp.http.mid1
+**** v1   CLI TX|\t\t\t\t+ "H" + resp.http.mid2 + "kLw"));
+**** v1   CLI TX|
+**** v1   CLI TX|\t    set resp.http.decnopadlong
+**** v1   CLI TX|\t      = blob.encode(IDENTITY,
+**** v1   CLI TX|\t\tblob=blob.decode(BASE64URLNOPAD, 60,
+**** v1   CLI TX|\t\t"VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw"
+**** v1   CLI TX|\t\t\t       ));
+**** v1   CLI TX|
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.213
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.314
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.322
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.325
+***  v1   debug|Debug: Child (71196) Started
+**** dT   0.353
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (71196) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+**** dT   0.414
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892884.207803/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892884.207803/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** dT   0.454
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 45395
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 45395
+**   v1   Listen on 127.0.0.1 45395
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=45395
+**** v1   macro def v1_sock=127.0.0.1 45395
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45395 (1 iterations)
+***  c1   Connect to 127.0.0.1 45395
+***  c1   connected fd 15 from 127.0.0.1 34284 to 127.0.0.1 45395
+**   c1   === txreq -url "/"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.462
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:44 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|dec: /Hello\r
+**** c1   rxhdr|deceq: /Hello world/\r
+**** c1   rxhdr|declong: /Hello world/\r
+**** c1   rxhdr|dec2: The quick\r
+**** c1   rxhdr|b64dechobbes: Man is distinguish\r
+**** c1   rxhdr|b64decall: 0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df\r
+**** c1   rxhdr|urldechobbes: Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a p\r
+**** c1   rxhdr|urldecall: 0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df8208208618618a28a28e38e39249249659659a69a69e79e7a28a28a69a69aaaaaaaebaebb2cb2cb6db6dbaebaebefbefc30c30c71c71cb2cb2cf3cf3d34d34d75d75db6db6df7df7e38e38e79e79ebaebaefbefbf3cf3cf7df7dfbefbeffffff\r
+**** c1   rxhdr|nopaddechobbes: Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a perseverance of delight in the continued and indefatigable generation of knowledge, exceeds the short vehemence of any carnal pleasure.\r
+**** c1   rxhdr|nopaddecall: 0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df8208208618618a28a28e38e39249249659659a69a69e79e7a28a28a69a69aaaaaaaebaebb2cb2cb6db6dbaebaebefbefc30c30c71c71cb2cb2cf3cf3d34d34d75d75db6db6df7df7e38e38e79e79ebaebaefbefbf3cf3cf7df7dfbefbeffffff\r
+**** c1   rxhdr|b64empty: \r
+**** c1   rxhdr|urlempty: \r
+**** c1   rxhdr|nopadempty: \r
+**** c1   rxhdr|emptypieces: \r
+**** c1   rxhdr|decenc: L0hlbGxvIHdvcmxkLw==\r
+**** c1   rxhdr|l: L\r
+**** c1   rxhdr|dec2pieces: /Hello\r
+**** c1   rxhdr|pad: ==\r
+**** c1   rxhdr|dec3pieces: /Hello wo\r
+**** c1   rxhdr|mid1: GxvI\r
+**** c1   rxhdr|mid2: dvcmx\r
+**** c1   rxhdr|dec7pieces: /Hello world\r
+**** c1   rxhdr|dec7param: /Hello world/\r
+**** c1   rxhdr|decnopad: /Hello world/\r
+**** c1   rxhdr|decnopad2pieces: /Hello world/\r
+**** c1   rxhdr|decnopad6pieces: /Hello world/\r
+**** c1   rxhdr|decnopadlong: The quick brown fox jumps over the lazy dog\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 2128
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1001
+**** c1   http[ 6] |dec: /Hello
+**** c1   http[ 7] |deceq: /Hello world/
+**** c1   http[ 8] |declong: /Hello world/
+**** c1   http[ 9] |dec2: The quick
+**** c1   http[10] |b64dechobbes: Man is distinguish
+**** c1   http[11] |b64decall: 0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df
+**** c1   http[12] |urldechobbes: Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a p
+**** c1   http[13] |urldecall: 0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df8208208618618a28a28e38e39249249659659a69a69e79e7a28a28a69a69aaaaaaaebaebb2cb2cb6db6dbaebaebefbefc30c30c71c71cb2cb2cf3cf3d34d34d75d75db6db6df7df7e38e38e79e79ebaebaefbefbf3cf3cf7df7dfbefbeffffff
+**** c1   http[14] |nopaddechobbes: Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a perseverance of delight in the continued and indefatigable generation of knowledge, exceeds the short vehemence of any carnal pleasure.
+**** c1   http[15] |nopaddecall: 0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df8208208618618a28a28e38e39249249659659a69a69e79e7a28a28a69a69aaaaaaaebaebb2cb2cb6db6dbaebaebefbefc30c30c71c71cb2cb2cf3cf3d34d34d75d75db6db6df7df7e38e38e79e79ebaebaefbefbf3cf3cf7df7dfbefbeffffff
+**** c1   http[16] |b64empty: 
+**** c1   http[17] |urlempty: 
+**** c1   http[18] |nopadempty: 
+**** c1   http[19] |emptypieces: 
+**** c1   http[20] |decenc: L0hlbGxvIHdvcmxkLw==
+**** c1   http[21] |l: L
+**** c1   http[22] |dec2pieces: /Hello
+**** c1   http[23] |pad: ==
+**** c1   http[24] |dec3pieces: /Hello wo
+**** c1   http[25] |mid1: GxvI
+**** c1   http[26] |mid2: dvcmx
+**** c1   http[27] |dec7pieces: /Hello world
+**** c1   http[28] |dec7param: /Hello world/
+**** c1   http[29] |decnopad: /Hello world/
+**** c1   http[30] |decnopad2pieces: /Hello world/
+**** c1   http[31] |decnopad6pieces: /Hello world/
+**** c1   http[32] |decnopadlong: The quick brown fox jumps over the lazy dog
+**** c1   http[33] |Content-Type: text/html; charset=utf-8
+**** c1   http[34] |Retry-After: 5
+**** c1   http[35] |Content-Length: 227
+**** c1   http[36] |Accept-Ranges: bytes
+**** c1   http[37] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1001</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.dec == "/Hello"
+**** c1   EXPECT resp.http.dec (/Hello) == "/Hello" match
+**   c1   === expect resp.http.deceq == "/Hello world/"
+**** c1   EXPECT resp.http.deceq (/Hello world/) == "/Hello world/" match
+**   c1   === expect resp.http.declong == "/Hello world/"
+**** c1   EXPECT resp.http.declong (/Hello world/) == "/Hello world/" match
+**   c1   === expect resp.http.dec2 == "The quick"
+**** c1   EXPECT resp.http.dec2 (The quick) == "The quick" match
+**   c1   === expect resp.http.b64dechobbes == "Man is distinguish"
+**** c1   EXPECT resp.http.b64dechobbes (Man is distinguish) == "Man is distinguish" match
+**   c1   === expect resp.http.b64decall == "0000000410410820820c30c310410...
+**** c1   EXPECT resp.http.b64decall (0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df) == "0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df" match
+**   c1   === expect resp.http.urldechobbes == "Man is distinguished, not ...
+**** c1   EXPECT resp.http.urldechobbes (Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a p) == "Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a p" match
+**   c1   === expect resp.http.urldecall == "0000000410410820820c30c310410...
+**** c1   EXPECT resp.http.urldecall (0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df8208208618618a28a28e38e39249249659659a69a69e79e7a28a28a69a69aaaaaaaebaebb2cb2cb6db6dbaebaebefbefc30c30c71c71cb2cb2cf3cf3d34d34d75d75db6db6df7df7e38e38e79e79ebaebaefbefbf3cf3cf7df7dfbefbeffffff) == "0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df8208208618618a28a28e38e39249249659659a69a69e79e7a28a28a69a69aaaaaaaebaebb2cb2cb6db6dbaebaebefbefc30c30c71c71cb2cb2cf3cf3d34d34d75d75db6db6df7df7e38e38e79e79ebaebaefbefbf3cf3cf7df7dfbefbeffffff" match
+**   c1   === expect resp.http.nopaddechobbes == "Man is distinguished, no...
+**** c1   EXPECT resp.http.nopaddechobbes (Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a perseverance of delight in the continued and indefatigable generation of knowledge, exceeds the short vehemence of any carnal pleasure.) == "Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a perseverance of delight in the continued and indefatigable generation of knowledge, exceeds the short vehemence of any carnal pleasure." match
+**   c1   === expect resp.http.nopaddecall == "0000000410410820820c30c3104...
+**** c1   EXPECT resp.http.nopaddecall (0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df8208208618618a28a28e38e39249249659659a69a69e79e7a28a28a69a69aaaaaaaebaebb2cb2cb6db6dbaebaebefbefc30c30c71c71cb2cb2cf3cf3d34d34d75d75db6db6df7df7e38e38e79e79ebaebaefbefbf3cf3cf7df7dfbefbeffffff) == "0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df8208208618618a28a28e38e39249249659659a69a69e79e7a28a28a69a69aaaaaaaebaebb2cb2cb6db6dbaebaebefbefc30c30c71c71cb2cb2cf3cf3d34d34d75d75db6db6df7df7e38e38e79e79ebaebaefbefbf3cf3cf7df7dfbefbeffffff" match
+**   c1   === expect resp.http.b64empty == ""
+**** c1   EXPECT resp.http.b64empty () == "" match
+**   c1   === expect resp.http.urlempty == ""
+**** c1   EXPECT resp.http.urlempty () == "" match
+**   c1   === expect resp.http.nopadempty == ""
+**** c1   EXPECT resp.http.nopadempty () == "" match
+**   c1   === expect resp.http.emptypieces == ""
+**** c1   EXPECT resp.http.emptypieces () == "" match
+**   c1   === expect resp.http.decenc == "L0hlbGxvIHdvcmxkLw=="
+**** c1   EXPECT resp.http.decenc (L0hlbGxvIHdvcmxkLw==) == "L0hlbGxvIHdvcmxkLw==" match
+**   c1   === expect resp.http.dec2pieces == "/Hello"
+**** c1   EXPECT resp.http.dec2pieces (/Hello) == "/Hello" match
+**   c1   === expect resp.http.dec3pieces == "/Hello wo"
+**** c1   EXPECT resp.http.dec3pieces (/Hello wo) == "/Hello wo" match
+**   c1   === expect resp.http.dec7pieces == "/Hello world"
+**** c1   EXPECT resp.http.dec7pieces (/Hello world) == "/Hello world" match
+**   c1   === expect resp.http.dec7param == "/Hello world/"
+**** c1   EXPECT resp.http.dec7param (/Hello world/) == "/Hello world/" match
+**   c1   === expect resp.http.decnopad == "/Hello world/"
+**** c1   EXPECT resp.http.decnopad (/Hello world/) == "/Hello world/" match
+**   c1   === expect resp.http.decnopad2pieces == "/Hello world/"
+**** c1   EXPECT resp.http.decnopad2pieces (/Hello world/) == "/Hello world/" match
+**   c1   === expect resp.http.decnopad6pieces == "/Hello world/"
+**** c1   EXPECT resp.http.decnopad6pieces (/Hello world/) == "/Hello world/" match
+**   c1   === expect resp.http.decnopadlong == "The quick brown fox jumps ...
+**** c1   EXPECT resp.http.decnopadlong (The quick brown fox jumps over the lazy dog) == "The quick brown fox jumps over the lazy dog" match
+***  c1   closing fd 15
+**   c1   Ending
+**   top  === server s1 -repeat 3 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=33423
+**** s1   macro def s1_sock=127.0.0.1 33423
+*    s1   Listen on 127.0.0.1 33423
+**   top  === varnish v1 -vcl+backend {
+**   s1   Started on 127.0.0.1 33423 (3 iterations)
+**** v1   CLI TX|vcl.inline vcl2 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "33423"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport blob;
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_deliver {
+**** v1   CLI TX|\t  set req.http.foo = "AAA=";
+**** v1   CLI TX|\t  if (req.url == "/base64") {
+**** v1   CLI TX|\t\tset resp.http.bad64 = blob.encode(IDENTITY,
+**** v1   CLI TX|\t\t    blob=blob.decode(BASE64, 8, "-_-_" + req.http.foo));
+**** v1   CLI TX|\t  }
+**** v1   CLI TX|\t  elsif (req.url == "/base64url") {
+**** v1   CLI TX|\t\tset resp.http.badurl = blob.encode(IDENTITY,
+**** v1   CLI TX|\t\t    blob=blob.decode(BASE64URL, 8, "+/+/" + req.http.foo));
+**** v1   CLI TX|\t  }
+**** v1   CLI TX|\t  elsif (req.url == "/base64urlnopad") {
+**** v1   CLI TX|\t\tset resp.http.badpad = blob.encode(IDENTITY,
+**** v1   CLI TX|\t\t    blob=blob.decode(BASE64URLNOPAD, 8,
+**** v1   CLI TX|\t\t\t\t     "TWFu" + req.http.foo));
+**** v1   CLI TX|\t  }
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.514
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 45395
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 45395
+
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 34284 a0 127.0.0.1 45395 1634892884.550719 25
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892884.550800 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892884.550800 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 34284 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 VCL_return      c synth
+**** v1   vsl|       1001 VCL_call        c HASH
+**** v1   vsl|       1001 VCL_return      c lookup
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 200
+**** v1   vsl|       1001 RespReason      c OK
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** v1   vsl|       1001 RespHeader      c Server: Varnish
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 VCL_call        c SYNTH
+**** v1   vsl|       1001 ReqHeader       c foobarbazquux: L0hlbGxvIHdvcmxkLw==
+**** v1   vsl|       1001 ReqHeader       c pangram: VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==
+**** v1   vsl|       1001 ReqHeader       c hobbes: TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGludWVkIGFuZCBpbmRlZm
+**** v1   vsl|       1001 ReqHeader       c hobbesnopad: TWFuIGlzIGRpc3Rpbmd1aXNoZWQsIG5vdCBvbmx5IGJ5IGhpcyByZWFzb24sIGJ1dCBieSB0aGlzIHNpbmd1bGFyIHBhc3Npb24gZnJvbSBvdGhlciBhbmltYWxzLCB3aGljaCBpcyBhIGx1c3Qgb2YgdGhlIG1pbmQsIHRoYXQgYnkgYSBwZXJzZXZlcmFuY2Ugb2YgZGVsaWdodCBpbiB0aGUgY29udGludWVkIGFuZCBpb
+**** v1   vsl|       1001 ReqHeader       c all: AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZaaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnooooppppqqqqrrrrssssttttuuuuvvvvwwwwxxxxyyyyzzzz0000111122223333444455556666777788889999+
+**** v1   vsl|       1001 ReqHeader       c allurl: AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIIIJJJJKKKKLLLLMMMMNNNNOOOOPPPPQQQQRRRRSSSSTTTTUUUUVVVVWWWWXXXXYYYYZZZZaaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnooooppppqqqqrrrrssssttttuuuuvvvvwwwwxxxxyyyyzzzz00001111222233334444555566667777888899
+**** v1   vsl|       1001 RespHeader      c dec: /Hello
+**** v1   vsl|       1001 RespHeader      c deceq: /Hello world/
+**** v1   vsl|       1001 RespHeader      c declong: /Hello world/
+**** v1   vsl|       1001 RespHeader      c dec2: The quick
+**** v1   vsl|       1001 RespHeader      c b64dechobbes: Man is distinguish
+**** v1   vsl|       1001 RespHeader      c b64decall: 0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df
+**** v1   vsl|       1001 RespHeader      c urldechobbes: Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a p
+**** v1   vsl|       1001 RespHeader      c urldecall: 0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df8208208618618a28a28e38e39249249659659a69a69e79e7a28
+**** v1   vsl|       1001 RespHeader      c nopaddechobbes: Man is distinguished, not only by his reason, but by this singular passion from other animals, which is a lust of the mind, that by a perseverance of delight in the continued and indefatigable generation of knowledge, exceeds the short ve
+**** v1   vsl|       1001 RespHeader      c nopaddecall: 0000000410410820820c30c31041041451451861861c71c720820824924928a28a2cb2cb30c30c34d34d38e38e3cf3cf4104104514514924924d34d35145145555555965965d75d761861865965969a69a6db6db71c71c75d75d79e79e7df7df8208208618618a28a28e38e39249249659659a69a69e79e7a
+**** v1   vsl|       1001 RespHeader      c b64empty: 
+**** v1   vsl|       1001 RespHeader      c urlempty: 
+**** v1   vsl|       1001 RespHeader      c nopadempty: 
+**** v1   vsl|       1001 RespHeader      c emptypieces: 
+**** v1   vsl|       1001 RespHeader      c decenc: L0hlbGxvIHdvcmxkLw==
+**** v1   vsl|       1001 RespHeader      c l: L
+**** v1   vsl|       1001 RespHeader      c dec2pieces: /Hello
+**** v1   vsl|       1001 RespHeader      c pad: ==
+**** v1   vsl|       1001 RespHeader      c dec3pieces: /Hello wo
+**** v1   vsl|       1001 RespHeader      c mid1: GxvI
+**** v1   vsl|       1001 RespHeader      c mid2: dvcmx
+**** v1   vsl|       1001 RespHeader      c dec7pieces: /Hello world
+**** v1   vsl|       1001 RespHeader      c dec7param: /Hello world/
+**** v1   vsl|       1001 RespHeader      c decnopad: /Hello world/
+**** v1   vsl|       1001 RespHeader      c decnopad2pieces: /Hello world/
+**** v1   vsl|       1001 RespHeader      c decnopad6pieces: /Hello world/
+**** v1   vsl|       1001 RespHeader      c decnopadlong: The quick brown fox jumps over the lazy dog
+**** v1   vsl|       1001 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1001 RespHeader      c Retry-After: 5
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634892884.550955 0.000155 0.000155
+**** v1   vsl|       1001 RespHeader      c Content-Length: 227
+**** v1   vsl|       1001 Storage         c malloc Transient
+**** v1   vsl|       1001 Filters         c 
+**** v1   vsl|       1001 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1001 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1001 Timestamp       c Resp: 1634892884.551037 0.000237 0.000081
+**** v1   vsl|       1001 ReqAcct         c 35 0 35 2128 227 2355
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 SessClose       c REM_CLOSE 0.008
+**** v1   vsl|       1000 End             c 
+**** dT   0.627
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl2
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl2' now active
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45395 (1 iterations)
+***  c1   Connect to 127.0.0.1 45395
+***  c1   connected fd 17 from 127.0.0.1 34286 to 127.0.0.1 45395
+**   c1   === txreq -url /base64
+**** c1   txreq|GET /base64 HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+***  s1   accepted fd 16 127.0.0.1 46964
+**   s1   === rxreq
+**** dT   0.628
+**** s1   rxhdr|GET /base64 HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1004\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 109
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/base64
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1004
+**** s1   bodylen = 0
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 16
+**   c1   === rxresp
+**** dT   0.639
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:44 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1003\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1003
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1003</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "VCL failed"
+**** c1   EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c1   === expect resp.http.bad64 == <undef>
+**** c1   EXPECT resp.http.bad64 (<undef>) == "<undef>" match
+***  c1   closing fd 17
+**   c1   Ending
+**   top  === logexpect l1 -v v1 -d 1 -g vxid -q "VCL_Error" {
+**   l1   === expect * * VCL_Error {^vmod blob error: cannot decode, illeg...
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| VCL_Error
+***  l1   expecting| expect * * VCL_Error ^vmod blob error: cannot decode, illegal encoding beginning with \"-_-_\"$
+**** l1   match|       1003 VCL_Error       c vmod blob error: cannot decode, illegal encoding beginning with "-_-_"
+**** l1   end|
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45395 (1 iterations)
+***  c1   Connect to 127.0.0.1 45395
+***  c1   connected fd 22 from 127.0.0.1 34290 to 127.0.0.1 45395
+**   c1   === txreq -url /base64url
+**** c1   txreq|GET /base64url HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.640
+***  s1   accepted fd 16 127.0.0.1 46968
+**   s1   === rxreq
+**** s1   rxhdr|GET /base64url HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1007\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 112
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/base64url
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1007
+**** s1   bodylen = 0
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 16
+**   c1   === rxresp
+**** dT   0.651
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:44 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1006\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1006
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1006</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "VCL failed"
+**** c1   EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c1   === expect resp.http.badurl == <undef>
+**** c1   EXPECT resp.http.badurl (<undef>) == "<undef>" match
+***  c1   closing fd 22
+**   c1   Ending
+**   top  === logexpect l1 -v v1 -d 1 -g vxid -q "VCL_Error" {
+**   l1   === expect * * VCL_Error {^vmod blob error: cannot decode, illeg...
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| VCL_Error
+***  l1   expecting| expect * * VCL_Error ^vmod blob error: cannot decode, illegal encoding beginning with \"././\"$
+**** l1   match|       1006 VCL_Error       c vmod blob error: cannot decode, illegal encoding beginning with "+/+/"
+**** l1   end|
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45395 (1 iterations)
+***  c1   Connect to 127.0.0.1 45395
+**** dT   0.652
+***  c1   connected fd 22 from 127.0.0.1 34294 to 127.0.0.1 45395
+**   c1   === txreq -url /base64urlnopad
+**** c1   txreq|GET /base64urlnopad HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+***  s1   accepted fd 16 127.0.0.1 46972
+**   s1   === rxreq
+**** s1   rxhdr|GET /base64urlnopad HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1010\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 117
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/base64urlnopad
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1010
+**** s1   bodylen = 0
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 16
+**   s1   Ending
+**** dT   0.663
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:54:44 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1009\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1009
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1009</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "VCL failed"
+**** c1   EXPECT resp.reason (VCL failed) == "VCL failed" match
+**   c1   === expect resp.http.badpad == <undef>
+**** c1   EXPECT resp.http.badpad (<undef>) == "<undef>" match
+***  c1   closing fd 22
+**   c1   Ending
+**   top  === logexpect l1 -v v1 -d 1 -g vxid -q "VCL_Error" {
+**   l1   === expect * * VCL_Error {^vmod blob error: cannot decode, illeg...
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** l1   begin|
+**** l1   qry| VCL_Error
+***  l1   expecting| expect * * VCL_Error ^vmod blob error: cannot decode, illegal encoding beginning with \"TWFu\"$
+**** dT   0.664
+**** l1   match|       1009 VCL_Error       c vmod blob error: cannot decode, illegal encoding beginning with "TWFu"
+**** l1   end|
+*    top  RESETTING after ./tests/m00038.vtc
+**   s1   Waiting for server (15/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl2.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:54:44 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   0.714
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl2 vcl_vcl2.1634892884.558891/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl2.1634892884.558891/vgc.so" as "vcl2"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl2
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1002 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1002 SessOpen        c 127.0.0.1 34286 a0 127.0.0.1 45395 1634892884.723438 26
+**** v1   vsl|       1002 Link            c req 1003 rxreq
+**** v1   vsl|       1004 Begin           b bereq 1003 fetch
+**** v1   vsl|       1004 VCL_use         b vcl2
+**** v1   vsl|       1004 Timestamp       b Start: 1634892884.723596 0.000000 0.000000
+**** v1   vsl|       1004 BereqMethod     b GET
+**** v1   vsl|       1004 BereqURL        b /base64
+**** v1   vsl|       1004 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1004 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1004 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1004 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1004 BereqHeader     b X-Varnish: 1004
+**** v1   vsl|       1004 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1004 VCL_return      b fetch
+**** v1   vsl|       1004 BackendOpen     b 28 s1 127.0.0.1 33423 127.0.0.1 46964 connect
+**** v1   vsl|       1004 Timestamp       b Bereq: 1634892884.723713 0.000116 0.000116
+**** v1   vsl|       1004 Timestamp       b Beresp: 1634892884.724198 0.000601 0.000485
+**** v1   vsl|       1004 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1004 BerespStatus    b 200
+**** v1   vsl|       1004 BerespReason    b OK
+**** v1   vsl|       1004 BerespHeader    b Content-Length: 0
+**** v1   vsl|       1004 BerespHeader    b Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** v1   vsl|       1004 TTL             b RFC 120 10 0 1634892885 1634892885 1634892884 0 0 cacheable
+**** v1   vsl|       1004 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1004 VCL_return      b deliver
+**** v1   vsl|       1004 Filters         b 
+**** v1   vsl|       1004 Storage         b malloc s0
+**** v1   vsl|       1004 Fetch_Body      b 0 none -
+**** v1   vsl|       1004 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1004 Timestamp       b BerespBody: 1634892884.734348 0.010751 0.010150
+**** v1   vsl|       1004 Length          b 0
+**** v1   vsl|       1004 BereqAcct       b 109 0 109 38 0 38
+**** v1   vsl|       1004 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f4014000bb0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f4014000bb0 e=1634893014.724199 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f4014000bb0 e=129.989815 f=0x0
+**** v1   vsl|       1003 Begin           c req 1002 rxreq
+**** v1   vsl|       1003 Timestamp       c Start: 1634892884.723544 0.000000 0.000000
+**** v1   vsl|       1003 Timestamp       c Req: 1634892884.723544 0.000000 0.000000
+**** v1   vsl|       1003 VCL_use         c vcl2
+**** v1   vsl|       1003 ReqStart        c 127.0.0.1 34286 a0
+**** v1   vsl|       1003 ReqMethod       c GET
+**** v1   vsl|       1003 ReqURL          c /base64
+**** v1   vsl|       1003 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1003 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1003 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1003 VCL_call        c RECV
+**** v1   vsl|       1003 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1003 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1003 VCL_return      c hash
+**** v1   vsl|       1003 VCL_call        c HASH
+**** v1   vsl|       1003 VCL_return      c lookup
+**** v1   vsl|       1003 VCL_call        c MISS
+**** v1   vsl|       1003 VCL_return      c fetch
+**** v1   vsl|       1003 Link            c bereq 1004 fetch
+**** v1   vsl|       1003 Timestamp       c Fetch: 1634892884.734402 0.010857 0.010857
+**** v1   vsl|       1003 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1003 RespStatus      c 200
+**** v1   vsl|       1003 RespReason      c OK
+**** v1   vsl|       1003 RespHeader      c Content-Length: 0
+**** v1   vsl|       1003 RespHeader      c Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** v1   vsl|       1003 RespHeader      c X-Varnish: 1003
+**** v1   vsl|       1003 RespHeader      c Age: 0
+**** v1   vsl|       1003 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1003 VCL_call        c DELIVER
+**** v1   vsl|       1003 ReqHeader       c foo: AAA=
+**** v1   vsl|       1003 VCL_Error       c vmod blob error: cannot decode, illegal encoding beginning with "-_-_"
+**** dT   0.715
+**** v1   vsl|       1003 RespHeader      c bad64: 
+**** v1   vsl|       1003 VCL_return      c fail
+**** v1   vsl|       1003 Timestamp       c Process: 1634892884.734431 0.010886 0.000029
+**** v1   vsl|       1003 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1003 RespStatus      c 503
+**** v1   vsl|       1003 RespReason      c VCL failed
+**** v1   vsl|       1003 RespHeader      c Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** v1   vsl|       1003 RespHeader      c Server: Varnish
+**** v1   vsl|       1003 RespHeader      c X-Varnish: 1003
+**** v1   vsl|       1003 VCL_call        c SYNTH
+**** v1   vsl|       1003 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1003 RespHeader      c Retry-After: 5
+**** v1   vsl|       1003 VCL_return      c deliver
+**** v1   vsl|       1003 Timestamp       c Process: 1634892884.734446 0.010901 0.000015
+**** v1   vsl|       1003 RespHeader      c Content-Length: 251
+**** v1   vsl|       1003 Storage         c malloc Transient
+**** v1   vsl|       1003 Filters         c 
+**** v1   vsl|       1003 RespHeader      c Connection: close
+**** v1   vsl|       1003 Timestamp       c Resp: 1634892884.734521 0.010976 0.000074
+**** v1   vsl|       1003 ReqAcct         c 41 0 41 194 251 445
+**** v1   vsl|       1003 End             c 
+**** v1   vsl|       1002 SessClose       c VCL_FAILURE 0.011
+**** v1   vsl|       1002 End             c 
+**** v1   vsl|       1005 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1005 SessOpen        c 127.0.0.1 34290 a0 127.0.0.1 45395 1634892884.735931 27
+**** v1   vsl|       1005 Link            c req 1006 rxreq
+**** v1   vsl|       1007 Begin           b bereq 1006 fetch
+**** v1   vsl|       1007 VCL_use         b vcl2
+**** v1   vsl|       1007 Timestamp       b Start: 1634892884.736065 0.000000 0.000000
+**** v1   vsl|       1007 BereqMethod     b GET
+**** v1   vsl|       1007 BereqURL        b /base64url
+**** v1   vsl|       1007 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1007 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1007 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1007 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1007 BereqHeader     b X-Varnish: 1007
+**** v1   vsl|       1007 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1007 VCL_return      b fetch
+**** v1   vsl|       1007 BackendOpen     b 28 s1 127.0.0.1 33423 127.0.0.1 46968 connect
+**** v1   vsl|       1007 Timestamp       b Bereq: 1634892884.736167 0.000102 0.000102
+**** v1   vsl|       1007 Timestamp       b Beresp: 1634892884.736642 0.000577 0.000475
+**** v1   vsl|       1007 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1007 BerespStatus    b 200
+**** v1   vsl|       1007 BerespReason    b OK
+**** v1   vsl|       1007 BerespHeader    b Content-Length: 0
+**** v1   vsl|       1007 BerespHeader    b Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** v1   vsl|       1007 TTL             b RFC 120 10 0 1634892885 1634892885 1634892884 0 0 cacheable
+**** v1   vsl|       1007 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1007 VCL_return      b deliver
+**** v1   vsl|       1007 Filters         b 
+**** v1   vsl|       1007 Storage         b malloc s0
+**** v1   vsl|       1007 Fetch_Body      b 0 none -
+**** v1   vsl|       1007 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1007 Timestamp       b BerespBody: 1634892884.746772 0.010707 0.010129
+**** v1   vsl|       1007 Length          b 0
+**** v1   vsl|       1007 BereqAcct       b 112 0 112 38 0 38
+**** v1   vsl|       1007 End             b 
+**** v1   vsl|       1006 Begin           c req 1005 rxreq
+**** v1   vsl|       1006 Timestamp       c Start: 1634892884.736025 0.000000 0.000000
+**** v1   vsl|       1006 Timestamp       c Req: 1634892884.736025 0.000000 0.000000
+**** v1   vsl|       1006 VCL_use         c vcl2
+**** v1   vsl|       1006 ReqStart        c 127.0.0.1 34290 a0
+**** v1   vsl|       1006 ReqMethod       c GET
+**** v1   vsl|       1006 ReqURL          c /base64url
+**** v1   vsl|       1006 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1006 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1006 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1006 VCL_call        c RECV
+**** v1   vsl|       1006 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1006 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1006 VCL_return      c hash
+**** v1   vsl|       1006 VCL_call        c HASH
+**** v1   vsl|       1006 VCL_return      c lookup
+**** v1   vsl|       1006 VCL_call        c MISS
+**** v1   vsl|       1006 VCL_return      c fetch
+**** v1   vsl|       1006 Link            c bereq 1007 fetch
+**** v1   vsl|       1006 Timestamp       c Fetch: 1634892884.746818 0.010793 0.010793
+**** v1   vsl|       1006 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1006 RespStatus      c 200
+**** v1   vsl|       1006 RespReason      c OK
+**** v1   vsl|       1006 RespHeader      c Content-Length: 0
+**** v1   vsl|       1006 RespHeader      c Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** v1   vsl|       1006 RespHeader      c X-Varnish: 1006
+**** v1   vsl|       1006 RespHeader      c Age: 0
+**** v1   vsl|       1006 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1006 VCL_call        c DELIVER
+**** v1   vsl|       1006 ReqHeader       c foo: AAA=
+**** v1   vsl|       1006 VCL_Error       c vmod blob error: cannot decode, illegal encoding beginning with "+/+/"
+**** v1   vsl|       1006 RespHeader      c badurl: 
+**** v1   vsl|       1006 VCL_return      c fail
+**** v1   vsl|       1006 Timestamp       c Process: 1634892884.746837 0.010811 0.000018
+**** v1   vsl|       1006 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1006 RespStatus      c 503
+**** v1   vsl|       1006 RespReason      c VCL failed
+**** v1   vsl|       1006 RespHeader      c Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** v1   vsl|       1006 RespHeader      c Server: Varnish
+**** v1   vsl|       1006 RespHeader      c X-Varnish: 1006
+**** v1   vsl|       1006 VCL_call        c SYNTH
+**** v1   vsl|       1006 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1006 RespHeader      c Retry-After: 5
+**** v1   vsl|       1006 VCL_return      c deliver
+**** v1   vsl|       1006 Timestamp       c Process: 1634892884.746852 0.010826 0.000015
+**** v1   vsl|       1006 RespHeader      c Content-Length: 251
+**** v1   vsl|       1006 Storage         c malloc Transient
+**** v1   vsl|       1006 Filters         c 
+**** v1   vsl|       1006 RespHeader      c Connection: close
+**** v1   vsl|       1006 Timestamp       c Resp: 1634892884.746923 0.010897 0.000071
+**** v1   vsl|       1006 ReqAcct         c 44 0 44 194 251 445
+**** v1   vsl|       1006 End             c 
+**** v1   vsl|       1005 SessClose       c VCL_FAILURE 0.011
+**** v1   vsl|       1005 End             c 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f4014000bb0 e=129.977410 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f402c011490 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f402c011490 e=1634893014.736643 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f4014000bb0 e=129.977398 f=0x0
+**** v1   vsl|       1008 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1008 SessOpen        c 127.0.0.1 34294 a0 127.0.0.1 45395 1634892884.748144 25
+**** v1   vsl|       1008 Link            c req 1009 rxreq
+**** v1   vsl|       1010 Begin           b bereq 1009 fetch
+**** v1   vsl|       1010 VCL_use         b vcl2
+**** v1   vsl|       1010 Timestamp       b Start: 1634892884.748245 0.000000 0.000000
+**** v1   vsl|       1010 BereqMethod     b GET
+**** v1   vsl|       1010 BereqURL        b /base64urlnopad
+**** v1   vsl|       1010 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1010 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1010 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1010 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1010 BereqHeader     b X-Varnish: 1010
+**** v1   vsl|       1010 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1010 VCL_return      b fetch
+**** v1   vsl|       1010 BackendOpen     b 28 s1 127.0.0.1 33423 127.0.0.1 46972 connect
+**** v1   vsl|       1010 Timestamp       b Bereq: 1634892884.748352 0.000107 0.000107
+**** v1   vsl|       1010 Timestamp       b Beresp: 1634892884.748851 0.000606 0.000499
+**** v1   vsl|       1010 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1010 BerespStatus    b 200
+**** v1   vsl|       1010 BerespReason    b OK
+**** v1   vsl|       1010 BerespHeader    b Content-Length: 0
+**** v1   vsl|       1010 BerespHeader    b Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** v1   vsl|       1010 TTL             b RFC 120 10 0 1634892885 1634892885 1634892884 0 0 cacheable
+**** v1   vsl|       1010 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1010 VCL_return      b deliver
+**** v1   vsl|       1010 Filters         b 
+**** v1   vsl|       1010 Storage         b malloc s0
+**** v1   vsl|       1010 Fetch_Body      b 0 none -
+**** v1   vsl|       1010 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1010 Timestamp       b BerespBody: 1634892884.758974 0.010729 0.010123
+**** v1   vsl|       1010 Length          b 0
+**** v1   vsl|       1010 BereqAcct       b 117 0 117 38 0 38
+**** v1   vsl|       1010 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f4014000bb0 e=129.965216 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f4014001110 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f4014001110 e=1634893014.748852 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f4014000bb0 e=129.965207 f=0x0
+**** v1   vsl|       1009 Begin           c req 1008 rxreq
+**** v1   vsl|       1009 Timestamp       c Start: 1634892884.748195 0.000000 0.000000
+**** v1   vsl|       1009 Timestamp       c Req: 1634892884.748195 0.000000 0.000000
+**** v1   vsl|       1009 VCL_use         c vcl2
+**** v1   vsl|       1009 ReqStart        c 127.0.0.1 34294 a0
+**** v1   vsl|       1009 ReqMethod       c GET
+**** v1   vsl|       1009 ReqURL          c /base64urlnopad
+**** v1   vsl|       1009 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1009 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1009 VCL_call        c RECV
+**** v1   vsl|       1009 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1009 VCL_return      c hash
+**** v1   vsl|       1009 VCL_call        c HASH
+**** v1   vsl|       1009 VCL_return      c lookup
+**** v1   vsl|       1009 VCL_call        c MISS
+**** v1   vsl|       1009 VCL_return      c fetch
+**** v1   vsl|       1009 Link            c bereq 1010 fetch
+**** v1   vsl|       1009 Timestamp       c Fetch: 1634892884.759002 0.010806 0.010806
+**** v1   vsl|       1009 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1009 RespStatus      c 200
+**** v1   vsl|       1009 RespReason      c OK
+**** v1   vsl|       1009 RespHeader      c Content-Length: 0
+**** v1   vsl|       1009 RespHeader      c Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** v1   vsl|       1009 RespHeader      c X-Varnish: 1009
+**** v1   vsl|       1009 RespHeader      c Age: 0
+**** v1   vsl|       1009 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1009 VCL_call        c DELIVER
+**** v1   vsl|       1009 ReqHeader       c foo: AAA=
+**** v1   vsl|       1009 VCL_Error       c vmod blob error: cannot decode, illegal encoding beginning with "TWFu"
+**** v1   vsl|       1009 RespHeader      c badpad: 
+**** v1   vsl|       1009 VCL_return      c fail
+**** v1   vsl|       1009 Timestamp       c Process: 1634892884.759017 0.010822 0.000015
+**** v1   vsl|       1009 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1009 RespStatus      c 503
+**** v1   vsl|       1009 RespReason      c VCL failed
+**** v1   vsl|       1009 RespHeader      c Date: Fri, 22 Oct 2021 08:54:44 GMT
+**** v1   vsl|       1009 RespHeader      c Server: Varnish
+**** v1   vsl|       1009 RespHeader      c X-Varnish: 1009
+**** v1   vsl|       1009 VCL_call        c SYNTH
+**** v1   vsl|       1009 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1009 RespHeader      c Retry-After: 5
+**** v1   vsl|       1009 VCL_return      c deliver
+**** v1   vsl|       1009 Timestamp       c Process: 1634892884.759030 0.010835 0.000013
+**** v1   vsl|       1009 RespHeader      c Content-Length: 251
+**** v1   vsl|       1009 Storage         c malloc Transient
+**** v1   vsl|       1009 Filters         c 
+**** v1   vsl|       1009 RespHeader      c Connection: close
+**** v1   vsl|       1009 Timestamp       c Resp: 1634892884.759080 0.010885 0.000049
+**** v1   vsl|       1009 ReqAcct         c 49 0 49 194 251 445
+**** v1   vsl|       1009 End             c 
+**** v1   vsl|       1008 SessClose       c VCL_FAILURE 0.011
+**** v1   vsl|       1008 End             c 
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 134 Backend name   Admin      Probe    Health     Last change
+vcl2.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:54:44 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.664
+***  v1   debug|Info: Child (71196) ended
+***  v1   debug|Info: Child (71196) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+**** dT   1.665
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   1.716
+**   v1   WAIT4 pid=71164 status=0x0000 (user 0.324806 sys 0.071321)
+**** dT   1.717
+*    top  TEST ./tests/m00038.vtc completed
+#    top  TEST ./tests/m00038.vtc passed (1.717)

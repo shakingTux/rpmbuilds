@@ -1,0 +1,206 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Varnish Developer Day 2019Q3 &#8212; Varnish version 6.5.2 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="QUIC visions of OSI" href="quic.html" />
+    <link rel="prev" title="Poul-Hennings random outbursts" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="quic.html" title="QUIC visions of OSI"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Poul-Hennings random outbursts"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Varnish version 6.5.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Poul-Hennings random outbursts</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="varnish-developer-day-2019q3">
+<span id="vdd19q3"></span><h1>Varnish Developer Day 2019Q3<a class="headerlink" href="#varnish-developer-day-2019q3" title="Permalink to this headline">¶</a></h1>
+<p>We try to bring the core Varnish People into the same room a
+couple of times a year for “Varnish Developer Day” meetings,
+and last week we did that at Varnish Software’s Oslo offices.</p>
+<p>Tuesday was a “Hackathon”, where we lounged around and worked
+concrete issues and ideas, Wednesday was the “formal” day where
+we sat around a table and negotiated and made decisions.</p>
+<p>The main issues this time were HTTP3, backends and project
+organization, and here I will try to give a quick summary.</p>
+<div class="section" id="http3-and-quic">
+<h2>HTTP3 and QUIC<a class="headerlink" href="#http3-and-quic" title="Permalink to this headline">¶</a></h2>
+<p>Everybody seemed to agree that we want H3 support, and after
+Dag’s quick overview of the protocol, the challenge of doing
+that were evident.</p>
+<p>We also agreed that having certificates and secret keys inside
+the varnish worker process is still a no-go, so some variant
+of “key-less” is called for.  Fortunately H3 is designed with
+this in mind for performance reasons.</p>
+<p>Getting from A-B is the hard part, and we may introduce a A’
+pit-stop where we implement key-less TLS1.3 on HTTP1+2, and
+possibly also a A’’ pitstop to get TLS on backends.</p>
+<p>Dag and PHK will try to plot a course for this.</p>
+</div>
+<div class="section" id="backends">
+<h2>Backends<a class="headerlink" href="#backends" title="Permalink to this headline">¶</a></h2>
+<p>There are a lot of annoying details about backends we want to
+do something about, from probes being near-magical to H1 to
+getting a proper handle on the lifetime of dynamic backends.</p>
+<p>Some concrete improvements came up during the hackathon and we will
+be persuing those right away.</p>
+<p>Fixing probing is probably a V7 thing, and we need to think
+and prototype how we expose probing in VCL.</p>
+</div>
+<div class="section" id="bugwash">
+<h2>Bugwash<a class="headerlink" href="#bugwash" title="Permalink to this headline">¶</a></h2>
+<p>We are getting more people involved on the other side of the Atlantic,
+and we are moving the Monday afternoon bugwash from 13:00-14:00 EU
+time to 15:00-15:30 EU time, so they do not have to get out of bed
+so early.</p>
+<p>We will also try to make the bugwash more producive, by having PHK
+publish an “agenda” some hours beforehand, so people can prepare,
+and instead shorten the bugwash to 30 minutes to keep the time
+commitment the same.</p>
+<p>Everybody is welcome to attend our bugwashs, on the IRC channel
+#varnish-hacking on irc.linpro.no.</p>
+</div>
+<div class="section" id="project-organization">
+<h2>Project organization<a class="headerlink" href="#project-organization" title="Permalink to this headline">¶</a></h2>
+<p>There has been some friction in the project this summer and we
+have talked a lot about how to counter that.</p>
+<p>A significant part of the problem is that too much of the project
+business goes through me:  I am always the one nagging and no’ing
+peoples pull requests and that makes both them and me unhappy.</p>
+<p>We have drawn up a set of “rules of engagement” which will distribute
+the workload more evenly, essentially assuring that somebody from
+another organization will have looked at patches and pull requests
+before me, both to move some of the “no-ing” away from me and also
+to get people to pay more attention to each others work.</p>
+<p>For this to work, everybdoy will have to spend a bit more time on
+“project work”, but everybody agreed to do that, so we think it can
+fly.</p>
+<p>These discussions also brought up another thing:</p>
+</div>
+<div class="section" id="retirement-notice">
+<h2>Retirement Notice<a class="headerlink" href="#retirement-notice" title="Permalink to this headline">¶</a></h2>
+<p>One interesting feature of the IT industry, is that there are no
+retirement parties, because the industry more or less got born in
+the 1990’ies.</p>
+<p>There was an IT industry before then, I was part of it for most of
+a decade, and it did have retirement parties, because people had been
+going at it since the 50ies.</p>
+<p>One almost invariable part of the proceedings were the “Handling
+Over Of The Listing”, where the retiree ceremoniously handed over
+a four inch thick Z-fold listing of “The XYZ Program” to the younger
+person now assuming responsibility for its care, feeding &amp; maintenance,
+until his - or the program’s - retirement.</p>
+<p>If you do the math, you will find that I am now also getting into
+my 50ies, and the prospect of retirement is migrating from “theoretical
+event in distant future” to “I need to think about this.”</p>
+<p>On Tuesday the 20th of January 2026 I will be 60 years old, the
+Varnish Cache project will be 20 years old, and I will be retired
+from active project management in the Varnish Cache Project.</p>
+<p>That is six½ years in the future, a full half the current age of
+the project, and a long time in IT, but I want to reserve the date,
+so that the project has plenty of time to figure out what they want
+to do about it.</p>
+<p>The VDD appointed Martin and Nils to own that issue.</p>
+<p><em>phk</em></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Varnish Developer Day 2019Q3</a><ul>
+<li><a class="reference internal" href="#http3-and-quic">HTTP3 and QUIC</a></li>
+<li><a class="reference internal" href="#backends">Backends</a></li>
+<li><a class="reference internal" href="#bugwash">Bugwash</a></li>
+<li><a class="reference internal" href="#project-organization">Project organization</a></li>
+<li><a class="reference internal" href="#retirement-notice">Retirement Notice</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Poul-Hennings random outbursts</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="quic.html"
+                        title="next chapter">QUIC visions of OSI</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/phk/vdd19q3.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="quic.html" title="QUIC visions of OSI"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Poul-Hennings random outbursts"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Varnish version 6.5.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Poul-Hennings random outbursts</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2014, Varnish Software AS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

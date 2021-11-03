@@ -1,0 +1,517 @@
+**** dT   0.000
+*    top  TEST ./tests/c00083.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 35905
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.58519.37a9dfb7
+**   top  === varnishtest "Test VSM _.index rewrite when too many deletes"
+*    top  VTEST Test VSM _.index rewrite when too many deletes
+**   top  === varnish v1 -vcl {
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.58519.37a9dfb7/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 42807' -P /tmp/vtc.58519.37a9dfb7/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.58519.37a9dfb7/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 42807' -P /tmp/vtc.58519.37a9dfb7/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+**** dT   0.005
+***  v1   PID: 58537
+**** v1   macro def v1_pid=58537
+**** v1   macro def v1_name=/tmp/vtc.58519.37a9dfb7/v1
+**** dT   0.013
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.112
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 5
+***  v1   CLI RX  107
+**** v1   CLI RX|ojiewjbemutawfrjsbieqynodcdjbkvl
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth 8eb3d2a7a6f3ac1035784be6ba82ea9a9ff5581b220718e16bcbe0f14f4b43cf
+**** dT   0.113
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend default { .host = "192.0.2.255"; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.213
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.274
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.277
+***  v1   debug|Debug: Child (58549) Started
+**** dT   0.302
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (58549) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+**** dT   0.303
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 34591
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 34591
+**   v1   Listen on 127.0.0.1 34591
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=34591
+**** v1   macro def v1_sock=127.0.0.1 34591
+**** dT   0.314
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892720.068779/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892720.068779/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 34591
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 34591
+
+**** dT   0.403
+**   top  === delay 1
+***  top  delaying 1 second(s)
+**** dT   1.403
+**   top  === process p1 {
+**** dT   1.409
+**** p1   CMD: 
+	nlines=`wc -l < /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index`
+	nminus=`grep -c '^-' /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index`
+	echo CHILD NLINES $nlines NMINUS $nminus
+
+***  p1   PID: 58589
+**** dT   1.410
+**** p1   macro def p1_pid=58589
+**** p1   macro def p1_dir=/tmp/vtc.58519.37a9dfb7/p1
+**** p1   macro def p1_out=/tmp/vtc.58519.37a9dfb7/p1/term
+**** p1   macro def p1_err=/tmp/vtc.58519.37a9dfb7/p1/stderr
+**** dT   1.414
+**** p1   stdout|CHILD NLINES 39 NMINUS 0\r
+**** p1   stdout read -1
+**** p1   stderr read 0
+**   p1   WAIT4 pid=58589 status=0x0000 (user 0.002858 sys 0.002121)
+**** p1   macro undef p1_pid
+**** p1   stdout 26 bytes, stderr 0 bytes
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl2 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b00 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b01 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b02 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b03 { .host = "192.0.2.255"; }
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tset req.backend_hint = b00;
+**** v1   CLI TX|\t\tset req.backend_hint = b01;
+**** v1   CLI TX|\t\tset req.backend_hint = b02;
+**** v1   CLI TX|\t\tset req.backend_hint = b03;
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.582
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl2
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl2' now active
+**   top  === varnish v1 -cliok vcl.list
+**** v1   CLI TX|vcl.list
+***  v1   CLI RX  200
+**** v1   CLI RX|available   auto    warm         0    vcl1
+**** v1   CLI RX|active      auto    warm         0    vcl2
+**   v1   CLI 200 <vcl.list>
+**   top  === process p1 -run
+**** p1   CMD: 
+	nlines=`wc -l < /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index`
+	nminus=`grep -c '^-' /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index`
+	echo CHILD NLINES $nlines NMINUS $nminus
+
+**** dT   1.583
+***  p1   PID: 58602
+**** p1   macro def p1_pid=58602
+**** p1   macro def p1_dir=/tmp/vtc.58519.37a9dfb7/p1
+**** p1   macro def p1_out=/tmp/vtc.58519.37a9dfb7/p1/term
+**** p1   macro def p1_err=/tmp/vtc.58519.37a9dfb7/p1/stderr
+**** dT   1.587
+**** p1   stdout|CHILD NLINES 44 NMINUS 0\r
+**** p1   stdout read -1
+**** p1   stderr read 0
+**   p1   WAIT4 pid=58602 status=0x0000 (user 0.001934 sys 0.003054)
+**** p1   macro undef p1_pid
+**** p1   stdout 52 bytes, stderr 0 bytes
+**   top  === varnish v1 -cliok "vcl.use vcl1"
+**** v1   CLI TX|vcl.use vcl1
+**** dT   1.588
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl1' now active
+**   v1   CLI 200 <vcl.use vcl1>
+**   top  === varnish v1 -cliok "vcl.discard vcl2"
+**** v1   CLI TX|vcl.discard vcl2
+***  v1   CLI RX  200
+**   v1   CLI 200 <vcl.discard vcl2>
+**   top  === delay 1
+***  top  delaying 1 second(s)
+**** dT   1.615
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl2 vcl_vcl2.1634892721.370250/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl2.1634892721.370250/vgc.so" as "vcl2"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl2
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd vcl.list
+**** v1   vsl|          0 CLI             - Wr 200 86 available   auto    warm         0    vcl1
+active      auto    warm         0    vcl2
+
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl1
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd vcl.state vcl2 0cold
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd vcl.discard vcl2
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** dT   2.588
+**   top  === process p1 -run
+**** p1   CMD: 
+	nlines=`wc -l < /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index`
+	nminus=`grep -c '^-' /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index`
+	echo CHILD NLINES $nlines NMINUS $nminus
+
+**** dT   2.589
+***  p1   PID: 58609
+**** p1   macro def p1_pid=58609
+**** p1   macro def p1_dir=/tmp/vtc.58519.37a9dfb7/p1
+**** p1   macro def p1_out=/tmp/vtc.58519.37a9dfb7/p1/term
+**** p1   macro def p1_err=/tmp/vtc.58519.37a9dfb7/p1/stderr
+**** dT   2.594
+**** p1   stdout|CHILD NLINES 49 NMINUS 5\r
+**** p1   stdout read -1
+**** p1   stderr read 0
+**   p1   WAIT4 pid=58609 status=0x0000 (user 0.005432 sys 0.000000)
+**** p1   macro undef p1_pid
+**** p1   stdout 78 bytes, stderr 0 bytes
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl3 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b00 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b01 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b02 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b03 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b04 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b05 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b06 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b07 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b08 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b09 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b10 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b11 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b12 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b13 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b14 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b15 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b16 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b17 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b18 { .host = "192.0.2.255"; }
+**** v1   CLI TX|\tbackend b19 { .host = "192.0.2.255"; }
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tset req.backend_hint = b00;
+**** v1   CLI TX|\t\tset req.backend_hint = b01;
+**** v1   CLI TX|\t\tset req.backend_hint = b02;
+**** v1   CLI TX|\t\tset req.backend_hint = b03;
+**** v1   CLI TX|\t\tset req.backend_hint = b04;
+**** v1   CLI TX|\t\tset req.backend_hint = b05;
+**** v1   CLI TX|\t\tset req.backend_hint = b06;
+**** v1   CLI TX|\t\tset req.backend_hint = b07;
+**** v1   CLI TX|\t\tset req.backend_hint = b08;
+**** v1   CLI TX|\t\tset req.backend_hint = b09;
+**** v1   CLI TX|\t\tset req.backend_hint = b10;
+**** v1   CLI TX|\t\tset req.backend_hint = b11;
+**** v1   CLI TX|\t\tset req.backend_hint = b12;
+**** v1   CLI TX|\t\tset req.backend_hint = b13;
+**** v1   CLI TX|\t\tset req.backend_hint = b14;
+**** v1   CLI TX|\t\tset req.backend_hint = b15;
+**** v1   CLI TX|\t\tset req.backend_hint = b16;
+**** v1   CLI TX|\t\tset req.backend_hint = b17;
+**** v1   CLI TX|\t\tset req.backend_hint = b18;
+**** v1   CLI TX|\t\tset req.backend_hint = b19;
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   2.787
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl3
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl3' now active
+**   top  === varnish v1 -cliok vcl.list
+**** v1   CLI TX|vcl.list
+***  v1   CLI RX  200
+**** v1   CLI RX|available   auto    warm         0    vcl1
+**** v1   CLI RX|active      auto    warm         0    vcl3
+**   v1   CLI 200 <vcl.list>
+**   top  === varnish v1 -cliok backend.list
+**** v1   CLI TX|backend.list
+**** dT   2.788
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl3.b00       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b01       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b02       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b03       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b04       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b05       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b06       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b07       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b08       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b09       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b10       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b11       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b12       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b13       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b14       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b15       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b16       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b17       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b18       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**** v1   CLI RX|vcl3.b19       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+**   v1   CLI 200 <backend.list>
+**   top  === delay 1
+***  top  delaying 1 second(s)
+**** dT   2.817
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl3 vcl_vcl3.1634892722.550014/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl3.1634892722.550014/vgc.so" as "vcl3"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl3
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd vcl.list
+**** v1   vsl|          0 CLI             - Wr 200 86 available   auto    warm         0    vcl1
+active      auto    warm         0    vcl3
+
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 1578 Backend name   Admin      Probe    Health     Last change
+vcl3.b00       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+vcl3.b01       healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:02 GMT
+vcl3.b02       healthy    0/0   
+**** dT   3.317
+**** v1   vsl|          0 CLI             - Rd ping
+**** v1   vsl|          0 CLI             - Wr 200 19 PONG 1634892723 1.0
+**** dT   3.788
+**   top  === process p1 -run
+**** p1   CMD: 
+	nlines=`wc -l < /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index`
+	nminus=`grep -c '^-' /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index`
+	echo CHILD NLINES $nlines NMINUS $nminus
+
+***  p1   PID: 58623
+**** dT   3.789
+**** p1   macro def p1_pid=58623
+**** p1   macro def p1_dir=/tmp/vtc.58519.37a9dfb7/p1
+**** p1   macro def p1_out=/tmp/vtc.58519.37a9dfb7/p1/term
+**** p1   macro def p1_err=/tmp/vtc.58519.37a9dfb7/p1/stderr
+**** dT   3.793
+**** p1   stdout|CHILD NLINES 70 NMINUS 5\r
+**** p1   stdout read -1
+**** p1   stderr read 0
+**   p1   WAIT4 pid=58623 status=0x0000 (user 0.004219 sys 0.000771)
+**** p1   macro undef p1_pid
+**** p1   stdout 104 bytes, stderr 0 bytes
+**   top  === varnish v1 -cliok "vcl.use vcl1"
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl1' now active
+**   v1   CLI 200 <vcl.use vcl1>
+**   top  === varnish v1 -cliok "vcl.discard vcl3"
+**** v1   CLI TX|vcl.discard vcl3
+**** dT   3.794
+***  v1   CLI RX  200
+**   v1   CLI 200 <vcl.discard vcl3>
+**   top  === delay 1
+***  top  delaying 1 second(s)
+**** dT   3.818
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl1
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd vcl.state vcl3 0cold
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd vcl.discard vcl3
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** dT   4.794
+**   top  === process p1 {
+**** p1   CMD: 
+	nlines=`wc -l < /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index`
+	nminus=`grep -c '^-' /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index`
+	echo CHILD NLINES $nlines NMINUS $nminus
+	# cat /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index
+	test $nminus -lt 20
+
+**** dT   4.795
+***  p1   PID: 58629
+**** p1   macro def p1_pid=58629
+**** p1   macro def p1_dir=/tmp/vtc.58519.37a9dfb7/p1
+**** p1   macro def p1_out=/tmp/vtc.58519.37a9dfb7/p1/term
+**** p1   macro def p1_err=/tmp/vtc.58519.37a9dfb7/p1/stderr
+**** dT   4.802
+**** p1   stdout|CHILD NLINES 47 NMINUS 4\r
+**** p1   stderr read 0
+**** p1   stdout read -1
+**   p1   WAIT4 pid=58629 status=0x0000 (user 0.005411 sys 0.001320)
+**** p1   macro undef p1_pid
+**** p1   stdout 130 bytes, stderr 0 bytes
+**   top  === process p1 {
+**** p1   CMD: 
+	nlines=`wc -l < /tmp/vtc.58519.37a9dfb7/v1/_.vsm_mgt/_.index`
+	nminus=`grep -c '^-' /tmp/vtc.58519.37a9dfb7/v1/_.vsm_mgt/_.index`
+	echo MGT NLINES $nlines NMINUS $nminus
+	# cat /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index
+	test $nminus -eq 0
+
+***  p1   PID: 58635
+**** p1   macro def p1_pid=58635
+**** p1   macro def p1_dir=/tmp/vtc.58519.37a9dfb7/p1
+**** p1   macro def p1_out=/tmp/vtc.58519.37a9dfb7/p1/term
+**** p1   macro def p1_err=/tmp/vtc.58519.37a9dfb7/p1/stderr
+**** dT   4.806
+**** p1   stdout|MGT NLINES 8 NMINUS 0\r
+**** p1   stderr read 0
+**** p1   stdout read -1
+**** dT   4.807
+**   p1   WAIT4 pid=58635 status=0x0000 (user 0.004679 sys 0.000000)
+**** p1   macro undef p1_pid
+**** p1   stdout 153 bytes, stderr 0 bytes
+**   top  === varnish v1 -cliok "stop"
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   4.820
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   5.807
+***  v1   debug|Info: Child (58549) ended
+***  v1   debug|Info: Child (58549) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+**   v1   CLI 200 <stop>
+**   top  === delay 1
+***  top  delaying 1 second(s)
+**** dT   6.807
+**   top  === process p1 {
+**** p1   CMD: 
+	nlines=`wc -l < /tmp/vtc.58519.37a9dfb7/v1/_.vsm_mgt/_.index`
+	nminus=`grep -c '^-' /tmp/vtc.58519.37a9dfb7/v1/_.vsm_mgt/_.index`
+	echo MGT NLINES $nlines NMINUS $nminus
+	# cat /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index
+	test $nminus -eq 2
+
+**** dT   6.808
+***  p1   PID: 58641
+**** p1   macro def p1_pid=58641
+**** p1   macro def p1_dir=/tmp/vtc.58519.37a9dfb7/p1
+**** p1   macro def p1_out=/tmp/vtc.58519.37a9dfb7/p1/term
+**** p1   macro def p1_err=/tmp/vtc.58519.37a9dfb7/p1/stderr
+**** dT   6.814
+**** p1   stdout|MGT NLINES 10 NMINUS 2\r
+**** p1   stderr read 0
+**** p1   stdout read -1
+**   p1   WAIT4 pid=58641 status=0x0000 (user 0.006288 sys 0.000000)
+**** p1   macro undef p1_pid
+**** p1   stdout 177 bytes, stderr 0 bytes
+**   top  === varnish v1 -cliok "start"
+**** v1   CLI TX|start
+**** dT   6.818
+***  v1   debug|Debug: Child (58648) Started
+**** dT   6.844
+***  v1   debug|Info: Child (58648) said Child starts
+***  v1   CLI RX  200
+**   v1   CLI 200 <start>
+**   top  === delay 1
+***  top  delaying 1 second(s)
+**** dT   7.844
+**   top  === process p1 -run
+**** p1   CMD: 
+	nlines=`wc -l < /tmp/vtc.58519.37a9dfb7/v1/_.vsm_mgt/_.index`
+	nminus=`grep -c '^-' /tmp/vtc.58519.37a9dfb7/v1/_.vsm_mgt/_.index`
+	echo MGT NLINES $nlines NMINUS $nminus
+	# cat /tmp/vtc.58519.37a9dfb7/v1/_.vsm_child/_.index
+	test $nminus -eq 2
+
+**** dT   7.845
+***  p1   PID: 58714
+**** p1   macro def p1_pid=58714
+**** p1   macro def p1_dir=/tmp/vtc.58519.37a9dfb7/p1
+**** p1   macro def p1_out=/tmp/vtc.58519.37a9dfb7/p1/term
+**** p1   macro def p1_err=/tmp/vtc.58519.37a9dfb7/p1/stderr
+**** dT   7.850
+**** p1   stdout|MGT NLINES 12 NMINUS 2\r
+**** dT   7.851
+**** p1   stdout read -1
+**** p1   stderr read 0
+**   p1   WAIT4 pid=58714 status=0x0000 (user 0.003346 sys 0.002744)
+**** p1   macro undef p1_pid
+**** p1   stdout 201 bytes, stderr 0 bytes
+*    top  RESETTING after ./tests/c00083.vtc
+**   v1   Wait
+**** v1   CLI TX|backend.list
+**** dT   7.895
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl1.default   healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:06 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   7.924
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 134 Backend name   Admin      Probe    Health     Last change
+vcl1.default   healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:06 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   8.896
+***  v1   debug|Info: Child (58648) ended
+***  v1   debug|Info: Child (58648) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+**** dT   8.897
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   8.926
+**   v1   WAIT4 pid=58537 status=0x0000 (user 0.475204 sys 0.087589)
+*    top  TEST ./tests/c00083.vtc completed
+#    top  TEST ./tests/c00083.vtc passed (8.927)

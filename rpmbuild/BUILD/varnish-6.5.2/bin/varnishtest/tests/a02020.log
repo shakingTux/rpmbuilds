@@ -1,0 +1,154 @@
+**** dT   0.000
+*    top  TEST ./tests/a02020.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 44333
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.45817.25115fac
+**   top  === varnishtest "Reduce dynamic table while incoming headers are...
+*    top  VTEST Reduce dynamic table while incoming headers are flying
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=33047
+**** s1   macro def s1_sock=127.0.0.1 33047
+*    s1   Listen on 127.0.0.1 33047
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 33047 (1 iterations)
+***  c1   Connect to 127.0.0.1 33047
+**   s1   Started on 127.0.0.1 33047 (1 iterations)
+***  c1   connected fd 5 from 127.0.0.1 44240 to 127.0.0.1 33047
+***  s1   accepted fd 6 127.0.0.1 44240
+**   s1   === stream 1 {
+**** s1   Not in H/2 mode, do what's needed
+**   s1   === rxpri
+**** dT   0.001
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   0.011
+**   s1   === stream 0 {
+**   c1   === stream 0 {
+**   s1   Starting stream 0x7fed64001450
+**   s1   Waiting for stream 0
+**   c1   Starting stream 0x7fed5c0014f0
+**   s1   === txsettings
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   Waiting for stream 0
+**   s1   === rxsettings
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**** dT   0.012
+**   s1   === txsettings -ack
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   s1   === rxsettings
+**   c1   === rxsettings
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  s1   flag: ACK
+**   s1   === expect settings.ack == true
+**** s1   EXPECT settings.ack (true) == "true" match
+**   s1   Ending stream 0
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   s1   Starting stream 0x7fed640026e0
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   s1   Waiting for stream 1
+**   s1   === rxreq
+**   c1   Starting stream 0x7fed5c0026f0
+**   c1   Waiting for stream 1
+**   c1   === txreq
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 36
+***  s1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 36
+***  s1   flag: END_STREAM
+**** s1   header[ 0]: :path : /
+**** s1   header[ 1]: :method : GET
+**** s1   header[ 2]: :scheme : http
+**   s1   === txresp -litHdr inc plain hoge plain fuga
+***  s1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 24
+**   s1   === expect tbl.enc[1].key == "hoge"
+**** s1   EXPECT tbl.enc[1].key (hoge) == "hoge" match
+**   s1   === expect tbl.enc[1].value == "fuga"
+**** s1   EXPECT tbl.enc[1].value (fuga) == "fuga" match
+**   s1   === expect tbl.enc.size == 40
+**** s1   EXPECT tbl.enc.size (40) == "40" match
+**   s1   Ending stream 1
+**   s1   === stream 3 {
+**   s1   Starting stream 0x7fed640037f0
+**   s1   Waiting for stream 3
+**   s1   === rxreq
+**   c1   === rxresp
+***  c1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 24
+***  c1   flag: END_STREAM
+**** c1   header[ 0]: hoge : fuga
+**** c1   header[ 1]: :status : 200
+**   c1   === expect tbl.dec[1].key == "hoge"
+**** c1   EXPECT tbl.dec[1].key (hoge) == "hoge" match
+**   c1   === expect tbl.dec[1].value == "fuga"
+**** c1   EXPECT tbl.dec[1].value (fuga) == "fuga" match
+**   c1   === expect tbl.dec.size == 40
+**** c1   EXPECT tbl.dec.size (40) == "40" match
+**   c1   === expect tbl.dec.length == 1
+**** c1   EXPECT tbl.dec.length (1) == "1" match
+**   c1   Ending stream 1
+**   c1   === stream 3 { txreq		} -run
+**   c1   Starting stream 0x7fed5c003810
+**   c1   Waiting for stream 3
+**   c1   === txreq		
+***  c1   tx: stream: 3, type: HEADERS (1), flags: 0x05, size: 36
+**** dT   0.013
+***  s1   rx: stream: 3, type: HEADERS (1), flags: 0x05, size: 36
+***  s1   flag: END_STREAM
+**** s1   header[ 0]: :path : /
+**** s1   header[ 1]: :method : GET
+**** s1   header[ 2]: :scheme : http
+**   c1   Ending stream 3
+**   c1   === stream 0 { txsettings -hdrtbl 0 } -run
+**   c1   Starting stream 0x7fed5c0014f0
+**   c1   Waiting for stream 0
+**   s1   === txresp -idxHdr 62 -litHdr inc plain "foo" plain "bar"
+**   c1   === txsettings -hdrtbl 0 
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+***  s1   tx: stream: 3, type: HEADERS (1), flags: 0x05, size: 23
+**   c1   Ending stream 0
+**   c1   === non_fatal
+**   c1   === stream 3 {
+**   c1   Starting stream 0x7fed5c003810
+**   c1   Waiting for stream 3
+**   c1   === rxresp
+***  c1   rx: stream: 3, type: HEADERS (1), flags: 0x05, size: 23
+***  c1   flag: END_STREAM
+**** c1   Header decoding failed (2) -1
+**   s1   Ending stream 3
+**   c1   === expect resp.http.foo == <undef>
+**   s1   === stream 0 { rxsettings	} -run
+**   s1   Starting stream 0x7fed64001450
+**   s1   Waiting for stream 0
+**** c1   EXPECT resp.http.foo (<undef>) == "<undef>" match
+**   c1   Ending stream 3
+**   s1   === rxsettings	
+***  c1   closing fd 5
+**   c1   Ending
+*    top  RESETTING after ./tests/a02020.vtc
+**   s1   Waiting for server (4/-1)
+**   s1   Waiting for stream 0
+**** dT   0.014
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** s1   settings->HEADER_TABLE_SIZE (1): 0
+**   s1   Ending stream 0
+*    top  TEST ./tests/a02020.vtc completed
+#    top  TEST ./tests/a02020.vtc passed (0.014)

@@ -1,0 +1,972 @@
+**** dT   0.000
+*    top  TEST ./tests/b00042.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 41873
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.49493.4af021ce
+**   top  === varnishtest "param edge cases"
+*    top  VTEST param edge cases
+**   top  === varnish v1 -vcl {backend foo {.host = "127.0.0.1";}} -start
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.49493.4af021ce/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 36977' -P /tmp/vtc.49493.4af021ce/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.49493.4af021ce/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 36977' -P /tmp/vtc.49493.4af021ce/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 49511
+**** v1   macro def v1_pid=49511
+**** v1   macro def v1_name=/tmp/vtc.49493.4af021ce/v1
+**** dT   0.012
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.111
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 5
+***  v1   CLI RX  107
+**** v1   CLI RX|tprknozafnxclxtnznsweralkquknhbh
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth c253ccca7896ecc17de39ba25189ee80e76f2acc2ffd8b6e0016f23f5dd0cba7
+**** dT   0.112
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend foo {.host = "127.0.0.1";}
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.212
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.262
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**** dT   0.263
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.266
+***  v1   debug|Debug: Child (49523) Started
+**** dT   0.293
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (49523) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 33565
+**** v1   CLI TX|debug.xid 999
+**** dT   0.294
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 33565
+**   v1   Listen on 127.0.0.1 33565
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=33565
+**** v1   macro def v1_sock=127.0.0.1 33565
+**** dT   0.313
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892585.927686/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892585.927686/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 33565
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 33565
+
+**** dT   0.394
+**   top  === varnish v1 -clierr "106" "param.set default_ttl -1"
+**** v1   CLI TX|param.set default_ttl -1
+***  v1   CLI RX  106
+**** v1   CLI RX|Must be greater or equal to 0.000
+**** v1   CLI RX|
+**** v1   CLI RX|(attempting to set param 'default_ttl' to '-1')
+**   v1   CLI 106 <param.set default_ttl -1>
+**   top  === varnish v1 -clierr "106" "param.set acceptor_sleep_max 20"
+**** v1   CLI TX|param.set acceptor_sleep_max 20
+***  v1   CLI RX  106
+**** v1   CLI RX|Must be less than or equal to 10.000
+**** v1   CLI RX|
+**** v1   CLI RX|(attempting to set param 'acceptor_sleep_max' to '20')
+**   v1   CLI 106 <param.set acceptor_sleep_max 20>
+**   top  === varnish v1 -clierr "200" "param.set prefer_ipv6 off"
+**** v1   CLI TX|param.set prefer_ipv6 off
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set prefer_ipv6 off>
+**   top  === varnish v1 -clierr "200" "param.set prefer_ipv6 no"
+**** v1   CLI TX|param.set prefer_ipv6 no
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set prefer_ipv6 no>
+**   top  === varnish v1 -clierr "200" "param.set prefer_ipv6 disable"
+**** v1   CLI TX|param.set prefer_ipv6 disable
+**** dT   0.395
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set prefer_ipv6 disable>
+**   top  === varnish v1 -clierr "200" "param.set prefer_ipv6 false"
+**** v1   CLI TX|param.set prefer_ipv6 false
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set prefer_ipv6 false>
+**   top  === varnish v1 -clierr "200" "param.set prefer_ipv6 on"
+**** v1   CLI TX|param.set prefer_ipv6 on
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set prefer_ipv6 on>
+**   top  === varnish v1 -clierr "200" "param.set prefer_ipv6 yes"
+**** v1   CLI TX|param.set prefer_ipv6 yes
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set prefer_ipv6 yes>
+**   top  === varnish v1 -clierr "200" "param.set prefer_ipv6 enable"
+**** v1   CLI TX|param.set prefer_ipv6 enable
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set prefer_ipv6 enable>
+**   top  === varnish v1 -clierr "200" "param.set prefer_ipv6 true"
+**** v1   CLI TX|param.set prefer_ipv6 true
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set prefer_ipv6 true>
+**   top  === varnish v1 -clierr "106" "param.set prefer_ipv6 foobar"
+**** v1   CLI TX|param.set prefer_ipv6 foobar
+***  v1   CLI RX  106
+**** v1   CLI RX|use "on" or "off"
+**** v1   CLI RX|
+**** v1   CLI RX|(attempting to set param 'prefer_ipv6' to 'foobar')
+**   v1   CLI 106 <param.set prefer_ipv6 foobar>
+**   top  === varnish v1 -clierr "106" "param.set http_max_hdr 0"
+**** v1   CLI TX|param.set http_max_hdr 0
+***  v1   CLI RX  106
+**** v1   CLI RX|Must be at least 32
+**** v1   CLI RX|
+**** v1   CLI RX|(attempting to set param 'http_max_hdr' to '0')
+**   v1   CLI 106 <param.set http_max_hdr 0>
+**   top  === varnish v1 -clierr "106" "param.set http_max_hdr 1000000"
+**** v1   CLI TX|param.set http_max_hdr 1000000
+**** dT   0.396
+***  v1   CLI RX  106
+**** v1   CLI RX|Must be no more than 65535
+**** v1   CLI RX|
+**** v1   CLI RX|(attempting to set param 'http_max_hdr' to '1000000')
+**   v1   CLI 106 <param.set http_max_hdr 1000000>
+**   top  === varnish v1 -clierr "106" "param.set workspace_thread 1b"
+**** v1   CLI TX|param.set workspace_thread 1b
+***  v1   CLI RX  106
+**** v1   CLI RX|Must be at least 0.25k
+**** v1   CLI RX|
+**** v1   CLI RX|(attempting to set param 'workspace_thread' to '1b')
+**   v1   CLI 106 <param.set workspace_thread 1b>
+**   top  === varnish v1 -clierr "106" "param.set workspace_thread 1m"
+**** v1   CLI TX|param.set workspace_thread 1m
+***  v1   CLI RX  106
+**** v1   CLI RX|Must be no more than 8k
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|(attempting to set param 'workspace_thread' to '1m')
+**   v1   CLI 106 <param.set workspace_thread 1m>
+**   top  === varnish v1 -clierr "106" "param.set workspace_thread 1x"
+**** v1   CLI TX|param.set workspace_thread 1x
+***  v1   CLI RX  106
+**** v1   CLI RX|Could not convert to bytes.
+**** v1   CLI RX|Invalid suffix
+**** v1   CLI RX|  Try something like '80k' or '120M'
+**** v1   CLI RX|
+**** v1   CLI RX|(attempting to set param 'workspace_thread' to '1x')
+**   v1   CLI 106 <param.set workspace_thread 1x>
+**   top  === varnish v1 -clierr "106" "param.set workspace_thread x"
+**** v1   CLI TX|param.set workspace_thread x
+***  v1   CLI RX  106
+**** v1   CLI RX|Could not convert to bytes.
+**** v1   CLI RX|Invalid number
+**** v1   CLI RX|  Try something like '80k' or '120M'
+**** v1   CLI RX|
+**** v1   CLI RX|(attempting to set param 'workspace_thread' to 'x')
+**   v1   CLI 106 <param.set workspace_thread x>
+**   top  === varnish v1 -clierr "106" "param.set user ///"
+**** v1   CLI TX|param.set user ///
+***  v1   CLI RX  106
+**** v1   CLI RX|Unknown parameter "user".
+**   v1   CLI 106 <param.set user ///>
+**   top  === varnish v1 -clierr "106" "param.set user ///"
+**** v1   CLI TX|param.set user ///
+***  v1   CLI RX  106
+**** v1   CLI RX|Unknown parameter "user".
+**   v1   CLI 106 <param.set user ///>
+**   top  === varnish v1 -clierr "106" {param.set pool_sess "\""}
+**** v1   CLI TX|param.set pool_sess "\""
+***  v1   CLI RX  106
+**** v1   CLI RX|Parse error: Missing '"'
+**** v1   CLI RX|(attempting to set param 'pool_sess' to '"')
+**   v1   CLI 106 <param.set pool_sess "\"">
+**   top  === varnish v1 -clierr "200" {param.set thread_pool_max 110}
+**** v1   CLI TX|param.set thread_pool_max 110
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set thread_pool_max 110>
+**   top  === varnish v1 -clierr "106" {param.set thread_pool_min 111}
+**** v1   CLI TX|param.set thread_pool_min 111
+***  v1   CLI RX  106
+**** v1   CLI RX|Must be no more than 110 (thread_pool_max)
+**** v1   CLI RX|
+**** v1   CLI RX|(attempting to set param 'thread_pool_min' to '111')
+**   v1   CLI 106 <param.set thread_pool_min 111>
+**   top  === varnish v1 -clierr "200" {param.set thread_pool_min 51}
+**** v1   CLI TX|param.set thread_pool_min 51
+**** dT   0.397
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set thread_pool_min 51>
+**   top  === varnish v1 -clierr "106" {param.set thread_pool_max 50}
+**** v1   CLI TX|param.set thread_pool_max 50
+***  v1   CLI RX  106
+**** v1   CLI RX|Must be at least 51 (thread_pool_min)
+**** v1   CLI RX|
+**** v1   CLI RX|(attempting to set param 'thread_pool_max' to '50')
+**   v1   CLI 106 <param.set thread_pool_max 50>
+**   top  === varnish v1 -clierr "200" {param.set thread_pool_max 51}
+**** v1   CLI TX|param.set thread_pool_max 51
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set thread_pool_max 51>
+**   top  === varnish v1 -clierr "200" {param.set thread_pool_max unlimite...
+**** v1   CLI TX|param.set thread_pool_max unlimited
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set thread_pool_max unlimited>
+**   top  === varnish v1 -clierr "106" {param.show fofofofo}
+**** v1   CLI TX|param.show fofofofo
+***  v1   CLI RX  106
+**** v1   CLI RX|Unknown parameter "fofofofo".
+**   v1   CLI 106 <param.show fofofofo>
+**   top  === varnish v1 -cliok "param.show changed"
+**** v1   CLI TX|param.show changed
+***  v1   CLI RX  200
+**** v1   CLI RX|auto_restart                  off [bool]
+**** v1   CLI RX|debug                         +vtc_mode
+**** v1   CLI RX|prefer_ipv6                   on [bool]
+**** v1   CLI RX|syslog_cli_traffic            off [bool]
+**** v1   CLI RX|thread_pool_max               unlimited [threads]
+**** v1   CLI RX|thread_pool_min               51 [threads]
+**** v1   CLI RX|vmod_path                     /root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs
+**** v1   CLI RX|vsl_mask                      -ObjProtocol,-ObjStatus,-ObjReason,-ObjHeader,-VCL_trace,-WorkThread,-Hash,-VfpAcct,-H2RxHdr,-H2RxBody,-H2TxHdr,-H2TxBody
+**** v1   CLI RX|vsl_space                     2M [bytes]
+**   v1   CLI 200 <param.show changed>
+**   top  === varnish v1 -cliok "param.show "
+**** v1   CLI TX|param.show 
+**** dT   0.398
+***  v1   CLI RX  200
+**** v1   CLI RX|accept_filter                 -
+**** v1   CLI RX|acceptor_sleep_decay          0.9 (default)
+**** v1   CLI RX|acceptor_sleep_incr           0.000 [seconds] (default)
+**** v1   CLI RX|acceptor_sleep_max            0.050 [seconds] (default)
+**** v1   CLI RX|auto_restart                  off [bool]
+**** v1   CLI RX|backend_idle_timeout          60.000 [seconds] (default)
+**** v1   CLI RX|backend_local_error_holddown  10.000 [seconds] (default)
+**** v1   CLI RX|backend_remote_error_holddown 0.250 [seconds] (default)
+**** v1   CLI RX|ban_cutoff                    0 [bans] (default)
+**** v1   CLI RX|ban_dups                      on [bool] (default)
+**** v1   CLI RX|ban_lurker_age                60.000 [seconds] (default)
+**** v1   CLI RX|ban_lurker_batch              1000 (default)
+**** v1   CLI RX|ban_lurker_holdoff            0.010 [seconds] (default)
+**** v1   CLI RX|ban_lurker_sleep              0.010 [seconds] (default)
+**** v1   CLI RX|between_bytes_timeout         60.000 [seconds] (default)
+**** v1   CLI RX|cc_command                    exec gcc -O2 -g -m64 -fmessage-length=0 -D_FORTIFY_SOURCE=2 -fstack-protector -funwind-tables -fasynchronous-unwind-tables -fcommon -fstack-protector -Wno-error=clobbered -Werror=maybe-uninitialized -Wall -Werror -Wno-error=unused-result   -Werror  -Wno-format-y2k  -Wstrict-prototypes  -Wmissing-prototypes  -Wpointer-arith  -Wcast-qual  -Wwrite-strings  -Wshadow  -Wunused-parameter  -Wcast-align  -Wchar-subscripts  -Wnested-externs  -Wextra  -Wno-sign-compare  -fstack-protector -Wno-missing-field-initializers -pthread -fpic -shared -Wl,-x -o %o %s (default)
+**** v1   CLI RX|cli_limit                     48k [bytes] (default)
+**** v1   CLI RX|cli_timeout                   60.000 [seconds] (default)
+**** v1   CLI RX|clock_skew                    10 [seconds] (default)
+**** v1   CLI RX|clock_step                    1.000 [seconds] (default)
+**** v1   CLI RX|connect_timeout               3.500 [seconds] (default)
+**** v1   CLI RX|critbit_cooloff               180.000 [seconds] (default)
+**** v1   CLI RX|debug                         +vtc_mode
+**** v1   CLI RX|default_grace                 10.000 [seconds] (default)
+**** v1   CLI RX|default_keep                  0.000 [seconds] (default)
+**** v1   CLI RX|default_ttl                   120.000 [seconds] (default)
+**** v1   CLI RX|feature                       none (default)
+**** v1   CLI RX|fetch_chunksize               16k [bytes] (default)
+**** v1   CLI RX|fetch_maxchunksize            0.25G [bytes] (default)
+**** v1   CLI RX|first_byte_timeout            60.000 [seconds] (default)
+**** v1   CLI RX|gzip_buffer                   32k [bytes] (default)
+**** v1   CLI RX|gzip_level                    6 (default)
+**** v1   CLI RX|gzip_memlevel                 8 (default)
+**** v1   CLI RX|h2_header_table_size          4k [bytes] (default)
+**** v1   CLI RX|h2_initial_window_size        65535b [bytes] (default)
+**** v1   CLI RX|h2_max_concurrent_streams     100 [streams] (default)
+**** v1   CLI RX|h2_max_frame_size             16k [bytes] (default)
+**** v1   CLI RX|h2_max_header_list_size       2147483647b [bytes] (default)
+**** v1   CLI RX|h2_rx_window_increment        1M [bytes] (default)
+**** v1   CLI RX|h2_rx_window_low_water        10M [bytes] (default)
+**** v1   CLI RX|http1_iovs                    64 [struct iovec (=16 bytes)] (default)
+**** v1   CLI RX|http_gzip_support             on [bool] (default)
+**** v1   CLI RX|http_max_hdr                  64 [header lines] (default)
+**** v1   CLI RX|http_range_support            on [bool] (default)
+**** v1   CLI RX|http_req_hdr_len              8k [bytes] (default)
+**** v1   CLI RX|http_req_size                 32k [bytes] (default)
+**** v1   CLI RX|http_resp_hdr_len             8k [bytes] (default)
+**** v1   CLI RX|http_resp_size                32k [bytes] (default)
+**** v1   CLI RX|idle_send_timeout             60.000 [seconds] (default)
+**** v1   CLI RX|listen_depth                  1024 [connections] (default)
+**** v1   CLI RX|lru_interval                  2.000 [seconds] (default)
+**** v1   CLI RX|max_esi_depth                 5 [levels] (default)
+**** v1   CLI RX|max_restarts                  4 [restarts] (default)
+**** v1   CLI RX|max_retries                   4 [retries] (default)
+**** v1   CLI RX|max_vcl                       100 (default)
+**** v1   CLI RX|max_vcl_handling              1 (default)
+**** v1   CLI RX|nuke_limit                    50 [allocations] (default)
+**** v1   CLI RX|pcre_match_limit              10000 (default)
+**** v1   CLI RX|pcre_match_limit_recursion    20 (default)
+**** v1   CLI RX|ping_interval                 3 [seconds] (default)
+**** v1   CLI RX|pipe_sess_max                 0 [connections] (default)
+**** v1   CLI RX|pipe_timeout                  60.000 [seconds] (default)
+**** v1   CLI RX|pool_req                      10,100,10 (default)
+**** v1   CLI RX|pool_sess                     10,100,10 (default)
+**** v1   CLI RX|pool_vbo                      10,100,10 (default)
+**** v1   CLI RX|prefer_ipv6                   on [bool]
+**** v1   CLI RX|rush_exponent                 3 [requests per request] (default)
+**** v1   CLI RX|send_timeout                  600.000 [seconds] (default)
+**** v1   CLI RX|shortlived                    10.000 [seconds] (default)
+**** v1   CLI RX|sigsegv_handler               on [bool] (default)
+**** v1   CLI RX|syslog_cli_traffic            off [bool]
+**** v1   CLI RX|tcp_fastopen                  off [bool] (default)
+**** v1   CLI RX|tcp_keepalive_intvl           75.000 [seconds] (default)
+**** v1   CLI RX|tcp_keepalive_probes          9 [probes] (default)
+**** v1   CLI RX|tcp_keepalive_time            7200.000 [seconds] (default)
+**** v1   CLI RX|thread_pool_add_delay         0.000 [seconds] (default)
+**** v1   CLI RX|thread_pool_destroy_delay     1.000 [seconds] (default)
+**** v1   CLI RX|thread_pool_fail_delay        0.200 [seconds] (default)
+**** v1   CLI RX|thread_pool_max               unlimited [threads]
+**** v1   CLI RX|thread_pool_min               51 [threads]
+**** v1   CLI RX|thread_pool_reserve           0 [threads] (default)
+**** v1   CLI RX|thread_pool_stack             56k [bytes] (default)
+**** v1   CLI RX|thread_pool_timeout           300.000 [seconds] (default)
+**** v1   CLI RX|thread_pool_watchdog          60.000 [seconds] (default)
+**** v1   CLI RX|thread_pools                  2 [pools] (default)
+**** v1   CLI RX|thread_queue_limit            20 (default)
+**** v1   CLI RX|thread_stats_rate             10 [requests] (default)
+**** v1   CLI RX|timeout_idle                  5.000 [seconds] (default)
+**** v1   CLI RX|timeout_linger                0.050 [seconds] (default)
+**** v1   CLI RX|vcc_acl_pedantic              off [bool] (default)
+**** v1   CLI RX|vcc_allow_inline_c            off [bool] (default)
+**** v1   CLI RX|vcc_err_unref                 on [bool] (default)
+**** v1   CLI RX|vcc_unsafe_path               on [bool] (default)
+**** v1   CLI RX|vcl_cooldown                  600.000 [seconds] (default)
+**** v1   CLI RX|vcl_path                      /etc/varnish:/usr/share/varnish/vcl (default)
+**** v1   CLI RX|vmod_path                     /root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs
+**** v1   CLI RX|vsl_buffer                    4k [bytes] (default)
+**** v1   CLI RX|vsl_mask                      -ObjProtocol,-ObjStatus,-ObjReason,-ObjHeader,-VCL_trace,-WorkThread,-Hash,-VfpAcct,-H2RxHdr,-H2RxBody,-H2TxHdr,-H2TxBody
+**** v1   CLI RX|vsl_reclen                    255b [bytes] (default)
+**** v1   CLI RX|vsl_space                     2M [bytes]
+**** v1   CLI RX|vsm_free_cooldown             60.000 [seconds] (default)
+**** v1   CLI RX|vsm_space                     1M [bytes] (default)
+**** v1   CLI RX|workspace_backend             64k [bytes] (default)
+**** v1   CLI RX|workspace_client              64k [bytes] (default)
+**** v1   CLI RX|workspace_session             0.75k [bytes] (default)
+**** v1   CLI RX|workspace_thread              2k [bytes] (default)
+**   v1   CLI 200 <param.show >
+**   top  === varnish v1 -cliok "param.show -l"
+**** v1   CLI TX|param.show -l
+**** dT   0.400
+***  v1   CLI RX  200
+**** v1   CLI RX|accept_filter
+**** v1   CLI RX|        Not available
+**** v1   CLI RX|
+**** v1   CLI RX|        This parameter depends on a feature which is not available on
+**** v1   CLI RX|        this platform.
+**** v1   CLI RX|
+**** v1   CLI RX|acceptor_sleep_decay
+**** v1   CLI RX|        Value is: 0.9 (default)
+**** v1   CLI RX|        Minimum is: 0
+**** v1   CLI RX|        Maximum is: 1
+**** v1   CLI RX|
+**** v1   CLI RX|        If we run out of resources, such as file descriptors or worker
+**** v1   CLI RX|        threads, the acceptor will sleep between accepts.
+**** v1   CLI RX|        This parameter (multiplicatively) reduce the sleep duration for
+**** v1   CLI RX|        each successful accept. (ie: 0.9 = reduce by 10%)
+**** v1   CLI RX|
+**** v1   CLI RX|        NB: We do not know yet if it is a good idea to change this
+**** v1   CLI RX|        parameter, or if the default value is even sensible. Caution is
+**** v1   CLI RX|        advised, and feedback is most welcome.
+**** v1   CLI RX|
+**** v1   CLI RX|acceptor_sleep_incr
+**** v1   CLI RX|        Value is: 0.000 [seconds] (default)
+**** v1   CLI RX|        Minimum is: 0.000
+**** v1   CLI RX|        Maximum is: 1.000
+**** v1   CLI RX|
+**** v1   CLI RX|        If we run out of resources, such as file descriptors or worker
+**** v1   CLI RX|        threads, the acceptor will sleep between accepts.
+**** v1   CLI RX|        This parameter control how much longer we sleep, each time we
+**** v1   CLI RX|        fail to accept a new connection.
+**** v1   CLI RX|
+**** v1   CLI RX|        NB: We do not know yet if it is a good idea to change this
+**** v1   CLI RX|        parameter, or if the default value is even sensible. Caution is
+**** v1   CLI RX|        advised, and feedback is most welcome.
+**** v1   CLI RX|
+**** v1   CLI RX|acceptor_sleep_max
+**** v1   CLI RX|        Value is: 0.050 [seconds] (default)
+**** v1   CLI RX|        Minimum is: 0.000
+**** v1   CLI RX|        Maximum is: 10.000
+**** v1   CLI RX|
+**** v1   CLI RX|        If we run out of resources, such as file descriptors or worker
+**** v1   CLI RX|        threads, the acceptor will sleep between accepts.
+**** v1   CLI RX|        This parameter limits how long it can sleep between attempts to
+**** v1   CLI RX|        accept new connections.
+**** v1   CLI RX|
+**** v1   CLI RX|        NB: We do not know yet if it is a good idea to change this
+**** v1   CLI RX|        parameter, or if the default value is even sensible. Caution is
+**** v1   CLI RX|        advised, and feedback is most welcome.
+**** v1   CLI RX|
+**** v1   CLI RX|auto_restart
+**** v1   CLI RX|        Value is: off [bool]
+**** v1   CLI RX|        Default is: on
+**** v1   CLI RX|
+**** v1   CLI RX|        Automatically restart the child/worker process if it dies.
+**** v1   CLI RX|
+**** v1   CLI RX|backend_idle_timeout
+**** v1   CLI RX|        Value is: 60.000 [seconds] (default)
+**** v1   CLI RX|        Minimum is: 1.000
+**** v1   CLI RX|
+**** v1   CLI RX|        Timeout before we close unused backend connections.
+**** v1   CLI RX|
+**** v1   CLI RX|backend_local_error_holddown
+**** v1   CLI RX|        Value is: 10.000 [seconds] (default)
+**** v1   CLI RX|        Minimum is: 0.000
+**** v1   CLI RX|
+**** v1   CLI RX|        When connecting to backends, certain error codes
+**** v1   CLI RX|        (EADDRNOTAVAIL, EACCESS, EPERM) signal a local resource
+**** v1   CLI RX|        shortage or configuration issue for which retrying connection
+**** v1   CLI RX|        attempts may worsen the situation due to the complexity of the
+**** v1   CLI RX|        operations involved in the kernel.
+**** v1   CLI RX|        This parameter prevents repeated connection attempts for the
+**** v1   CLI RX|        configured duration.
+**** v1   CLI RX|
+**** v1   CLI RX|        NB: We do not know yet if it is a good idea to change this
+**** v1   CLI RX|        parameter, or if the default value is even sensible. Caution is
+**** v1   CLI RX|        advised, and feedback is most welcome.
+**** v1   CLI RX|
+**** v1   CLI RX|backend_remote_error_holddown
+**** v1   CLI RX|        Value is: 0.250 [seconds] (default)
+**** v1   CLI RX|        Minimum is: 0.000
+**** v1   CLI RX|
+**** v1   CLI RX|        When connecting to backends, certain error codes (ECONNREFUSED,
+**** v1   CLI RX|        ENETUNREACH) signal fundamental connection issues such as the
+**** v1   CLI RX|        backend not accepting connections or routing problems for which
+**** v1   CLI RX|        repeated connection attempts are considered useless
+**** v1   CLI RX|        This parameter prevents repeated connection attempts for the
+**** v1   CLI RX|        configured duration.
+**** v1   CLI RX|
+**** v1   CLI RX|        NB: We do not know yet if it is a good idea to change this
+**** v1   CLI RX|        parameter, or if the default value is even sensible. Caution is
+**** v1   CLI RX|        advised, and feedback is most welcome.
+**** v1   CLI RX|
+**** v1   CLI RX|ban_cutoff
+**** v1   CLI RX|        Value is: 0 [bans] (default)
+**** v1   CLI RX|        Minimum is: 0
+**** v1   CLI RX|
+**** v1   CLI RX|        Expurge long tail content from the cache to keep the number of
+**** v1   CLI RX|        bans below this value. 0 disables.
+**** v1   CLI RX|
+**** v1   CLI RX|        When this parameter is set to a non-zero value, the ban lurker
+**** v1   CLI RX|        continues to work the ban list as usual top to bottom, but when
+**** v1   CLI RX|        it reaches the ban_cutoff-th ban, it treats all objects as if
+**** v1   CLI RX|        they matched a ban and expurges them from cache. As actively
+**** v1   CLI RX|        used objects get tested against the ban list at request time
+**** v1   CLI RX|        and thus are likely to be associated with bans near the top of
+**** v1   CLI RX|        the ban list, with ban_cutoff, least recently accessed objects
+**** v1   CLI RX|        (the "long tail") are removed.
+**** v1   CLI RX|
+**** v1   CLI RX|        This parameter is a safety net to avoid bad response times due
+**** v1   CLI RX|        to bans being tested at lookup time. Setting a cutoff trades
+**** v1   CLI RX|        response time for cache efficiency. The recommended value is
+**** v1   CLI RX|        proportional to rate(bans_lurker_tests_tested) / n_objects
+**** v1   CLI RX|        while the ban lurker is working, which is the number of bans
+**** v1   CLI RX|        the system can sustain. The additional latency due to request
+**** v1   CLI RX|        ban testing is in the order of ban_cutoff /
+**** v1   CLI RX|        rate(bans_lurker_tests_tested). For example, for
+**** v1   CLI RX|        rate(bans_lurker_tests_tested) = 2M/s and a tolerable latency
+**** v1   CLI RX|        of 100ms, a good value for ban_cutoff may be 200K.
+**** v1   CLI RX|
+**** v1   CLI RX|        NB: We do not know yet if it is a good idea to change this
+**** v1   CLI RX|        parameter, or if the default value is even sensible. Caution is
+**** v1   CLI RX|        advised, and feedback is most welcome.
+**** v1   CLI RX|
+**** v1   CLI RX|ban_dups
+**** v1   CLI RX|        Value is: on [bool] (default)
+**** v1   CLI RX|
+**** v1   CLI RX|        Eliminate older identical bans when a new ban is added.  This
+**** v1   CLI RX|        saves CPU cycles by not comparing objects to identical bans.
+**** v1   CLI RX|        This is a waste of time if you have many bans which are never
+**** v1   CLI RX|        identical.
+**** v1   CLI RX|
+**** v1   CLI RX|ban_lurker_age
+**** v1   CLI RX|        Value is: 60.000 [seconds] (default)
+**** v1   CLI RX|        Minimum is: 0.000
+**** v1   CLI RX|
+**** v1   CLI RX|        The ban lurker will ignore bans until they are this old.  When
+**** v1   CLI RX|        a ban is added, the active traffic will be tested against it as
+**** v1   CLI RX|        part of object lookup.  Because many applications issue bans in
+**** v1   CLI RX|        bursts, this parameter holds the ban-lurker off until the rush
+**** v1   CLI RX|        is over.
+**** v1   CLI RX|        This should be set to the approximate time which a ban-burst
+**** v1   CLI RX|        takes.
+**** v1   CLI RX|
+**** v1   CLI RX|ban_lurker_batch
+**** v1   CLI RX|        Value is: 1000 (default)
+**** v1   CLI RX|        Minimum is: 1
+**** v1   CLI RX|
+**** v1   CLI RX|        The ban lurker sleeps ${ban_lurker_sleep} after examining this
+**** v1   CLI RX|        many objects.  Use this to pace the ban-lurker if it eats too
+**** v1   CLI RX|        many resources.
+**** v1   CLI RX|
+**** v1   CLI RX|ban_lurker_holdoff
+**** v1   CLI RX|        Value is: 0.010 [seconds] (default)
+**** v1   CLI RX|        Minimum is: 0.000
+**** v1   CLI RX|
+**** v1   CLI RX|        How long the ban lurker sleeps when giving way to lookup due to
+**** v1   CLI RX|        lock contention.
+**** v1   CLI RX|
+**** v1   CLI RX|        NB: We do not know yet if it is a good idea to change this
+**** v1   CLI RX|        parameter, or if the default value is even sensible. Caution is
+**** v1   CLI RX|        advised, and feedback is most welcome.
+**** v1   CLI RX|
+**** v1   CLI RX|ban_lurker_sleep
+**** v1   CLI RX|        Value is: 0.010 [seconds] (default)
+**** v1   CLI RX|        Minimum is: 0.000
+**** v1   CLI RX|
+**** v1   CLI RX|        How long the ban lurker sleeps after examining
+**** v1   CLI RX|        ${ban_lurker_batch} objects.  Use this to pace the ban-lurker
+**** v1   CLI RX|        if it eats too many resources.
+**** v1   CLI RX|        A value of zero will disable the ban lurker entirely.
+**** v1   CLI RX|
+**** v1   CLI RX|between_bytes_timeout
+**** v1   CLI RX|        Value is: 60.000 [seconds] (default)
+**** v1   CLI RX|        Minimum is: 0.000
+**** v1   CLI RX|
+**** v1   CLI RX|        We only wait for this many seconds between bytes received from
+**** v1   CLI RX|        the backend before giving up the fetch.
+**** v1   CLI RX|        VCL values, per backend or per backend request take precedence.
+**** v1   CLI RX|        This parameter does not apply to pipe'ed requests.
+**** v1   CLI RX|
+**** v1   CLI RX|cc_command
+**** v1   CLI RX|        Value is: exec gcc -O2 -g -m64 -fmessage-length=0 -D_FORTIFY_SOURCE=2 -fstack-protector -funwind-tables -fasynchronous-unwind-tables -fcommon -fstack-protector -Wno-error=clobbered -Werror=maybe-uninitialized -Wall -Werror -Wno-error=unused-result   -Werror  -Wno-format-y2k  -Wstrict-prototypes  -Wmissing-prototypes  -Wpointer-arith  -Wcast-qual  -Wwrite-strings  -Wshadow  -Wunused-parameter  -Wcast-align  -Wchar-subscripts  -Wnested-externs  -Wextra  -Wno-sign-compare  -fstack-protector -Wno-missing-field-initializers -pthread -fpic -shared -Wl,-x -o %o %s (default)
+**** v1   CLI RX|
+**** v1   CLI RX|        Command used for compiling the C source code to a dlopen(3)
+**** v1   CLI RX|        loadable object.  Any occurrence of %s in the string will be
+**** v1   CLI RX|        replaced with the source file name, and %o will be replaced
+**** v1   CLI RX|        with the output file name.
+**** v1   CLI RX|
+**** v1   CLI RX|        NB: This parameter will not take any effect until the VCL
+**** v1   CLI RX|        programs have been reloaded.
+**** v1   CLI RX|
+**** v1   CLI RX|cli_limit
+**** v1   CLI RX|        Value is: 48k [bytes] (default)
+**** v1   CLI RX|        Minimum is: 128b
+**** v1   CLI RX|        Maximum is: 99999999b
+**** v1   CLI RX|
+**** v1   CLI RX|        Maximum size of CLI response.  If the response exceeds this
+**** v1   CLI RX|        limit, the response code will be 201 instead of 200 and the
+**** v1   CLI RX|        last line will in
+**** v1   CLI RX| [...] (36427)
+**   v1   CLI 200 <param.show -l>
+**   top  === varnish v1 -clijson "param.show -j pool_req"
+**** v1   CLI TX|param.show -j pool_req
+***  v1   CLI RX  200
+**** v1   CLI RX|[ 2, ["param.show", "-j", "pool_req"], 1634892586.216,
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "pool_req",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": {
+**** v1   CLI RX|        "min_pool": 10,
+**** v1   CLI RX|        "max_pool": 100,
+**** v1   CLI RX|        "max_age": 10
+**** v1   CLI RX|    },
+**** v1   CLI RX|    "default": "10,100,10",
+**** v1   CLI RX|    "description": "Parameters for per worker pool request memory pool.\n\nThe three numbers are:\n\tmin_pool\tminimum size of free pool.\n\tmax_pool\tmaximum size of free pool.\n\tmax_age\tmax age of free element.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|}
+**** v1   CLI RX|]
+**   v1   CLI 200 <param.show -j pool_req>
+**   top  === varnish v1 -clijson "param.show -j pool_sess"
+**** v1   CLI TX|param.show -j pool_sess
+**** dT   0.401
+***  v1   CLI RX  200
+**** v1   CLI RX|[ 2, ["param.show", "-j", "pool_sess"], 1634892586.216,
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "pool_sess",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": {
+**** v1   CLI RX|        "min_pool": 10,
+**** v1   CLI RX|        "max_pool": 100,
+**** v1   CLI RX|        "max_age": 10
+**** v1   CLI RX|    },
+**** v1   CLI RX|    "default": "10,100,10",
+**** v1   CLI RX|    "description": "Parameters for per worker pool session memory pool.\n\nThe three numbers are:\n\tmin_pool\tminimum size of free pool.\n\tmax_pool\tmaximum size of free pool.\n\tmax_age\tmax age of free element.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|}
+**** v1   CLI RX|]
+**   v1   CLI 200 <param.show -j pool_sess>
+**   top  === varnish v1 -clijson "param.show -j changed"
+**** v1   CLI TX|param.show -j changed
+***  v1   CLI RX  200
+**** v1   CLI RX|[ 2, ["param.show", "-j", "changed"], 1634892586.216,
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "auto_restart",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": false,
+**** v1   CLI RX|    "units": "bool",
+**** v1   CLI RX|    "default": "on",
+**** v1   CLI RX|    "description": "Automatically restart the child/worker process if it dies.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "debug",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": "+vtc_mode",
+**** v1   CLI RX|    "default": "none",
+**** v1   CLI RX|    "description": "Enable/Disable various kinds of debugging.\n\tnone\tDisable all debugging\n\nUse +/- prefix to set/reset individual bits:\n\treq_state\tVSL Request state engine\n\tworkspace\tVSL Workspace operations\n\twaitinglist\tVSL Waitinglist events\n\tsyncvsl\tMake VSL synchronous\n\thashedge\tEdge cases in Hash\n\tvclrel\tRapid VCL release\n\tlurker\tVSL Ban lurker\n\tesi_chop\tChop ESI fetch to bits\n\tflush_head\tFlush after http1 head\n\tvtc_mode\tVarnishtest Mode\n\twitness\tEmit WITNESS lock records\n\tvsm_keep\tKeep the VSM file on restart\n\tdrop_pools\tDrop thread pools (testing)\n\tslow_acceptor\tSlow down Acceptor\n\th2_nocheck\tDisable various H2 checks\n\tvmod_so_keep\tKeep copied VMOD libraries\n\tprocessors\tFetch/Deliver processors\n\tprotocol\tProtocol debugging\n\tvcl_keep\tKeep VCL C and so files\n\tlck\tAdditional lock statistics",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "prefer_ipv6",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": true,
+**** v1   CLI RX|    "units": "bool",
+**** v1   CLI RX|    "default": "off",
+**** v1   CLI RX|    "description": "Prefer IPv6 address when connecting to backends which have both IPv4 and IPv6 addresses.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "syslog_cli_traffic",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": false,
+**** v1   CLI RX|    "units": "bool",
+**** v1   CLI RX|    "default": "on",
+**** v1   CLI RX|    "description": "Log all CLI traffic to syslog(LOG_INFO).",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "thread_pool_max",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 4294967295,
+**** v1   CLI RX|    "units": "threads",
+**** v1   CLI RX|    "default": "5000",
+**** v1   CLI RX|    "minimum": "51",
+**** v1   CLI RX|    "description": "The maximum number of worker threads in each pool.\n\nDo not set this higher than you have to, since excess worker threads soak up RAM and CPU and generally just get in the way of getting work done.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|      "delayed_effect"
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "thread_pool_min",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 51,
+**** v1   CLI RX|    "units": "threads",
+**** v1   CLI RX|    "default": "100",
+**** v1   CLI RX|    "minimum": "5",
+**** v1   CLI RX|    "maximum": "4294967295",
+**** v1   CLI RX|    "description": "The minimum number of worker threads in each pool.\n\nIncreasing this may help ramp up faster from low load situations or when threads have expired.\n\nTechnical minimum is 5 threads, but this parameter is strongly recommended to be at least 10",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|      "delayed_effect"
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "vmod_path",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": "/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs",
+**** v1   CLI RX|    "default": "/usr/lib64/varnish/vmods",
+**** v1   CLI RX|    "description": "Directory (or colon separated list of directories) where VMODs are to be found.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "vsl_mask",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": "-ObjProtocol,-ObjStatus,-ObjReason,-ObjHeader,-VCL_trace,-WorkThread,-Hash,-VfpAcct,-H2RxHdr,-H2RxBody,-H2TxHdr,-H2TxBody",
+**** v1   CLI RX|    "default": "-Debug,-ObjProtocol,-ObjStatus,-ObjReason,-ObjHeader,-VCL_trace,-WorkThread,-Hash,-VfpAcct,-H2RxHdr,-H2RxBody,-H2TxHdr,-H2TxBody",
+**** v1   CLI RX|    "description": "Mask individual VSL messages from being logged.\n\tdefault\tSet default value\n\nUse +/- prefix in front of VSL tag name to unmask/mask individual VSL messages.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "vsl_space",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 2097152,
+**** v1   CLI RX|    "units": "bytes",
+**** v1   CLI RX|    "default": "80M",
+**** v1   CLI RX|    "minimum": "1M",
+**** v1   CLI RX|    "maximum": "4G",
+**** v1   CLI RX|    "description": "The amount of space to allocate for the VSL fifo buffer in the VSM memory segment.  If you make this too small, varnish{ncsa|log} etc will not be able to keep up.  Making it too large just costs memory resources.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|      "must_restart"
+**** v1   CLI RX|]
+**** v1   CLI RX|}
+**** v1   CLI RX|]
+**   v1   CLI 200 <param.show -j changed>
+**   top  === varnish v1 -clijson "param.show -j"
+**** v1   CLI TX|param.show -j
+**** dT   0.402
+***  v1   CLI RX  200
+**** v1   CLI RX|[ 2, ["param.show", "-j"], 1634892586.217,
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "accept_filter",
+**** v1   CLI RX|    "implemented": false
+**** v1   CLI RX|  },
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "acceptor_sleep_decay",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 0.9,
+**** v1   CLI RX|    "default": "0.9",
+**** v1   CLI RX|    "minimum": "0",
+**** v1   CLI RX|    "maximum": "1",
+**** v1   CLI RX|    "description": "If we run out of resources, such as file descriptors or worker threads, the acceptor will sleep between accepts.\nThis parameter (multiplicatively) reduce the sleep duration for each successful accept. (ie: 0.9 = reduce by 10%)",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|      "experimental"
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "acceptor_sleep_incr",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 0.000,
+**** v1   CLI RX|    "units": "seconds",
+**** v1   CLI RX|    "default": "0.000",
+**** v1   CLI RX|    "minimum": "0.000",
+**** v1   CLI RX|    "maximum": "1.000",
+**** v1   CLI RX|    "description": "If we run out of resources, such as file descriptors or worker threads, the acceptor will sleep between accepts.\nThis parameter control how much longer we sleep, each time we fail to accept a new connection.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|      "experimental"
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "acceptor_sleep_max",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 0.050,
+**** v1   CLI RX|    "units": "seconds",
+**** v1   CLI RX|    "default": "0.050",
+**** v1   CLI RX|    "minimum": "0.000",
+**** v1   CLI RX|    "maximum": "10.000",
+**** v1   CLI RX|    "description": "If we run out of resources, such as file descriptors or worker threads, the acceptor will sleep between accepts.\nThis parameter limits how long it can sleep between attempts to accept new connections.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|      "experimental"
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "auto_restart",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": false,
+**** v1   CLI RX|    "units": "bool",
+**** v1   CLI RX|    "default": "on",
+**** v1   CLI RX|    "description": "Automatically restart the child/worker process if it dies.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "backend_idle_timeout",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 60.000,
+**** v1   CLI RX|    "units": "seconds",
+**** v1   CLI RX|    "default": "60.000",
+**** v1   CLI RX|    "minimum": "1.000",
+**** v1   CLI RX|    "description": "Timeout before we close unused backend connections.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "backend_local_error_holddown",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 10.000,
+**** v1   CLI RX|    "units": "seconds",
+**** v1   CLI RX|    "default": "10.000",
+**** v1   CLI RX|    "minimum": "0.000",
+**** v1   CLI RX|    "description": "When connecting to backends, certain error codes (EADDRNOTAVAIL, EACCESS, EPERM) signal a local resource shortage or configuration issue for which retrying connection attempts may worsen the situation due to the complexity of the operations involved in the kernel.\nThis parameter prevents repeated connection attempts for the configured duration.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|      "experimental"
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "backend_remote_error_holddown",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 0.250,
+**** v1   CLI RX|    "units": "seconds",
+**** v1   CLI RX|    "default": "0.250",
+**** v1   CLI RX|    "minimum": "0.000",
+**** v1   CLI RX|    "description": "When connecting to backends, certain error codes (ECONNREFUSED, ENETUNREACH) signal fundamental connection issues such as the backend not accepting connections or routing problems for which repeated connection attempts are considered useless\nThis parameter prevents repeated connection attempts for the configured duration.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|      "experimental"
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "ban_cutoff",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 0,
+**** v1   CLI RX|    "units": "bans",
+**** v1   CLI RX|    "default": "0",
+**** v1   CLI RX|    "minimum": "0",
+**** v1   CLI RX|    "description": "Expurge long tail content from the cache to keep the number of bans below this value. 0 disables.\n\nWhen this parameter is set to a non-zero value, the ban lurker continues to work the ban list as usual top to bottom, but when it reaches the ban_cutoff-th ban, it treats all objects as if they matched a ban and expurges them from cache. As actively used objects get tested against the ban list at request time and thus are likely to be associated with bans near the top of the ban list, with ban_cutoff, least recently accessed objects (the \"long tail\") are removed.\n\nThis parameter is a safety net to avoid bad response times due to bans being tested at lookup time. Setting a cutoff trades response time for cache efficiency. The recommended value is proportional to rate(bans_lurker_tests_tested) / n_objects while the ban lurker is working, which is the number of bans the system can sustain. The additional latency due to request ban testing is in the order of ban_cutoff / rate(bans_lurker_tests_tested). For example, for rate(bans_lurker_tests_tested) = 2M/s and a tolerable latency of 100ms, a good value for ban_cutoff may be 200K.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|      "experimental"
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "ban_dups",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": true,
+**** v1   CLI RX|    "units": "bool",
+**** v1   CLI RX|    "default": "on",
+**** v1   CLI RX|    "description": "Eliminate older identical bans when a new ban is added.  This saves CPU cycles by not comparing objects to identical bans.\nThis is a waste of time if you have many bans which are never identical.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "ban_lurker_age",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 60.000,
+**** v1   CLI RX|    "units": "seconds",
+**** v1   CLI RX|    "default": "60.000",
+**** v1   CLI RX|    "minimum": "0.000",
+**** v1   CLI RX|    "description": "The ban lurker will ignore bans until they are this old.  When a ban is added, the active traffic will be tested against it as part of object lookup.  Because many applications issue bans in bursts, this parameter holds the ban-lurker off until the rush is over.\nThis should be set to the approximate time which a ban-burst takes.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "ban_lurker_batch",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 1000,
+**** v1   CLI RX|    "default": "1000",
+**** v1   CLI RX|    "minimum": "1",
+**** v1   CLI RX|    "description": "The ban lurker sleeps ${ban_lurker_sleep} after examining this many objects.  Use this to pace the ban-lurker if it eats too many resources.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "ban_lurker_holdoff",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 0.010,
+**** v1   CLI RX|    "units": "seconds",
+**** v1   CLI RX|    "default": "0.010",
+**** v1   CLI RX|    "minimum": "0.000",
+**** v1   CLI RX|    "description": "How long the ban lurker sleeps when giving way to lookup due to lock contention.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|      "experimental"
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "ban_lurker_sleep",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 0.010,
+**** v1   CLI RX|    "units": "seconds",
+**** v1   CLI RX|    "default": "0.010",
+**** v1   CLI RX|    "minimum": "0.000",
+**** v1   CLI RX|    "description": "How long the ban lurker sleeps after examining ${ban_lurker_batch} objects.  Use this to pace the ban-lurker if it eats too many resources.\nA value of zero will disable the ban lurker entirely.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "between_bytes_timeout",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": 60.000,
+**** v1   CLI RX|    "units": "seconds",
+**** v1   CLI RX|    "default": "60.000",
+**** v1   CLI RX|    "minimum": "0.000",
+**** v1   CLI RX|    "description": "We only wait for this many seconds between bytes received from the backend before giving up the fetch.\nVCL values, per backend or per backend request take precedence.\nThis parameter does not apply to pipe'ed requests.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|    
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|    "name": "cc_command",
+**** v1   CLI RX|    "implemented": true,
+**** v1   CLI RX|    "value": "exec gcc -O2 -g -m64 -fmessage-length=0 -D_FORTIFY_SOURCE=2 -fstack-protector -funwind-tables -fasynchronous-unwind-tables -fcommon -fstack-protector -Wno-error=clobbered -Werror=maybe-uninitialized -Wall -Werror -Wno-error=unused-result   -Werror  -Wno-format-y2k  -Wstrict-prototypes  -Wmissing-prototypes  -Wpointer-arith  -Wcast-qual  -Wwrite-strings  -Wshadow  -Wunused-parameter  -Wcast-align  -Wchar-subscripts  -Wnested-externs  -Wextra  -Wno-sign-compare  -fstack-protector -Wno-missing-field-initializers -pthread -fpic -shared -Wl,-x -o %o %s",
+**** v1   CLI RX|    "default": "exec gcc -O2 -g -m64 -fmessage-length=0 -D_FORTIFY_SOURCE=2 -fstack-protector -funwind-tables -fasynchronous-unwind-tables -fcommon -fstack-protector -Wno-error=clobbered -Werror=maybe-uninitialized -Wall -Werror -Wno-error=unused-result   -Werror  -Wno-format-y2k  -Wstrict-prototypes  -Wmissing-prototypes  -Wpointer-arith  -Wcast-qual  -Wwrite-strings  -Wshadow  -Wunused-parameter  -Wcast-align  -Wchar-subscripts  -Wnested-externs  -Wextra  -Wno-sign-compare  -fstack-protector -Wno-missing-field-initializers -pthread -fpic -shared -Wl,-x -o %o %s",
+**** v1   CLI RX|    "description": "Command used for compiling the C source code to a dlopen(3) loadable object.  Any occurrence of %s in the string will be replaced with the source file name, and %o will be replaced with the output file name.",
+**** v1   CLI RX|    "flags": [
+**** v1   CLI RX|      "must_reload"
+**** v1   CLI RX|]
+**** v1   CLI RX|},
+**** v1   CLI RX|  {
+**** v1   CLI RX|   
+**** v1   CLI RX| [...] (37747)
+**   v1   CLI 200 <param.show -j>
+**   top  === varnish v1 -clierr "106" "param.show -j -l"
+**** v1   CLI TX|param.show -j -l
+**** dT   0.403
+***  v1   CLI RX  106
+**** v1   CLI RX|-l not permitted with param.show -j
+**   v1   CLI 106 <param.show -j -l>
+**   top  === varnish v1 -clierr "106" "param.show -j fofofofo"
+**** v1   CLI TX|param.show -j fofofofo
+***  v1   CLI RX  106
+**** v1   CLI RX|Unknown parameter "fofofofo".
+**   v1   CLI 106 <param.show -j fofofofo>
+*    top  RESETTING after ./tests/b00042.vtc
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl1.foo       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:46 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   0.413
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 134 Backend name   Admin      Probe    Health     Last change
+vcl1.foo       healthy    0/0      healthy    Fri, 22 Oct 2021 08:49:46 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.403
+***  v1   debug|Info: Child (49523) ended
+**** dT   1.404
+***  v1   debug|Info: Child (49523) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** dT   1.405
+**** v1   STDOUT EOF
+**** dT   1.414
+**   v1   WAIT4 pid=49511 status=0x0000 (user 0.133238 sys 0.047754)
+*    top  TEST ./tests/b00042.vtc completed
+#    top  TEST ./tests/b00042.vtc passed (1.415)

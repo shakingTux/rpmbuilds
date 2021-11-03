@@ -1,0 +1,174 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Upgrading to Varnish 6.4.0 &#8212; Varnish version 6.5.2 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Changes in Varnish 6.3" href="changes-6.3.html" />
+    <link rel="prev" title="Changes in Varnish 6.4.0" href="changes-6.4.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="changes-6.3.html" title="Changes in Varnish 6.3"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="changes-6.4.html" title="Changes in Varnish 6.4.0"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Varnish version 6.5.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">What’s new / Upgrading</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="upgrading-to-varnish-6-4-0">
+<span id="whatsnew-upgrading-6-4"></span><h1>Upgrading to Varnish 6.4.0<a class="headerlink" href="#upgrading-to-varnish-6-4-0" title="Permalink to this headline">¶</a></h1>
+<p>Upgrading to Varnish 6.4 from 6.3 should not require any changes
+to VCL.</p>
+<p>This document contains information about other relevant aspects which
+should be considered when upgrading.</p>
+<div class="section" id="varnishd">
+<h2>varnishd<a class="headerlink" href="#varnishd" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">The hash algorithm of the <code class="docutils literal notranslate"><span class="pre">hash</span></code> director was changed, so backend
+selection will change once only when upgrading.</p>
+<p>Users of the <code class="docutils literal notranslate"><span class="pre">hash</span></code> director are advised to consider using the
+<code class="docutils literal notranslate"><span class="pre">shard</span></code> director instead, which, amongst other advantages, offers
+more stable backend selection through consistent hashing. See
+<a class="reference internal" href="../reference/vmod_directors.html#vmod-directors-3"><span class="std std-ref">VMOD directors - Varnish Directors Module</span></a> for details.</p>
+</li>
+<li><p class="first">We fixed a case where <a class="reference internal" href="../reference/varnishd.html#ref-param-send-timeout"><span class="std std-ref">send_timeout</span></a> had no effect on HTTP/1
+connections when streaming from a backend fetch, in other words, a
+connection might not have got closed despite the <a class="reference internal" href="../reference/varnishd.html#ref-param-send-timeout"><span class="std std-ref">send_timeout</span></a>
+having been reached. HTTP/2 was not affected.</p>
+<p>When <a class="reference internal" href="../reference/varnishd.html#ref-param-send-timeout"><span class="std std-ref">send_timeout</span></a> is reached on HTTP/1, the
+<code class="docutils literal notranslate"><span class="pre">MAIN.sc_tx_error</span></code> is increased. Users with long running backend
+fetches and HTTP/1 clients should watch out for an increase of that
+counter compared to before the deployment and consider increasing
+<a class="reference internal" href="../reference/varnishd.html#ref-param-send-timeout"><span class="std std-ref">send_timeout</span></a> appropriately.</p>
+<p>The timeout can also be set per connection from VCL as
+<code class="docutils literal notranslate"><span class="pre">sess.send_timeout</span></code>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="statistics">
+<h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The <code class="docutils literal notranslate"><span class="pre">MAIN.sess_drop</span></code> counter is gone. It should be removed from
+any statistics gathering tools, if present</li>
+<li><code class="docutils literal notranslate"><span class="pre">sess.timeout_idle</span></code> / <a class="reference internal" href="../reference/varnishd.html#ref-param-timeout-idle"><span class="std std-ref">timeout_idle</span></a> being reached
+on HTTP/1 used to be accounted to the <code class="docutils literal notranslate"><span class="pre">MAIN.rx_timeout</span></code>
+statistic. We have now added the <code class="docutils literal notranslate"><span class="pre">MAIN.rx_close_idle</span></code> counter for
+this case specifically.</li>
+<li><code class="docutils literal notranslate"><span class="pre">sess.send_timeout</span></code> / <a class="reference internal" href="../reference/varnishd.html#ref-param-send-timeout"><span class="std std-ref">send_timeout</span></a> being reached
+on HTTP/1 used to be accounted to <code class="docutils literal notranslate"><span class="pre">MAIN.sc_rem_close</span></code>. Such
+timeout events are now accounted towards <code class="docutils literal notranslate"><span class="pre">MAIN.sc_tx_error</span></code>.</li>
+</ul>
+<p>See <a class="reference internal" href="../reference/varnish-counters.html#varnish-counters-7"><span class="std std-ref">varnish-counters</span></a> for details.</p>
+</div>
+<div class="section" id="vsl-logs">
+<h2>vsl/logs<a class="headerlink" href="#vsl-logs" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">The <code class="docutils literal notranslate"><span class="pre">Process</span></code> timestamp for <code class="docutils literal notranslate"><span class="pre">vcl_synth</span> <span class="pre">{}</span></code> was wrongly issued
+before the VCL subroutine was called, now it gets emitted after VCL
+returns for consistency with <code class="docutils literal notranslate"><span class="pre">vcl_deliver</span> <span class="pre">{}</span></code>.</p>
+<p>Users of this timestamp should be aware that it now includes
+<code class="docutils literal notranslate"><span class="pre">vcl_synth</span> <span class="pre">{}</span></code> processing time and appears at a different
+position in the log.</p>
+</li>
+<li><p class="first">A <code class="docutils literal notranslate"><span class="pre">Notice</span></code> VSL tag has been added.</p>
+</li>
+</ul>
+<p><em>eof</em></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Upgrading to Varnish 6.4.0</a><ul>
+<li><a class="reference internal" href="#varnishd">varnishd</a></li>
+<li><a class="reference internal" href="#statistics">Statistics</a></li>
+<li><a class="reference internal" href="#vsl-logs">vsl/logs</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="changes-6.4.html"
+                        title="previous chapter">Changes in Varnish 6.4.0</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="changes-6.3.html"
+                        title="next chapter">Changes in Varnish 6.3</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/whats-new/upgrading-6.4.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="changes-6.3.html" title="Changes in Varnish 6.3"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="changes-6.4.html" title="Changes in Varnish 6.4.0"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Varnish version 6.5.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >What’s new / Upgrading</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2014, Varnish Software AS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1026 @@
+**** dT   0.000
+*    top  TEST ./tests/v00038.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 44991
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.108688.3487d4cf
+**   top  === varnishtest "VCL compiler coverage test: vcc_backend.c"
+*    top  VTEST VCL compiler coverage test: vcc_backend.c
+**   top  === varnish v1 -errvcl "IPv6 address lacks ']'" {
+**** dT   0.005
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.108688.3487d4cf/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 40437' -P /tmp/vtc.108688.3487d4cf/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+**** dT   0.006
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.108688.3487d4cf/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 40437' -P /tmp/vtc.108688.3487d4cf/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 108727
+**** v1   macro def v1_pid=108727
+**** v1   macro def v1_name=/tmp/vtc.108688.3487d4cf/v1
+**** dT   0.014
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.113
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 5
+***  v1   CLI RX  107
+**** v1   CLI RX|ibipupkhynuqjrizvaxruqwykyenpdfe
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth 490b2763ad0aa65b37712384dd441221a76a85dc2ca82efa97605915b9d8a2bf
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** dT   0.114
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.host = "[0:0:0:0";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.115
+***  v1   debug|Could not delete 'vcl_vcl1.1634893382.653126/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Backend host '"[0:0:0:0"' could not be resolved to an IP address:
+**** v1   CLI RX|\tIPv6 address lacks ']'
+**** v1   CLI RX|(Sorry if that error message is gibberish.)
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 25)
+**** v1   CLI RX|                .host = "[0:0:0:0";
+**** v1   CLI RX|------------------------##########-
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("IPv6 address lacks ']'")
+**   top  === varnish v1 -errvcl "IPv6 address has wrong port separator" {
+**** v1   CLI TX|vcl.inline vcl2 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.host = "[0:0:0:0]/0";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.116
+***  v1   debug|Could not delete 'vcl_vcl2.1634893382.654339/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Backend host '"[0:0:0:0]/0"' could not be resolved to an IP address:
+**** v1   CLI RX|\tIPv6 address has wrong port separator
+**** v1   CLI RX|(Sorry if that error message is gibberish.)
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 25)
+**** v1   CLI RX|                .host = "[0:0:0:0]/0";
+**** v1   CLI RX|------------------------#############-
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("IPv6 address has wrong port separator")
+**   top  === varnish v1 -errvcl "with exactly three digits" {
+**** v1   CLI TX|vcl.inline vcl3 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.host = "127.0.0.1";
+**** v1   CLI TX|\t\t.probe = {
+**** v1   CLI TX|\t\t\t.expected_response = 1000;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.117
+***  v1   debug|Could not delete 'vcl_vcl3.1634893382.655398/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Must specify .expected_response with exactly three digits (100 <= x <= 999)
+**** v1   CLI RX|('<vcl.inline>' Line 6 Pos 50)
+**** v1   CLI RX|                        .expected_response = 1000;
+**** v1   CLI RX|-------------------------------------------------#
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("with exactly three digits")
+**   top  === varnish v1 -errvcl "Must specify .threshold with .window" {
+**** v1   CLI TX|vcl.inline vcl4 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.host = "127.0.0.1";
+**** v1   CLI TX|\t\t.probe = {
+**** v1   CLI TX|\t\t\t.window = 32;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.118
+***  v1   debug|Could not delete 'vcl_vcl4.1634893382.656406/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Must specify .threshold with .window
+**** v1   CLI RX|('<vcl.inline>' Line 6 Pos 35)
+**** v1   CLI RX|                        .window = 32;
+**** v1   CLI RX|----------------------------------##-
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Must specify .threshold with .window")
+**   top  === varnish v1 -errvcl "Threshold must be 64 or less" {
+**** v1   CLI TX|vcl.inline vcl5 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.host = "127.0.0.1";
+**** v1   CLI TX|\t\t.probe = {
+**** v1   CLI TX|\t\t\t.threshold = 65;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.119
+***  v1   debug|Could not delete 'vcl_vcl5.1634893382.657367/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Threshold must be 64 or less.
+**** v1   CLI RX|('<vcl.inline>' Line 6 Pos 38)
+**** v1   CLI RX|                        .threshold = 65;
+**** v1   CLI RX|-------------------------------------##-
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Threshold must be 64 or less")
+**   top  === varnish v1 -errvcl "Window must be 64 or less" {
+**** v1   CLI TX|vcl.inline vcl6 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.host = "127.0.0.1";
+**** v1   CLI TX|\t\t.probe = {
+**** v1   CLI TX|\t\t\t.window = 65;
+**** v1   CLI TX|\t\t\t.threshold = 64;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.120
+***  v1   debug|Could not delete 'vcl_vcl6.1634893382.658510/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Window must be 64 or less.
+**** v1   CLI RX|('<vcl.inline>' Line 6 Pos 35)
+**** v1   CLI RX|                        .window = 65;
+**** v1   CLI RX|----------------------------------##-
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Window must be 64 or less")
+**   top  === varnish v1 -errvcl "Threshold can not be greater than window...
+**** v1   CLI TX|vcl.inline vcl7 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.host = "127.0.0.1";
+**** v1   CLI TX|\t\t.probe = {
+**** v1   CLI TX|\t\t\t.window = 63;
+**** v1   CLI TX|\t\t\t.threshold = 64;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.121
+***  v1   debug|Could not delete 'vcl_vcl7.1634893382.659691/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Threshold can not be greater than window.
+**** v1   CLI RX|('<vcl.inline>' Line 7 Pos 38)
+**** v1   CLI RX|                        .threshold = 64;
+**** v1   CLI RX|-------------------------------------##-
+**** v1   CLI RX|
+**** v1   CLI RX|('<vcl.inline>' Line 6 Pos 35)
+**** v1   CLI RX|                        .window = 63;
+**** v1   CLI RX|----------------------------------##-
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Threshold can not be greater than window")
+**   top  === varnish v1 -errvcl "NB: Backend Syntax has changed:" {
+**** v1   CLI TX|vcl.inline vcl8 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\tset .host = "127.0.0.1";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.123
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|NB: Backend Syntax has changed:
+**** v1   CLI RX|Remove "set" and "backend" in front of backend fields.
+**** v1   CLI RX|'set' at ('<vcl.inline>' Line 4 Pos 17)
+**** v1   CLI RX|                set .host = "127.0.0.1";
+**** v1   CLI RX|----------------###---------------------
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("NB: Backend Syntax has changed:")
+**   top  === varnish v1 -errvcl "Expected '{' or name of probe, got" {
+**** v1   CLI TX|vcl.inline vcl9 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.host = "127.0.0.1";
+**** v1   CLI TX|\t\t.probe = "NONE";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+***  v1   debug|Could not delete 'vcl_vcl8.1634893382.660826/vgc.sym': No such file or directory
+**** dT   0.124
+***  v1   debug|Could not delete 'vcl_vcl9.1634893382.662080/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Expected '{' or name of probe, got '"NONE"' at
+**** v1   CLI RX|('<vcl.inline>' Line 5 Pos 26)
+**** v1   CLI RX|                .probe = "NONE";
+**** v1   CLI RX|-------------------------######-
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Expected '{' or name of probe, got")
+**   top  === varnish v1 -errvcl "Field 'port' redefined at:" {
+**** v1   CLI TX|vcl.inline vcl10 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.host = "127.0.0.1";
+**** v1   CLI TX|\t\t.port = "NONE";
+**** v1   CLI TX|\t\t.port = "NONE";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.125
+***  v1   debug|Could not delete 'vcl_vcl10.1634893382.663253/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Field 'port' redefined at:
+**** v1   CLI RX|('<vcl.inline>' Line 6 Pos 18)
+**** v1   CLI RX|                .port = "NONE";
+**** v1   CLI RX|-----------------####----------
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|First defined at:
+**** v1   CLI RX|('<vcl.inline>' Line 5 Pos 18)
+**** v1   CLI RX|                .port = "NONE";
+**** v1   CLI RX|-----------------####----------
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Field 'port' redefined at:")
+**   top  === varnish v1 -errvcl "Unknown field:" {
+**** v1   CLI TX|vcl.inline vcl11 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.host = "127.0.0.1";
+**** v1   CLI TX|\t\t.fourscoreandsevenyearsago = "NONE";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.126
+***  v1   debug|Could not delete 'vcl_vcl11.1634893382.664373/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Unknown field: 'fourscoreandsevenyearsago' at
+**** v1   CLI RX|('<vcl.inline>' Line 5 Pos 18)
+**** v1   CLI RX|                .fourscoreandsevenyearsago = "NONE";
+**** v1   CLI RX|-----------------#########################----------
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Unknown field:")
+**   top  === varnish v1 -errvcl "Expected .host or .path." {
+**** v1   CLI TX|vcl.inline vcl12 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.port = "NONE";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.127
+***  v1   debug|Could not delete 'vcl_vcl12.1634893382.665436/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Expected .host or .path.
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 17)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|----------------##--
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Expected .host or .path.")
+**   top  === varnish v1 -errvcl "No default probe defined" {
+**** v1   CLI TX|vcl.inline vcl13 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.probe = default;
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.128
+***  v1   debug|Could not delete 'vcl_vcl13.1634893382.666583/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|No default probe defined
+**** v1   CLI RX|';' at
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 33)
+**** v1   CLI RX|                .probe = default;
+**** v1   CLI RX|--------------------------------#
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("No default probe defined")
+**   top  === varnish v1 -errvcl "Only one default director possible." {
+**** v1   CLI TX|vcl.inline vcl14 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tbackend default { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tbackend default { .host = "127.0.0.1"; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.129
+***  v1   debug|Could not delete 'vcl_vcl14.1634893382.667697/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Only one default director possible.
+**** v1   CLI RX|('<vcl.inline>' Line 5 Pos 9)
+**** v1   CLI RX|        backend default { .host = "127.0.0.1"; }
+**** v1   CLI RX|--------#######---------------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Only one default director possible.")
+**   top  === varnish v1 -errvcl "Unused backend b1, defined:" {
+**** v1   CLI TX|vcl.inline vcl15 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 { .host = "127.0.0.1"; }
+**** v1   CLI TX|\tbackend default { .host = "127.0.0.1"; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.131
+***  v1   debug|Could not delete 'vcl_vcl15.1634893382.668768/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Unused backend b1, defined:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 17)
+**** v1   CLI RX|        backend b1 { .host = "127.0.0.1"; }
+**** v1   CLI RX|----------------##-------------------------
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Unused backend b1, defined:")
+**   top  === varnish v1 -errvcl "Address redefinition at:" {
+**** v1   CLI TX|vcl.inline vcl16 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.host = "127.0.0.1";
+**** v1   CLI TX|\t\t.path = "/path/to/uds";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.132
+***  v1   debug|Could not delete 'vcl_vcl16.1634893382.670458/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Address redefinition at:
+**** v1   CLI RX|('<vcl.inline>' Line 5 Pos 18)
+**** v1   CLI RX|                .path = "/path/to/uds";
+**** v1   CLI RX|-----------------####------------------
+**** v1   CLI RX|
+**** v1   CLI RX|Previous definition:
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 18)
+**** v1   CLI RX|                .host = "127.0.0.1";
+**** v1   CLI RX|-----------------####---------------
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Address redefinition at:")
+**   top  === varnish v1 -errvcl "Must be an absolute path:" {
+**** v1   CLI TX|vcl.inline vcl17 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.path = "server.sock";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.133
+***  v1   debug|Could not delete 'vcl_vcl17.1634893382.671417/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Backend path: Must be an absolute path:
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 25)
+**** v1   CLI RX|                .path = "server.sock";
+**** v1   CLI RX|------------------------#############-
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Must be an absolute path:")
+**   top  === varnish v1 -errvcl "Not a socket:" {
+**** v1   CLI TX|vcl.inline vcl18 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b1 {
+**** v1   CLI TX|\t\t.path = "/tmp/vtc.108688.3487d4cf";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.134
+***  v1   debug|Could not delete 'vcl_vcl18.1634893382.672389/vgc.sym': No such file or directory
+***  v1   CLI RX  106
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Backend path: Not a socket:
+**** v1   CLI RX|('<vcl.inline>' Line 4 Pos 25)
+**** v1   CLI RX|                .path = "/tmp/vtc.108688.3487d4cf";
+**** v1   CLI RX|------------------------##########################-
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|In backend specification starting at:
+**** v1   CLI RX|('<vcl.inline>' Line 3 Pos 9)
+**** v1   CLI RX|        backend b1 {
+**** v1   CLI RX|--------#######-----
+**** v1   CLI RX|
+**** v1   CLI RX|Running VCC-compiler failed, exited with 2
+**** v1   CLI RX|VCL compilation failed
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("Not a socket:")
+**   top  === shell { rm -f ${tmpdir}/foo }
+**** top  shell_cmd|exec 2>&1 ;  rm -f /tmp/vtc.108688.3487d4cf/foo 
+**** dT   0.137
+**** top  shell_status = 0x0000
+**   top  === varnish v1 -vcl { backend b None; }
+**** v1   CLI TX|vcl.inline vcl19 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX| backend b None; 
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.214
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.283
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl19
+***  v1   CLI RX  200
+**   top  === varnish v1 -cliexpect "(?s)Cannot stat:.+That was just a war...
+**** v1   CLI TX|vcl.inline test "vcl 4.1; backend b {.path=\"/tmp/vtc.108688.3487d4cf/foo\";}"
+**** dT   0.314
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.414
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.434
+***  v1   CLI RX  200
+**** v1   CLI RX|Message from VCC-compiler:
+**** v1   CLI RX|Backend path: Cannot stat: No such file or directory
+**** v1   CLI RX|('<vcl.inline>' Line 1 Pos 27)
+**** v1   CLI RX|vcl 4.1; backend b {.path="/tmp/vtc.108688.3487d4cf/foo";}
+**** v1   CLI RX|--------------------------##############################--
+**** v1   CLI RX|
+**** v1   CLI RX|(That was just a warning)
+**** v1   CLI RX|VCL compiled.
+**   v1   CLI 200 <vcl.inline test "vcl 4.1; backend b {.path=\"/tmp/vtc.108688.3487d4cf/foo\";}">
+**   top  === server s1 -listen "${tmpdir}/server.sock" {
+**   s1   Starting server
+**** s1   macro def s1_addr=0.0.0.0
+**** s1   macro def s1_port=0
+**** s1   macro def s1_sock=/tmp/vtc.108688.3487d4cf/server.sock
+*    s1   Listen on /tmp/vtc.108688.3487d4cf/server.sock
+**   top  === varnish v1 -vcl {
+**** v1   CLI TX|vcl.inline vcl20 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\tbackend b {.path = "/tmp/vtc.108688.3487d4cf/server.sock"; }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**   s1   Started on /tmp/vtc.108688.3487d4cf/server.sock (1 iterations)
+**** dT   0.515
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.588
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl20
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl20' now active
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.591
+***  v1   debug|Debug: Child (108775) Started
+**** dT   0.617
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (108775) said Child starts
+**** dT   0.618
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 42705
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 42705
+**   v1   Listen on 127.0.0.1 42705
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=42705
+**** v1   macro def v1_sock=127.0.0.1 42705
+**** dT   0.715
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl19" vcl_vcl19.1634893382.676460/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 54 Loaded "vcl_vcl19.1634893382.676460/vgc.so" as "vcl19"
+**** v1   vsl|          0 CLI             - Rd vcl.load "test" vcl_test.1634893382.822838/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_test.1634893382.822838/vgc.so" as "test"
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl20" vcl_vcl20.1634893382.973400/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 54 Loaded "vcl_vcl20.1634893382.973400/vgc.so" as "vcl20"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl20"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 42705
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 42705
+
+**** dT   0.718
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 42705 (1 iterations)
+***  c1   Connect to 127.0.0.1 42705
+***  c1   connected fd 17 from 127.0.0.1 44592 to 127.0.0.1 42705
+**   c1   === txreq
+**** dT   0.719
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+***  s1   accepted fd 14 0.0.0.0 0
+**   s1   === rxreq
+**   c1   === rxresp
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1002\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 103
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1002
+**** s1   bodylen = 0
+**   s1   === txresp -hdr "Connection: close" -hdr "Cache-Control: max-age...
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Connection: close\r
+**** s1   txresp|Cache-Control: max-age=0\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 14
+**   s1   Ending
+**** dT   0.720
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Cache-Control: max-age=0\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:03 GMT\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 204
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Cache-Control: max-age=0
+**** c1   http[ 4] |Content-Length: 0
+**** c1   http[ 5] |Date: Fri, 22 Oct 2021 09:03:03 GMT
+**** c1   http[ 6] |X-Varnish: 1001
+**** c1   http[ 7] |Age: 0
+**** c1   http[ 8] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 9] |Accept-Ranges: bytes
+**** c1   http[10] |Connection: keep-alive
+**** c1   bodylen = 0
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+***  c1   closing fd 17
+**   c1   Ending
+**   top  === server s1 -start
+**   s1   Waiting for server (13/-1)
+**   s1   Starting server
+**** dT   0.721
+**** s1   macro def s1_addr=0.0.0.0
+**** s1   macro def s1_port=0
+**** s1   macro def s1_sock=/tmp/vtc.108688.3487d4cf/server.sock
+*    s1   Listen on /tmp/vtc.108688.3487d4cf/server.sock
+**   top  === client c1 -run
+**   c1   Starting client
+**   s1   Started on /tmp/vtc.108688.3487d4cf/server.sock (1 iterations)
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 42705 (1 iterations)
+***  c1   Connect to 127.0.0.1 42705
+***  c1   connected fd 17 from 127.0.0.1 44594 to 127.0.0.1 42705
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+***  s1   accepted fd 14 0.0.0.0 0
+**   s1   === rxreq
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1005\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 103
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1005
+**** s1   bodylen = 0
+**   s1   === txresp -hdr "Connection: close" -hdr "Cache-Control: max-age...
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Connection: close\r
+**** s1   txresp|Cache-Control: max-age=0\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 14
+**   s1   Ending
+**** dT   0.722
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Cache-Control: max-age=0\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:03 GMT\r
+**** c1   rxhdr|X-Varnish: 1004\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 204
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Cache-Control: max-age=0
+**** c1   http[ 4] |Content-Length: 0
+**** c1   http[ 5] |Date: Fri, 22 Oct 2021 09:03:03 GMT
+**** c1   http[ 6] |X-Varnish: 1004
+**** c1   http[ 7] |Age: 0
+**** c1   http[ 8] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 9] |Accept-Ranges: bytes
+**** c1   http[10] |Connection: keep-alive
+**** c1   bodylen = 0
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+***  c1   closing fd 17
+**   c1   Ending
+*    top  RESETTING after ./tests/v00038.vtc
+**   s1   Waiting for server (13/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl20.b        healthy    0/0      healthy    Fri, 22 Oct 2021 09:03:03 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+**** dT   0.723
+***  v1   debug|Debug: Stopping Child
+**** dT   0.815
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 44592 a0 127.0.0.1 42705 1634893383.257964 22
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|       1002 Begin           b bereq 1001 fetch
+**** v1   vsl|       1002 VCL_use         b vcl20
+**** v1   vsl|       1002 Timestamp       b Start: 1634893383.258203 0.000000 0.000000
+**** v1   vsl|       1002 BereqMethod     b GET
+**** v1   vsl|       1002 BereqURL        b /
+**** v1   vsl|       1002 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1002 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1002 BereqHeader     b X-Varnish: 1002
+**** v1   vsl|       1002 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1002 VCL_return      b fetch
+**** v1   vsl|       1002 BackendOpen     b 28 b 0.0.0.0 0 0.0.0.0 0 connect
+**** v1   vsl|       1002 Timestamp       b Bereq: 1634893383.258310 0.000107 0.000107
+**** v1   vsl|       1002 Timestamp       b Beresp: 1634893383.258786 0.000582 0.000475
+**** v1   vsl|       1002 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1002 BerespStatus    b 200
+**** v1   vsl|       1002 BerespReason    b OK
+**** v1   vsl|       1002 BerespHeader    b Connection: close
+**** v1   vsl|       1002 BerespHeader    b Cache-Control: max-age=0
+**** v1   vsl|       1002 BerespHeader    b Content-Length: 0
+**** v1   vsl|       1002 BerespHeader    b Date: Fri, 22 Oct 2021 09:03:03 GMT
+**** v1   vsl|       1002 TTL             b RFC 0 10 0 1634893383 1634893383 1634893383 0 0 cacheable
+**** v1   vsl|       1002 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1002 TTL             b VCL 120 10 0 1634893383 cacheable
+**** v1   vsl|       1002 TTL             b VCL 120 10 0 1634893383 uncacheable
+**** v1   vsl|       1002 VCL_return      b deliver
+**** v1   vsl|       1002 Filters         b 
+**** v1   vsl|       1002 Storage         b malloc Transient
+**** v1   vsl|       1002 Fetch_Body      b 0 none -
+**** v1   vsl|       1002 BackendClose    b 28 b close
+**** v1   vsl|       1002 Timestamp       b BerespBody: 1634893383.258887 0.000683 0.000100
+**** v1   vsl|       1002 Length          b 0
+**** v1   vsl|       1002 BereqAcct       b 103 0 103 83 0 83
+**** v1   vsl|       1002 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f15b4010fb0 e=0.000000 f=0x4
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f15b4010fb0 e=1634893513.258787 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f15b4010fb0 e=129.999875 f=0x4
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634893383.258100 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634893383.258100 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl20
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 44592 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1001 VCL_return      c hash
+**** v1   vsl|       1001 VCL_call        c HASH
+**** v1   vsl|       1001 VCL_return      c lookup
+**** v1   vsl|       1001 VCL_call        c MISS
+**** v1   vsl|       1001 VCL_return      c fetch
+**** v1   vsl|       1001 Link            c bereq 1002 fetch
+**** v1   vsl|       1001 Timestamp       c Fetch: 1634893383.258920 0.000819 0.000819
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 200
+**** v1   vsl|       1001 RespReason      c OK
+**** v1   vsl|       1001 RespHeader      c Cache-Control: max-age=0
+**** v1   vsl|       1001 RespHeader      c Content-Length: 0
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 09:03:03 GMT
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 RespHeader      c Age: 0
+**** v1   vsl|       1001 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1001 VCL_call        c DELIVER
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634893383.258931 0.000830 0.000011
+**** v1   vsl|       1001 Filters         c 
+**** v1   vsl|       1001 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1001 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1001 Timestamp       c Resp: 1634893383.258994 0.000893 0.000062
+**** v1   vsl|       1001 ReqAcct         c 35 0 35 204 0 204
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 SessClose       c REM_CLOSE 0.002
+**** v1   vsl|       1000 End             c 
+**** v1   vsl|       1003 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1003 SessOpen        c 127.0.0.1 44594 a0 127.0.0.1 42705 1634893383.260190 26
+**** v1   vsl|       1003 Link            c req 1004 rxreq
+**** v1   vsl|       1005 Begin           b bereq 1004 fetch
+**** v1   vsl|       1005 VCL_use         b vcl20
+**** v1   vsl|       1005 Timestamp       b Start: 1634893383.260303 0.000000 0.000000
+**** v1   vsl|       1005 BereqMethod     b GET
+**** v1   vsl|       1005 BereqURL        b /
+**** v1   vsl|       1005 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1005 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1005 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1005 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1005 BereqHeader     b X-Varnish: 1005
+**** v1   vsl|       1005 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1005 VCL_return      b fetch
+**** v1   vsl|       1005 BackendOpen     b 28 b 0.0.0.0 0 0.0.0.0 0 connect
+**** v1   vsl|       1005 Timestamp       b Bereq: 1634893383.260363 0.000060 0.000060
+**** v1   vsl|       1005 Timestamp       b Beresp: 1634893383.260751 0.000447 0.000387
+**** v1   vsl|       1005 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1005 BerespStatus    b 200
+**** v1   vsl|       1005 BerespReason    b OK
+**** v1   vsl|       1005 BerespHeader    b Connection: close
+**** v1   vsl|       1005 BerespHeader    b Cache-Control: max-age=0
+**** v1   vsl|       1005 BerespHeader    b Content-Length: 0
+**** v1   vsl|       1005 BerespHeader    b Date: Fri, 22 Oct 2021 09:03:03 GMT
+**** v1   vsl|       1005 TTL             b RFC 0 10 0 1634893383 1634893383 1634893383 0 0 cacheable
+**** v1   vsl|       1005 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1005 TTL             b VCL 120 10 0 1634893383 cacheable
+**** v1   vsl|       1005 TTL             b VCL 120 10 0 1634893383 uncacheable
+**** v1   vsl|       1005 VCL_return      b deliver
+**** v1   vsl|       1005 Filters         b 
+**** v1   vsl|       1005 Storage         b malloc Transient
+**** v1   vsl|       1005 Fetch_Body      b 0 none -
+**** v1   vsl|       1005 BackendClose    b 28 b close
+**** v1   vsl|       1005 Timestamp       b BerespBody: 1634893383.260800 0.000497 0.000049
+**** v1   vsl|       1005 Length          b 0
+**** v1   vsl|       1005 BereqAcct       b 103 0 103 83 0 83
+**** v1   vsl|       1005 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f15b4010fb0 e=129.997975 f=0x84
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=26 p=0x7f15b4010fb0 e=1634893513.258787 f=0x84
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f15ac010ed0 e=0.000000 f=0x4
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f15ac010ed0 e=1634893513.260751 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f15ac010ed0 e=129.999927 f=0x4
+**** v1   vsl|       1004 Begin           c req 1003 rxreq
+**** v1   vsl|       1004 Timestamp       c Start: 1634893383.260257 0.000000 0.000000
+**** v1   vsl|       1004 Timestamp       c Req: 1634893383.260257 0.000000 0.000000
+**** v1   vsl|       1004 VCL_use         c vcl20
+**** v1   vsl|       1004 ReqStart        c 127.0.0.1 44594 a0
+**** v1   vsl|       1004 ReqMethod       c GET
+**** v1   vsl|       1004 ReqURL          c /
+**** v1   vsl|       1004 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1004 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1004 VCL_call        c RECV
+**** v1   vsl|       1004 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1004 VCL_return      c hash
+**** v1   vsl|       1004 VCL_call        c HASH
+**** v1   vsl|       1004 VCL_return      c lookup
+**** v1   vsl|       1004 HitMiss         c 1002 119.998528
+**** v1   vsl|       1004 VCL_call        c MISS
+**** v1   vsl|       1004 VCL_return      c fetch
+**** v1   vsl|       1004 Link            c bereq 1005 fetch
+**** v1   vsl|       1004 Timestamp       c Fetch: 1634893383.260837 0.000580 0.000580
+**** v1   vsl|       1004 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1004 RespStatus      c 200
+**** v1   vsl|       1004 RespReason      c OK
+**** v1   vsl|       1004 RespHeader      c Cache-Control: max-age=0
+**** v1   vsl|       1004 RespHeader      c Content-Length: 0
+**** v1   vsl|       1004 RespHeader      c Date: Fri, 22 Oct 2021 09:03:03 GMT
+**** v1   vsl|       1004 RespHeader      c X-Varnish: 1004
+**** v1   vsl|       1004 RespHeader      c Age: 0
+**** v1   vsl|       1004 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1004 VCL_call        c DELIVER
+**** v1   vsl|       1004 VCL_return      c deliver
+**** v1   vsl|       1004 Timestamp       c Process: 1634893383.260847 0.000590 0.000009
+**** v1   vsl|       1004 Filters         c 
+**** v1   vsl|       1004 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1004 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1004 Timestamp       c Resp: 1634893383.260893 0.000636 0.000046
+**** v1   vsl|       1004 ReqAcct         c 35 0 35 204 0 204
+**** v1   vsl|       1004 End             c 
+**** v1   vsl|       1003 SessClose       c REM_CLOSE 0.002
+**** v1   vsl|       1003 End             c 
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 134 Backend name   Admin      Probe    Health     Last change
+vcl20.b        healthy    0/0      healthy    Fri, 22 Oct 2021 09:03:03 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.723
+***  v1   debug|Info: Child (108775) ended
+***  v1   debug|Info: Child (108775) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+**** dT   1.724
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   1.817
+**   v1   WAIT4 pid=108727 status=0x0000 (user 0.403489 sys 0.091368)
+*    top  TEST ./tests/v00038.vtc completed
+#    top  TEST ./tests/v00038.vtc passed (1.818)

@@ -1,0 +1,2294 @@
+**** dT   0.000
+*    top  TEST ./tests/v00051.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 38271
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.109615.07a5a6ed
+**   top  === varnishtest "Test VCL failures"
+*    top  VTEST Test VCL failures
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=42609
+**** s1   macro def s1_sock=127.0.0.1 42609
+*    s1   Listen on 127.0.0.1 42609
+**   top  === varnish v1 -vcl+backend {
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.109615.07a5a6ed/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 45365' -P /tmp/vtc.109615.07a5a6ed/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.109615.07a5a6ed/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 45365' -P /tmp/vtc.109615.07a5a6ed/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 109634
+**** v1   macro def v1_pid=109634
+**** v1   macro def v1_name=/tmp/vtc.109615.07a5a6ed/v1
+**** dT   0.007
+**   s1   Started on 127.0.0.1 42609 (1 iterations)
+**** dT   0.012
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.111
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 9
+***  v1   CLI RX  107
+**** v1   CLI RX|qgutjfciprabgvoirgqnidptpvizonoh
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth 4df9bfa653e660a98cbde388d2aaa94e5e3eff7e166db8cc517e50017aaca1b3
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** dT   0.112
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (req.restarts == 0) {
+**** v1   CLI TX|\t\t\tdebug.fail();
+**** v1   CLI TX|\t\t\tset req.http.not = "Should not happen";
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|\tsub vcl_synth {
+**** v1   CLI TX|\t\tif (req.restarts == 0 && req.http.foo == "restart") {
+**** v1   CLI TX|\t\t\treturn (restart);
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.215
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.286
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.289
+***  v1   debug|Debug: Child (109688) Started
+**** dT   0.315
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (109688) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 39345
+**** v1   CLI TX|debug.xid 999
+**** dT   0.316
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634893394.255432/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl1: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634893394.255432/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 39345
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 39345
+**   v1   Listen on 127.0.0.1 39345
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=39345
+**** v1   macro def v1_sock=127.0.0.1 39345
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1001	VCL_call	"RECV"
+**   l1   === expect 0 1001	VCL_Error	"Forced failure"
+**   l1   === expect 0 1001	VCL_return	"fail"
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**** l1   begin|
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+***  l1   expecting| expect * 1001 VCL_call RECV
+***  c1   connected fd 22 from 127.0.0.1 43650 to 127.0.0.1 39345
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.405
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:14 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 09:03:14 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1001
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1001</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "VCL failed"
+**** c1   EXPECT resp.reason (VCL failed) == "VCL failed" match
+***  c1   closing fd 22
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 1
+**** dT   0.406
+**   v1   as expected: vcl_fail (1) == 1
+**   top  === varnish v1 -expect sc_vcl_failure == 1
+**   v1   as expected: sc_vcl_failure (1) == 1
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   0.407
+**** l1   match|       1001 VCL_call        c RECV
+***  l1   expecting| expect 0 1001 VCL_Error Forced failure
+**** l1   match|       1001 VCL_Error       c Forced failure
+***  l1   expecting| expect 0 1001 VCL_return fail
+**** l1   match|       1001 VCL_return      c fail
+**** l1   end|
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1003	VCL_call	"RECV"
+**   l1   === expect 0 1003	VCL_Error	"Forced failure"
+**   l1   === expect 0 1003	VCL_return	"fail"
+**   l1   === expect * 1003	VCL_call	"SYNTH"
+**   l1   === expect 0 1003	VCL_return	"restart"
+**   top  === client c1 {
+**** dT   0.408
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1003 VCL_call RECV
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+***  c1   connected fd 24 from 127.0.0.1 43658 to 127.0.0.1 39345
+**   c1   === txreq -url /hit -hdr "foo: restart"
+**** c1   txreq|GET /hit HTTP/1.1\r
+**** c1   txreq|foo: restart\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+***  s1   accepted fd 6 127.0.0.1 53640
+**   s1   === rxreq
+**   c1   === rxresp
+**** s1   rxhdr|GET /hit HTTP/1.1\r
+**** s1   rxhdr|foo: restart\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1005\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 92
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/hit
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |foo: restart
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1005
+**** s1   bodylen = 0
+**   s1   === expect req.url == /hit
+**** s1   EXPECT req.url (/hit) == "/hit" match
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+**** dT   0.409
+***  s1   shutting fd 6
+**   s1   Ending
+**** dT   0.416
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 39345
+
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 43650 a0 127.0.0.1 39345 1634893394.547345 22
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634893394.547449 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634893394.547449 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 43650 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 VCL_Error       c Forced failure
+**** v1   vsl|       1001 VCL_return      c fail
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 503
+**** v1   vsl|       1001 RespReason      c VCL failed
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 09:03:14 GMT
+**** v1   vsl|       1001 RespHeader      c Server: Varnish
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 VCL_call        c SYNTH
+**** v1   vsl|       1001 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1001 RespHeader      c Retry-After: 5
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634893394.547568 0.000118 0.000118
+**** v1   vsl|       1001 RespHeader      c Content-Length: 251
+**** v1   vsl|       1001 Storage         c malloc Transient
+**** v1   vsl|       1001 Filters         c 
+**** v1   vsl|       1001 RespHeader      c Connection: close
+**** v1   vsl|       1001 Timestamp       c Resp: 1634893394.547672 0.000223 0.000104
+**** v1   vsl|       1001 ReqAcct         c 35 0 35 194 251 445
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1000 End             c 
+**** v1   vsl|       1002 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1002 SessOpen        c 127.0.0.1 43658 a0 127.0.0.1 39345 1634893394.551446 26
+**** v1   vsl|       1002 Link            c req 1003 rxreq
+**** v1   vsl|       1003 Begin           c req 1002 rxreq
+**** v1   vsl|       1003 Timestamp       c Start: 1634893394.551529 0.000000 0.000000
+**** v1   vsl|       1003 Timestamp       c Req: 1634893394.551529 0.000000 0.000000
+**** v1   vsl|       1003 VCL_use         c vcl1
+**** v1   vsl|       1003 ReqStart        c 127.0.0.1 43658 a0
+**** v1   vsl|       1003 ReqMethod       c GET
+**** v1   vsl|       1003 ReqURL          c /hit
+**** v1   vsl|       1003 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1003 ReqHeader       c foo: restart
+**** v1   vsl|       1003 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1003 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1003 VCL_call        c RECV
+**** v1   vsl|       1003 VCL_Error       c Forced failure
+**** v1   vsl|       1003 VCL_return      c fail
+**** v1   vsl|       1003 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1003 RespStatus      c 503
+**** v1   vsl|       1003 RespReason      c VCL failed
+**** v1   vsl|       1003 RespHeader      c Date: Fri, 22 Oct 2021 09:03:14 GMT
+**** v1   vsl|       1003 RespHeader      c Server: Varnish
+**** v1   vsl|       1003 RespHeader      c X-Varnish: 1003
+**** v1   vsl|       1003 VCL_call        c SYNTH
+**** v1   vsl|       1003 VCL_return      c restart
+**** v1   vsl|       1003 Timestamp       c Process: 1634893394.551558 0.000029 0.000029
+**** v1   vsl|       1003 Timestamp       c Restart: 1634893394.551560 0.000031 0.000002
+**** v1   vsl|       1003 Link            c req 1004 restart
+**** v1   vsl|       1003 End             c 
+**** dT   0.418
+**** l1   match|       1003 VCL_call        c RECV
+***  l1   expecting| expect 0 1003 VCL_Error Forced failure
+**** l1   match|       1003 VCL_Error       c Forced failure
+***  l1   expecting| expect 0 1003 VCL_return fail
+**** l1   match|       1003 VCL_return      c fail
+***  l1   expecting| expect * 1003 VCL_call SYNTH
+**** l1   match|       1003 VCL_call        c SYNTH
+***  l1   expecting| expect 0 1003 VCL_return restart
+**** l1   match|       1003 VCL_return      c restart
+**** l1   end|
+**** dT   0.420
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:14 GMT\r
+**** c1   rxhdr|X-Varnish: 1004\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 173
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 09:03:14 GMT
+**** c1   http[ 5] |X-Varnish: 1004
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |Accept-Ranges: bytes
+**** c1   http[ 9] |Connection: close
+**** c1   bodylen = 0
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+**   c1   === expect resp.reason == "OK"
+**** c1   EXPECT resp.reason (OK) == "OK" match
+***  c1   closing fd 24
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 2
+**   v1   as expected: vcl_fail (2) == 2
+**   top  === varnish v1 -expect sc_vcl_failure == 2
+**   v1   as expected: sc_vcl_failure (2) == 2
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl2 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (req.http.foo == "synth") {
+**** v1   CLI TX|\t\t\treturn(synth(748));
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|\tsub vcl_synth {
+**** v1   CLI TX|\t\tif (resp.status == 748) {
+**** v1   CLI TX|\t\t\tdebug.fail();
+**** v1   CLI TX|\t\t\tset req.http.not = "Should not happen";
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.516
+**** v1   vsl|       1005 Begin           b bereq 1004 fetch
+**** v1   vsl|       1005 VCL_use         b vcl1
+**** v1   vsl|       1005 Timestamp       b Start: 1634893394.551638 0.000000 0.000000
+**** v1   vsl|       1005 BereqMethod     b GET
+**** v1   vsl|       1005 BereqURL        b /hit
+**** v1   vsl|       1005 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1005 BereqHeader     b foo: restart
+**** v1   vsl|       1005 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1005 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1005 BereqHeader     b X-Varnish: 1005
+**** v1   vsl|       1005 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1005 VCL_return      b fetch
+**** v1   vsl|       1005 BackendOpen     b 27 s1 127.0.0.1 42609 127.0.0.1 53640 connect
+**** v1   vsl|       1005 Timestamp       b Bereq: 1634893394.551806 0.000168 0.000168
+**** v1   vsl|       1005 Timestamp       b Beresp: 1634893394.552315 0.000676 0.000508
+**** v1   vsl|       1005 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1005 BerespStatus    b 200
+**** v1   vsl|       1005 BerespReason    b OK
+**** v1   vsl|       1005 BerespHeader    b Content-Length: 0
+**** v1   vsl|       1005 BerespHeader    b Date: Fri, 22 Oct 2021 09:03:14 GMT
+**** v1   vsl|       1005 TTL             b RFC 120 10 0 1634893395 1634893395 1634893394 0 0 cacheable
+**** v1   vsl|       1005 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1005 VCL_return      b deliver
+**** v1   vsl|       1005 Filters         b 
+**** v1   vsl|       1005 Storage         b malloc s0
+**** v1   vsl|       1005 Fetch_Body      b 0 none -
+**** v1   vsl|       1005 BackendClose    b 27 s1 recycle
+**** v1   vsl|       1005 Timestamp       b BerespBody: 1634893394.562465 0.010826 0.010149
+**** v1   vsl|       1005 Length          b 0
+**** v1   vsl|       1005 BereqAcct       b 92 0 92 38 0 38
+**** v1   vsl|       1005 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f39c40114b0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f39c40114b0 e=1634893524.552315 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f39c40114b0 e=129.989803 f=0x0
+**** v1   vsl|       1004 Begin           c req 1003 restart
+**** v1   vsl|       1004 Timestamp       c Start: 1634893394.551560 0.000031 0.000000
+**** v1   vsl|       1004 ReqStart        c 127.0.0.1 43658 a0
+**** v1   vsl|       1004 ReqMethod       c GET
+**** v1   vsl|       1004 ReqURL          c /hit
+**** v1   vsl|       1004 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1004 ReqHeader       c foo: restart
+**** v1   vsl|       1004 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1004 VCL_call        c RECV
+**** v1   vsl|       1004 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1004 VCL_return      c hash
+**** v1   vsl|       1004 VCL_call        c HASH
+**** v1   vsl|       1004 VCL_return      c lookup
+**** v1   vsl|       1004 VCL_call        c MISS
+**** v1   vsl|       1004 VCL_return      c fetch
+**** v1   vsl|       1004 Link            c bereq 1005 fetch
+**** v1   vsl|       1004 Timestamp       c Fetch: 1634893394.562522 0.010992 0.010961
+**** v1   vsl|       1004 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1004 RespStatus      c 200
+**** v1   vsl|       1004 RespReason      c OK
+**** v1   vsl|       1004 RespHeader      c Content-Length: 0
+**** v1   vsl|       1004 RespHeader      c Date: Fri, 22 Oct 2021 09:03:14 GMT
+**** v1   vsl|       1004 RespHeader      c X-Varnish: 1004
+**** v1   vsl|       1004 RespHeader      c Age: 0
+**** v1   vsl|       1004 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1004 VCL_call        c DELIVER
+**** v1   vsl|       1004 VCL_return      c deliver
+**** v1   vsl|       1004 Timestamp       c Process: 1634893394.562571 0.011042 0.000049
+**** v1   vsl|       1004 Filters         c 
+**** v1   vsl|       1004 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1004 RespHeader      c Connection: close
+**** v1   vsl|       1004 Timestamp       c Resp: 1634893394.562648 0.011118 0.000076
+**** v1   vsl|       1004 ReqAcct         c 52 0 52 173 0 173
+**** v1   vsl|       1004 End             c 
+**** v1   vsl|       1002 SessClose       c VCL_FAILURE 0.011
+**** v1   vsl|       1002 End             c 
+**** dT   0.588
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl2
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl2' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1007	VCL_call	"SYNTH"
+**   l1   === expect * 1007	VCL_Error	"Forced failure"
+**   l1   === expect 0 1007	VCL_return	"fail"
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+**** dT   0.589
+***  l1   expecting| expect * 1007 VCL_call SYNTH
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+***  c1   connected fd 6 from 127.0.0.1 43662 to 127.0.0.1 39345
+**   c1   === txreq -hdr "foo: synth"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: synth\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === expect_close
+**** c1   Expecting close (fd = 6)
+**** c1   fd=6 EOF, as expected
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 3
+**   v1   as expected: vcl_fail (3) == 3
+**   top  === varnish v1 -expect sc_vcl_failure == 3
+**   v1   as expected: sc_vcl_failure (3) == 3
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   0.599
+**** l1   match|       1007 VCL_call        c SYNTH
+***  l1   expecting| expect * 1007 VCL_Error Forced failure
+**** l1   match|       1007 VCL_Error       c Forced failure
+***  l1   expecting| expect 0 1007 VCL_return fail
+**** l1   match|       1007 VCL_return      c fail
+**** l1   end|
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl3 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_hash {
+**** v1   CLI TX|\t\tif (req.http.foo == "hash") {
+**** v1   CLI TX|\t\t\tdebug.fail();
+**** v1   CLI TX|\t\t\tset req.http.not = "Should not happen";
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.616
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl2 vcl_vcl2.1634893394.563584/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl2: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl2.1634893394.563584/vgc.so" as "vcl2"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl2
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1006 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1006 SessOpen        c 127.0.0.1 43662 a0 127.0.0.1 39345 1634893394.732457 22
+**** v1   vsl|       1006 Link            c req 1007 rxreq
+**** v1   vsl|       1007 Begin           c req 1006 rxreq
+**** v1   vsl|       1007 Timestamp       c Start: 1634893394.732492 0.000000 0.000000
+**** v1   vsl|       1007 Timestamp       c Req: 1634893394.732492 0.000000 0.000000
+**** v1   vsl|       1007 VCL_use         c vcl2
+**** v1   vsl|       1007 ReqStart        c 127.0.0.1 43662 a0
+**** v1   vsl|       1007 ReqMethod       c GET
+**** v1   vsl|       1007 ReqURL          c /
+**** v1   vsl|       1007 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1007 ReqHeader       c foo: synth
+**** v1   vsl|       1007 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1007 VCL_call        c RECV
+**** v1   vsl|       1007 VCL_return      c synth
+**** v1   vsl|       1007 VCL_call        c HASH
+**** v1   vsl|       1007 VCL_return      c lookup
+**** v1   vsl|       1007 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1007 RespStatus      c 748
+**** v1   vsl|       1007 RespReason      c Unknown HTTP Status
+**** v1   vsl|       1007 RespHeader      c Date: Fri, 22 Oct 2021 09:03:14 GMT
+**** v1   vsl|       1007 RespHeader      c Server: Varnish
+**** v1   vsl|       1007 RespHeader      c X-Varnish: 1007
+**** v1   vsl|       1007 VCL_call        c SYNTH
+**** v1   vsl|       1007 VCL_Error       c Forced failure
+**** v1   vsl|       1007 VCL_return      c fail
+**** v1   vsl|       1007 Timestamp       c Process: 1634893394.732524 0.000031 0.000031
+**** v1   vsl|       1007 Timestamp       c Resp: 1634893394.732526 0.000033 0.000001
+**** v1   vsl|       1007 ReqAcct         c 47 0 47 0 0 0
+**** v1   vsl|       1007 End             c 
+**** v1   vsl|       1006 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1006 End             c 
+**** dT   0.763
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl3
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl3' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1009	VCL_call	"HASH"
+**   l1   === expect 0 1009	VCL_Error	"Forced failure"
+**   l1   === expect 0 1009	VCL_return	"fail"
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1009 VCL_call HASH
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+**** dT   0.764
+***  c1   connected fd 6 from 127.0.0.1 43664 to 127.0.0.1 39345
+**   c1   === txreq -hdr "foo: hash"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: hash\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:14 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1009\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 09:03:14 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1009
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1009</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "VCL failed"
+**** c1   EXPECT resp.reason (VCL failed) == "VCL failed" match
+***  c1   closing fd 6
+**   c1   Ending
+**** dT   0.765
+**   top  === varnish v1 -expect vcl_fail == 4
+**   v1   as expected: vcl_fail (4) == 4
+**   top  === varnish v1 -expect sc_vcl_failure == 4
+**   v1   as expected: sc_vcl_failure (4) == 4
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   0.773
+**** l1   match|       1009 VCL_call        c HASH
+***  l1   expecting| expect 0 1009 VCL_Error Forced failure
+**** l1   match|       1009 VCL_Error       c Forced failure
+***  l1   expecting| expect 0 1009 VCL_return fail
+**** l1   match|       1009 VCL_return      c fail
+**** l1   end|
+**** dT   0.774
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl4 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (req.http.foo == "pipe") { return(pipe); }
+**** v1   CLI TX|\t}
+**** v1   CLI TX|\tsub vcl_pipe {
+**** v1   CLI TX|\t\tif (req.http.foo == "pipe") {
+**** v1   CLI TX|\t\t\tdebug.fail();
+**** v1   CLI TX|\t\t\tset req.http.not = "Should not happen";
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.816
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl3 vcl_vcl3.1634893394.742610/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl3: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl3.1634893394.742610/vgc.so" as "vcl3"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl3
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1008 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1008 SessOpen        c 127.0.0.1 43664 a0 127.0.0.1 39345 1634893394.907332 27
+**** v1   vsl|       1008 Link            c req 1009 rxreq
+**** v1   vsl|       1009 Begin           c req 1008 rxreq
+**** v1   vsl|       1009 Timestamp       c Start: 1634893394.907403 0.000000 0.000000
+**** v1   vsl|       1009 Timestamp       c Req: 1634893394.907403 0.000000 0.000000
+**** v1   vsl|       1009 VCL_use         c vcl3
+**** v1   vsl|       1009 ReqStart        c 127.0.0.1 43664 a0
+**** v1   vsl|       1009 ReqMethod       c GET
+**** v1   vsl|       1009 ReqURL          c /
+**** v1   vsl|       1009 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1009 ReqHeader       c foo: hash
+**** v1   vsl|       1009 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1009 VCL_call        c RECV
+**** v1   vsl|       1009 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1009 VCL_return      c hash
+**** v1   vsl|       1009 VCL_call        c HASH
+**** v1   vsl|       1009 VCL_Error       c Forced failure
+**** v1   vsl|       1009 VCL_return      c fail
+**** v1   vsl|       1009 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1009 RespStatus      c 503
+**** v1   vsl|       1009 RespReason      c VCL failed
+**** v1   vsl|       1009 RespHeader      c Date: Fri, 22 Oct 2021 09:03:14 GMT
+**** v1   vsl|       1009 RespHeader      c Server: Varnish
+**** v1   vsl|       1009 RespHeader      c X-Varnish: 1009
+**** v1   vsl|       1009 VCL_call        c SYNTH
+**** v1   vsl|       1009 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1009 RespHeader      c Retry-After: 5
+**** v1   vsl|       1009 VCL_return      c deliver
+**** v1   vsl|       1009 Timestamp       c Process: 1634893394.907445 0.000042 0.000042
+**** v1   vsl|       1009 RespHeader      c Content-Length: 251
+**** v1   vsl|       1009 Storage         c malloc Transient
+**** v1   vsl|       1009 Filters         c 
+**** v1   vsl|       1009 RespHeader      c Connection: close
+**** v1   vsl|       1009 Timestamp       c Resp: 1634893394.907482 0.000079 0.000037
+**** v1   vsl|       1009 ReqAcct         c 46 0 46 194 251 445
+**** v1   vsl|       1009 End             c 
+**** v1   vsl|       1008 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1008 End             c 
+**** dT   0.949
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl4
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl4' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1012	VCL_call	"PIPE"
+**   l1   === expect 0 1012	VCL_Error	"Forced failure"
+**   l1   === expect 0 1012	VCL_return	"fail"
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1012 VCL_call PIPE
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+***  c1   connected fd 6 from 127.0.0.1 43666 to 127.0.0.1 39345
+**   c1   === txreq -hdr "foo: pipe"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: pipe\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.950
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:15 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1011\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 09:03:15 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1011
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1011</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "VCL failed"
+**** c1   EXPECT resp.reason (VCL failed) == "VCL failed" match
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 5
+**   v1   as expected: vcl_fail (5) == 5
+**   top  === varnish v1 -expect sc_vcl_failure == 5
+**   v1   as expected: sc_vcl_failure (5) == 5
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   0.959
+**** l1   match|       1012 VCL_call        b PIPE
+***  l1   expecting| expect 0 1012 VCL_Error Forced failure
+**** l1   match|       1012 VCL_Error       b Forced failure
+***  l1   expecting| expect 0 1012 VCL_return fail
+**** l1   match|       1012 VCL_return      b fail
+**** l1   end|
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl5 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (req.http.foo == "pass") { return(pass); }
+**** v1   CLI TX|\t}
+**** v1   CLI TX|\tsub vcl_pass {
+**** v1   CLI TX|\t\tif (req.http.foo == "pass") {
+**** v1   CLI TX|\t\t\tdebug.fail();
+**** v1   CLI TX|\t\t\tset req.http.not = "Should not happen";
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.017
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl4 vcl_vcl4.1634893394.917500/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl4: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl4.1634893394.917500/vgc.so" as "vcl4"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl4
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1010 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1010 SessOpen        c 127.0.0.1 43666 a0 127.0.0.1 39345 1634893395.092818 26
+**** v1   vsl|       1010 Link            c req 1011 rxreq
+**** v1   vsl|       1012 Begin           b bereq 1011 pipe
+**** v1   vsl|       1012 BereqMethod     b GET
+**** v1   vsl|       1012 BereqURL        b /
+**** v1   vsl|       1012 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1012 BereqHeader     b foo: pipe
+**** v1   vsl|       1012 BereqHeader     b Host: 127.0.0.1
+**** v1   vsl|       1012 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1012 BereqHeader     b X-Varnish: 1011
+**** v1   vsl|       1012 BereqHeader     b Connection: close
+**** v1   vsl|       1012 VCL_call        b PIPE
+**** v1   vsl|       1012 VCL_Error       b Forced failure
+**** v1   vsl|       1012 VCL_return      b fail
+**** v1   vsl|       1012 BereqAcct       b 0 0 0 0 0 0
+**** v1   vsl|       1012 End             b 
+**** v1   vsl|       1011 Begin           c req 1010 rxreq
+**** v1   vsl|       1011 Timestamp       c Start: 1634893395.092899 0.000000 0.000000
+**** v1   vsl|       1011 Timestamp       c Req: 1634893395.092899 0.000000 0.000000
+**** v1   vsl|       1011 VCL_use         c vcl4
+**** v1   vsl|       1011 ReqStart        c 127.0.0.1 43666 a0
+**** v1   vsl|       1011 ReqMethod       c GET
+**** v1   vsl|       1011 ReqURL          c /
+**** v1   vsl|       1011 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1011 ReqHeader       c foo: pipe
+**** v1   vsl|       1011 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1011 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1011 VCL_call        c RECV
+**** v1   vsl|       1011 VCL_return      c pipe
+**** v1   vsl|       1011 VCL_call        c HASH
+**** v1   vsl|       1011 VCL_return      c lookup
+**** v1   vsl|       1011 Link            c bereq 1012 pipe
+**** v1   vsl|       1011 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1011 RespStatus      c 503
+**** v1   vsl|       1011 RespReason      c VCL failed
+**** v1   vsl|       1011 RespHeader      c Date: Fri, 22 Oct 2021 09:03:15 GMT
+**** v1   vsl|       1011 RespHeader      c Server: Varnish
+**** v1   vsl|       1011 RespHeader      c X-Varnish: 1011
+**** v1   vsl|       1011 VCL_call        c SYNTH
+**** v1   vsl|       1011 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1011 RespHeader      c Retry-After: 5
+**** v1   vsl|       1011 VCL_return      c deliver
+**** v1   vsl|       1011 Timestamp       c Process: 1634893395.093011 0.000112 0.000112
+**** v1   vsl|       1011 RespHeader      c Content-Length: 251
+**** v1   vsl|       1011 Storage         c malloc Transient
+**** v1   vsl|       1011 Filters         c 
+**** v1   vsl|       1011 RespHeader      c Connection: close
+**** v1   vsl|       1011 Timestamp       c Resp: 1634893395.093051 0.000152 0.000039
+**** v1   vsl|       1011 ReqAcct         c 46 0 46 194 251 445
+**** v1   vsl|       1011 End             c 
+**** v1   vsl|       1010 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1010 End             c 
+**** dT   1.131
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl5
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl5' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1014	VCL_call	"PASS"
+**   l1   === expect 0 1014	VCL_Error	"Forced failure"
+**   l1   === expect 0 1014	VCL_return	"fail"
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1014 VCL_call PASS
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+***  c1   connected fd 6 from 127.0.0.1 43668 to 127.0.0.1 39345
+**   c1   === txreq -hdr "foo: pass"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: pass\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   1.132
+**   c1   === rxresp
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:15 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1014\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 09:03:15 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1014
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1014</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "VCL failed"
+**** c1   EXPECT resp.reason (VCL failed) == "VCL failed" match
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 6
+**   v1   as expected: vcl_fail (6) == 6
+**   top  === varnish v1 -expect sc_vcl_failure == 6
+**   v1   as expected: sc_vcl_failure (6) == 6
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   1.141
+**** l1   match|       1014 VCL_call        c PASS
+***  l1   expecting| expect 0 1014 VCL_Error Forced failure
+**** l1   match|       1014 VCL_Error       c Forced failure
+***  l1   expecting| expect 0 1014 VCL_return fail
+**** l1   match|       1014 VCL_return      c fail
+**** l1   end|
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl6 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (req.http.foo == "purge") { return(purge); }
+**** v1   CLI TX|\t}
+**** v1   CLI TX|\tsub vcl_purge {
+**** v1   CLI TX|\t\tif (req.http.foo == "purge") {
+**** v1   CLI TX|\t\t\tdebug.fail();
+**** v1   CLI TX|\t\t\tset req.http.not = "Should not happen";
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.217
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl5 vcl_vcl5.1634893395.103014/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl5: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl5.1634893395.103014/vgc.so" as "vcl5"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl5
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1013 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1013 SessOpen        c 127.0.0.1 43668 a0 127.0.0.1 39345 1634893395.275071 22
+**** v1   vsl|       1013 Link            c req 1014 rxreq
+**** v1   vsl|       1014 Begin           c req 1013 rxreq
+**** v1   vsl|       1014 Timestamp       c Start: 1634893395.275143 0.000000 0.000000
+**** v1   vsl|       1014 Timestamp       c Req: 1634893395.275143 0.000000 0.000000
+**** v1   vsl|       1014 VCL_use         c vcl5
+**** v1   vsl|       1014 ReqStart        c 127.0.0.1 43668 a0
+**** v1   vsl|       1014 ReqMethod       c GET
+**** v1   vsl|       1014 ReqURL          c /
+**** v1   vsl|       1014 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1014 ReqHeader       c foo: pass
+**** v1   vsl|       1014 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1014 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1014 VCL_call        c RECV
+**** v1   vsl|       1014 VCL_return      c pass
+**** v1   vsl|       1014 VCL_call        c HASH
+**** v1   vsl|       1014 VCL_return      c lookup
+**** v1   vsl|       1014 VCL_call        c PASS
+**** v1   vsl|       1014 VCL_Error       c Forced failure
+**** v1   vsl|       1014 VCL_return      c fail
+**** v1   vsl|       1014 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1014 RespStatus      c 503
+**** v1   vsl|       1014 RespReason      c VCL failed
+**** v1   vsl|       1014 RespHeader      c Date: Fri, 22 Oct 2021 09:03:15 GMT
+**** v1   vsl|       1014 RespHeader      c Server: Varnish
+**** v1   vsl|       1014 RespHeader      c X-Varnish: 1014
+**** v1   vsl|       1014 VCL_call        c SYNTH
+**** v1   vsl|       1014 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1014 RespHeader      c Retry-After: 5
+**** v1   vsl|       1014 VCL_return      c deliver
+**** v1   vsl|       1014 Timestamp       c Process: 1634893395.275186 0.000043 0.000043
+**** v1   vsl|       1014 RespHeader      c Content-Length: 251
+**** v1   vsl|       1014 Storage         c malloc Transient
+**** v1   vsl|       1014 Filters         c 
+**** v1   vsl|       1014 RespHeader      c Connection: close
+**** v1   vsl|       1014 Timestamp       c Resp: 1634893395.275219 0.000076 0.000033
+**** v1   vsl|       1014 ReqAcct         c 46 0 46 194 251 445
+**** v1   vsl|       1014 End             c 
+**** v1   vsl|       1013 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1013 End             c 
+**** dT   1.309
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl6
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl6' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1016	VCL_call	"PURGE"
+**** dT   1.310
+**   l1   === expect 0 1016	VCL_Error	"Forced failure"
+**   l1   === expect 0 1016	VCL_return	"fail"
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1016 VCL_call PURGE
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+***  c1   connected fd 6 from 127.0.0.1 43670 to 127.0.0.1 39345
+**   c1   === txreq -hdr "foo: purge"
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|foo: purge\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   1.311
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:15 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1016\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 09:03:15 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1016
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1016</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "VCL failed"
+**** c1   EXPECT resp.reason (VCL failed) == "VCL failed" match
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 7
+**   v1   as expected: vcl_fail (7) == 7
+**   top  === varnish v1 -expect sc_vcl_failure == 7
+**   v1   as expected: sc_vcl_failure (7) == 7
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   1.317
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl6 vcl_vcl6.1634893395.285244/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl6: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl6.1634893395.285244/vgc.so" as "vcl6"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl6
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1015 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1015 SessOpen        c 127.0.0.1 43670 a0 127.0.0.1 39345 1634893395.453683 27
+**** v1   vsl|       1015 Link            c req 1016 rxreq
+**** v1   vsl|       1016 Begin           c req 1015 rxreq
+**** v1   vsl|       1016 Timestamp       c Start: 1634893395.453725 0.000000 0.000000
+**** v1   vsl|       1016 Timestamp       c Req: 1634893395.453725 0.000000 0.000000
+**** v1   vsl|       1016 VCL_use         c vcl6
+**** v1   vsl|       1016 ReqStart        c 127.0.0.1 43670 a0
+**** v1   vsl|       1016 ReqMethod       c GET
+**** v1   vsl|       1016 ReqURL          c /
+**** v1   vsl|       1016 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1016 ReqHeader       c foo: purge
+**** v1   vsl|       1016 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1016 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1016 VCL_call        c RECV
+**** v1   vsl|       1016 VCL_return      c purge
+**** v1   vsl|       1016 VCL_call        c HASH
+**** v1   vsl|       1016 VCL_return      c lookup
+**** v1   vsl|       1016 VCL_call        c PURGE
+**** v1   vsl|       1016 VCL_Error       c Forced failure
+**** v1   vsl|       1016 VCL_return      c fail
+**** v1   vsl|       1016 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1016 RespStatus      c 503
+**** v1   vsl|       1016 RespReason      c VCL failed
+**** v1   vsl|       1016 RespHeader      c Date: Fri, 22 Oct 2021 09:03:15 GMT
+**** v1   vsl|       1016 RespHeader      c Server: Varnish
+**** v1   vsl|       1016 RespHeader      c X-Varnish: 1016
+**** v1   vsl|       1016 VCL_call        c SYNTH
+**** v1   vsl|       1016 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1016 RespHeader      c Retry-After: 5
+**** v1   vsl|       1016 VCL_return      c deliver
+**** v1   vsl|       1016 Timestamp       c Process: 1634893395.453789 0.000063 0.000063
+**** v1   vsl|       1016 RespHeader      c Content-Length: 251
+**** v1   vsl|       1016 Storage         c malloc Transient
+**** v1   vsl|       1016 Filters         c 
+**** v1   vsl|       1016 RespHeader      c Connection: close
+**** v1   vsl|       1016 Timestamp       c Resp: 1634893395.453866 0.000140 0.000076
+**** v1   vsl|       1016 ReqAcct         c 47 0 47 194 251 445
+**** v1   vsl|       1016 End             c 
+**** v1   vsl|       1015 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1015 End             c 
+**** dT   1.320
+**** l1   match|       1016 VCL_call        c PURGE
+***  l1   expecting| expect 0 1016 VCL_Error Forced failure
+**** l1   match|       1016 VCL_Error       c Forced failure
+***  l1   expecting| expect 0 1016 VCL_return fail
+**** l1   match|       1016 VCL_return      c fail
+**** l1   end|
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl7 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_miss {
+**** v1   CLI TX|\t\tif (req.http.foo == "miss") {
+**** v1   CLI TX|\t\t\tdebug.fail();
+**** v1   CLI TX|\t\t\tset req.http.not = "Should not happen";
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.496
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl7
+**** dT   1.497
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl7' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1018	VCL_call	"MISS"
+**   l1   === expect 0 1018	VCL_Error	"Forced failure"
+**   l1   === expect 0 1018	VCL_return	"fail"
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1018 VCL_call MISS
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+***  c1   connected fd 6 from 127.0.0.1 43672 to 127.0.0.1 39345
+**   c1   === txreq -url /miss -hdr "foo: miss"
+**** c1   txreq|GET /miss HTTP/1.1\r
+**** c1   txreq|foo: miss\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   1.498
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:15 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1018\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 09:03:15 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1018
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1018</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "VCL failed"
+**** c1   EXPECT resp.reason (VCL failed) == "VCL failed" match
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 8
+**   v1   as expected: vcl_fail (8) == 8
+**   top  === varnish v1 -expect sc_vcl_failure == 8
+**   v1   as expected: sc_vcl_failure (8) == 8
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   1.507
+**** l1   match|       1018 VCL_call        c MISS
+***  l1   expecting| expect 0 1018 VCL_Error Forced failure
+**** l1   match|       1018 VCL_Error       c Forced failure
+***  l1   expecting| expect 0 1018 VCL_return fail
+**** l1   match|       1018 VCL_return      c fail
+**** l1   end|
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl8 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_hit {
+**** v1   CLI TX|\t\tif (req.http.foo == "hit") {
+**** v1   CLI TX|\t\t\tdebug.fail();
+**** v1   CLI TX|\t\t\tset req.http.not = "Should not happen";
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.518
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl7 vcl_vcl7.1634893395.463821/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl7: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl7.1634893395.463821/vgc.so" as "vcl7"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl7
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1017 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1017 SessOpen        c 127.0.0.1 43672 a0 127.0.0.1 39345 1634893395.640877 26
+**** v1   vsl|       1017 Link            c req 1018 rxreq
+**** v1   vsl|       1018 Begin           c req 1017 rxreq
+**** v1   vsl|       1018 Timestamp       c Start: 1634893395.640950 0.000000 0.000000
+**** v1   vsl|       1018 Timestamp       c Req: 1634893395.640950 0.000000 0.000000
+**** v1   vsl|       1018 VCL_use         c vcl7
+**** v1   vsl|       1018 ReqStart        c 127.0.0.1 43672 a0
+**** v1   vsl|       1018 ReqMethod       c GET
+**** v1   vsl|       1018 ReqURL          c /miss
+**** v1   vsl|       1018 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1018 ReqHeader       c foo: miss
+**** v1   vsl|       1018 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1018 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1018 VCL_call        c RECV
+**** v1   vsl|       1018 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1018 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1018 VCL_return      c hash
+**** v1   vsl|       1018 VCL_call        c HASH
+**** v1   vsl|       1018 VCL_return      c lookup
+**** v1   vsl|       1018 VCL_call        c MISS
+**** v1   vsl|       1018 VCL_Error       c Forced failure
+**** v1   vsl|       1018 VCL_return      c fail
+**** v1   vsl|       1018 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1018 RespStatus      c 503
+**** v1   vsl|       1018 RespReason      c VCL failed
+**** v1   vsl|       1018 RespHeader      c Date: Fri, 22 Oct 2021 09:03:15 GMT
+**** v1   vsl|       1018 RespHeader      c Server: Varnish
+**** v1   vsl|       1018 RespHeader      c X-Varnish: 1018
+**** v1   vsl|       1018 VCL_call        c SYNTH
+**** v1   vsl|       1018 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1018 RespHeader      c Retry-After: 5
+**** v1   vsl|       1018 VCL_return      c deliver
+**** v1   vsl|       1018 Timestamp       c Process: 1634893395.641002 0.000052 0.000052
+**** v1   vsl|       1018 RespHeader      c Content-Length: 251
+**** v1   vsl|       1018 Storage         c malloc Transient
+**** v1   vsl|       1018 Filters         c 
+**** v1   vsl|       1018 RespHeader      c Connection: close
+**** v1   vsl|       1018 Timestamp       c Resp: 1634893395.641043 0.000092 0.000040
+**** v1   vsl|       1018 ReqAcct         c 50 0 50 194 251 445
+**** v1   vsl|       1018 End             c 
+**** v1   vsl|       1017 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1017 End             c 
+**** dT   1.675
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl8
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl8' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1020	VCL_call	"HIT"
+**   l1   === expect 0 1020	VCL_Error	"Forced failure"
+**   l1   === expect 0 1020	VCL_return	"fail"
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1020 VCL_call HIT
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+***  c1   connected fd 6 from 127.0.0.1 43676 to 127.0.0.1 39345
+**   c1   === txreq -url /hit -hdr "foo: hit"
+**** c1   txreq|GET /hit HTTP/1.1\r
+**** c1   txreq|foo: hit\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   1.676
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:15 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1020\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 09:03:15 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1020
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1020</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "VCL failed"
+**** c1   EXPECT resp.reason (VCL failed) == "VCL failed" match
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 9
+**   v1   as expected: vcl_fail (9) == 9
+**   top  === varnish v1 -expect sc_vcl_failure == 9
+**   v1   as expected: sc_vcl_failure (9) == 9
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   1.685
+**** l1   match|       1020 VCL_call        c HIT
+***  l1   expecting| expect 0 1020 VCL_Error Forced failure
+**** l1   match|       1020 VCL_Error       c Forced failure
+***  l1   expecting| expect 0 1020 VCL_return fail
+**** l1   match|       1020 VCL_return      c fail
+**** l1   end|
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl9 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_deliver {
+**** v1   CLI TX|\t\tif (req.http.foo == "deliver") {
+**** v1   CLI TX|\t\t\tdebug.fail();
+**** v1   CLI TX|\t\t\tset req.http.not = "Should not happen";
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.718
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl8 vcl_vcl8.1634893395.651141/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl8: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl8.1634893395.651141/vgc.so" as "vcl8"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl8
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1019 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1019 SessOpen        c 127.0.0.1 43676 a0 127.0.0.1 39345 1634893395.818892 22
+**** v1   vsl|       1019 Link            c req 1020 rxreq
+**** v1   vsl|       1020 Begin           c req 1019 rxreq
+**** v1   vsl|       1020 Timestamp       c Start: 1634893395.818936 0.000000 0.000000
+**** v1   vsl|       1020 Timestamp       c Req: 1634893395.818936 0.000000 0.000000
+**** v1   vsl|       1020 VCL_use         c vcl8
+**** v1   vsl|       1020 ReqStart        c 127.0.0.1 43676 a0
+**** v1   vsl|       1020 ReqMethod       c GET
+**** v1   vsl|       1020 ReqURL          c /hit
+**** v1   vsl|       1020 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1020 ReqHeader       c foo: hit
+**** v1   vsl|       1020 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1020 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1020 VCL_call        c RECV
+**** v1   vsl|       1020 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1020 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1020 VCL_return      c hash
+**** v1   vsl|       1020 VCL_call        c HASH
+**** v1   vsl|       1020 VCL_return      c lookup
+**** v1   vsl|       1020 Hit             c 1005 118.733378 10.000000 0.000000
+**** v1   vsl|       1020 VCL_call        c HIT
+**** v1   vsl|       1020 VCL_Error       c Forced failure
+**** v1   vsl|       1020 VCL_return      c fail
+**** v1   vsl|       1020 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1020 RespStatus      c 503
+**** v1   vsl|       1020 RespReason      c VCL failed
+**** v1   vsl|       1020 RespHeader      c Date: Fri, 22 Oct 2021 09:03:15 GMT
+**** v1   vsl|       1020 RespHeader      c Server: Varnish
+**** v1   vsl|       1020 RespHeader      c X-Varnish: 1020
+**** v1   vsl|       1020 VCL_call        c SYNTH
+**** v1   vsl|       1020 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1020 RespHeader      c Retry-After: 5
+**** v1   vsl|       1020 VCL_return      c deliver
+**** v1   vsl|       1020 Timestamp       c Process: 1634893395.818992 0.000055 0.000055
+**** v1   vsl|       1020 RespHeader      c Content-Length: 251
+**** v1   vsl|       1020 Storage         c malloc Transient
+**** v1   vsl|       1020 Filters         c 
+**** v1   vsl|       1020 RespHeader      c Connection: close
+**** v1   vsl|       1020 Timestamp       c Resp: 1634893395.819059 0.000123 0.000067
+**** v1   vsl|       1020 ReqAcct         c 48 0 48 194 251 445
+**** v1   vsl|       1020 End             c 
+**** v1   vsl|       1019 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1019 End             c 
+**** dT   1.850
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl9
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl9' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1022	VCL_call	"DELIVER"
+**   l1   === expect 0 1022	VCL_Error	"Forced failure"
+**   l1   === expect 0 1022	VCL_return	"fail"
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1022 VCL_call DELIVER
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+**** dT   1.851
+***  c1   connected fd 6 from 127.0.0.1 43678 to 127.0.0.1 39345
+**   c1   === txreq -url /hit -hdr "foo: deliver"
+**** c1   txreq|GET /hit HTTP/1.1\r
+**** c1   txreq|foo: deliver\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   1.852
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:15 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1022\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 09:03:15 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1022
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1022</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "VCL failed"
+**** c1   EXPECT resp.reason (VCL failed) == "VCL failed" match
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 10
+**   v1   as expected: vcl_fail (10) == 10
+**   top  === varnish v1 -expect sc_vcl_failure == 10
+**   v1   as expected: sc_vcl_failure (10) == 10
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   1.861
+**** l1   match|       1022 VCL_call        c DELIVER
+***  l1   expecting| expect 0 1022 VCL_Error Forced failure
+**** l1   match|       1022 VCL_Error       c Forced failure
+***  l1   expecting| expect 0 1022 VCL_return fail
+**** l1   match|       1022 VCL_return      c fail
+**** l1   end|
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl10 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_backend_fetch {
+**** v1   CLI TX|\t\tdebug.fail();
+**** v1   CLI TX|\t\tset bereq.http.not = "Should not happen";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.918
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl9 vcl_vcl9.1634893395.829027/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl9: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl9.1634893395.829027/vgc.so" as "vcl9"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl9
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1021 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1021 SessOpen        c 127.0.0.1 43678 a0 127.0.0.1 39345 1634893395.994345 27
+**** v1   vsl|       1021 Link            c req 1022 rxreq
+**** v1   vsl|       1022 Begin           c req 1021 rxreq
+**** v1   vsl|       1022 Timestamp       c Start: 1634893395.994410 0.000000 0.000000
+**** v1   vsl|       1022 Timestamp       c Req: 1634893395.994410 0.000000 0.000000
+**** v1   vsl|       1022 VCL_use         c vcl9
+**** v1   vsl|       1022 ReqStart        c 127.0.0.1 43678 a0
+**** v1   vsl|       1022 ReqMethod       c GET
+**** v1   vsl|       1022 ReqURL          c /hit
+**** v1   vsl|       1022 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1022 ReqHeader       c foo: deliver
+**** v1   vsl|       1022 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1022 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1022 VCL_call        c RECV
+**** v1   vsl|       1022 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1022 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1022 VCL_return      c hash
+**** v1   vsl|       1022 VCL_call        c HASH
+**** v1   vsl|       1022 VCL_return      c lookup
+**** v1   vsl|       1022 Hit             c 1005 118.557905 10.000000 0.000000
+**** v1   vsl|       1022 VCL_call        c HIT
+**** v1   vsl|       1022 VCL_return      c deliver
+**** v1   vsl|       1022 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1022 RespStatus      c 200
+**** v1   vsl|       1022 RespReason      c OK
+**** v1   vsl|       1022 RespHeader      c Content-Length: 0
+**** v1   vsl|       1022 RespHeader      c Date: Fri, 22 Oct 2021 09:03:14 GMT
+**** v1   vsl|       1022 RespHeader      c X-Varnish: 1022 1005
+**** v1   vsl|       1022 RespHeader      c Age: 1
+**** v1   vsl|       1022 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1022 VCL_call        c DELIVER
+**** v1   vsl|       1022 VCL_Error       c Forced failure
+**** v1   vsl|       1022 VCL_return      c fail
+**** v1   vsl|       1022 Timestamp       c Process: 1634893395.994457 0.000046 0.000046
+**** v1   vsl|       1022 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1022 RespStatus      c 503
+**** v1   vsl|       1022 RespReason      c VCL failed
+**** v1   vsl|       1022 RespHeader      c Date: Fri, 22 Oct 2021 09:03:15 GMT
+**** v1   vsl|       1022 RespHeader      c Server: Varnish
+**** v1   vsl|       1022 RespHeader      c X-Varnish: 1022
+**** v1   vsl|       1022 VCL_call        c SYNTH
+**** v1   vsl|       1022 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1022 RespHeader      c Retry-After: 5
+**** v1   vsl|       1022 VCL_return      c deliver
+**** v1   vsl|       1022 Timestamp       c Process: 1634893395.994494 0.000084 0.000037
+**** v1   vsl|       1022 RespHeader      c Content-Length: 251
+**** v1   vsl|       1022 Storage         c malloc Transient
+**** v1   vsl|       1022 Filters         c 
+**** v1   vsl|       1022 RespHeader      c Connection: close
+**** v1   vsl|       1022 Timestamp       c Resp: 1634893395.994568 0.000158 0.000074
+**** v1   vsl|       1022 ReqAcct         c 52 0 52 194 251 445
+**** v1   vsl|       1022 End             c 
+**** v1   vsl|       1021 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1021 End             c 
+**** dT   2.022
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl10
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl10' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1025	VCL_call	"BACKEND_FETCH"
+**   l1   === expect 0 1025	VCL_Error	"Forced failure"
+**   l1   === expect 0 1025	VCL_return	"fail"
+**** dT   2.023
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1025 VCL_call BACKEND_FETCH
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+***  c1   connected fd 6 from 127.0.0.1 43684 to 127.0.0.1 39345
+**   c1   === txreq -url /backend_fetch
+**** c1   txreq|GET /backend_fetch HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   2.024
+**** c1   rxhdr|HTTP/1.1 503 Service Unavailable\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:16 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1024\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 278\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 208
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |Service Unavailable
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 09:03:16 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1024
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 278
+**** c1   http[ 9] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 Service Unavailable</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 Service Unavailable</h1>
+**** c1   c-l|    <p>Service Unavailable</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1024</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 278
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "Service Unavailable"
+**** c1   EXPECT resp.reason (Service Unavailable) == "Service Unavailable" match
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 11
+**   v1   as expected: vcl_fail (11) == 11
+**   top  === varnish v1 -expect sc_vcl_failure == 10
+**   v1   as expected: sc_vcl_failure (10) == 10
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   2.033
+**** l1   match|       1025 VCL_call        b BACKEND_FETCH
+***  l1   expecting| expect 0 1025 VCL_Error Forced failure
+**** l1   match|       1025 VCL_Error       b Forced failure
+***  l1   expecting| expect 0 1025 VCL_return fail
+**** l1   match|       1025 VCL_return      b fail
+**** l1   end|
+**   top  === server s1 {
+**   s1   Waiting for server (4/-1)
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=42609
+**** s1   macro def s1_sock=127.0.0.1 42609
+*    s1   Listen on 127.0.0.1 42609
+**   top  === varnish v1 -vcl+backend {
+**   s1   Started on 127.0.0.1 42609 (1 iterations)
+**** v1   CLI TX|vcl.inline vcl11 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_backend_error {
+**** v1   CLI TX|\t\tdebug.fail();
+**** v1   CLI TX|\t\tset bereq.http.not = "Should not happen";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   2.119
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl10 vcl_vcl10.1634893396.004499/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl10: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 54 Loaded "vcl_vcl10.1634893396.004499/vgc.so" as "vcl10"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl10
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1023 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1023 SessOpen        c 127.0.0.1 43684 a0 127.0.0.1 39345 1634893396.166510 26
+**** v1   vsl|       1023 Link            c req 1024 rxreq
+**** v1   vsl|       1025 Begin           b bereq 1024 fetch
+**** v1   vsl|       1025 VCL_use         b vcl10
+**** v1   vsl|       1025 Timestamp       b Start: 1634893396.166611 0.000000 0.000000
+**** v1   vsl|       1025 BereqMethod     b GET
+**** v1   vsl|       1025 BereqURL        b /backend_fetch
+**** v1   vsl|       1025 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1025 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1025 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1025 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1025 BereqHeader     b X-Varnish: 1025
+**** v1   vsl|       1025 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1025 VCL_Error       b Forced failure
+**** v1   vsl|       1025 VCL_return      b fail
+**** v1   vsl|       1025 BereqAcct       b 0 0 0 0 0 0
+**** v1   vsl|       1025 End             b 
+**** v1   vsl|       1024 Begin           c req 1023 rxreq
+**** v1   vsl|       1024 Timestamp       c Start: 1634893396.166565 0.000000 0.000000
+**** v1   vsl|       1024 Timestamp       c Req: 1634893396.166565 0.000000 0.000000
+**** v1   vsl|       1024 VCL_use         c vcl10
+**** v1   vsl|       1024 ReqStart        c 127.0.0.1 43684 a0
+**** v1   vsl|       1024 ReqMethod       c GET
+**** v1   vsl|       1024 ReqURL          c /backend_fetch
+**** v1   vsl|       1024 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1024 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1024 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1024 VCL_call        c RECV
+**** v1   vsl|       1024 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1024 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1024 VCL_return      c hash
+**** v1   vsl|       1024 VCL_call        c HASH
+**** v1   vsl|       1024 VCL_return      c lookup
+**** v1   vsl|       1024 VCL_call        c MISS
+**** v1   vsl|       1024 VCL_return      c fetch
+**** v1   vsl|       1024 Link            c bereq 1025 fetch
+**** v1   vsl|       1024 Timestamp       c Fetch: 1634893396.166643 0.000078 0.000078
+**** v1   vsl|       1024 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1024 RespStatus      c 503
+**** v1   vsl|       1024 RespReason      c Service Unavailable
+**** v1   vsl|       1024 RespHeader      c Date: Fri, 22 Oct 2021 09:03:16 GMT
+**** v1   vsl|       1024 RespHeader      c Server: Varnish
+**** v1   vsl|       1024 RespHeader      c X-Varnish: 1024
+**** v1   vsl|       1024 VCL_call        c SYNTH
+**** v1   vsl|       1024 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1024 RespHeader      c Retry-After: 5
+**** v1   vsl|       1024 VCL_return      c deliver
+**** v1   vsl|       1024 Timestamp       c Process: 1634893396.166662 0.000097 0.000019
+**** v1   vsl|       1024 RespHeader      c Content-Length: 278
+**** v1   vsl|       1024 Storage         c malloc Transient
+**** v1   vsl|       1024 Filters         c 
+**** v1   vsl|       1024 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1024 Timestamp       c Resp: 1634893396.166721 0.000156 0.000058
+**** v1   vsl|       1024 ReqAcct         c 48 0 48 208 278 486
+**** v1   vsl|       1024 End             c 
+**** v1   vsl|       1023 SessClose       c REM_CLOSE 0.001
+**** v1   vsl|       1023 End             c 
+**** dT   2.196
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl11
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl11' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1028	VCL_call	"BACKEND_ERROR"
+**   l1   === expect 0 1028	VCL_Error	"Forced failure"
+**   l1   === expect 0 1028	VCL_return	"fail"
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1028 VCL_call BACKEND_ERROR
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+***  c1   connected fd 24 from 127.0.0.1 43686 to 127.0.0.1 39345
+**   c1   === txreq -url /backend_error
+**** c1   txreq|GET /backend_error HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   2.197
+***  s1   accepted fd 6 127.0.0.1 53668
+**   s1   === rxreq
+**** s1   rxhdr|GET /backend_error HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1028\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 116
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/backend_error
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1028
+**** s1   bodylen = 0
+**   s1   === expect req.url == /backend_error
+**** s1   EXPECT req.url (/backend_error) == "/backend_error" match
+***  s1   shutting fd 6
+**   s1   Ending
+**** dT   2.198
+**** c1   rxhdr|HTTP/1.1 503 Service Unavailable\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:16 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1027\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 278\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 208
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |Service Unavailable
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 09:03:16 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1027
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 278
+**** c1   http[ 9] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 Service Unavailable</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 Service Unavailable</h1>
+**** c1   c-l|    <p>Service Unavailable</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1027</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 278
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "Service Unavailable"
+**** c1   EXPECT resp.reason (Service Unavailable) == "Service Unavailable" match
+***  c1   closing fd 24
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 12
+**   v1   as expected: vcl_fail (12) == 12
+**   top  === varnish v1 -expect sc_vcl_failure == 10
+**   v1   as expected: sc_vcl_failure (10) == 10
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   2.206
+**** l1   match|       1028 VCL_call        b BACKEND_ERROR
+***  l1   expecting| expect 0 1028 VCL_Error Forced failure
+**** l1   match|       1028 VCL_Error       b Forced failure
+***  l1   expecting| expect 0 1028 VCL_return fail
+**** l1   match|       1028 VCL_return      b fail
+**** l1   end|
+**   top  === server s1 {
+**   s1   Waiting for server (4/-1)
+**   s1   Starting server
+**** dT   2.207
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=42609
+**** s1   macro def s1_sock=127.0.0.1 42609
+*    s1   Listen on 127.0.0.1 42609
+**   top  === varnish v1 -vcl+backend {
+**   s1   Started on 127.0.0.1 42609 (1 iterations)
+**** v1   CLI TX|vcl.inline vcl12 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_backend_response {
+**** v1   CLI TX|\t\tdebug.fail();
+**** v1   CLI TX|\t\tset bereq.http.not = "Should not happen";
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   2.219
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl11 vcl_vcl11.1634893396.176673/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl11: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 54 Loaded "vcl_vcl11.1634893396.176673/vgc.so" as "vcl11"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl11
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1026 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1026 SessOpen        c 127.0.0.1 43686 a0 127.0.0.1 39345 1634893396.340220 22
+**** v1   vsl|       1026 Link            c req 1027 rxreq
+**** v1   vsl|       1028 Begin           b bereq 1027 fetch
+**** v1   vsl|       1028 VCL_use         b vcl11
+**** v1   vsl|       1028 Timestamp       b Start: 1634893396.340309 0.000000 0.000000
+**** v1   vsl|       1028 BereqMethod     b GET
+**** v1   vsl|       1028 BereqURL        b /backend_error
+**** v1   vsl|       1028 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1028 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1028 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1028 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1028 BereqHeader     b X-Varnish: 1028
+**** v1   vsl|       1028 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1028 VCL_return      b fetch
+**** v1   vsl|       1028 BackendOpen     b 28 s1 127.0.0.1 42609 127.0.0.1 53668 connect
+**** v1   vsl|       1028 Timestamp       b Bereq: 1634893396.340439 0.000129 0.000129
+**** v1   vsl|       1028 FetchError      b HTC eof (-1)
+**** v1   vsl|       1028 BackendClose    b 28 s1 close
+**** v1   vsl|       1028 Timestamp       b Beresp: 1634893396.340902 0.000592 0.000462
+**** v1   vsl|       1028 Timestamp       b Error: 1634893396.340904 0.000594 0.000002
+**** v1   vsl|       1028 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1028 BerespStatus    b 503
+**** v1   vsl|       1028 BerespReason    b Backend fetch failed
+**** v1   vsl|       1028 BerespHeader    b Date: Fri, 22 Oct 2021 09:03:16 GMT
+**** v1   vsl|       1028 BerespHeader    b Server: Varnish
+**** v1   vsl|       1028 VCL_call        b BACKEND_ERROR
+**** v1   vsl|       1028 VCL_Error       b Forced failure
+**** v1   vsl|       1028 VCL_return      b fail
+**** v1   vsl|       1028 BereqAcct       b 116 0 116 0 0 0
+**** v1   vsl|       1028 End             b 
+**** v1   vsl|       1027 Begin           c req 1026 rxreq
+**** v1   vsl|       1027 Timestamp       c Start: 1634893396.340264 0.000000 0.000000
+**** v1   vsl|       1027 Timestamp       c Req: 1634893396.340264 0.000000 0.000000
+**** v1   vsl|       1027 VCL_use         c vcl11
+**** v1   vsl|       1027 ReqStart        c 127.0.0.1 43686 a0
+**** v1   vsl|       1027 ReqMethod       c GET
+**** v1   vsl|       1027 ReqURL          c /backend_error
+**** v1   vsl|       1027 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1027 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1027 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1027 VCL_call        c RECV
+**** v1   vsl|       1027 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1027 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1027 VCL_return      c hash
+**** v1   vsl|       1027 VCL_call        c HASH
+**** v1   vsl|       1027 VCL_return      c lookup
+**** v1   vsl|       1027 VCL_call        c MISS
+**** v1   vsl|       1027 VCL_return      c fetch
+**** v1   vsl|       1027 Link            c bereq 1028 fetch
+**** v1   vsl|       1027 Timestamp       c Fetch: 1634893396.340937 0.000672 0.000672
+**** v1   vsl|       1027 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1027 RespStatus      c 503
+**** v1   vsl|       1027 RespReason      c Service Unavailable
+**** v1   vsl|       1027 RespHeader      c Date: Fri, 22 Oct 2021 09:03:16 GMT
+**** v1   vsl|       1027 RespHeader      c Server: Varnish
+**** v1   vsl|       1027 RespHeader      c X-Varnish: 1027
+**** v1   vsl|       1027 VCL_call        c SYNTH
+**** v1   vsl|       1027 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1027 RespHeader      c Retry-After: 5
+**** v1   vsl|       1027 VCL_return      c deliver
+**** v1   vsl|       1027 Timestamp       c Process: 1634893396.340953 0.000689 0.000016
+**** v1   vsl|       1027 RespHeader      c Content-Length: 278
+**** v1   vsl|       1027 Storage         c malloc Transient
+**** v1   vsl|       1027 Filters         c 
+**** v1   vsl|       1027 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1027 Timestamp       c Resp: 1634893396.341005 0.000741 0.000052
+**** v1   vsl|       1027 ReqAcct         c 48 0 48 208 278 486
+**** v1   vsl|       1027 End             c 
+**** v1   vsl|       1026 SessClose       c REM_CLOSE 0.002
+**** v1   vsl|       1026 End             c 
+**** dT   2.369
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl12
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl12' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1031	VCL_call	"BACKEND_RESPONSE"
+**   l1   === expect 0 1031	VCL_Error	"Forced failure"
+**   l1   === expect 0 1031	VCL_return	"fail"
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1031 VCL_call BACKEND_RESPONSE
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+**** dT   2.370
+***  c1   connected fd 24 from 127.0.0.1 43690 to 127.0.0.1 39345
+**   c1   === txreq -url /backend_response
+**** c1   txreq|GET /backend_response HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+***  s1   accepted fd 6 127.0.0.1 53672
+**   s1   === rxreq
+**** s1   rxhdr|GET /backend_response HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1031\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 119
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/backend_response
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1031
+**** s1   bodylen = 0
+**   s1   === expect req.url == /backend_response
+**** s1   EXPECT req.url (/backend_response) == "/backend_response" match
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 6
+**   s1   Ending
+**** dT   2.371
+**   c1   === rxresp
+**** c1   rxhdr|HTTP/1.1 503 Service Unavailable\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:16 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1030\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 278\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 208
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |Service Unavailable
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 09:03:16 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1030
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 278
+**** c1   http[ 9] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 Service Unavailable</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 Service Unavailable</h1>
+**** c1   c-l|    <p>Service Unavailable</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1030</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 278
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "Service Unavailable"
+**** c1   EXPECT resp.reason (Service Unavailable) == "Service Unavailable" match
+***  c1   closing fd 24
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 13
+**   v1   as expected: vcl_fail (13) == 13
+**   top  === varnish v1 -expect sc_vcl_failure == 10
+**   v1   as expected: sc_vcl_failure (10) == 10
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   2.379
+**** l1   match|       1031 VCL_call        b BACKEND_RESPONSE
+***  l1   expecting| expect 0 1031 VCL_Error Forced failure
+**** l1   match|       1031 VCL_Error       b Forced failure
+***  l1   expecting| expect 0 1031 VCL_return fail
+**** l1   match|       1031 VCL_return      b fail
+**** l1   end|
+**** dT   2.380
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl13 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42609"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (debug.fail2()) {
+**** v1   CLI TX|\t\t\treturn (hash);
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   2.419
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl12 vcl_vcl12.1634893396.350492/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl12: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 54 Loaded "vcl_vcl12.1634893396.350492/vgc.so" as "vcl12"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl12
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1029 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1029 SessOpen        c 127.0.0.1 43690 a0 127.0.0.1 39345 1634893396.513334 27
+**** v1   vsl|       1029 Link            c req 1030 rxreq
+**** v1   vsl|       1031 Begin           b bereq 1030 fetch
+**** v1   vsl|       1031 VCL_use         b vcl12
+**** v1   vsl|       1031 Timestamp       b Start: 1634893396.513477 0.000000 0.000000
+**** v1   vsl|       1031 BereqMethod     b GET
+**** v1   vsl|       1031 BereqURL        b /backend_response
+**** v1   vsl|       1031 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1031 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1031 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1031 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1031 BereqHeader     b X-Varnish: 1031
+**** v1   vsl|       1031 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1031 VCL_return      b fetch
+**** v1   vsl|       1031 BackendOpen     b 28 s1 127.0.0.1 42609 127.0.0.1 53672 connect
+**** v1   vsl|       1031 Timestamp       b Bereq: 1634893396.513578 0.000101 0.000101
+**** v1   vsl|       1031 Timestamp       b Beresp: 1634893396.514104 0.000626 0.000525
+**** v1   vsl|       1031 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1031 BerespStatus    b 200
+**** v1   vsl|       1031 BerespReason    b OK
+**** v1   vsl|       1031 BerespHeader    b Content-Length: 0
+**** v1   vsl|       1031 BerespHeader    b Date: Fri, 22 Oct 2021 09:03:16 GMT
+**** v1   vsl|       1031 TTL             b RFC 120 10 0 1634893397 1634893397 1634893396 0 0 cacheable
+**** v1   vsl|       1031 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1031 VCL_Error       b Forced failure
+**** v1   vsl|       1031 VCL_return      b fail
+**** v1   vsl|       1031 BackendClose    b 28 s1 close
+**** v1   vsl|       1031 BereqAcct       b 119 0 119 38 0 38
+**** v1   vsl|       1031 End             b 
+**** v1   vsl|       1030 Begin           c req 1029 rxreq
+**** v1   vsl|       1030 Timestamp       c Start: 1634893396.513427 0.000000 0.000000
+**** v1   vsl|       1030 Timestamp       c Req: 1634893396.513427 0.000000 0.000000
+**** v1   vsl|       1030 VCL_use         c vcl12
+**** v1   vsl|       1030 ReqStart        c 127.0.0.1 43690 a0
+**** v1   vsl|       1030 ReqMethod       c GET
+**** v1   vsl|       1030 ReqURL          c /backend_response
+**** v1   vsl|       1030 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1030 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1030 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1030 VCL_call        c RECV
+**** v1   vsl|       1030 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1030 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1030 VCL_return      c hash
+**** v1   vsl|       1030 VCL_call        c HASH
+**** v1   vsl|       1030 VCL_return      c lookup
+**** v1   vsl|       1030 VCL_call        c MISS
+**** v1   vsl|       1030 VCL_return      c fetch
+**** v1   vsl|       1030 Link            c bereq 1031 fetch
+**** v1   vsl|       1030 Timestamp       c Fetch: 1634893396.514175 0.000747 0.000747
+**** v1   vsl|       1030 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1030 RespStatus      c 503
+**** v1   vsl|       1030 RespReason      c Service Unavailable
+**** v1   vsl|       1030 RespHeader      c Date: Fri, 22 Oct 2021 09:03:16 GMT
+**** v1   vsl|       1030 RespHeader      c Server: Varnish
+**** v1   vsl|       1030 RespHeader      c X-Varnish: 1030
+**** v1   vsl|       1030 VCL_call        c SYNTH
+**** v1   vsl|       1030 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1030 RespHeader      c Retry-After: 5
+**** v1   vsl|       1030 VCL_return      c deliver
+**** v1   vsl|       1030 Timestamp       c Process: 1634893396.514193 0.000765 0.000018
+**** v1   vsl|       1030 RespHeader      c Content-Length: 278
+**** v1   vsl|       1030 Storage         c malloc Transient
+**** v1   vsl|       1030 Filters         c 
+**** v1   vsl|       1030 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1030 Timestamp       c Resp: 1634893396.514231 0.000803 0.000038
+**** v1   vsl|       1030 ReqAcct         c 51 0 51 208 278 486
+**** v1   vsl|       1030 End             c 
+**** v1   vsl|       1029 SessClose       c REM_CLOSE 0.002
+**** v1   vsl|       1029 End             c 
+**** dT   2.540
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl13
+**** dT   2.541
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl13' now active
+**   top  === logexpect l1 -v v1 -g raw {
+**   l1   === expect * 1033	VCL_call	"RECV"
+**   l1   === expect 0 1033	VCL_Error	"Forced failure"
+**   l1   === expect 0 1033	VCL_return	"fail"
+**   top  === client c1 {
+**   c1   Starting client
+**** l1   begin|
+***  l1   expecting| expect * 1033 VCL_call RECV
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 39345 (1 iterations)
+***  c1   Connect to 127.0.0.1 39345
+***  c1   connected fd 6 from 127.0.0.1 43694 to 127.0.0.1 39345
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   2.542
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:03:16 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1033\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 09:03:16 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1033
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1033</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect resp.reason == "VCL failed"
+**** c1   EXPECT resp.reason (VCL failed) == "VCL failed" match
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === varnish v1 -expect vcl_fail == 14
+**   v1   as expected: vcl_fail (14) == 14
+**   top  === varnish v1 -expect sc_vcl_failure == 11
+**   v1   as expected: sc_vcl_failure (11) == 11
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   2.551
+**** l1   match|       1033 VCL_call        c RECV
+***  l1   expecting| expect 0 1033 VCL_Error Forced failure
+**** l1   match|       1033 VCL_Error       c Forced failure
+***  l1   expecting| expect 0 1033 VCL_return fail
+**** l1   match|       1033 VCL_return      c fail
+**** l1   end|
+*    top  RESETTING after ./tests/v00051.vtc
+**   s1   Waiting for server (4/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name        Admin     Probe   Health    Last change
+**** v1   CLI RX|vcl13.s1            healthy   0/0     healthy   Fri, 22 Oct 2021 09:03:16 GMT
+**** v1   CLI RX|vcl13.dir_warmcold  healthy   0/0     healthy   Fri, 22 Oct 2021 09:03:16 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+**** dT   2.595
+***  v1   debug|Debug: Stopping Child
+**** dT   2.619
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl13 vcl_vcl13.1634893396.523418/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl13: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 54 Loaded "vcl_vcl13.1634893396.523418/vgc.so" as "vcl13"
+**** dT   2.620
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl13
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1032 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1032 SessOpen        c 127.0.0.1 43694 a0 127.0.0.1 39345 1634893396.684734 26
+**** v1   vsl|       1032 Link            c req 1033 rxreq
+**** v1   vsl|       1033 Begin           c req 1032 rxreq
+**** v1   vsl|       1033 Timestamp       c Start: 1634893396.684779 0.000000 0.000000
+**** v1   vsl|       1033 Timestamp       c Req: 1634893396.684779 0.000000 0.000000
+**** v1   vsl|       1033 VCL_use         c vcl13
+**** v1   vsl|       1033 ReqStart        c 127.0.0.1 43694 a0
+**** v1   vsl|       1033 ReqMethod       c GET
+**** v1   vsl|       1033 ReqURL          c /
+**** v1   vsl|       1033 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1033 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1033 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1033 VCL_call        c RECV
+**** v1   vsl|       1033 VCL_Error       c Forced failure
+**** v1   vsl|       1033 VCL_return      c fail
+**** v1   vsl|       1033 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1033 RespStatus      c 503
+**** v1   vsl|       1033 RespReason      c VCL failed
+**** v1   vsl|       1033 RespHeader      c Date: Fri, 22 Oct 2021 09:03:16 GMT
+**** v1   vsl|       1033 RespHeader      c Server: Varnish
+**** v1   vsl|       1033 RespHeader      c X-Varnish: 1033
+**** v1   vsl|       1033 VCL_call        c SYNTH
+**** v1   vsl|       1033 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1033 RespHeader      c Retry-After: 5
+**** v1   vsl|       1033 VCL_return      c deliver
+**** v1   vsl|       1033 Timestamp       c Process: 1634893396.684814 0.000035 0.000035
+**** v1   vsl|       1033 RespHeader      c Content-Length: 251
+**** v1   vsl|       1033 Storage         c malloc Transient
+**** v1   vsl|       1033 Filters         c 
+**** v1   vsl|       1033 RespHeader      c Connection: close
+**** v1   vsl|       1033 Timestamp       c Resp: 1634893396.684870 0.000091 0.000056
+**** v1   vsl|       1033 ReqAcct         c 35 0 35 194 251 445
+**** v1   vsl|       1033 End             c 
+**** v1   vsl|       1032 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1032 End             c 
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 216 Backend name        Admin     Probe   Health    Last change
+vcl13.s1            healthy   0/0     healthy   Fri, 22 Oct 2021 09:03:16 GMT
+vcl13.dir_warmcold  healthy   0/0     healthy   Fri, 22 Oct 2021 09:03:16 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   3.595
+***  v1   debug|Info: Child (109688) ended
+***  v1   debug|Info: Child (109688) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+**** dT   3.596
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** dT   3.597
+**** v1   STDOUT EOF
+**** dT   3.623
+**   v1   WAIT4 pid=109634 status=0x0000 (user 1.866288 sys 0.322032)
+*    top  TEST ./tests/v00051.vtc completed
+#    top  TEST ./tests/v00051.vtc passed (3.623)

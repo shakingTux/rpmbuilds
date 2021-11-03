@@ -1,0 +1,1027 @@
+**** dT   0.000
+*    top  TEST ./tests/s00012.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 44803
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.100430.16ffcc73
+**   top  === varnishtest "client h1 send timeouts - uds"
+*    top  VTEST client h1 send timeouts - uds
+**   top  === feature cmd {test $(uname) != "SunOS"}
+**** dT   0.003
+**   top  === feature SO_RCVTIMEO_WORKS
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=41327
+**** s1   macro def s1_sock=127.0.0.1 41327
+*    s1   Listen on 127.0.0.1 41327
+**   top  === varnish v1				\
+**   s1   Started on 127.0.0.1 41327 (1 iterations)
+**** dT   0.007
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.100430.16ffcc73/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -M '127.0.0.1 40831' -P /tmp/vtc.100430.16ffcc73/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p timeout_idle=1 -p idle_send_timeout=.1 -p send_timeout=.1 -a /tmp/vtc.100430.16ffcc73/v1.sock
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.100430.16ffcc73/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -M '127.0.0.1 40831' -P /tmp/vtc.100430.16ffcc73/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p timeout_idle=1 -p idle_send_timeout=.1 -p send_timeout=.1 -a /tmp/vtc.100430.16ffcc73/v1.sock
+***  v1   PID: 100452
+**** v1   macro def v1_pid=100452
+**** v1   macro def v1_name=/tmp/vtc.100430.16ffcc73/v1
+**** dT   0.015
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.114
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 7
+***  v1   CLI RX  107
+**** v1   CLI RX|mzvrahogfvnjvdvuxqniirnbobjfndfn
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** dT   0.115
+**** v1   CLI TX|auth 29dc7a1539b8fd86d50f7fb44a98b6edbd4fd5d4a702caea70db4e0f7c3f382d
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "41327"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport debug;
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tif (req.url == "/longsend") {
+**** v1   CLI TX|\t\t\t# client -rcvbuf 128 is super inefficient, so
+**** v1   CLI TX|\t\t\t# we need a very long timeout
+**** v1   CLI TX|\t\t\tset sess.send_timeout = 20s;
+**** v1   CLI TX|\t\t} else
+**** v1   CLI TX|\t\tif (req.url == "/longidlesend") {
+**** v1   CLI TX|\t\t\tset sess.idle_send_timeout = 2s;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_hash {
+**** v1   CLI TX|\t\thash_data("/");
+**** v1   CLI TX|\t\treturn (lookup);
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_deliver {
+**** v1   CLI TX|\t\tdebug.sndbuf(128b);
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.215
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.292
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.297
+***  v1   debug|Debug: Child (100464) Started
+**** dT   0.328
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (100464) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|/tmp/vtc.100430.16ffcc73/v1.sock -
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|/tmp/vtc.100430.16ffcc73/v1.sock -
+**   v1   Listen on /tmp/vtc.100430.16ffcc73/v1.sock -
+**** v1   macro def v1_addr=/tmp/vtc.100430.16ffcc73/v1.sock
+**** v1   macro def v1_port=-
+**** v1   macro def v1_sock=/tmp/vtc.100430.16ffcc73/v1.sock -
+**** dT   0.416
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634893273.014428/vgc.so 1auto
+**** v1   vsl|          0 Debug           - vcl1: VCL_EVENT_WARM
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634893273.014428/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 35 /tmp/vtc.100430.16ffcc73/v1.sock -
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 35 /tmp/vtc.100430.16ffcc73/v1.sock -
+
+**** dT   0.428
+**   top  === logexpect l1 -v v1 -q "ReqURL ~ \"^/$\"" {
+**   l1   === expect * * Debug "Hit total send timeout"
+**** dT   0.429
+**   top  === client c1 -connect "${tmpdir}/v1.sock" -rcvbuf 128 {
+**   c1   Starting client
+**** l1   begin|
+**** l1   qry| ReqURL ~ "^/$"
+***  l1   expecting| expect * * Debug Hit total send timeout
+**   top  === client c2 -connect "${tmpdir}/v1.sock" -rcvbuf 128 {
+**   c2   Starting client
+**   top  === client c1 -wait
+**   c1   Waiting for client
+**   c1   Started on /tmp/vtc.100430.16ffcc73/v1.sock (1 iterations)
+***  c1   Connect to /tmp/vtc.100430.16ffcc73/v1.sock
+**   c2   Started on /tmp/vtc.100430.16ffcc73/v1.sock (1 iterations)
+***  c2   Connect to /tmp/vtc.100430.16ffcc73/v1.sock
+***  c1   connected fd 22 to /tmp/vtc.100430.16ffcc73/v1.sock
+***  c2   connected fd 23 to /tmp/vtc.100430.16ffcc73/v1.sock
+***  c2   -rcvbuf fd=23 old=212992 new=128 actual=2304
+***  c1   -rcvbuf fd=22 old=212992 new=128 actual=2304
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === non_fatal
+**   c1   === rxresphdrs
+**** dT   0.430
+***  s1   accepted fd 5 127.0.0.1 45500
+**   s1   === rxreq
+**   c2   === txreq -url /longsend
+**** c2   txreq|GET /longsend HTTP/1.1\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresphdrs
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 0.0.0.0\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1003\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 101
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 0.0.0.0
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1003
+**** s1   bodylen = 0
+**   s1   === txresp -bodylen 100000
+**** dT   0.431
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 100000\r
+**** s1   txresp|\r
+**** s1   txresp|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** s1   txresp|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** s1   txresp|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** s1   txresp|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** s1   txresp|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** s1   txresp|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** s1   txresp|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** s1   txresp|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** s1   txresp|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** s1   txresp|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** s1   txresp|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** s1   txresp|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** s1   txresp|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** s1   txresp|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** s1   txresp|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** s1   txresp|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** s1   txresp|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** s1   txresp|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** s1   txresp|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** s1   txresp|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** s1   txresp|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** s1   txresp|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** s1   txresp|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** s1   txresp|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** s1   txresp|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** s1   txresp|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** s1   txresp|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** s1   txresp|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** s1   txresp|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** s1   txresp|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** s1   txresp|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** s1   txresp|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** s1   txresp|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** s1   txresp|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** s1   txresp|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** s1   txresp|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** s1   txresp|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** s1   txresp|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** s1   txresp|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** s1   txresp|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** s1   txresp|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** s1   txresp|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** s1   txresp|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** s1   txresp|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** s1   txresp|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** s1   txresp|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** s1   txresp|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** s1   txresp|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** s1   txresp|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** s1   txresp|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** s1   txresp|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** s1   txresp|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** s1   txresp|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** s1   txresp|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** s1   txresp|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** s1   txresp|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** s1   txresp|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** s1   txresp|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** s1   txresp|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** s1   txresp|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** s1   txresp|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** s1   txresp|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** s1   txresp|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** s1   txresp|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** s1   txresp|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** s1   txresp|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** s1   txresp|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** s1   txresp|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** s1   txresp|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** s1   txresp|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** s1   txresp|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** s1   txresp|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** s1   txresp|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** s1   txresp|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** s1   txresp|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** s1   txresp|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** s1   txresp|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** s1   txresp|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** s1   txresp|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** s1   txresp|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** s1   txresp|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** s1   txresp|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** s1   txresp|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** s1   txresp|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** s1   txresp|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** s1   txresp|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** s1   txresp|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** s1   txresp|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** s1   txresp|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** s1   txresp|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** s1   txresp|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** s1   txresp||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** s1   txresp|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** s1   txresp|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** s1   txresp|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** s1   txresp|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** s1   txresp|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** s1   txresp|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** s1   txresp|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** s1   txresp|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** s1   txresp|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** s1   txresp|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** s1   txresp|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** s1   txresp|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** s1   txresp|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** s1   txresp|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** s1   txresp|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** s1   txresp|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** s1   txresp|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** s1   txresp|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** s1   txresp|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** s1   txresp|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** s1   txresp|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** s1   txresp|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** s1   txresp|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** s1   txresp|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** s1   txresp|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** s1   txresp|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** s1   txresp|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** s1   txresp|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** s1   txresp|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** s1   txresp|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** s1   txresp|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** s1   txresp|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** s1   txresp|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** s1   txresp|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** s1   txresp|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** s1   txresp|CDEFGHIJKLMNOPQRSTUVW
+**** s1   txresp| [...] (91851)
+***  s1   shutting fd 5
+**   s1   Ending
+**** dT   0.432
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Content-Length: 100000\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 09:01:13 GMT\r
+**** c2   rxhdr|X-Varnish: 1004 1003\r
+**** c2   rxhdr|Age: 0\r
+**** c2   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 188
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Content-Length: 100000
+**** c2   http[ 4] |Date: Fri, 22 Oct 2021 09:01:13 GMT
+**** c2   http[ 5] |X-Varnish: 1004 1003
+**** c2   http[ 6] |Age: 0
+**** c2   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c2   http[ 8] |Accept-Ranges: bytes
+**** c2   http[ 9] |Connection: keep-alive
+**   c2   === delay 0.8
+***  c2   delaying 0.8 second(s)
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 100000\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 09:01:13 GMT\r
+**** c1   rxhdr|X-Varnish: 1002\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 183
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 100000
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 09:01:13 GMT
+**** c1   http[ 5] |X-Varnish: 1002
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |Accept-Ranges: bytes
+**** c1   http[ 9] |Connection: keep-alive
+**   c1   === delay 2
+***  c1   delaying 2 second(s)
+**** dT   0.516
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1001 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 0.0.0.0 0 a0 0.0.0.0 0 1634893273.328071 26
+**** v1   vsl|       1001 SessOpen        c 0.0.0.0 0 a0 0.0.0.0 0 1634893273.328077 25
+**** v1   vsl|       1001 Link            c req 1002 rxreq
+**** v1   vsl|       1000 Link            c req 1004 rxreq
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7ff4a8010f50 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7ff4a8010f50 e=1634893403.330138 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7ff4a8010f50 e=129.999861 f=0x0
+**** v1   vsl|       1003 Begin           b bereq 1002 fetch
+**** v1   vsl|       1003 VCL_use         b vcl1
+**** v1   vsl|       1003 Timestamp       b Start: 1634893273.328352 0.000000 0.000000
+**** v1   vsl|       1003 BereqMethod     b GET
+**** v1   vsl|       1003 BereqURL        b /
+**** v1   vsl|       1003 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1003 BereqHeader     b X-Forwarded-For: 0.0.0.0
+**** v1   vsl|       1003 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1003 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1003 BereqHeader     b X-Varnish: 1003
+**** v1   vsl|       1003 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1003 VCL_return      b fetch
+**** v1   vsl|       1003 BackendOpen     b 29 s1 127.0.0.1 41327 127.0.0.1 45500 connect
+**** v1   vsl|       1003 Timestamp       b Bereq: 1634893273.328643 0.000291 0.000291
+**** v1   vsl|       1003 Timestamp       b Beresp: 1634893273.330138 0.001785 0.001494
+**** v1   vsl|       1003 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1003 BerespStatus    b 200
+**** v1   vsl|       1003 BerespReason    b OK
+**** v1   vsl|       1003 BerespHeader    b Content-Length: 100000
+**** v1   vsl|       1003 BerespHeader    b Date: Fri, 22 Oct 2021 09:01:13 GMT
+**** v1   vsl|       1003 TTL             b RFC 120 10 0 1634893273 1634893273 1634893273 0 0 cacheable
+**** v1   vsl|       1003 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1003 VCL_return      b deliver
+**** v1   vsl|       1003 Filters         b 
+**** v1   vsl|       1003 Storage         b malloc s0
+**** v1   vsl|       1003 Fetch_Body      b 3 length stream
+**** v1   vsl|       1003 BackendClose    b 29 s1 recycle
+**** v1   vsl|       1003 Timestamp       b BerespBody: 1634893273.340480 0.012128 0.010342
+**** v1   vsl|       1003 Length          b 100000
+**** v1   vsl|       1003 BereqAcct       b 101 0 101 43 100000 100043
+**** v1   vsl|       1003 End             b 
+**** dT   0.540
+**** l1   match|       1002 Debug           c Hit total send timeout, wrote = 4480/95703; not retrying
+**** l1   end|
+**** dT   0.616
+**** v1   vsl|       1002 Begin           c req 1001 rxreq
+**** v1   vsl|       1002 Timestamp       c Start: 1634893273.328230 0.000000 0.000000
+**** v1   vsl|       1002 Timestamp       c Req: 1634893273.328230 0.000000 0.000000
+**** v1   vsl|       1002 VCL_use         c vcl1
+**** v1   vsl|       1002 ReqStart        c 0.0.0.0 0 a0
+**** v1   vsl|       1002 ReqMethod       c GET
+**** v1   vsl|       1002 ReqURL          c /
+**** v1   vsl|       1002 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1002 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1002 ReqHeader       c X-Forwarded-For: 0.0.0.0
+**** v1   vsl|       1002 VCL_call        c RECV
+**** v1   vsl|       1002 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1002 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1002 VCL_return      c hash
+**** v1   vsl|       1002 VCL_call        c HASH
+**** v1   vsl|       1002 VCL_return      c lookup
+**** v1   vsl|       1002 VCL_call        c MISS
+**** v1   vsl|       1002 VCL_return      c fetch
+**** v1   vsl|       1002 Link            c bereq 1003 fetch
+**** v1   vsl|       1002 Timestamp       c Fetch: 1634893273.330293 0.002063 0.002063
+**** v1   vsl|       1002 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1002 RespStatus      c 200
+**** v1   vsl|       1002 RespReason      c OK
+**** v1   vsl|       1002 RespHeader      c Content-Length: 100000
+**** v1   vsl|       1002 RespHeader      c Date: Fri, 22 Oct 2021 09:01:13 GMT
+**** v1   vsl|       1002 RespHeader      c X-Varnish: 1002
+**** v1   vsl|       1002 RespHeader      c Age: 0
+**** v1   vsl|       1002 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1002 VCL_call        c DELIVER
+**** v1   vsl|       1002 Debug           c SO_SNDBUF fd=25 old=212992 new=128 actual=4608
+**** v1   vsl|       1002 VCL_return      c deliver
+**** v1   vsl|       1002 Timestamp       c Process: 1634893273.330312 0.002082 0.000018
+**** v1   vsl|       1002 Filters         c 
+**** v1   vsl|       1002 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1002 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1002 Debug           c Hit idle send timeout, wrote = 4480/100183; retrying
+**** v1   vsl|       1002 Debug           c Hit total send timeout, wrote = 4480/95703; not retrying
+**** v1   vsl|       1002 Debug           c Write error, retval = -1, len = 95703, errno = Success
+**** v1   vsl|       1002 Timestamp       c Resp: 1634893273.430690 0.102460 0.100378
+**** v1   vsl|       1002 ReqAcct         c 35 0 35 183 4297 4480
+**** v1   vsl|       1002 End             c 
+**** v1   vsl|       1001 SessClose       c TX_ERROR 0.103
+**** v1   vsl|       1001 End             c 
+**** dT   1.232
+**   c2   === rxrespbody
+**** dT   1.233
+**** c2   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c2   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c2   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c2   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c2   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c2   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c2   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c2   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c2   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c2   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c2   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c2   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c2   c-l|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c2   c-l|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c2   c-l|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c2   c-l|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c2   c-l|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c2   c-l|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c2   c-l|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c2   c-l|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c2   c-l|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c2   c-l|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c2   c-l|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c2   c-l|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c2   c-l|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c2   c-l|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c2   c-l|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c2   c-l|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c2   c-l|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c2   c-l|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c2   c-l|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c2   c-l|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c2   c-l|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c2   c-l|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c2   c-l|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c2   c-l|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** c2   c-l|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** c2   c-l|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** c2   c-l|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** c2   c-l|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** c2   c-l|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** c2   c-l|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** c2   c-l|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** c2   c-l|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** c2   c-l|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** c2   c-l|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** c2   c-l|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** c2   c-l|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** c2   c-l|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** c2   c-l|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** c2   c-l|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** c2   c-l|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** c2   c-l|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** c2   c-l|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** c2   c-l|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** c2   c-l|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** c2   c-l|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** c2   c-l|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** c2   c-l|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** c2   c-l|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** c2   c-l|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** c2   c-l|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** c2   c-l|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** c2   c-l|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** c2   c-l|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** c2   c-l|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** c2   c-l|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** c2   c-l|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** c2   c-l|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** c2   c-l|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** c2   c-l|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** c2   c-l|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** c2   c-l|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** c2   c-l|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** c2   c-l|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** c2   c-l|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** c2   c-l|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** c2   c-l|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** c2   c-l|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** c2   c-l|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** c2   c-l|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** c2   c-l|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** c2   c-l|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** c2   c-l|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** c2   c-l|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** c2   c-l|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** c2   c-l|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** c2   c-l|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** c2   c-l|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** c2   c-l|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** c2   c-l|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** c2   c-l||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** c2   c-l|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** c2   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c2   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c2   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c2   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c2   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c2   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c2   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c2   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c2   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c2   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c2   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c2   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c2   c-l|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c2   c-l|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c2   c-l|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c2   c-l|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c2   c-l|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c2   c-l|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c2   c-l|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c2   c-l|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c2   c-l|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c2   c-l|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c2   c-l|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c2   c-l|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c2   c-l|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c2   c-l|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c2   c-l|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c2   c-l|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c2   c-l|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c2   c-l|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c2   c-l|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c2   c-l|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c2   c-l|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c2   c-l|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c2   c-l|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c2   c-l| [...] (91808)
+**** c2   bodylen = 100000
+**   c2   === expect resp.bodylen == 100000
+**** c2   EXPECT resp.bodylen (100000) == "100000" match
+***  c2   closing fd 23
+**   c2   Ending
+**** dT   1.318
+**** v1   vsl|       1004 Begin           c req 1000 rxreq
+**** v1   vsl|       1004 Timestamp       c Start: 1634893273.329170 0.000000 0.000000
+**** v1   vsl|       1004 Timestamp       c Req: 1634893273.329170 0.000000 0.000000
+**** v1   vsl|       1004 VCL_use         c vcl1
+**** v1   vsl|       1004 ReqStart        c 0.0.0.0 0 a0
+**** v1   vsl|       1004 ReqMethod       c GET
+**** v1   vsl|       1004 ReqURL          c /longsend
+**** v1   vsl|       1004 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1004 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c X-Forwarded-For: 0.0.0.0
+**** v1   vsl|       1004 VCL_call        c RECV
+**** v1   vsl|       1004 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1004 VCL_return      c hash
+**** v1   vsl|       1004 VCL_call        c HASH
+**** v1   vsl|       1004 VCL_return      c lookup
+**** v1   vsl|       1004 Timestamp       c Waitinglist: 1634893273.330332 0.001161 0.001161
+**** v1   vsl|       1004 Hit             c 1003 120.000968 10.000000 0.000000
+**** v1   vsl|       1004 VCL_call        c HIT
+**** v1   vsl|       1004 VCL_return      c deliver
+**** v1   vsl|       1004 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1004 RespStatus      c 200
+**** v1   vsl|       1004 RespReason      c OK
+**** v1   vsl|       1004 RespHeader      c Content-Length: 100000
+**** v1   vsl|       1004 RespHeader      c Date: Fri, 22 Oct 2021 09:01:13 GMT
+**** v1   vsl|       1004 RespHeader      c X-Varnish: 1004 1003
+**** v1   vsl|       1004 RespHeader      c Age: 0
+**** v1   vsl|       1004 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1004 VCL_call        c DELIVER
+**** v1   vsl|       1004 Debug           c SO_SNDBUF fd=26 old=212992 new=128 actual=4608
+**** v1   vsl|       1004 VCL_return      c deliver
+**** v1   vsl|       1004 Timestamp       c Process: 1634893273.330343 0.001173 0.000011
+**** v1   vsl|       1004 Filters         c 
+**** v1   vsl|       1004 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1004 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1004 Debug           c Hit idle send timeout, wrote = 4480/65681; retrying
+**** v1   vsl|       1004 Debug           c Hit idle send timeout, wrote = -1/61201; retrying
+**** v1   vsl|       1004 Debug           c Hit idle send timeout, wrote = -1/61201; retrying
+**** v1   vsl|       1004 Debug           c Hit idle send timeout, wrote = -1/61201; retrying
+**** v1   vsl|       1004 Debug           c Hit idle send timeout, wrote = -1/61201; retrying
+**** v1   vsl|       1004 Debug           c Hit idle send timeout, wrote = -1/61201; retrying
+**** v1   vsl|       1004 Debug           c Hit idle send timeout, wrote = -1/61201; retrying
+**** v1   vsl|       1004 Timestamp       c Resp: 1634893274.131764 0.802593 0.801420
+**** v1   vsl|       1004 ReqAcct         c 43 0 43 188 100000 100188
+**** v1   vsl|       1004 End             c 
+**** v1   vsl|       1000 SessClose       c REM_CLOSE 0.804
+**** v1   vsl|       1000 End             c 
+**** dT   2.432
+***  c1   closing fd 22
+**   c1   Ending
+**   top  === client c2 -wait
+**   c2   Waiting for client
+**   top  === varnish v1 -cliok "param.set idle_send_timeout 1"
+**** v1   CLI TX|param.set idle_send_timeout 1
+**** dT   2.433
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set idle_send_timeout 1>
+**   top  === varnish v1 -cliok "param.reset send_timeout"
+**** v1   CLI TX|param.reset send_timeout
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.reset send_timeout>
+**   top  === logexpect l2 -v v1 -q "ReqURL ~ \"^/$\"" {
+**   l2   === expect * * Debug "Hit idle send timeout"
+**   top  === client c3 -connect "${tmpdir}/v1.sock" -rcvbuf 128 {
+**   c3   Starting client
+**** l2   begin|
+**** l2   qry| ReqURL ~ "^/$"
+***  l2   expecting| expect * * Debug Hit idle send timeout
+**   top  === client c4 -connect "${tmpdir}/v1.sock" -rcvbuf 128 {
+**   c4   Starting client
+**   c3   Started on /tmp/vtc.100430.16ffcc73/v1.sock (1 iterations)
+***  c3   Connect to /tmp/vtc.100430.16ffcc73/v1.sock
+**   top  === client c3 -wait
+***  c3   connected fd 26 to /tmp/vtc.100430.16ffcc73/v1.sock
+**   c3   Waiting for client
+***  c3   -rcvbuf fd=26 old=212992 new=128 actual=2304
+**   c4   Started on /tmp/vtc.100430.16ffcc73/v1.sock (1 iterations)
+***  c4   Connect to /tmp/vtc.100430.16ffcc73/v1.sock
+***  c4   connected fd 27 to /tmp/vtc.100430.16ffcc73/v1.sock
+***  c4   -rcvbuf fd=27 old=212992 new=128 actual=2304
+**   c4   === txreq -url /longidlesend
+**** c4   txreq|GET /longidlesend HTTP/1.1\r
+**** c4   txreq|Host: 127.0.0.1\r
+**** c4   txreq|\r
+**   c4   === rxresphdrs
+**   c3   === txreq
+**** c3   txreq|GET / HTTP/1.1\r
+**** c3   txreq|Host: 127.0.0.1\r
+**** c3   txreq|\r
+**   c3   === rxresphdrs
+**** dT   2.434
+**** c4   rxhdr|HTTP/1.1 200 OK\r
+**** c4   rxhdr|Content-Length: 100000\r
+**** c4   rxhdr|Date: Fri, 22 Oct 2021 09:01:13 GMT\r
+**** c4   rxhdr|X-Varnish: 1007 1003\r
+**** c4   rxhdr|Age: 2\r
+**** c4   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c4   rxhdr|Accept-Ranges: bytes\r
+**** c4   rxhdr|Connection: keep-alive\r
+**** c4   rxhdr|\r
+**** c4   rxhdrlen = 188
+**** c4   http[ 0] |HTTP/1.1
+**** c4   http[ 1] |200
+**** c4   http[ 2] |OK
+**** c4   http[ 3] |Content-Length: 100000
+**** c4   http[ 4] |Date: Fri, 22 Oct 2021 09:01:13 GMT
+**** c4   http[ 5] |X-Varnish: 1007 1003
+**** c4   http[ 6] |Age: 2
+**** c4   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c4   http[ 8] |Accept-Ranges: bytes
+**** c4   http[ 9] |Connection: keep-alive
+**   c4   === delay 1.8
+***  c4   delaying 1.8 second(s)
+**** c3   rxhdr|HTTP/1.1 200 OK\r
+**** c3   rxhdr|Content-Length: 100000\r
+**** c3   rxhdr|Date: Fri, 22 Oct 2021 09:01:13 GMT\r
+**** c3   rxhdr|X-Varnish: 1008 1003\r
+**** c3   rxhdr|Age: 2\r
+**** c3   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c3   rxhdr|Accept-Ranges: bytes\r
+**** c3   rxhdr|Connection: keep-alive\r
+**** c3   rxhdr|\r
+**** c3   rxhdrlen = 188
+**** c3   http[ 0] |HTTP/1.1
+**** c3   http[ 1] |200
+**** c3   http[ 2] |OK
+**** c3   http[ 3] |Content-Length: 100000
+**** c3   http[ 4] |Date: Fri, 22 Oct 2021 09:01:13 GMT
+**** c3   http[ 5] |X-Varnish: 1008 1003
+**** c3   http[ 6] |Age: 2
+**** c3   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c3   http[ 8] |Accept-Ranges: bytes
+**** c3   http[ 9] |Connection: keep-alive
+**   c3   === delay 2
+***  c3   delaying 2 second(s)
+**** dT   2.520
+**** v1   vsl|       1005 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1005 SessOpen        c 0.0.0.0 0 a0 0.0.0.0 0 1634893275.332157 25
+**** v1   vsl|       1006 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1006 SessOpen        c 0.0.0.0 0 a0 0.0.0.0 0 1634893275.332214 26
+**** v1   vsl|       1006 Link            c req 1007 rxreq
+**** v1   vsl|       1005 Link            c req 1008 rxreq
+**** dT   3.321
+**** v1   vsl|          0 CLI             - Rd ping
+**** v1   vsl|          0 CLI             - Wr 200 19 PONG 1634893276 1.0
+**** dT   4.234
+**   c4   === rxrespbody
+**** dT   4.235
+**** c4   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c4   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c4   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c4   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c4   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c4   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c4   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c4   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c4   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c4   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c4   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c4   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c4   c-l|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c4   c-l|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c4   c-l|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c4   c-l|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c4   c-l|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c4   c-l|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c4   c-l|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c4   c-l|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c4   c-l|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c4   c-l|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c4   c-l|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c4   c-l|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c4   c-l|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c4   c-l|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c4   c-l|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c4   c-l|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c4   c-l|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c4   c-l|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c4   c-l|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c4   c-l|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c4   c-l|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c4   c-l|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c4   c-l|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c4   c-l|DEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%
+**** c4   c-l|EFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&
+**** c4   c-l|FGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'
+**** c4   c-l|GHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'(
+**** c4   c-l|HIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()
+**** c4   c-l|IJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*
+**** c4   c-l|JKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+
+**** c4   c-l|KLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,
+**** c4   c-l|LMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-
+**** c4   c-l|MNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-.
+**** c4   c-l|NOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./
+**** c4   c-l|OPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0
+**** c4   c-l|PQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01
+**** c4   c-l|QRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012
+**** c4   c-l|RSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123
+**** c4   c-l|STUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234
+**** c4   c-l|TUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345
+**** c4   c-l|UVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456
+**** c4   c-l|VWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./01234567
+**** c4   c-l|WXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./012345678
+**** c4   c-l|XYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789
+**** c4   c-l|YZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:
+**** c4   c-l|Z[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;
+**** c4   c-l|[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<
+**** c4   c-l|\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=
+**** c4   c-l|]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>
+**** c4   c-l|^_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?
+**** c4   c-l|_`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@
+**** c4   c-l|`abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@A
+**** c4   c-l|abcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@AB
+**** c4   c-l|bcdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABC
+**** c4   c-l|cdefghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCD
+**** c4   c-l|defghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDE
+**** c4   c-l|efghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEF
+**** c4   c-l|fghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFG
+**** c4   c-l|ghijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH
+**** c4   c-l|hijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+**** c4   c-l|ijklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJ
+**** c4   c-l|jklmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJK
+**** c4   c-l|klmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKL
+**** c4   c-l|lmnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLM
+**** c4   c-l|mnopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMN
+**** c4   c-l|nopqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNO
+**** c4   c-l|opqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOP
+**** c4   c-l|pqrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ
+**** c4   c-l|qrstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQR
+**** c4   c-l|rstuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRS
+**** c4   c-l|stuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRST
+**** c4   c-l|tuvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTU
+**** c4   c-l|uvwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUV
+**** c4   c-l|vwxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVW
+**** c4   c-l|wxyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWX
+**** c4   c-l|xyz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXY
+**** c4   c-l|yz{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ
+**** c4   c-l|z{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+**** c4   c-l|{|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\
+**** c4   c-l||}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]
+**** c4   c-l|}!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^
+**** c4   c-l|!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+**** c4   c-l|"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`
+**** c4   c-l|#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a
+**** c4   c-l|$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`ab
+**** c4   c-l|%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abc
+**** c4   c-l|&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+**** c4   c-l|'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcde
+**** c4   c-l|()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdef
+**** c4   c-l|)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefg
+**** c4   c-l|*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefgh
+**** c4   c-l|+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghi
+**** c4   c-l|,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
+**** c4   c-l|-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijk
+**** c4   c-l|./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijkl
+**** c4   c-l|/0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklm
+**** c4   c-l|0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmn
+**** c4   c-l|123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmno
+**** c4   c-l|23456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnop
+**** c4   c-l|3456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopq
+**** c4   c-l|456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqr
+**** c4   c-l|56789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrs
+**** c4   c-l|6789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrst
+**** c4   c-l|789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstu
+**** c4   c-l|89:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuv
+**** c4   c-l|9:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvw
+**** c4   c-l|:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwx
+**** c4   c-l|;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxy
+**** c4   c-l|<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
+**** c4   c-l|=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{
+**** c4   c-l|>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|
+**** c4   c-l|?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+**** c4   c-l|@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!
+**** c4   c-l|ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"
+**** c4   c-l|BCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#
+**** c4   c-l|CDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}!"#$
+**** c4   c-l| [...] (91808)
+**** c4   bodylen = 100000
+**   c4   === expect resp.bodylen == 100000
+**** c4   EXPECT resp.bodylen (100000) == "100000" match
+***  c4   closing fd 27
+**   c4   Ending
+**** dT   4.322
+**** v1   vsl|       1007 Begin           c req 1006 rxreq
+**** v1   vsl|       1007 Timestamp       c Start: 1634893275.332237 0.000000 0.000000
+**** v1   vsl|       1007 Timestamp       c Req: 1634893275.332237 0.000000 0.000000
+**** v1   vsl|       1007 VCL_use         c vcl1
+**** v1   vsl|       1007 ReqStart        c 0.0.0.0 0 a0
+**** v1   vsl|       1007 ReqMethod       c GET
+**** v1   vsl|       1007 ReqURL          c /longidlesend
+**** v1   vsl|       1007 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1007 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c X-Forwarded-For: 0.0.0.0
+**** v1   vsl|       1007 VCL_call        c RECV
+**** v1   vsl|       1007 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1007 VCL_return      c hash
+**** v1   vsl|       1007 VCL_call        c HASH
+**** v1   vsl|       1007 VCL_return      c lookup
+**** v1   vsl|       1007 Hit             c 1003 117.997900 10.000000 0.000000
+**** v1   vsl|       1007 VCL_call        c HIT
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1007 RespStatus      c 200
+**** v1   vsl|       1007 RespReason      c OK
+**** v1   vsl|       1007 RespHeader      c Content-Length: 100000
+**** v1   vsl|       1007 RespHeader      c Date: Fri, 22 Oct 2021 09:01:13 GMT
+**** v1   vsl|       1007 RespHeader      c X-Varnish: 1007 1003
+**** v1   vsl|       1007 RespHeader      c Age: 2
+**** v1   vsl|       1007 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1007 VCL_call        c DELIVER
+**** v1   vsl|       1007 Debug           c SO_SNDBUF fd=26 old=212992 new=128 actual=4608
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 Timestamp       c Process: 1634893275.332290 0.000052 0.000052
+**** v1   vsl|       1007 Filters         c 
+**** v1   vsl|       1007 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1007 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1007 Timestamp       c Resp: 1634893277.133552 1.801314 1.801261
+**** v1   vsl|       1007 ReqAcct         c 47 0 47 188 100000 100188
+**** v1   vsl|       1007 End             c 
+**** v1   vsl|       1006 SessClose       c REM_CLOSE 1.802
+**** v1   vsl|       1006 End             c 
+**** dT   4.434
+***  c3   closing fd 26
+**   c3   Ending
+**   top  === client c4 -wait
+**   c4   Waiting for client
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**   top  === logexpect l2 -wait
+**   l2   Waiting for logexp
+**** dT   4.441
+**** l2   match|       1008 Debug           c Hit idle send timeout, wrote = 4480/100188; retrying
+**** l2   end|
+*    top  RESETTING after ./tests/s00012.vtc
+**   s1   Waiting for server (4/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name       Admin     Probe   Health    Last change
+**** v1   CLI RX|vcl1.s1            healthy   0/0     healthy   Fri, 22 Oct 2021 09:01:13 GMT
+**** v1   CLI RX|vcl1.dir_warmcold  healthy   0/0     healthy   Fri, 22 Oct 2021 09:01:13 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+**** dT   4.484
+***  v1   debug|Debug: Stopping Child
+**** dT   4.522
+**** v1   vsl|       1008 Begin           c req 1005 rxreq
+**** v1   vsl|       1008 Timestamp       c Start: 1634893275.332341 0.000000 0.000000
+**** v1   vsl|       1008 Timestamp       c Req: 1634893275.332341 0.000000 0.000000
+**** v1   vsl|       1008 VCL_use         c vcl1
+**** v1   vsl|       1008 ReqStart        c 0.0.0.0 0 a0
+**** v1   vsl|       1008 ReqMethod       c GET
+**** v1   vsl|       1008 ReqURL          c /
+**** v1   vsl|       1008 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1008 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1008 ReqHeader       c X-Forwarded-For: 0.0.0.0
+**** v1   vsl|       1008 VCL_call        c RECV
+**** v1   vsl|       1008 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1008 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1008 VCL_return      c hash
+**** v1   vsl|       1008 VCL_call        c HASH
+**** v1   vsl|       1008 VCL_return      c lookup
+**** v1   vsl|       1008 Hit             c 1003 117.997797 10.000000 0.000000
+**** v1   vsl|       1008 VCL_call        c HIT
+**** v1   vsl|       1008 VCL_return      c deliver
+**** v1   vsl|       1008 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1008 RespStatus      c 200
+**** v1   vsl|       1008 RespReason      c OK
+**** v1   vsl|       1008 RespHeader      c Content-Length: 100000
+**** v1   vsl|       1008 RespHeader      c Date: Fri, 22 Oct 2021 09:01:13 GMT
+**** v1   vsl|       1008 RespHeader      c X-Varnish: 1008 1003
+**** v1   vsl|       1008 RespHeader      c Age: 2
+**** v1   vsl|       1008 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1008 VCL_call        c DELIVER
+**** v1   vsl|       1008 Debug           c SO_SNDBUF fd=25 old=212992 new=128 actual=4608
+**** v1   vsl|       1008 VCL_return      c deliver
+**** v1   vsl|       1008 Timestamp       c Process: 1634893275.332369 0.000028 0.000028
+**** v1   vsl|       1008 Filters         c 
+**** v1   vsl|       1008 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1008 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = 4480/100188; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Hit idle send timeout, wrote = -1/95708; retrying
+**** v1   vsl|       1008 Debug           c Write error, retval = -1, len = 95708, errno = Connection reset by peer
+**** v1   vsl|       1008 Timestamp       c Resp: 1634893277.333155 2.000814 2.000786
+**** v1   vsl|       1008 ReqAcct         c 35 0 35 188 4292 4480
+**** v1   vsl|       1008 End             c 
+**** v1   vsl|       1005 SessClose       c TX_ERROR 2.001
+**** v1   vsl|       1005 End             c 
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 213 Backend name       Admin     Probe   Health    Last change
+vcl1.s1            healthy   0/0     healthy   Fri, 22 Oct 2021 09:01:13 GMT
+vcl1.dir_warmcold  healthy   0/0     healthy   Fri, 22 Oct 2021 09:01:13 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   5.484
+***  v1   debug|Info: Child (100464) ended
+***  v1   debug|Info: Child (100464) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+**** dT   5.485
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   5.524
+**   v1   WAIT4 pid=100452 status=0x0000 (user 0.158681 sys 0.055046)
+*    top  TEST ./tests/s00012.vtc completed
+#    top  TEST ./tests/s00012.vtc passed (5.525)

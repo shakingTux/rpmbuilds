@@ -1,0 +1,64 @@
+**** dT   0.000
+*    top  TEST ./tests/a00012.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 36791
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.44935.4070bf36
+**   top  === varnishtest "Ensure that we can test non-existence of header...
+*    top  VTEST Ensure that we can test non-existence of headers (#1062)
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=33215
+**** s1   macro def s1_sock=127.0.0.1 33215
+*    s1   Listen on 127.0.0.1 33215
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   c1   Waiting for client
+**   s1   Started on 127.0.0.1 33215 (1 iterations)
+**   c1   Started on 127.0.0.1 33215 (1 iterations)
+***  c1   Connect to 127.0.0.1 33215
+***  c1   connected fd 6 from 127.0.0.1 47610 to 127.0.0.1 33215
+***  s1   accepted fd 5 127.0.0.1 47610
+**   s1   === rxreq
+**** dT   0.001
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 35
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Host: 127.0.0.1
+**** s1   bodylen = 0
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 5
+**   s1   Ending
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 38
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   bodylen = 0
+**   c1   === expect resp.http.X-Test == <undef>
+**** c1   EXPECT resp.http.X-Test (<undef>) == "<undef>" match
+***  c1   closing fd 6
+**   c1   Ending
+*    top  RESETTING after ./tests/a00012.vtc
+**   s1   Waiting for server (4/-1)
+*    top  TEST ./tests/a00012.vtc completed
+#    top  TEST ./tests/a00012.vtc passed (0.082)

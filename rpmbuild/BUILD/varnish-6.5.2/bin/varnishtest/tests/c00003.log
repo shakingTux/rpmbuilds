@@ -1,0 +1,230 @@
+**** dT   0.000
+*    top  TEST ./tests/c00003.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 39639
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.52436.2b873037
+**   top  === varnishtest "Check that we fail to start with erroneous -a/-...
+*    top  VTEST Check that we fail to start with erroneous -a/-b arguments
+**   top  === shell -err -match "have same address|already in use|Address ...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -d -a 127.0.0.1:38484 -a 127.0.0.1:38484 -b localhost:80
+**** dT   0.004
+**** top  shell_out|Error: -a arguments 127.0.0.1:38484 and 127.0.0.1:38484 have same address
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_match succeeded
+**   top  === shell -err -match "have same address|already in use|Address ...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -d -a /tmp/vtc.52436.2b873037/vtc.sock -a /tmp/vtc.52436.2b873037/vtc.sock -b localhost:80
+**** dT   0.008
+**** top  shell_out|Error: -a arguments /tmp/vtc.52436.2b873037/vtc.sock and /tmp/vtc.52436.2b873037/vtc.sock have same address
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_match succeeded
+**   top  === shell -err -expect "Too many protocol sub-args" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a 127.0.0.1:80000,PROXY,FOO -d
+**** dT   0.012
+**** top  shell_out|Error: Too many protocol sub-args in -a (FOO)
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Too many protocol sub-args" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a 127.0.0.1:80000,HTTP,FOO -d
+**** dT   0.015
+**** top  shell_out|Error: Too many protocol sub-args in -a (FOO)
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -match "Got no socket" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /Although/sizeof/sockaddr_un/sun_path/is/platform/specific/this/path/is/really/definitely/and/most/assuredly/too/long/on/any/platform/--/any/length/that/results/in/sizeof/sockaddr_un/being/greater/than/128/will/probably/be/enough/to/blow/it/up. -d
+**** dT   0.018
+**** top  shell_out|Error: Got no socket(s) for /Although/sizeof/sockaddr_un/sun_path/is/platform/specific/this/path/is/really/definitely/and/most/assuredly/too/long/on/any/platform/--/any/length/that/results/in/sizeof/sockaddr_un/being/greater/than/128/will/probably/be/enough/to/blow/it/up.
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_match succeeded
+**   top  === shell -err -expect "Unix domain socket addresses must be abs...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a foo/bar.sock -d
+**** dT   0.022
+**** top  shell_out|Error: Unix domain socket addresses must be absolute paths in -a (foo/bar.sock)
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Invalid sub-arg user=u for IP addresses"...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a 127.0.0.1:80000,user=u -d
+**** dT   0.025
+**** top  shell_out|Error: Invalid sub-arg user=u for IP addresses in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Invalid sub-arg group=g for IP addresses...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a 127.0.0.1:80000,group=g -d
+**** dT   0.029
+**** top  shell_out|Error: Invalid sub-arg group=g for IP addresses in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Invalid sub-arg mode=660 for IP addresse...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a 127.0.0.1:80000,mode=660 -d
+**** dT   0.032
+**** top  shell_out|Error: Invalid sub-arg mode=660 for IP addresses in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Too many mode sub-args" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,mode=660,mode=600 -d
+**** dT   0.036
+**** top  shell_out|Error: Too many mode sub-args in -a (mode=600)
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Empty mode sub-arg" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,mode= -d
+**** dT   0.039
+**** top  shell_out|Error: Empty mode sub-arg in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Invalid mode sub-arg 666devilish" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,mode=666devilish -d
+**** dT   0.042
+**** top  shell_out|Error: Invalid mode sub-arg 666devilish in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Invalid mode sub-arg devilish" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,mode=devilish -d
+**** dT   0.045
+**** top  shell_out|Error: Invalid mode sub-arg devilish in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Invalid mode sub-arg 999" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,mode=999 -d
+**** dT   0.049
+**** top  shell_out|Error: Invalid mode sub-arg 999 in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Cannot parse mode sub-arg 7" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,mode=77777777777777777777777777777777 -d
+**** dT   0.052
+**** top  shell_out|Error: Cannot parse mode sub-arg 77777777777777777777777777777777 in -a: Numerical result out of range
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Cannot parse mode sub-arg -7" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,mode=-77777777777777777777777777777777 -d
+**** dT   0.055
+**** top  shell_out|Error: Cannot parse mode sub-arg -77777777777777777777777777777777 in -a: Numerical result out of range
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Mode sub-arg 1666 out of range" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,mode=1666 -d
+**** dT   0.059
+**** top  shell_out|Error: Mode sub-arg 1666 out of range in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Mode sub-arg 0 out of range" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,mode=0 -d
+**** dT   0.062
+**** top  shell_out|Error: Mode sub-arg 0 out of range in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Mode sub-arg -1 out of range" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,mode=-1 -d
+**** dT   0.066
+**** top  shell_out|Error: Mode sub-arg -1 out of range in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Invalid sub-arg foo=bar" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,foo=bar -d
+**** dT   0.070
+**** top  shell_out|Error: Invalid sub-arg foo=bar in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Unknown protocol" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,foobar -d
+**** dT   0.073
+**** top  shell_out|Error: Unknown protocol 'foobar'
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Invalid sub-arg userfoo=u" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,userfoo=u -d
+**** dT   0.077
+**** top  shell_out|Error: Invalid sub-arg userfoo=u in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Invalid sub-arg groupfoo=g" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,groupfoo=g -d
+**** dT   0.080
+**** top  shell_out|Error: Invalid sub-arg groupfoo=g in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Invalid sub-arg modefoo=666" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,modefoo=666 -d
+**** dT   0.083
+**** top  shell_out|Error: Invalid sub-arg modefoo=666 in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Invalid sub-arg =foo" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -a /tmp/vtc.52436.2b873037/vtc.sock,=foo -d
+**** dT   0.087
+**** top  shell_out|Error: Invalid sub-arg =foo in -a
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Error: Could not get socket" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -F -a "192.0.2.255:0" -b '***' -n /tmp/vtc.52436.2b873037
+**** dT   0.090
+**** top  shell_out|Error: Could not get socket 192.0.2.255:0: Cannot assign requested address
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -err -expect "Unknown protocol" {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishd -F -a "127.0.0.1:0,192.0.2.255:0" -b '***' -n /tmp/vtc.52436.2b873037
+**** dT   0.093
+**** top  shell_out|Error: Unknown protocol '192.0.2.255:0'
+**** top  shell_out|(-? gives usage)
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+*    top  RESETTING after ./tests/c00003.vtc
+*    top  TEST ./tests/c00003.vtc completed
+#    top  TEST ./tests/c00003.vtc passed (0.094)

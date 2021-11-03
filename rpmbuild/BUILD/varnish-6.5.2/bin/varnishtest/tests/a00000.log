@@ -1,0 +1,757 @@
+**** dT   0.000
+*    top  TEST ./tests/a00000.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 36265
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.44464.60803fce
+**   top  === varnishtest "Test varnishtest itself"
+*    top  VTEST Test varnishtest itself
+**   top  === shell -exit 1 -expect {varnishtest [options]} {varnishtest -...
+**** top  shell_cmd|exec 2>&1 ; varnishtest -h
+**** dT   0.013
+**** top  shell_out|usage: varnishtest [options] file ...
+**** top  shell_out|    -b size                      # Set internal buffer size (default: 1M)
+**** top  shell_out|    -C                           # Use cleaner subprocess
+**** top  shell_out|    -D name=val                  # Define macro
+**** top  shell_out|    -i                           # Find varnish binaries in build tree
+**** top  shell_out|    -j jobs                      # Run this many tests in parallel
+**** top  shell_out|    -k                           # Continue on test failure
+**** top  shell_out|    -L                           # Always leave temporary vtc.*
+**** top  shell_out|    -l                           # Leave temporary vtc.* if test fails
+**** top  shell_out|    -n iterations                # Run tests this many times
+**** top  shell_out|    -p name=val                  # Pass a varnishd parameter
+**** top  shell_out|    -q                           # Quiet mode: report only failures
+**** top  shell_out|    -t duration                  # Time tests out after this long
+**** top  shell_out|    -v                           # Verbose mode: always report test log
+**** top  shell_status = 0x0001
+**** top  shell_expect found
+**   top  === shell -exit 1 -match {-D.*Define macro} {varnishtest -h}
+**** top  shell_cmd|exec 2>&1 ; varnishtest -h
+**** dT   0.025
+**** top  shell_out|usage: varnishtest [options] file ...
+**** top  shell_out|    -b size                      # Set internal buffer size (default: 1M)
+**** top  shell_out|    -C                           # Use cleaner subprocess
+**** top  shell_out|    -D name=val                  # Define macro
+**** top  shell_out|    -i                           # Find varnish binaries in build tree
+**** top  shell_out|    -j jobs                      # Run this many tests in parallel
+**** top  shell_out|    -k                           # Continue on test failure
+**** top  shell_out|    -L                           # Always leave temporary vtc.*
+**** top  shell_out|    -l                           # Leave temporary vtc.* if test fails
+**** top  shell_out|    -n iterations                # Run tests this many times
+**** top  shell_out|    -p name=val                  # Pass a varnishd parameter
+**** top  shell_out|    -q                           # Quiet mode: report only failures
+**** top  shell_out|    -t duration                  # Time tests out after this long
+**** top  shell_out|    -v                           # Verbose mode: always report test log
+**** top  shell_status = 0x0001
+**** dT   0.026
+**** top  shell_match succeeded
+**   top  === shell {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tpwd
+**** top  shell_cmd|\techo 'notvarnishtest foo bar' > _.vtc
+**** top  shell_cmd|\techo 'shell "exit 9"' >> _.vtc
+**** dT   0.027
+**** top  shell_out|/tmp/vtc.44464.60803fce
+**** top  shell_status = 0x0000
+**   top  === shell -exit 2 -expect {doesn't start with 'vtest' or 'varnis...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tvarnishtest -v _.vtc
+**** dT   0.040
+**** top  shell_out|File "_.vtc" doesn't start with 'vtest' or 'varnishtest'
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -exit 77 -expect {0 tests failed, 1 tests skipped, 0 t...
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\tunset TMPDIR
+**** top  shell_cmd|\tvarnishtest -k _.vtc
+**** dT   0.057
+**** top  shell_out|File "_.vtc" doesn't start with 'vtest' or 'varnishtest'
+**** top  shell_out|0 tests failed, 1 tests skipped, 0 tests passed
+**** top  shell_status = 0x004d
+**** top  shell_expect found
+**   top  === shell -expect {__=barf} {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\techo varnishtest foo > _.vtc
+**** top  shell_cmd|\tprintf 'shell {echo %c{foobar} > /tmp/vtc.44464.60803fce/__}' '$'  >> _.vtc
+**** top  shell_cmd|\tvarnishtest -q -Dfoobar=barf _.vtc
+**** top  shell_cmd|\techo __=`cat __`
+**** dT   0.145
+**** top  shell_out|__=barf
+**** top  shell_status = 0x0000
+**** top  shell_expect found
+**** dT   0.146
+**   top  === shell -exit 2 -expect {TEST _.vtc FAILED} {
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\techo varnishtest foo > _.vtc
+**** top  shell_cmd|\techo 'shell {false}' >> _.vtc
+**** top  shell_cmd|\texec varnishtest -v _.vtc || true
+**** dT   0.169
+**** top  shell_out|**** dT   0.000
+**** top  shell_out|*    top  TEST _.vtc starting
+**** top  shell_out|**** top  extmacro def pwd=/tmp/vtc.44464.60803fce
+**** top  shell_out|**** top  extmacro def localhost=127.0.0.1
+**** top  shell_out|**** top  extmacro def bad_backend=127.0.0.1 38351
+**** top  shell_out|**** top  extmacro def bad_ip=192.0.2.255
+**** top  shell_out|**** top  macro def testdir=/tmp/vtc.44464.60803fce
+**** top  shell_out|**** top  macro def tmpdir=/tmp/vtc.44636.178b0e22
+**** top  shell_out|**   top  === varnishtest foo
+**** top  shell_out|*    top  VTEST foo
+**** top  shell_out|**   top  === shell {false}
+**** top  shell_out|**** top  shell_cmd|exec 2>&1 ; false
+**** top  shell_out|**** dT   0.002
+**** top  shell_out|**** top  shell_status = 0x0001
+**** top  shell_out|---- top  shell_exit not as expected: got 0x0001 wanted 0x0000
+**** top  shell_out|*    top  RESETTING after _.vtc
+**** top  shell_out|*    top  TEST _.vtc FAILED
+**** top  shell_out|#    top  TEST _.vtc FAILED (0.009) exit=2
+**** top  shell_status = 0x0002
+**** top  shell_expect found
+**   top  === shell -exit 77 -expect {TEST _.vtc skipped} {
+**** dT   0.170
+**** top  shell_cmd|exec 2>&1 ; 
+**** top  shell_cmd|\techo varnishtest foo > _.vtc
+**** top  shell_cmd|\techo 'feature cmd false' >> _.vtc
+**** top  shell_cmd|\texec varnishtest -v _.vtc || true
+**** dT   0.199
+**** top  shell_out|**** dT   0.000
+**** top  shell_out|*    top  TEST _.vtc starting
+**** top  shell_out|**** top  extmacro def pwd=/tmp/vtc.44464.60803fce
+**** top  shell_out|**** top  extmacro def localhost=127.0.0.1
+**** top  shell_out|**** top  extmacro def bad_backend=127.0.0.1 45347
+**** top  shell_out|**** top  extmacro def bad_ip=192.0.2.255
+**** top  shell_out|**** top  macro def testdir=/tmp/vtc.44464.60803fce
+**** top  shell_out|**** top  macro def tmpdir=/tmp/vtc.44653.555a55f9
+**** top  shell_out|**   top  === varnishtest foo
+**** top  shell_out|*    top  VTEST foo
+**** top  shell_out|**   top  === feature cmd false
+**** top  shell_out|**** dT   0.002
+**** top  shell_out|*    top  SKIPPING test, lacking feature: false
+**** top  shell_out|*    top  RESETTING after _.vtc
+**** top  shell_out|*    top  TEST _.vtc completed
+**** top  shell_out|#    top  TEST _.vtc skipped (0.011)
+**** top  shell_status = 0x004d
+**** top  shell_expect found
+**   top  === process p1 "cat" -start
+**** dT   0.204
+**** p1   CMD: cat
+***  p1   PID: 44701
+**** dT   0.205
+**** p1   macro def p1_pid=44701
+**** p1   macro def p1_dir=/tmp/vtc.44464.60803fce/p1
+**** p1   macro def p1_out=/tmp/vtc.44464.60803fce/p1/term
+**** p1   macro def p1_err=/tmp/vtc.44464.60803fce/p1/stderr
+**   top  === process p1 -writeln "foo"
+**** p1   Writing 3 bytes
+**** p1   Writing 1 bytes
+**   top  === process p1 -expect-text 2 1 foo
+**** p1   text at 2,1: '   '
+**** dT   0.215
+**** p1   found expected text at 2,1: 'foo'
+**   top  === process p1 -stop
+**** p1   Sent signal 15
+**** p1   stdout read -1
+**** p1   stderr read 0
+**   p1   WAIT4 pid=44701 status=0x000f (user 0.002793 sys 0.000000)
+**** p1   macro undef p1_pid
+**** dT   1.215
+**   top  === process p1 -wait
+**** p1   stdout 10 bytes, stderr 0 bytes
+**   top  === shell "grep -q foo ${p1_out}"
+**** top  shell_cmd|exec 2>&1 ; grep -q foo /tmp/vtc.44464.60803fce/p1/term
+**** dT   1.219
+**** top  shell_status = 0x0000
+**   top  === shell "test -f ${p1_err} -a ! -s ${p1_err}"
+**** top  shell_cmd|exec 2>&1 ; test -f /tmp/vtc.44464.60803fce/p1/stderr -a ! -s /tmp/vtc.44464.60803fce/p1/stderr
+**** dT   1.220
+**** top  shell_status = 0x0000
+**   top  === process p2 -log "cat" -start
+**** dT   1.225
+**** p2   CMD: cat
+***  p2   PID: 44829
+**** dT   1.226
+**** p2   macro def p2_pid=44829
+**** p2   macro def p2_dir=/tmp/vtc.44464.60803fce/p2
+**** p2   macro def p2_out=/tmp/vtc.44464.60803fce/p2/term
+**** p2   macro def p2_err=/tmp/vtc.44464.60803fce/p2/stderr
+**   top  === process p2 -writeln "bar"
+**** p2   Writing 3 bytes
+**** p2   Writing 1 bytes
+**   top  === process p2 -expect-text 2 1 bar
+**** p2   text at 2,1: '   '
+**** p2   output|bar
+**** dT   1.227
+**** p2   output|bar
+**** dT   1.236
+**** p2   found expected text at 2,1: 'bar'
+**   top  === process p2 -write "\x04"
+**** p2   Writing 1 bytes
+**   top  === process p2 -wait
+**** p2   stdout read -1
+**** p2   stderr read 0
+**   p2   WAIT4 pid=44829 status=0x0000 (user 0.000000 sys 0.002217)
+**** p2   macro undef p2_pid
+**** p2   stdout 10 bytes, stderr 0 bytes
+**   top  === shell "grep -q bar ${p2_out}"
+**** top  shell_cmd|exec 2>&1 ; grep -q bar /tmp/vtc.44464.60803fce/p2/term
+**** dT   1.239
+**** top  shell_status = 0x0000
+**   top  === shell "test -f ${p2_err} -a ! -s ${p2_err}"
+**** top  shell_cmd|exec 2>&1 ; test -f /tmp/vtc.44464.60803fce/p2/stderr -a ! -s /tmp/vtc.44464.60803fce/p2/stderr
+**** dT   1.241
+**** top  shell_status = 0x0000
+**   top  === process p3 -dump "cat" -start
+**** dT   1.245
+**** p3   CMD: cat
+***  p3   PID: 44838
+**** p3   macro def p3_pid=44838
+**** p3   macro def p3_dir=/tmp/vtc.44464.60803fce/p3
+**** p3   macro def p3_out=/tmp/vtc.44464.60803fce/p3/term
+**** p3   macro def p3_err=/tmp/vtc.44464.60803fce/p3/stderr
+**   top  === process p3 -writeln "baz"
+**** dT   1.246
+**** p3   Writing 3 bytes
+**** p3   Writing 1 bytes
+**   top  === process p3 -expect-text 2 1 baz
+**** p3   text at 2,1: '   '
+**** p3   stdout|baz\r
+**** dT   1.247
+**** p3   stdout|baz\r
+**** dT   1.256
+**** p3   found expected text at 2,1: 'baz'
+**   top  === process p3 -kill KILL
+**** p3   Sent signal 9
+**   top  === process p3 -wait
+**** p3   stdout read -1
+**** p3   stderr read 0
+**   p3   WAIT4 pid=44838 status=0x0009 (user 0.000000 sys 0.002239)
+**** p3   macro undef p3_pid
+**** p3   stdout 10 bytes, stderr 0 bytes
+**   top  === shell "grep -q baz ${p3_out}"
+**** top  shell_cmd|exec 2>&1 ; grep -q baz /tmp/vtc.44464.60803fce/p3/term
+**** dT   1.260
+**** top  shell_status = 0x0000
+**   top  === shell "test -f ${p3_err} -a ! -s ${p3_err}"
+**** top  shell_cmd|exec 2>&1 ; test -f /tmp/vtc.44464.60803fce/p3/stderr -a ! -s /tmp/vtc.44464.60803fce/p3/stderr
+**** dT   1.261
+**** top  shell_status = 0x0000
+**   top  === process p4 -hexdump "cat" -start
+**** dT   1.266
+**** p4   CMD: cat
+***  p4   PID: 44847
+**** p4   macro def p4_pid=44847
+**** p4   macro def p4_dir=/tmp/vtc.44464.60803fce/p4
+**** p4   macro def p4_out=/tmp/vtc.44464.60803fce/p4/term
+**** p4   macro def p4_err=/tmp/vtc.44464.60803fce/p4/stderr
+**   top  === process p4 -writeln "b\001z"
+**** p4   Writing 3 bytes
+**** p4   Writing 1 bytes
+**   top  === process p4 -expect-text 2 1 "b"
+**** p4   text at 2,1: ' '
+**** p4   stdout|  62 5e 41 7a 0d 0a
+**** dT   1.269
+**** p4   stdout|  62 01 7a 0d 0a
+**** dT   1.277
+**** p4   found expected text at 2,1: 'b'
+**   top  === process p4 -kill TERM
+**** p4   Sent signal 15
+**   top  === process p4 -wait -screen_dump
+**** p4   stdout read -1
+**** p4   stderr read 0
+**   p4   WAIT4 pid=44847 status=0x000f (user 0.002589 sys 0.000000)
+**** p4   macro undef p4_pid
+**** p4   stdout 11 bytes, stderr 0 bytes
+***  p4   screen|        b^Az                                                                    
+***  p4   screen|bz                                                                              
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   screen|                                                                                
+***  p4   Cursor at line 3 column 1
+**   top  === process p5 "ps -lw | grep '[p][s]' ; tty ; echo @" -start
+**** dT   1.281
+**** p5   CMD: ps -lw | grep '[p][s]' ; tty ; echo @
+**** dT   1.282
+***  p5   PID: 44853
+**** p5   macro def p5_pid=44853
+**** p5   macro def p5_dir=/tmp/vtc.44464.60803fce/p5
+**** p5   macro def p5_out=/tmp/vtc.44464.60803fce/p5/term
+**** p5   macro def p5_err=/tmp/vtc.44464.60803fce/p5/stderr
+**   top  === process p5 -expect-text 0 0 {@} -screen_dump -wait
+**** dT   1.305
+**** p5   stderr read 0
+**** p5   stdout read -1
+**   p5   WAIT4 pid=44853 status=0x0000 (user 0.001757 sys 0.012336)
+**** p5   macro undef p5_pid
+**** dT   1.312
+**** p5   found expected text at 3,1: '@'
+***  p5   screen|        4 R     0  44855  44853  0  80   0 -  9084 -      pts/5    00:00:00 ps  
+***  p5   screen|/dev/pts/5                                                                      
+***  p5   screen|@                                                                               
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   screen|                                                                                
+***  p5   Cursor at line 4 column 1
+**** p5   stdout 87 bytes, stderr 0 bytes
+**   top  === process p6 "stty -a ; echo '*'" -start
+**** dT   1.317
+**** p6   CMD: stty -a ; echo '*'
+***  p6   PID: 44862
+**** dT   1.318
+**** p6   macro def p6_pid=44862
+**** p6   macro def p6_dir=/tmp/vtc.44464.60803fce/p6
+**** p6   macro def p6_out=/tmp/vtc.44464.60803fce/p6/term
+**** p6   macro def p6_err=/tmp/vtc.44464.60803fce/p6/stderr
+**   top  === process p6 -expect-text 0 0 {*} -screen_dump -wait
+**** dT   1.320
+**** p6   stderr read 0
+**** p6   stdout read -1
+**** dT   1.321
+**   p6   WAIT4 pid=44862 status=0x0000 (user 0.003068 sys 0.000000)
+**** p6   macro undef p6_pid
+**** dT   1.328
+**** p6   found expected text at 13,1: '*'
+***  p6   screen|        speed 9600 baud; rows 24; columns 80; line = 0;                         
+***  p6   screen|intr = ^C; quit = ^\; erase = ^H; kill = ^U; eof = ^D; eol = <undef>;           
+***  p6   screen|eol2 = <undef>; swtch = <undef>; start = <undef>; stop = <undef>; susp = <undef>
+***  p6   screen|;                                                                               
+***  p6   screen|rprnt = <undef>; werase = <undef>; lnext = <undef>; discard = <undef>;          
+***  p6   screen|min = 0; time = 0;                                                              
+***  p6   screen|-parenb -parodd -cmspar cs8 hupcl -cstopb cread -clocal -crtscts                
+***  p6   screen|-ignbrk brkint -ignpar -parmrk -inpck -istrip -inlcr -igncr icrnl ixon -ixoff   
+***  p6   screen|-iuclc ixany imaxbel -iutf8                                                     
+***  p6   screen|opost -olcuc -ocrnl onlcr -onocr -onlret -ofill -ofdel nl0 cr0 tab0 bs0 vt0 ff0 
+***  p6   screen|isig icanon iexten echo echoe -echok -echonl -noflsh -xcase -tostop -echoprt    
+***  p6   screen|echoctl echoke -flusho -extproc                                                 
+***  p6   screen|*                                                                               
+***  p6   screen|                                                                                
+***  p6   screen|                                                                                
+***  p6   screen|                                                                                
+***  p6   screen|                                                                                
+***  p6   screen|                                                                                
+***  p6   screen|                                                                                
+***  p6   screen|                                                                                
+***  p6   screen|                                                                                
+***  p6   screen|                                                                                
+***  p6   screen|                                                                                
+***  p6   screen|                                                                                
+***  p6   Cursor at line 14 column 1
+**** p6   stdout 664 bytes, stderr 0 bytes
+**   top  === process p7 -hexdump {stty raw -echo; stty -a ; echo "*" ; ca...
+**** dT   1.333
+**** p7   CMD: stty raw -echo; stty -a ; echo "*" ; cat
+***  p7   PID: 44869
+**** p7   macro def p7_pid=44869
+**** p7   macro def p7_dir=/tmp/vtc.44464.60803fce/p7
+**** p7   macro def p7_out=/tmp/vtc.44464.60803fce/p7/term
+**** p7   macro def p7_err=/tmp/vtc.44464.60803fce/p7/stderr
+**   top  === process p7 -expect-text 0 0 "*" -screen_dump
+**** dT   1.336
+**** p7   stdout|  73 70 65 65 64 20 39 36 30 30 20 62 61 75 64 3b
+**** p7   stdout|  20 72 6f 77 73 20 32 34 3b 20 63 6f 6c 75 6d 6e
+**** p7   stdout|  73 20 38 30 3b 20 6c 69 6e 65 20 3d 20 30 3b 0a
+**** p7   stdout|  69 6e 74 72 20 3d 20 5e 43 3b 20 71 75 69 74 20
+**** p7   stdout|  3d 20 5e 5c 3b 20 65 72 61 73 65 20 3d 20 5e 48
+**** p7   stdout|  3b 20 6b 69 6c 6c 20 3d 20 5e 55 3b 20 65 6f 66
+**** p7   stdout|  20 3d 20 5e 44 3b 20 65 6f 6c 20 3d 20 3c 75 6e
+**** p7   stdout|  64 65 66 3e 3b 0a 65 6f 6c 32 20 3d 20 3c 75 6e
+**** p7   stdout|  64 65 66 3e 3b 20 73 77 74 63 68 20 3d 20 3c 75
+**** p7   stdout|  6e 64 65 66 3e 3b 20 73 74 61 72 74 20 3d 20 3c
+**** p7   stdout|  75 6e 64 65 66 3e 3b 20 73 74 6f 70 20 3d 20 3c
+**** p7   stdout|  75 6e 64 65 66 3e 3b 20 73 75 73 70 20 3d 20 3c
+**** p7   stdout|  75 6e 64 65 66 3e 3b 0a 72 70 72 6e 74 20 3d 20
+**** p7   stdout|  3c 75 6e 64 65 66 3e 3b 20 77 65 72 61 73 65 20
+**** p7   stdout|  3d 20 3c 75 6e 64 65 66 3e 3b 20 6c 6e 65 78 74
+**** p7   stdout|  20 3d 20 3c 75 6e 64 65 66 3e 3b 20 64 69 73 63
+**** p7   stdout|  61 72 64 20 3d 20 3c 75 6e 64 65 66 3e 3b 0a 6d
+**** p7   stdout|  69 6e 20 3d 20 31 3b 20 74 69 6d 65 20 3d 20 30
+**** p7   stdout|  3b 0a 2d 70 61 72 65 6e 62 20 2d 70 61 72 6f 64
+**** p7   stdout|  64 20 2d 63 6d 73 70 61 72 20 63 73 38 20 68 75
+**** p7   stdout|  70 63 6c 20 2d 63 73 74 6f 70 62 20 63 72 65 61
+**** p7   stdout|  64 20 2d 63 6c 6f 63 61 6c 20 2d 63 72 74 73 63
+**** p7   stdout|  74 73 0a 2d 69 67 6e 62 72 6b 20 2d 62 72 6b 69
+**** p7   stdout|  6e 74 20 2d 69 67 6e 70 61 72 20 2d 70 61 72 6d
+**** p7   stdout|  72 6b 20 2d 69 6e 70 63 6b 20 2d 69 73 74 72 69
+**** p7   stdout|  70 20 2d 69 6e 6c 63 72 20 2d 69 67 6e 63 72 20
+**** p7   stdout|  2d 69 63 72 6e 6c 20 2d 69 78 6f 6e 20 2d 69 78
+**** p7   stdout|  6f 66 66 0a
+**** p7   stdout|  2d 69 75 63 6c 63 20 2d 69 78 61 6e 79 20 2d 69
+**** p7   stdout|  6d 61 78 62 65 6c 20 2d 69 75 74 66 38 0a 2d 6f
+**** p7   stdout|  70 6f 73 74 20 2d 6f 6c 63 75 63 20 2d 6f 63 72
+**** p7   stdout|  6e 6c 20 6f 6e 6c 63 72 20 2d 6f 6e 6f 63 72 20
+**** p7   stdout|  2d 6f 6e 6c 72 65 74 20 2d 6f 66 69 6c 6c 20 2d
+**** p7   stdout|  6f 66 64 65 6c 20 6e 6c 30 20 63 72 30 20 74 61
+**** p7   stdout|  62 30 20 62 73 30 20 76 74 30 20 66 66 30 0a
+**** p7   stdout|  2d 69 73 69 67 20 2d 69 63 61 6e 6f 6e 20 69 65
+**** p7   stdout|  78 74 65 6e 20 2d 65 63 68 6f 20 65 63 68 6f 65
+**** p7   stdout|  20 2d 65 63 68 6f 6b 20 2d 65 63 68 6f 6e 6c 20
+**** p7   stdout|  2d 6e 6f 66 6c 73 68 20 2d 78 63 61 73 65 20 2d
+**** p7   stdout|  74 6f 73 74 6f 70 20 2d 65 63 68 6f 70 72 74 0a
+**** p7   stdout|  65 63 68 6f 63 74 6c 20 65 63 68 6f 6b 65 20 2d
+**** p7   stdout|  66 6c 75 73 68 6f 20 2d 65 78 74 70 72 6f 63 0a
+**** dT   1.337
+**** p7   stdout|  2a 0a
+**** dT   1.343
+**** p7   found expected text at 20,17: '*'
+***  p7   screen|        speed 9600 baud; rows 24; columns 80; line = 0;                         
+***  p7   screen|                                                       intr = ^C; quit = ^\; era
+***  p7   screen|se = ^H; kill = ^U; eof = ^D; eol = <undef>;                                    
+***  p7   screen|                                            eol2 = <undef>; swtch = <undef>; sta
+***  p7   screen|rt = <undef>; stop = <undef>; susp = <undef>;                                   
+***  p7   screen|                                             rprnt = <undef>; werase = <undef>; 
+***  p7   screen|lnext = <undef>; discard = <undef>;                                             
+***  p7   screen|                                   min = 1; time = 0;                           
+***  p7   screen|                                                     -parenb -parodd -cmspar cs8
+***  p7   screen| hupcl -cstopb cread -clocal -crtscts                                           
+***  p7   screen|                                     -ignbrk -brkint -ignpar -parmrk -inpck -ist
+***  p7   screen|rip -inlcr -igncr -icrnl -ixon -ixoff                                           
+***  p7   screen|                                     -iuclc -ixany -imaxbel -iutf8              
+***  p7   screen|                                                                  -opost -olcuc 
+***  p7   screen|-ocrnl onlcr -onocr -onlret -ofill -ofdel nl0 cr0 tab0 bs0 vt0 ff0              
+***  p7   screen|                                                                  -isig -icanon 
+***  p7   screen|iexten -echo echoe -echok -echonl -noflsh -xcase -tostop -echoprt               
+***  p7   screen|                                                                 echoctl echoke 
+***  p7   screen|-flusho -extproc                                                                
+***  p7   screen|                *                                                               
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   Cursor at line 21 column 18
+**   top  === process p7 -write "\x1b[H\x1b[2Jzzzzzzz"
+**** p7   Writing 14 bytes
+**   top  === process p7 -write "\x0c1\x1b[79C2\x08>\x1b[25;1H3\x1b[25;80H...
+**** p7   Writing 26 bytes
+**   top  === process p7 -write "\x1b[H\x1b[2J1\x1b[79C2\x08>\x1b[25;1H3\x...
+**** dT   1.344
+**** p7   Writing 32 bytes
+**   top  === process p7 -write "4\x08>\x1b[A\x1b[Cv\x1b[22A^\x1b[79D^\x1b...
+**** p7   Writing 32 bytes
+**   top  === process p7 -write "\n\n\n\n\n\n\n\n\x1b[B\x1b[11B\x08<\x1b[2...
+**** p7   Writing 32 bytes
+**   top  === process p7 -write "111111112222222333333\x0d\x0a111111112"
+**** p7   Writing 32 bytes
+**   top  === process p7 -write "222222333333\x0d\x0a111111112222222333333...
+**** p7   Writing 42 bytes
+**   top  === process p7 -writehex {c2 a2 20}
+**** p7   sendhex|  c2 a2 20
+**   top  === process p7 -writehex {e2 82 ac 20}
+**** p7   sendhex|  e2 82 ac 20
+**   top  === process p7 -writehex {f0 90 80 80 20}
+**** p7   sendhex|  f0 90 80 80 20
+**   top  === process p7 -writehex {f0 9f 90 b0 20}
+**** p7   sendhex|  f0 9f 90 b0 20
+**   top  === process p7 -writehex {f0 a0 80 80 20}
+**** p7   sendhex|  f0 a0 80 80 20
+**   top  === process p7 -writehex {f0 b0 80 80 20}
+**** p7   sendhex|  f0 b0 80 80 20
+**   top  === process p7 -write "\x1b[22;24;25;27;30;47;49;97;107m"
+**** p7   Writing 30 bytes
+**   top  === process p7 -write "\x1b[22;24;25;27;30m"
+**** p7   Writing 17 bytes
+**   top  === process p7 -write "\x1b[47;49;97;107m"
+**** p7   Writing 15 bytes
+**   top  === process p7 -write "\x0d\x0a111111112222222333333\x0d\x0a\x1b...
+**** p7   Writing 29 bytes
+**   top  === process p7 -write ";12H\x1b[K\x1b[13;12H\x1b[0K\x1b[14;12H\x...
+**** p7   Writing 32 bytes
+**   top  === process p7 -write "[15;12H\x1b[2K\x1b[3;1Hline3 <\x0d\x0a"
+**** p7   Writing 26 bytes
+**   top  === process p7 -need-bytes 310 -expect-text 3 1 "line3 <"
+**** p7   Have 661 bytes
+**** p7   stdout|  1b 5b 48 1b 5b 32 4a 7a 7a 7a 7a 7a 7a 7a 0c 31
+**** p7   stdout|  1b 5b 37 39 43 32 08 3e 1b 5b 32 35 3b 31 48 33
+**** p7   stdout|  1b 5b 32 35 3b 38 30 48 1b 5b 48 1b 5b 32 4a 31
+**** p7   stdout|  1b 5b 37 39 43 32 08 3e 1b 5b 32 35 3b 31 48 33
+**** p7   stdout|  1b 5b 32 35 3b 38 30 48 34 08 3e 1b 5b 41 1b 5b
+**** p7   stdout|  43 76 1b 5b 32 32 41 5e 1b 5b 37 39 44 5e 1b 5b
+**** p7   stdout|  3b 32 48 3c 0a 0a 0a 0a 0a 0a 0a 0a 0a 0a 0a 0a
+**** p7   stdout|  1b 5b 42 1b 5b 31 31 42 08 3c 1b 5b 32 34 3b 48
+**** p7   stdout|  76 1b 5b 31 32 3b 31 48 31 31 31 31 31 31 31 31
+**** p7   stdout|  32 32 32 32 32 32 32 33 33 33 33 33 33 0d 0a 31
+**** p7   stdout|  31 31 31 31 31 31 31 32 32 32 32 32 32 32 33 33
+**** p7   stdout|  33 33 33 33 0d 0a 31 31 31 31 31 31 31 31 32 32
+**** p7   stdout|  32 32 32 32 32 33 33 33 33 33 33 20 55 54 46 38
+**** p7   stdout|  3a 20 c2 a2 20 e2 82 ac 20 f0 90 80 80 20 f0 9f
+**** p7   stdout|  90 b0 20 f0 a0 80 80 20 f0 b0 80 80 20 1b 5b 32
+**** p7   stdout|  32 3b 32 34 3b 32 35 3b 32 37 3b 33 30 3b 34 37
+**** p7   stdout|  3b 34 39 3b 39 37 3b 31 30 37 6d 1b 5b 32 32 3b
+**** p7   stdout|  32 34 3b 32 35 3b 32 37 3b 33 30 6d 1b 5b 34 37
+**** p7   stdout|  3b 34 39 3b 39 37 3b 31 30 37 6d 0d 0a 31 31 31
+**** p7   stdout|  31 31 31 31 31 32 32 32 32 32 32 32 33 33 33 33
+**** p7   stdout|  33 33 0d 0a 1b 5b 31 32 3b 31 32 48 1b 5b 4b 1b
+**** p7   stdout|  5b 31 33 3b 31 32 48 1b 5b 30 4b 1b 5b 31 34 3b
+**** p7   stdout|  31 32 48 1b 5b 31 4b 1b 5b 31 35 3b 31 32 48 1b
+**** p7   stdout|  5b 32 4b 1b 5b 33 3b 31 48 6c 69 6e 65 33 20 3c
+**** p7   stdout|  0d 0a
+**** dT   1.844
+**** p7   found expected text at 3,1: 'line3 <'
+**   top  === process p7 -expect-cursor 4 1
+**   top  === process p7 -expect-cursor 4 0
+**   top  === process p7 -expect-cursor 0 1
+**   top  === process p7 -screen-dump
+***  p7   screen|^<                                                                            >^
+***  p7   screen|                                                                                
+***  p7   screen|line3 <                                                                         
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|11111111222                                                                     
+***  p7   screen|11111111222                                                                     
+***  p7   screen|            222333333 UTF8: ? ? ? ? ?? ?? 107m                                  
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                               v
+***  p7   screen|v<                                                                            >4
+***  p7   Cursor at line 4 column 1
+**   top  === process p7 -write "\x1b[=1T"
+**** p7   Writing 5 bytes
+**   top  === process p7 -write "\x1b[=2T"
+**** p7   Writing 5 bytes
+**   top  === process p7 -write "\x1b[8z"
+**** p7   Writing 4 bytes
+**   top  === process p7 -write "\x1b[0x"
+**** p7   Writing 4 bytes
+**   top  === process p7 -write "\x1b[=1A"
+**** p7   Writing 5 bytes
+**   top  === process p7 -write "\x1b[=1;2B"
+**** p7   Writing 7 bytes
+**   top  === process p7 -write "\x1b[=1;2;3C"
+**** p7   Writing 9 bytes
+**   top  === process p7 -write "\x1b[=1;2;3;4C"
+**** p7   Writing 11 bytes
+**   top  === process p7 -write "\x1b[=1F"
+**** p7   Writing 5 bytes
+**   top  === process p7 -write "\x1b[=1G"
+**** p7   Writing 5 bytes
+**   top  === process p7 -write "\x1b[=1S"
+**** p7   Writing 5 bytes
+**   top  === process p7 -writehex {0c 08 40 0d 0a 08}
+**** p7   sendhex|  0c 08 40 0d 0a 08
+**   top  === process p7 -expect-text 1 1 "@"
+**** p7   text at 1,1: '^'
+**** p7   stdout|  1b 5b 3d 31 54 1b 5b 3d 32 54 1b 5b 38 7a 1b 5b
+**** p7   stdout|  30 78 1b 5b 3d 31 41 1b 5b 3d 31 3b 32 42 1b 5b
+**** p7   stdout|  3d 31 3b 32 3b 33 43 1b 5b 3d 31 3b 32 3b 33 3b
+**** p7   stdout|  34 43 1b 5b 3d 31 46 1b 5b 3d 31 47 1b 5b 3d 31
+**** p7   stdout|  53 0c 08 40 0d 0a 08
+**** dT   1.854
+**** p7   found expected text at 1,1: '@'
+**   top  === process p7 -expect-cursor 1 80
+**   top  === process p7 -writehex "0c 41 0e 42 0f"
+**** p7   sendhex|  0c 41 0e 42 0f
+**   top  === process p7 -expect-text 1 1 "A"
+**** p7   text at 1,1: '@'
+**** p7   stdout|  0c 41 0e 42 0f
+**** dT   1.864
+**** p7   found expected text at 1,1: 'A'
+**   top  === process p7 -expect-text 0 0 "B"
+**** p7   found expected text at 1,2: 'B'
+**   top  === process p7 -write "\x1b[=0T"
+**** p7   Writing 5 bytes
+**   top  === process p7 -writehex "0c 0a 0d 43 0a 08 08 0e 44 0f"
+**** p7   sendhex|  0c 0a 0d 43 0a 08 08 0e 44 0f
+**   top  === process p7 -expect-text 3 1 "C"
+**** p7   text at 3,1: ' '
+**** p7   stdout|  1b 5b 3d 30 54 0c 0a 0d 43 0a 08 08 0e 44 0f
+**** dT   1.874
+**** p7   found expected text at 3,1: 'C'
+**   top  === process p7 -expect-text 4 1 "D"
+**** p7   found expected text at 4,1: 'D'
+**   top  === process p7 -write "\x1b[2T"
+**** p7   Writing 4 bytes
+**   top  === process p7 -expect-text 5 1 "C"
+**** p7   text at 5,1: ' '
+**** dT   1.875
+**** p7   stdout|  1b 5b 32 54
+**** dT   1.885
+**** p7   found expected text at 5,1: 'C'
+**   top  === process p7 -expect-text 6 1 "D"
+**** p7   found expected text at 6,1: 'D'
+**   top  === process p7 -write "\x1b[3S"
+**** p7   Writing 4 bytes
+**   top  === process p7 -expect-text 3 1 "D"
+**** p7   text at 3,1: 'A'
+**** p7   stdout|  1b 5b 33 53
+**** dT   1.895
+**** p7   found expected text at 3,1: 'D'
+**   top  === process p7 -write "\x1b[4;200H%"
+**** p7   Writing 9 bytes
+**   top  === process p7 -expect-text 4 80 "%"
+**** p7   text at 4,80: ' '
+**** p7   stdout|  1b 5b 34 3b 32 30 30 48 25
+**** dT   1.905
+**** p7   found expected text at 4,80: '%'
+**   top  === process p7 -write "\x1b[7;7H\x09X\x09Y\x09Z\x1b[2ZW\x1b[2Ew\...
+**** p7   Writing 26 bytes
+**   top  === process p7 -expect-text 7 17 "W"
+**** p7   text at 7,17: ' '
+**** p7   stdout|  1b 5b 37 3b 37 48 09 58 09 59 09 5a 1b 5b 32 5a
+**** p7   stdout|  57 1b 5b 32 45 77 1b 5b 46 2a
+**** dT   1.915
+**** p7   found expected text at 7,17: 'W'
+**   top  === process p7 -expect-text 9 1 "w"
+**** p7   found expected text at 9,1: 'w'
+**   top  === process p7 -expect-text 8 1 "*"
+**** p7   found expected text at 8,1: '*'
+**   top  === process p7 -write "\x1b[10;4HABCDEFGHIJKLMN\x1b(A#$%\x1b)A"
+**** p7   Writing 30 bytes
+**   top  === process p7 -write "\x1b[8G\x1b[2X>"
+**** p7   Writing 9 bytes
+**   top  === process p7 -expect-text 10 8 ">"
+**** p7   text at 10,8: ' '
+**** p7   stdout|  1b 5b 31 30 3b 34 48 41 42 43 44 45 46 47 48 49
+**** p7   stdout|  4a 4b 4c 4d 4e 1b 28 41 23 24 25 1b 29 41 1b 5b
+**** p7   stdout|  38 47 1b 5b 32 58 3e
+**** dT   1.926
+**** p7   found expected text at 10,8: '>'
+**   top  === process p7 -screen-dump
+***  p7   screen|                                                                                
+***  p7   screen|C                                                                               
+***  p7   screen|D                                                                               
+***  p7   screen|                                                                               %
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|        X       W       Z                                                       
+***  p7   screen|*                                                                               
+***  p7   screen|w                                                                               
+***  p7   screen|   ABCD> GHIJKLMN?$%                                                            
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   Cursor at line 10 column 9
+**   top  === process p7 -write "\x1b[3;1HA\x1b[5n"
+**** p7   Writing 11 bytes
+**   top  === process p7 -write "\x1b[4;1HB\x1b[6n"
+**** p7   Writing 11 bytes
+**   top  === process p7 -write "\x1b[5;1HC\x1b[15n"
+**** p7   Writing 12 bytes
+**   top  === process p7 -write "\x1b[6;1HD\x1b[25n"
+**** p7   Writing 12 bytes
+**   top  === process p7 -write "\x1b[7;1HE\x1b[26n"
+**** p7   Writing 12 bytes
+**   top  === process p7 -write "\x1b[8;1HF\x1b[?26n"
+**** p7   Writing 13 bytes
+**   top  === process p7 -write "\x1b[9;1HG\x1bPfutfutfut\x01"
+**** p7   Writing 19 bytes
+**   top  === process p7 -write "\x1b[10;1HH\x1b]futfutfut\x01"
+**** p7   Writing 20 bytes
+**   top  === process p7 -write "\x1b[11;1HI\x1b[>c"
+**** p7   Writing 12 bytes
+**   top  === process p7 -write "\x1b[24;1HW"
+**** p7   Writing 8 bytes
+**   top  === process p7 -expect-text 24 1 "W"
+**** p7   text at 24,1: ' '
+**** p7   stdout|  1b 5b 33 3b 31 48 41 1b 5b 35 6e 1b 5b 34 3b 31
+**** p7   stdout|  48 42 1b 5b 36 6e 1b 5b 35 3b 31 48 43 1b 5b 31
+**** p7   stdout|  35 6e 1b 5b 36 3b 31 48 44 1b 5b 32 35 6e 1b 5b
+**** p7   stdout|  37 3b 31 48 45 1b 5b 32 36 6e 1b 5b 38 3b 31 48
+**** p7   stdout|  46 1b 5b 3f 32 36 6e 1b 5b 39 3b 31 48 47 1b 50
+**** p7   stdout|  66 75 74 66 75 74 66 75 74 01 1b 5b 31 30 3b 31
+**** p7   stdout|  48 48 1b 5d 66 75 74 66 75 74 66 75 74 01 1b 5b
+**** p7   stdout|  31 31 3b 31 48 49 1b 5b 3e 63 1b 5b 32 34 3b 31
+**** p7   stdout|  48 57
+**** p7   term_response|\x1b[0n
+**** p7   term_response|\x1b[4;2R
+**** p7   term_response|\x1b[13n
+**** p7   term_response|\x1b[20n
+**** p7   term_response|\x1b[27;1n
+**** p7   term_response|\x1b[?27;1n
+**** p7   term_response|\x1b[>0;10;0c
+**** dT   1.936
+**** p7   found expected text at 24,1: 'W'
+**   top  === process p7 -screen-dump
+***  p7   screen|                                                                                
+***  p7   screen|C                                                                               
+***  p7   screen|A                                                                               
+***  p7   screen|B                                                                              %
+***  p7   screen|C                                                                               
+***  p7   screen|D                                                                               
+***  p7   screen|E       X       W       Z                                                       
+***  p7   screen|F                                                                               
+***  p7   screen|G                                                                               
+***  p7   screen|H  ABCD> GHIJKLMN?$%                                                            
+***  p7   screen|I                                                                               
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|                                                                                
+***  p7   screen|W                                                                               
+***  p7   Cursor at line 24 column 2
+*    top  RESETTING after ./tests/a00000.vtc
+**** p7   Sent signal 15
+**** p7   stdout read -1
+**** p7   stderr read 0
+**   p7   WAIT4 pid=44869 status=0x000f (user 0.003795 sys 0.000000)
+**** dT   2.936
+**** p7   stdout 1350 bytes, stderr 0 bytes
+*    top  TEST ./tests/a00000.vtc completed
+#    top  TEST ./tests/a00000.vtc passed (2.937)

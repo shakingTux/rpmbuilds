@@ -1,0 +1,695 @@
+**** dT   0.000
+*    top  TEST ./tests/d00030.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 33553
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.62609.76880eff
+**   top  === varnishtest "shard director error handling"
+*    top  VTEST shard director error handling
+**   top  === varnish v1 -vcl {
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.62609.76880eff/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 34621' -P /tmp/vtc.62609.76880eff/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.62609.76880eff/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 34621' -P /tmp/vtc.62609.76880eff/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+**** dT   0.005
+***  v1   PID: 62627
+**** v1   macro def v1_pid=62627
+**** v1   macro def v1_name=/tmp/vtc.62609.76880eff/v1
+**** dT   0.015
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.113
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 5
+***  v1   CLI RX  107
+**** v1   CLI RX|waaefvtscqputioymnxtnedpuxwwnibi
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth 8e776651f71bf6bce3963b86e92ccd9565c0489362c12d4d667f5381df6990aa
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** dT   0.114
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|    import directors;
+**** v1   CLI TX|    import blob;
+**** v1   CLI TX|
+**** v1   CLI TX|    backend dummy { .host = "127.0.0.1 33553"; }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_init {
+**** v1   CLI TX|\tnew shard = directors.shard();
+**** v1   CLI TX|\tnew p = directors.shard_param();
+**** v1   CLI TX|\tp.set(by=BLOB, key_blob=blob.decode(HEX, encoded=""));
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_recv {
+**** v1   CLI TX|\tif (req.url == "/1") {
+**** v1   CLI TX|\t    set req.backend_hint = shard.backend(
+**** v1   CLI TX|\t      param=blob.decode(HEX, encoded=""));
+**** v1   CLI TX|\t} else if (req.url == "/2") {
+**** v1   CLI TX|\t    p.set(by=HASH);
+**** v1   CLI TX|\t}
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.214
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.305
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.308
+***  v1   debug|Debug: Child (62639) Started
+**** dT   0.334
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (62639) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+**** dT   0.335
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 43005
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 43005
+**   v1   Listen on 127.0.0.1 43005
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=43005
+**** v1   macro def v1_sock=127.0.0.1 43005
+**** dT   0.414
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892781.997254/vgc.so 1auto
+**** v1   vsl|          0 Error           - shard_param.set() p: by=BLOB but no or empty key_blob - using key 0
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892781.997254/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 43005
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 43005
+
+**** dT   0.435
+**   top  === logexpect l1 -v v1 -g raw -d 1 {
+**   l1   === expect 0 0    CLI       {^Rd vcl.load}
+**   l1   === expect 0 0    Error     {by=BLOB but no or empty key_blob - ...
+**   l1   Waiting for logexp
+**** l1   begin|
+***  l1   expecting| expect 0 0 CLI ^Rd vcl.load
+**** l1   match|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892781.997254/vgc.so 1auto
+***  l1   expecting| expect 0 0 Error by=BLOB but no or empty key_blob - using key 0
+**** l1   match|          0 Error           - shard_param.set() p: by=BLOB but no or empty key_blob - using key 0
+**** dT   0.436
+**** l1   end|
+**   top  === logexpect l2 -v v1 -g raw {
+**   l2   === expect * 1001 VCL_Error {shard .backend param invalid}
+**   top  === logexpect l3 -v v1 -g raw {
+**** l2   begin|
+***  l2   expecting| expect * 1001 VCL_Error shard .backend param invalid
+**   l3   === expect * 1003 VCL_Error {shard_param.set.. may only be used ...
+**   top  === client c1 {
+**   c1   Starting client
+**** l3   begin|
+***  l3   expecting| expect * 1003 VCL_Error shard_param.set.. may only be used in vcl_init and in backend/pipe context
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 43005 (1 iterations)
+***  c1   Connect to 127.0.0.1 43005
+***  c1   connected fd 30 from 127.0.0.1 47206 to 127.0.0.1 43005
+**   c1   === txreq -url "/1"
+**** c1   txreq|GET /1 HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.437
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:53:02 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:53:02 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1001
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1001</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect_close
+**** c1   Expecting close (fd = 30)
+**** c1   fd=30 EOF, as expected
+***  c1   closing fd 30
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 43005 (1 iterations)
+***  c1   Connect to 127.0.0.1 43005
+**** dT   0.438
+***  c1   connected fd 30 from 127.0.0.1 47208 to 127.0.0.1 43005
+**   c1   === txreq -url "/2"
+**** c1   txreq|GET /2 HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** c1   rxhdr|HTTP/1.1 503 VCL failed\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:53:02 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1003\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 251\r
+**** c1   rxhdr|Connection: close\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 194
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |503
+**** c1   http[ 2] |VCL failed
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:53:02 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1003
+**** c1   http[ 6] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 7] |Retry-After: 5
+**** c1   http[ 8] |Content-Length: 251
+**** c1   http[ 9] |Connection: close
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>503 VCL failed</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 503 VCL failed</h1>
+**** c1   c-l|    <p>VCL failed</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1003</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 251
+**   c1   === expect resp.status == 503
+**** dT   0.439
+**** c1   EXPECT resp.status (503) == "503" match
+**   c1   === expect_close
+**** c1   Expecting close (fd = 30)
+**** c1   fd=30 EOF, as expected
+***  c1   closing fd 30
+**   c1   Ending
+**   top  === logexpect l2 -wait
+**   l2   Waiting for logexp
+**** dT   0.446
+**** l2   match|       1001 VCL_Error       c shard .backend param invalid
+**** l2   end|
+**   top  === logexpect l3 -wait
+**** l3   match|       1003 VCL_Error       c shard_param.set() may only be used in vcl_init and in backend/pipe context
+**** l3   end|
+**   l3   Waiting for logexp
+**   top  === varnish v1 -errvcl {shard .associate param invalid} {
+**** v1   CLI TX|vcl.inline vcl2 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|    import directors;
+**** v1   CLI TX|    import blob;
+**** v1   CLI TX|
+**** v1   CLI TX|    backend dummy { .host = "127.0.0.1 33553"; }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_init {
+**** v1   CLI TX|\tnew shard = directors.shard();
+**** v1   CLI TX|\tshard.associate(blob.decode(encoded=""));
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.515
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 47206 a0 127.0.0.1 43005 1634892782.319681 25
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892782.319773 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892782.319773 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 47206 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /1
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 VCL_Error       c shard .backend param invalid
+**** v1   vsl|       1001 VCL_return      c fail
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 503
+**** v1   vsl|       1001 RespReason      c VCL failed
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 08:53:02 GMT
+**** v1   vsl|       1001 RespHeader      c Server: Varnish
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 VCL_call        c SYNTH
+**** v1   vsl|       1001 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1001 RespHeader      c Retry-After: 5
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634892782.319869 0.000096 0.000096
+**** v1   vsl|       1001 RespHeader      c Content-Length: 251
+**** v1   vsl|       1001 Storage         c malloc Transient
+**** v1   vsl|       1001 Filters         c 
+**** v1   vsl|       1001 RespHeader      c Connection: close
+**** v1   vsl|       1001 Timestamp       c Resp: 1634892782.319959 0.000185 0.000089
+**** v1   vsl|       1001 ReqAcct         c 36 0 36 194 251 445
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1000 End             c 
+**** v1   vsl|       1002 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1002 SessOpen        c 127.0.0.1 47208 a0 127.0.0.1 43005 1634892782.320956 26
+**** v1   vsl|       1002 Link            c req 1003 rxreq
+**** v1   vsl|       1003 Begin           c req 1002 rxreq
+**** v1   vsl|       1003 Timestamp       c Start: 1634892782.321091 0.000000 0.000000
+**** v1   vsl|       1003 Timestamp       c Req: 1634892782.321091 0.000000 0.000000
+**** v1   vsl|       1003 VCL_use         c vcl1
+**** v1   vsl|       1003 ReqStart        c 127.0.0.1 47208 a0
+**** v1   vsl|       1003 ReqMethod       c GET
+**** v1   vsl|       1003 ReqURL          c /2
+**** v1   vsl|       1003 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1003 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1003 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1003 VCL_call        c RECV
+**** v1   vsl|       1003 VCL_Error       c shard_param.set() may only be used in vcl_init and in backend/pipe context
+**** v1   vsl|       1003 VCL_return      c fail
+**** v1   vsl|       1003 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1003 RespStatus      c 503
+**** v1   vsl|       1003 RespReason      c VCL failed
+**** v1   vsl|       1003 RespHeader      c Date: Fri, 22 Oct 2021 08:53:02 GMT
+**** v1   vsl|       1003 RespHeader      c Server: Varnish
+**** v1   vsl|       1003 RespHeader      c X-Varnish: 1003
+**** v1   vsl|       1003 VCL_call        c SYNTH
+**** v1   vsl|       1003 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1003 RespHeader      c Retry-After: 5
+**** v1   vsl|       1003 VCL_return      c deliver
+**** v1   vsl|       1003 Timestamp       c Process: 1634892782.321125 0.000034 0.000034
+**** v1   vsl|       1003 RespHeader      c Content-Length: 251
+**** v1   vsl|       1003 Storage         c malloc Transient
+**** v1   vsl|       1003 Filters         c 
+**** v1   vsl|       1003 RespHeader      c Connection: close
+**** v1   vsl|       1003 Timestamp       c Resp: 1634892782.321155 0.000063 0.000029
+**** v1   vsl|       1003 ReqAcct         c 36 0 36 194 251 445
+**** v1   vsl|       1003 End             c 
+**** v1   vsl|       1002 SessClose       c VCL_FAILURE 0.000
+**** v1   vsl|       1002 End             c 
+**** dT   0.630
+***  v1   CLI RX  300
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI RX|VCL "vcl2" Failed initialization
+**** v1   CLI RX|Message:
+**** v1   CLI RX|\tshard .associate param invalid
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("shard .associate param invalid")
+**   top  === varnish v1 -errvcl {missing key argument with by=KEY} {
+**** v1   CLI TX|vcl.inline vcl3 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|    import directors;
+**** v1   CLI TX|    import blob;
+**** v1   CLI TX|
+**** v1   CLI TX|    backend dummy { .host = "127.0.0.1 33553"; }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_init {
+**** v1   CLI TX|\tnew p = directors.shard_param();
+**** v1   CLI TX|\tp.set(by=KEY);
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.715
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl2 vcl_vcl2.1634892782.329697/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 300 74 VCL "vcl2" Failed initialization
+Message:
+	shard .associate param invalid
+
+**** dT   0.792
+***  v1   CLI RX  300
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI RX|VCL "vcl3" Failed initialization
+**** v1   CLI RX|Message:
+**** v1   CLI RX|\tshard_param.set() p: missing key argument with by=KEY
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("missing key argument with by=KEY")
+**   top  === varnish v1 -errvcl {invalid key argument -5 with by=KEY} {
+**** v1   CLI TX|vcl.inline vcl4 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|    import directors;
+**** v1   CLI TX|    import blob;
+**** v1   CLI TX|
+**** v1   CLI TX|    backend dummy { .host = "127.0.0.1 33553"; }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_init {
+**** v1   CLI TX|\tnew p = directors.shard_param();
+**** v1   CLI TX|\tp.set(by=KEY, key=-5);
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.815
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl3 vcl_vcl3.1634892782.513128/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 300 97 VCL "vcl3" Failed initialization
+Message:
+	shard_param.set() p: missing key argument with by=KEY
+
+**** dT   0.956
+***  v1   CLI RX  300
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI RX|VCL "vcl4" Failed initialization
+**** v1   CLI RX|Message:
+**** v1   CLI RX|\tshard_param.set() p: invalid key argument -5 with by=KEY
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("invalid key argument -5 with by=KEY")
+**   top  === varnish v1 -errvcl {missing key_blob argument with by=BLOB} ...
+**** v1   CLI TX|vcl.inline vcl5 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|    import directors;
+**** v1   CLI TX|    import blob;
+**** v1   CLI TX|
+**** v1   CLI TX|    backend dummy { .host = "127.0.0.1 33553"; }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_init {
+**** v1   CLI TX|\tnew p = directors.shard_param();
+**** v1   CLI TX|\tp.set(by=BLOB);
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.015
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl4 vcl_vcl4.1634892782.675636/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 300 100 VCL "vcl4" Failed initialization
+Message:
+	shard_param.set() p: invalid key argument -5 with by=KEY
+
+**** dT   1.136
+***  v1   CLI RX  300
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI RX|VCL "vcl5" Failed initialization
+**** v1   CLI RX|Message:
+**** v1   CLI RX|\tshard_param.set() p: missing key_blob argument with by=BLOB
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("missing key_blob argument with by=BLOB")
+**   top  === varnish v1 -errvcl {key and key_blob arguments are invalid w...
+**** v1   CLI TX|vcl.inline vcl6 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|    import directors;
+**** v1   CLI TX|    import blob;
+**** v1   CLI TX|
+**** v1   CLI TX|    backend dummy { .host = "127.0.0.1 33553"; }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_init {
+**** v1   CLI TX|\tnew p = directors.shard_param();
+**** v1   CLI TX|\tp.set(by=URL, key=0);
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.216
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl5 vcl_vcl5.1634892782.839677/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 300 103 VCL "vcl5" Failed initialization
+Message:
+	shard_param.set() p: missing key_blob argument with by=BLOB
+
+**** dT   1.298
+***  v1   CLI RX  300
+**** dT   1.299
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI RX|VCL "vcl6" Failed initialization
+**** v1   CLI RX|Message:
+**** v1   CLI RX|\tshard_param.set() p: key and key_blob arguments are invalid with by=URL
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("key and key_blob arguments are invalid with by=URL")
+**   top  === varnish v1 -errvcl {key and key_blob arguments are invalid w...
+**** v1   CLI TX|vcl.inline vcl7 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|    import directors;
+**** v1   CLI TX|    import blob;
+**** v1   CLI TX|
+**** v1   CLI TX|    backend dummy { .host = "127.0.0.1 33553"; }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_init {
+**** v1   CLI TX|\tnew p = directors.shard_param();
+**** v1   CLI TX|\tp.set(key=0);
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.316
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl6 vcl_vcl6.1634892783.019763/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 300 115 VCL "vcl6" Failed initialization
+Message:
+	shard_param.set() p: key and key_blob arguments are invalid with by=URL
+
+**** dT   1.458
+***  v1   CLI RX  300
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI RX|VCL "vcl7" Failed initialization
+**** v1   CLI RX|Message:
+**** v1   CLI RX|\tshard_param.set() p: key and key_blob arguments are invalid with by=HASH
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("key and key_blob arguments are invalid with by=HASH")
+**   top  === varnish v1 -errvcl {invalid alt argument -1} {
+**** v1   CLI TX|vcl.inline vcl8 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|    import directors;
+**** v1   CLI TX|    import blob;
+**** v1   CLI TX|
+**** v1   CLI TX|    backend dummy { .host = "127.0.0.1 33553"; }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_init {
+**** v1   CLI TX|\tnew p = directors.shard_param();
+**** v1   CLI TX|\tp.set(alt=-1);
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.516
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl7 vcl_vcl7.1634892783.182043/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 300 116 VCL "vcl7" Failed initialization
+Message:
+	shard_param.set() p: key and key_blob arguments are invalid with by=HASH
+
+**** dT   1.637
+***  v1   CLI RX  300
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI RX|VCL "vcl8" Failed initialization
+**** v1   CLI RX|Message:
+**** v1   CLI RX|\tshard_param.set() p: invalid alt argument -1
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("invalid alt argument -1")
+**   top  === varnish v1 -errvcl {invalid warmup argument -0.5} {
+**** v1   CLI TX|vcl.inline vcl9 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|    import directors;
+**** v1   CLI TX|    import blob;
+**** v1   CLI TX|
+**** v1   CLI TX|    backend dummy { .host = "127.0.0.1 33553"; }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_init {
+**** v1   CLI TX|\tnew p = directors.shard_param();
+**** v1   CLI TX|\tp.set(warmup=-0.5);
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.716
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl8 vcl_vcl8.1634892783.341844/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 300 88 VCL "vcl8" Failed initialization
+Message:
+	shard_param.set() p: invalid alt argument -1
+
+**** dT   1.813
+***  v1   CLI RX  300
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI RX|VCL "vcl9" Failed initialization
+**** v1   CLI RX|Message:
+**** v1   CLI RX|\tshard_param.set() p: invalid warmup argument -0.500000
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("invalid warmup argument -0.5")
+**   top  === varnish v1 -errvcl {invalid warmup argument 1.1} {
+**** v1   CLI TX|vcl.inline vcl10 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|    import directors;
+**** v1   CLI TX|    import blob;
+**** v1   CLI TX|
+**** v1   CLI TX|    backend dummy { .host = "127.0.0.1 33553"; }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_init {
+**** v1   CLI TX|\tnew p = directors.shard_param();
+**** v1   CLI TX|\tp.set(warmup=1.1);
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   1.816
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl9 vcl_vcl9.1634892783.520237/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 300 98 VCL "vcl9" Failed initialization
+Message:
+	shard_param.set() p: invalid warmup argument -0.500000
+
+**** dT   1.987
+***  v1   CLI RX  300
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI RX|VCL "vcl10" Failed initialization
+**** v1   CLI RX|Message:
+**** v1   CLI RX|\tshard_param.set() p: invalid warmup argument 1.100000
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("invalid warmup argument 1.1")
+**   top  === varnish v1 -errvcl {resolve=LAZY with other parameters can o...
+**** v1   CLI TX|vcl.inline vcl11 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|    import directors;
+**** v1   CLI TX|    import blob;
+**** v1   CLI TX|
+**** v1   CLI TX|    backend dummy { .host = "127.0.0.1 33553"; }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_init {
+**** v1   CLI TX|\tnew shard = directors.shard();
+**** v1   CLI TX|\tnew rr = directors.round_robin();
+**** v1   CLI TX|\trr.add_backend(shard.backend(resolve=LAZY, by=KEY));
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   2.017
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl10 vcl_vcl10.1634892783.696615/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 300 98 VCL "vcl10" Failed initialization
+Message:
+	shard_param.set() p: invalid warmup argument 1.100000
+
+**** dT   2.162
+***  v1   CLI RX  300
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI RX|VCL "vcl11" Failed initialization
+**** v1   CLI RX|Message:
+**** v1   CLI RX|\tshard .backend resolve=LAZY with other parameters can only be used in backend/pipe context
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("resolve=LAZY with other parameters can only be used in backend/pipe context")
+**   top  === varnish v1 -errvcl {resolve=NOW can not be used in vcl_init}...
+**** v1   CLI TX|vcl.inline vcl12 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|    import directors;
+**** v1   CLI TX|    import blob;
+**** v1   CLI TX|
+**** v1   CLI TX|    backend dummy { .host = "127.0.0.1 33553"; }
+**** v1   CLI TX|
+**** v1   CLI TX|    sub vcl_init {
+**** v1   CLI TX|\tnew shard = directors.shard();
+**** v1   CLI TX|\tnew rr = directors.round_robin();
+**** v1   CLI TX|\trr.add_backend(shard.backend(resolve=NOW));
+**** v1   CLI TX|    }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   2.217
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl11 vcl_vcl11.1634892783.870750/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 300 135 VCL "vcl11" Failed initialization
+Message:
+	shard .backend resolve=LAZY with other parameters can only be used in backend/pipe context
+
+**** dT   2.334
+***  v1   CLI RX  300
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI RX|VCL "vcl12" Failed initialization
+**** v1   CLI RX|Message:
+**** v1   CLI RX|\tshard .backend resolve=NOW can not be used in vcl_init{}/vcl_fini{}
+**   v1   VCL compilation failed (as expected)
+***  v1   Found expected string: ("resolve=NOW can not be used in vcl_init")
+*    top  RESETTING after ./tests/d00030.vtc
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl1.dummy     healthy    0/0      healthy    Fri, 22 Oct 2021 08:53:02 GMT
+**** v1   CLI RX|vcl1.shard     probe      0/0      sick       Fri, 22 Oct 2021 08:53:02 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   2.417
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl12 vcl_vcl12.1634892784.045248/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 300 112 VCL "vcl12" Failed initialization
+Message:
+	shard .backend resolve=NOW can not be used in vcl_init{}/vcl_fini{}
+
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 210 Backend name   Admin      Probe    Health     Last change
+vcl1.dummy     healthy    0/0      healthy    Fri, 22 Oct 2021 08:53:02 GMT
+vcl1.shard     probe      0/0      sick       Fri, 22 Oct 2021 08:53:02 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   3.335
+***  v1   debug|Info: Child (62639) ended
+***  v1   debug|Info: Child (62639) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** dT   3.336
+**** v1   STDOUT EOF
+**** dT   3.419
+**   v1   WAIT4 pid=62627 status=0x0000 (user 1.806804 sys 0.290499)
+**** dT   3.420
+*    top  TEST ./tests/d00030.vtc completed
+#    top  TEST ./tests/d00030.vtc passed (3.420)

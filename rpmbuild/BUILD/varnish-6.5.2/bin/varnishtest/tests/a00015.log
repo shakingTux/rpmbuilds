@@ -1,0 +1,89 @@
+**** dT   0.000
+*    top  TEST ./tests/a00015.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 39123
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.45020.554f4aa5
+**   top  === varnishtest "Write a body to a file"
+*    top  VTEST Write a body to a file
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=35925
+**** s1   macro def s1_sock=127.0.0.1 35925
+*    s1   Listen on 127.0.0.1 35925
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   s1   Started on 127.0.0.1 35925 (1 iterations)
+**** dT   0.001
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 35925 (1 iterations)
+***  c1   Connect to 127.0.0.1 35925
+***  s1   accepted fd 5 127.0.0.1 54114
+**   s1   === rxreq
+***  c1   connected fd 6 from 127.0.0.1 54114 to 127.0.0.1 35925
+**   c1   === txreq -req POST -hdr "Content-Type: text/plain" -body reques...
+**** c1   txreq|POST / HTTP/1.1\r
+**** c1   txreq|Content-Type: text/plain\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|Content-Length: 7\r
+**** c1   txreq|\r
+**** c1   txreq|request
+**** s1   rxhdr|POST / HTTP/1.1\r
+**** s1   rxhdr|Content-Type: text/plain\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|Content-Length: 7\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 81
+**** s1   http[ 0] |POST
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Content-Type: text/plain
+**** s1   http[ 4] |Host: 127.0.0.1
+**** s1   http[ 5] |Content-Length: 7
+**** s1   c-l|request
+**** s1   bodylen = 7
+**   s1   === expect req.http.Content-Type == "text/plain"
+**** s1   EXPECT req.http.Content-Type (text/plain) == "text/plain" match
+**   s1   === write_body req.txt
+**   s1   === shell {grep -q request req.txt}
+**** s1   shell_cmd|exec 2>&1 ; grep -q request req.txt
+**   c1   === rxresp
+**** dT   0.004
+**** s1   shell_status = 0x0000
+**   s1   === txresp -hdr "Content-Type: text/plain" -body response
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Type: text/plain\r
+**** s1   txresp|Content-Length: 8\r
+**** s1   txresp|\r
+**** s1   txresp|response
+***  s1   shutting fd 5
+**   s1   Ending
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Type: text/plain\r
+**** c1   rxhdr|Content-Length: 8\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 64
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Type: text/plain
+**** c1   http[ 4] |Content-Length: 8
+**** c1   c-l|response
+**** c1   bodylen = 8
+**   c1   === expect resp.http.Content-Type == "text/plain"
+**** c1   EXPECT resp.http.Content-Type (text/plain) == "text/plain" match
+**   c1   === write_body resp.txt
+**   c1   === shell {grep -q response resp.txt}
+**** c1   shell_cmd|exec 2>&1 ; grep -q response resp.txt
+**** dT   0.025
+**** c1   shell_status = 0x0000
+***  c1   closing fd 6
+**   c1   Ending
+*    top  RESETTING after ./tests/a00015.vtc
+**   s1   Waiting for server (4/-1)
+*    top  TEST ./tests/a00015.vtc completed
+#    top  TEST ./tests/a00015.vtc passed (0.026)

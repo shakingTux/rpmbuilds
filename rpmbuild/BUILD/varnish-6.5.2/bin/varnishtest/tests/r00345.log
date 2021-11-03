@@ -1,0 +1,1947 @@
+**** dT   0.000
+*    top  TEST ./tests/r00345.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 40707
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.74446.51ed34ba
+**   top  === varnishtest "#345, ESI waitinglist trouble"
+*    top  VTEST #345, ESI waitinglist trouble
+**   top  === barrier b1 cond 2
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=41665
+**** s1   macro def s1_sock=127.0.0.1 41665
+*    s1   Listen on 127.0.0.1 41665
+**   top  === varnish v1 -arg "-p debug=+workspace" -vcl+backend {
+**   s1   Started on 127.0.0.1 41665 (1 iterations)
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.74446.51ed34ba/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 36643' -P /tmp/vtc.74446.51ed34ba/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p debug=+workspace
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.74446.51ed34ba/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 36643' -P /tmp/vtc.74446.51ed34ba/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p debug=+workspace
+***  v1   PID: 74465
+**** v1   macro def v1_pid=74465
+**** v1   macro def v1_name=/tmp/vtc.74446.51ed34ba/v1
+**** dT   0.012
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.111
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 7
+***  v1   CLI RX  107
+**** v1   CLI RX|rastbtliknsigwtzpkcfaekrmwqnegnl
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth 920ed28256c2439f79d4951145fde83de107f95a0f50ba05eca5ecc5ba173b38
+**** dT   0.112
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "41665"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_backend_response {
+**** v1   CLI TX|\t\tif (bereq.url == "/") {
+**** v1   CLI TX|\t\t\tset beresp.do_esi = true;
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.212
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.273
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.276
+***  v1   debug|Debug: Child (74477) Started
+**** dT   0.302
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (74477) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 35433
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+**** dT   0.303
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 35433
+**   v1   Listen on 127.0.0.1 35433
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=35433
+**** v1   macro def v1_sock=127.0.0.1 35433
+**** dT   0.312
+**** v1   vsl|          0 Debug           - WS_Init(0x72db60, "cli", 0x1343080, 65536)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x72db60) = 0x1343080
+**** v1   vsl|          0 Debug           - WS_Init(0x7f6202afbe58, "wrk", 0x7f6202afb390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f6202afbe58) = (wrk, 0x7f6202afb390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202afbe58) = (wrk, 0x7f6202afb390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202afbe58) = (wrk, 0x7f6202afb390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202afbe58, 0x7f6202afb390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202afbe58) = (wrk, 0x7f6202afb390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f6202adde58, "wrk", 0x7f6202add390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f6202adde58) = (wrk, 0x7f6202add390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202adde58) = (wrk, 0x7f6202add390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202adde58) = (wrk, 0x7f6202add390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202adde58, 0x7f6202add390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202adde58) = (wrk, 0x7f6202add390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f6202acee58, "wrk", 0x7f6202ace390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f6202acee58) = (wrk, 0x7f6202ace390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202acee58) = (wrk, 0x7f6202ace390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202acee58) = (wrk, 0x7f6202ace390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202acee58, 0x7f6202ace390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202acee58) = (wrk, 0x7f6202ace390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f6202abfe58, "wrk", 0x7f6202abf390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f6202abfe58) = (wrk, 0x7f6202abf390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202abfe58) = (wrk, 0x7f6202abf390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202abfe58) = (wrk, 0x7f6202abf390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202abfe58, 0x7f6202abf390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202abfe58) = (wrk, 0x7f6202abf390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f6202ab0e58, "wrk", 0x7f6202ab0390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f6202ab0e58) = (wrk, 0x7f6202ab0390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202ab0e58) = (wrk, 0x7f6202ab0390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202ab0e58) = (wrk, 0x7f6202ab0390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202ab0e58, 0x7f6202ab0390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202ab0e58) = (wrk, 0x7f6202ab0390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f6202aa1e58, "wrk", 0x7f6202aa1390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f6202aa1e58) = (wrk, 0x7f6202aa1390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202aa1e58) = (wrk, 0x7f6202aa1390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202aa1e58) = (wrk, 0x7f6202aa1390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202aa1e58, 0x7f6202aa1390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202aa1e58) = (wrk, 0x7f6202aa1390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f6202a92e58, "wrk", 0x7f6202a92390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a92e58) = (wrk, 0x7f6202a92390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a92e58) = (wrk, 0x7f6202a92390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a92e58) = (wrk, 0x7f6202a92390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a92e58, 0x7f6202a92390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a92e58) = (wrk, 0x7f6202a92390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f6202a83e58, "wrk", 0x7f6202a83390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a83e58, 0x7f6202a83390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f6202a74e58, "wrk", 0x7f6202a74390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a74e58, 0x7f6202a74390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f6202aece58, "wrk", 0x7f6202aec390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f6202aece58) = (wrk, 0x7f6202aec390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202aece58) = (wrk, 0x7f6202aec390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202aece58) = (wrk, 0x7f6202aec390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202aece58, 0x7f6202aec390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202aece58) = (wrk, 0x7f6202aec390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f6202a63e58, "wrk", 0x7f6202a63390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a63e58) = (wrk, 0x7f6202a63390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a63e58) = (wrk, 0x7f6202a63390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a63e58) = (wrk, 0x7f6202a63390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a63e58, 0x7f6202a63390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a63e58) = (wrk, 0x7f6202a63390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61fc994e58, "wrk", 0x7f61fc994390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc994e58) = (wrk, 0x7f61fc994390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc994e58) = (wrk, 0x7f61fc994390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc994e58) = (wrk, 0x7f61fc994390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc994e58, 0x7f61fc994390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc994e58) = (wrk, 0x7f61fc994390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61fc985e58, "wrk", 0x7f61fc985390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc985e58) = (wrk, 0x7f61fc985390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc985e58) = (wrk, 0x7f61fc985390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc985e58) = (wrk, 0x7f61fc985390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc985e58, 0x7f61fc985390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc985e58) = (wrk, 0x7f61fc985390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61fc976e58, "wrk", 0x7f61fc976390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc976e58) = (wrk, 0x7f61fc976390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc976e58) = (wrk, 0x7f61fc976390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc976e58) = (wrk, 0x7f61fc976390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc976e58, 0x7f61fc976390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc976e58) = (wrk, 0x7f61fc976390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61fc967e58, "wrk", 0x7f61fc967390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc967e58) = (wrk, 0x7f61fc967390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc967e58) = (wrk, 0x7f61fc967390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc967e58) = (wrk, 0x7f61fc967390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc967e58, 0x7f61fc967390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc967e58) = (wrk, 0x7f61fc967390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61fc958e58, "wrk", 0x7f61fc958390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc958e58) = (wrk, 0x7f61fc958390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc958e58) = (wrk, 0x7f61fc958390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc958e58) = (wrk, 0x7f61fc958390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc958e58, 0x7f61fc958390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc958e58) = (wrk, 0x7f61fc958390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61fc949e58, "wrk", 0x7f61fc949390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc949e58) = (wrk, 0x7f61fc949390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc949e58) = (wrk, 0x7f61fc949390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc949e58) = (wrk, 0x7f61fc949390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc949e58, 0x7f61fc949390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc949e58) = (wrk, 0x7f61fc949390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61fc93ae58, "wrk", 0x7f61fc93a390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc93ae58, 0x7f61fc93a390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61fc92be58, "wrk", 0x7f61fc92b390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc92be58, 0x7f61fc92b390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61fc9a3e58, "wrk", 0x7f61fc9a3390, 2048)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc9a3e58) = (wrk, 0x7f61fc9a3390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc9a3e58) = (wrk, 0x7f61fc9a3390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc9a3e58) = (wrk, 0x7f61fc9a3390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc9a3e58, 0x7f61fc9a3390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc9a3e58) = (wrk, 0x7f61fc9a3390 0 0 2040)
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892922.191275/vgc.so 1auto
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS_Reset(0x72db60, 0x1343080)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS_Reset(0x72db60, 0x1343080)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892922.191275/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 35433
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 35433
+
+**** dT   0.403
+**   top  === client c1 {
+**   c1   Starting client
+**   top  === client c2 {
+**   c2   Starting client
+**   c1   Started on 127.0.0.1 35433 (1 iterations)
+***  c1   Connect to 127.0.0.1 35433
+**   c2   Waiting for client
+**   c2   Started on 127.0.0.1 35433 (1 iterations)
+***  c2   Connect to 127.0.0.1 35433
+***  c2   connected fd 18 from 127.0.0.1 44524 to 127.0.0.1 35433
+**   c2   === txreq
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+***  c1   connected fd 17 from 127.0.0.1 44522 to 127.0.0.1 35433
+**** dT   0.404
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.403
+**   c2   === barrier b1 sync
+**** dT   0.404
+***  s1   accepted fd 5 127.0.0.1 50034
+**   s1   === rxreq
+**** c2   Barrier(b1) wait 1 of 2
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1003\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 103
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1003
+**** s1   bodylen = 0
+**   s1   === txresp -body {<esi:include src="someurl"/>}
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 28\r
+**** s1   txresp|\r
+**** s1   txresp|<esi:include src="someurl"/>
+**   s1   === rxreq
+**** dT   0.405
+**   c1   === rxresp
+**** dT   0.412
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f6202a74e58, 152/152) = 152
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61fc92be58, 152/152) = 152
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 152 2040)
+**** dT   0.413
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61d4000bc0, "ses", 0x7f61d4000c18, 584)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 0 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 0 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d4000bc0, 32/32) = 32
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 0 32 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 0 32 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 0 32 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4000bc0, 32)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 32 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 32 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d4000bc0, 16/10) = 16
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 32 16 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 32 16 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 32 16 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4000bc0, 16)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 48 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 48 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d4000bc0, 8/6) = 8
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 48 8 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 48 8 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 48 8 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4000bc0, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 56 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 56 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d4000bc0, 32/32) = 32
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 56 32 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 56 32 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 56 32 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4000bc0, 32)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 88 0 576)
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61d8000bc0, "ses", 0x7f61d8000c18, 584)
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 44522 a0 127.0.0.1 35433 1634892922.482615 26
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 0 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61fc92be58, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 0 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d8000bc0, 32/32) = 32
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 0 32 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 0 32 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 0 32 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8000bc0, 32)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 32 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 32 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d8000bc0, 16/10) = 16
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 32 16 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 32 16 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 32 16 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8000bc0, 16)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 48 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 48 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d8000bc0, 8/6) = 8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 48 8 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 48 8 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 48 8 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8000bc0, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 56 0 576)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61d4001110, "req", 0x7f61d4003070, 57136)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 56 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d8000bc0, 32/32) = 32
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 56 32 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 56 32 576)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d4001110) = 57128
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 56 32 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8000bc0, 32)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 88 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 88 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d4000bc0, 8/8) = 8
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 88 8 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 88 8 576)
+**** v1   vsl|       1001 Begin           c sess 0 HTTP/1
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 88 8 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4000bc0, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|       1001 SessOpen        c 127.0.0.1 44524 a0 127.0.0.1 35433 1634892922.482656 22
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f6202a74e58, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61d8001030, "req", 0x7f61d8002f90, 57136)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57128
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 88 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d8000bc0, 8/8) = 8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 88 8 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 88 8 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 88 8 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8000bc0, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReleaseP(0x7f61d8001030, 0x7f61d8002fb3 (35))
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 0 57128)
+**** v1   vsl|       1001 Link            c req 1002 rxreq
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 0 57128)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61d8001030) = 0x7f61d8002fb8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 57088 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57088
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 57088 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 57088 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 57088 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 32)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57056
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57056
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 16)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57040
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61d8011190, "bo", 0x7f61d80130a0, 57488)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 57480 57480)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8011190) = 57480
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 57480 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 57480 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 57480 57480)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8011190, 24)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 24 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 24 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 24 0 57480)
+**** v1   vsl|          0 Debug           - WS_Copy(0x7f61d8011190, 4) = 0x7f61d80130b8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 32 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 32 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 32 0 57480)
+**** v1   vsl|          0 Debug           - WS_Copy(0x7f61d8011190, 2) = 0x7f61d80130c0
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 40 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 40 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 40 0 57480)
+**** v1   vsl|          0 Debug           - WS_Copy(0x7f61d8011190, 9) = 0x7f61d80130c8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 56 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 56 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 56 0 57480)
+**** v1   vsl|          0 Debug           - WS_Copy(0x7f61d8011190, 27) = 0x7f61d80130d8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 88 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 88 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 88 0 57480)
+**** v1   vsl|          0 Debug           - WS_Copy(0x7f61d8011190, 16) = 0x7f61d80130f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 104 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 104 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 104 0 57480)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61d8011190) = 0x7f61d8013108
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 104 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 104 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 104 57376 57480)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8011190) = 57376
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 104 57376 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 104 57376 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 104 57376 57480)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8011190, 16)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 120 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a83e58) = 0x7f6202a83390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a83e58) = 0x7f6202a83390
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 120 0 57480)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8011190, 104) = 0x7f61d8013118
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 224 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a83e58) = 0x7f6202a83390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f6202a83e58, 104) = 0x7f6202a83390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f6202a83e58) = 1936
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f6202a83e58, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a83e58, 0x7f6202a83390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 224 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 224 57256 57480)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8011190) = 57256
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 224 57256 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 224 57256 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 224 57256 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReleaseP(0x7f61d4001110, 0x7f61d4003093 (35))
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 40 0 57128)
+**** v1   vsl|       1000 Link            c req 1004 rxreq
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 40 0 57128)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61d4001110) = 0x7f61d4003098
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 40 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 40 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 40 57088 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d4001110) = 57088
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 40 57088 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 40 57088 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 40 57088 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4001110, 32)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b390
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d4001110) = 57056
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4001110, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d4001110) = 57056
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4001110, 16)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b390
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b390
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b390
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d4001110) = 57040
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc92be58, 0x7f61fc92b390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc92be58, 0x7f61fc92b390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 224 57256 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 224 57256 57480)
+**** v1   vsl|          0 Debug           - WS_ReleaseP(0x7f61d8011190, 0x7f61d80131c3 (67))
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 296 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 296 0 57480)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8011190, 64) = 0x7f61d80131c8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 360 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 360 0 57480)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8011190, 40) = 0x7f61d8013208
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 400 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a83e58) = 0x7f6202a83390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a83e58) = 0x7f6202a83390
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 400 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 400 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 400 57080 57480)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8011190) = 57080
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 400 57080 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 400 57080 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 400 57080 57480)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8011190, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 408 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 408 0 57480)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8011190, 64) = 0x7f61d8013238
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 472 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 472 0 57480)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8011190, 304) = 0x7f61d8013278
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 776 0 57480)
+**** dT   0.416
+**** s1   rxhdr|GET /someurl HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1006\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 110
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/someurl
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1006
+**** s1   bodylen = 0
+**   s1   === barrier b1 sync
+**** s1   Barrier(b1) wake 2
+**   s1   === delay 1
+***  s1   delaying 1 second(s)
+**   c2   === rxresp
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:55:22 GMT\r
+**** c1   rxhdr|X-Varnish: 1004 1003\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|Transfer-Encoding: chunked\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 192
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:55:22 GMT
+**** c1   http[ 4] |X-Varnish: 1004 1003
+**** c1   http[ 5] |Age: 0
+**** c1   http[ 6] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 7] |Accept-Ranges: bytes
+**** c1   http[ 8] |Connection: keep-alive
+**** c1   http[ 9] |Transfer-Encoding: chunked
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:55:22 GMT\r
+**** c2   rxhdr|X-Varnish: 1002\r
+**** c2   rxhdr|Age: 0\r
+**** c2   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|Transfer-Encoding: chunked\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 187
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:55:22 GMT
+**** c2   http[ 4] |X-Varnish: 1002
+**** c2   http[ 5] |Age: 0
+**** c2   http[ 6] |Via: 1.1 varnish (Varnish/6.5)
+**** c2   http[ 7] |Accept-Ranges: bytes
+**** c2   http[ 8] |Connection: keep-alive
+**** c2   http[ 9] |Transfer-Encoding: chunked
+**** dT   0.513
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|       1003 Begin           b bereq 1002 fetch
+**** v1   vsl|       1003 VCL_use         b vcl1
+**** v1   vsl|       1003 Timestamp       b Start: 1634892922.482973 0.000000 0.000000
+**** v1   vsl|       1003 BereqMethod     b GET
+**** v1   vsl|       1003 BereqURL        b /
+**** v1   vsl|       1003 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1003 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1003 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1003 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1003 BereqHeader     b X-Varnish: 1003
+**** v1   vsl|       1003 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1003 VCL_return      b fetch
+**** v1   vsl|       1003 BackendOpen     b 29 s1 127.0.0.1 41665 127.0.0.1 50034 connect
+**** v1   vsl|       1003 Timestamp       b Bereq: 1634892922.483163 0.000190 0.000190
+**** v1   vsl|       1003 Timestamp       b Beresp: 1634892922.483804 0.000830 0.000640
+**** v1   vsl|       1003 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1003 BerespStatus    b 200
+**** v1   vsl|       1003 BerespReason    b OK
+**** v1   vsl|       1003 BerespHeader    b Content-Length: 28
+**** v1   vsl|       1003 BerespHeader    b Date: Fri, 22 Oct 2021 08:55:22 GMT
+**** v1   vsl|       1003 TTL             b RFC 120 10 0 1634892922 1634892922 1634892922 0 0 cacheable
+**** v1   vsl|       1003 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1003 VCL_return      b deliver
+**** v1   vsl|       1003 Filters         b  esi
+**** v1   vsl|       1003 Storage         b malloc s0
+**** v1   vsl|       1003 Fetch_Body      b 3 length -
+**** v1   vsl|       1003 BackendClose    b 29 s1 recycle
+**** v1   vsl|       1003 Timestamp       b BerespBody: 1634892922.494130 0.011157 0.010326
+**** v1   vsl|       1003 Length          b 28
+**** v1   vsl|       1003 BereqAcct       b 103 0 103 39 28 67
+**** v1   vsl|       1003 End             b 
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4001110, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a83e58, 0x7f6202a83390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b390
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a83e58, 0x7f6202a83390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a83e58) = (wrk, 0x7f6202a83390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d4001110) = 57040
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4001110, 24)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 112 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 112 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 112 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 112 57016 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d4001110) = 57016
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 112 57016 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 112 57016 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 112 57016 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4001110, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 120 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b390
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b390
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 120 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 120 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 120 57008 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d4001110) = 57008
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 120 57008 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 120 57008 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 120 57008 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4001110, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 128 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 128 0 57128)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d4001110, 40) = 0x7f61d40030f0
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 168 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57040
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 168 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 168 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 168 56960 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 16)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d4001110) = 56960
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 104 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 104 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 104 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 104 57024 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57024
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 104 57024 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 168 56960 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 104 57024 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 168 56960 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 104 57024 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 168 56960 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 8)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d4001110, 24)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 192 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 192 0 57128)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d4001110, 40) = 0x7f61d4003130
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 232 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61fc92be58, 104) = 0x7f61fc92b390
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61fc92be58) = 1936
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61fc92be58, 1024)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 57016 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57016
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 57016 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 57016 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 57016 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 120 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 120 0 57128)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8001030, 40) = 0x7f61d8003008
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 160 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 160 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 160 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 160 56968 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 56968
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 160 56968 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 160 56968 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 160 56968 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 24)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 184 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 184 0 57128)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8001030, 40) = 0x7f61d8003048
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 224 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f6202a74e58, 104) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f6202a74e58) = 1936
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f6202a74e58, 1024)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61d40113e0, "req", 0x7f61d4013340, 57136)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 0 0 57128)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61d40113e0) = 0x7f61d4013340
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d40113e0) = 57128
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d40113e0, 32)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 32 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b7f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 32 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d40113e0) = 57096
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d40113e0, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 32 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 32 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d40113e0) = 57096
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d40113e0, 16)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b7f8
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b7f8
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b7f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d40113e0) = 57080
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d40113e0, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b7f8
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b7f8
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61d8011190, "bo", 0x7f61d80130a0, 57488)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 57480 57480)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8011190) = 57480
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 57480 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 57480 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 0 57480 57480)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8011190, 24)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 24 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 24 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 24 0 57480)
+**** v1   vsl|          0 Debug           - WS_Copy(0x7f61d8011190, 4) = 0x7f61d80130b8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 32 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 32 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 32 0 57480)
+**** v1   vsl|          0 Debug           - WS_Copy(0x7f61d8011190, 9) = 0x7f61d80130c0
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 48 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 48 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 48 0 57480)
+**** v1   vsl|          0 Debug           - WS_Copy(0x7f61d8011190, 9) = 0x7f61d80130d0
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 64 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 64 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 64 0 57480)
+**** v1   vsl|          0 Debug           - WS_Copy(0x7f61d8011190, 27) = 0x7f61d80130e0
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 96 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 96 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 96 0 57480)
+**** v1   vsl|          0 Debug           - WS_Copy(0x7f61d8011190, 16) = 0x7f61d8013100
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 112 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 112 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 112 0 57480)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61d8011190) = 0x7f61d8013110
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61d8021310, "req", 0x7f61d8023270, 57136)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 112 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 112 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 112 57368 57480)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8011190) = 57368
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 112 57368 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 112 57368 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 112 57368 57480)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8011190, 16)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 128 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc93ae58) = 0x7f61fc93a390
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc93ae58) = 0x7f61fc93a390
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 128 0 57480)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8011190, 104) = 0x7f61d8013120
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 232 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 0 57128)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61d8021310) = 0x7f61d8023270
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57128
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 32)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57096
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc93ae58) = 0x7f61fc93a390
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 0)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61fc93ae58, 104) = 0x7f61fc93a390
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57096
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61fc93ae58) = 1936
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 16)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57080
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f61d8010ed0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f61d8010ed0 e=1634893052.483804 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f61d8010ed0 e=129.989609 f=0x0
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61fc93ae58, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc93ae58, 0x7f61fc93a390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** dT   1.416
+**   s1   === txresp -body {DATA}
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 4\r
+**** s1   txresp|\r
+**** s1   txresp|DATA
+***  s1   shutting fd 5
+**   s1   Ending
+**** c2   len|004\r
+**** c2   chunk|DATA
+**** c1   len|004\r
+**** c1   chunk|DATA
+**** dT   1.426
+**** c1   len|0\r
+**** c1   chunked|DATA
+**** c1   bodylen = 4
+**   c1   === expect resp.bodylen == 4
+**** c2   len|0\r
+**** c1   EXPECT resp.bodylen (4) == "4" match
+**** c2   chunked|DATA
+**** c2   bodylen = 4
+**   c2   === expect resp.bodylen == 4
+**** c2   EXPECT resp.bodylen (4) == "4" match
+***  c1   closing fd 17
+***  c2   closing fd 18
+**** dT   1.427
+**   c1   Ending
+**   c2   Ending
+**   top  === client c1 {
+**   c1   Waiting for client
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 35433 (1 iterations)
+***  c1   Connect to 127.0.0.1 35433
+***  c1   connected fd 5 from 127.0.0.1 44534 to 127.0.0.1 35433
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   1.428
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:55:22 GMT\r
+**** c1   rxhdr|X-Varnish: 1009 1003\r
+**** c1   rxhdr|Age: 1\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|Transfer-Encoding: chunked\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 192
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:55:22 GMT
+**** c1   http[ 4] |X-Varnish: 1009 1003
+**** c1   http[ 5] |Age: 1
+**** c1   http[ 6] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 7] |Accept-Ranges: bytes
+**** c1   http[ 8] |Connection: keep-alive
+**** c1   http[ 9] |Transfer-Encoding: chunked
+**** c1   len|004\r
+**** c1   chunk|DATA
+**** c1   len|0\r
+**** c1   chunked|DATA
+**** c1   bodylen = 4
+**   c1   === expect resp.bodylen == 4
+**** c1   EXPECT resp.bodylen (4) == "4" match
+***  c1   closing fd 5
+**   c1   Ending
+*    top  RESETTING after ./tests/r00345.vtc
+**   s1   Waiting for server (4/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+**** dT   1.429
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:55:22 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   1.515
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 232 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 232 57248 57480)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8011190) = 57248
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 232 57248 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 232 57248 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 232 57248 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 232 57248 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 232 57248 57480)
+**** v1   vsl|          0 Debug           - WS_ReleaseP(0x7f61d8011190, 0x7f61d80131b2 (42))
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 280 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 280 0 57480)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8011190, 64) = 0x7f61d80131b8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 344 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 344 0 57480)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8011190, 40) = 0x7f61d80131f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 384 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc93ae58) = 0x7f61fc93a390
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc93ae58) = 0x7f61fc93a390
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 384 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 384 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 384 57096 57480)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8011190) = 57096
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 384 57096 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 384 57096 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 384 57096 57480)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8011190, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8011190) = (bo, 0x7f61d80130a0 392 0 57480)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d40113e0) = 57080
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d40113e0, 16)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 64 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 64 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 64 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 64 57064 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d40113e0) = 57064
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 64 57064 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 64 57064 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57080
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 64 57064 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d40113e0, 8)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 24)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57056
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b7f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61fc92be58) = 0x7f61fc92b7f8
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d40113e0) = 57056
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d40113e0, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 80 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 80 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 80 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 80 57048 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d40113e0) = 57048
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 80 57048 57128)
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f61d8010ed0 e=128.988193 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f61d4010fb0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f61d4010fb0 e=1634893053.495406 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f61d8010ed0 e=128.988175 f=0x0
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 80 57048 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 80 57048 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d40113e0, 24)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 104 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 104 0 57128)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d40113e0, 40) = 0x7f61d40133a8
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 144 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 57048 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57048
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 57048 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 57048 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 57048 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57040
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 24)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 112 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 112 0 57128)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8021310, 40) = 0x7f61d80232e0
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 152 0 57128)
+**** v1   vsl|       1006 Begin           b bereq 1005 fetch
+**** v1   vsl|       1006 VCL_use         b vcl1
+**** v1   vsl|       1006 Timestamp       b Start: 1634892922.494450 0.000000 0.000000
+**** v1   vsl|       1006 BereqMethod     b GET
+**** v1   vsl|       1006 BereqURL        b /someurl
+**** v1   vsl|       1006 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1006 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1006 BereqHeader     b host: 127.0.0.1
+**** v1   vsl|       1006 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1006 BereqHeader     b X-Varnish: 1006
+**** v1   vsl|       1006 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1006 VCL_return      b fetch
+**** v1   vsl|       1006 BackendOpen     b 29 s1 127.0.0.1 41665 127.0.0.1 50034 reuse
+**** v1   vsl|       1006 Timestamp       b Bereq: 1634892922.494585 0.000135 0.000135
+**** v1   vsl|       1006 Timestamp       b Beresp: 1634892923.495405 1.000955 1.000819
+**** v1   vsl|       1006 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1006 BerespStatus    b 200
+**** v1   vsl|       1006 BerespReason    b OK
+**** v1   vsl|       1006 BerespHeader    b Content-Length: 4
+**** v1   vsl|       1006 BerespHeader    b Date: Fri, 22 Oct 2021 08:55:23 GMT
+**** v1   vsl|       1006 TTL             b RFC 120 10 0 1634892923 1634892923 1634892923 0 0 cacheable
+**** v1   vsl|       1006 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1006 VCL_return      b deliver
+**** v1   vsl|       1006 Filters         b 
+**** v1   vsl|       1006 Storage         b malloc s0
+**** v1   vsl|       1006 Fetch_Body      b 3 length stream
+**** v1   vsl|       1006 BackendClose    b 29 s1 recycle
+**** v1   vsl|       1006 Timestamp       b BerespBody: 1634892923.505638 1.011188 0.010233
+**** v1   vsl|       1006 Length          b 4
+**** v1   vsl|       1006 BereqAcct       b 110 0 110 38 4 42
+**** v1   vsl|       1006 End             b 
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc93ae58, 0x7f61fc93a390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc93ae58, 0x7f61fc93a390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc93ae58) = (wrk, 0x7f61fc93a390 0 0 2040)
+**** v1   vsl|       1007 Begin           c req 1002 esi
+**** v1   vsl|       1007 Timestamp       c Start: 1634892922.494477 0.000000 0.000000
+**** v1   vsl|       1007 ReqURL          c /someurl
+**** v1   vsl|       1007 ReqStart        c 127.0.0.1 44524 a0
+**** v1   vsl|       1007 ReqMethod       c GET
+**** v1   vsl|       1007 ReqURL          c /someurl
+**** v1   vsl|       1007 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1007 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1007 VCL_call        c RECV
+**** v1   vsl|       1007 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1007 VCL_return      c hash
+**** v1   vsl|       1007 VCL_call        c HASH
+**** v1   vsl|       1007 VCL_return      c lookup
+**** v1   vsl|       1007 Timestamp       c Waitinglist: 1634892923.495549 1.001071 1.001071
+**** v1   vsl|       1007 Hit             c 1006 121.012582 10.000000 0.000000
+**** v1   vsl|       1007 VCL_call        c HIT
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1007 RespStatus      c 200
+**** v1   vsl|       1007 RespReason      c OK
+**** v1   vsl|       1007 RespHeader      c Content-Length: 4
+**** v1   vsl|       1007 RespHeader      c Date: Fri, 22 Oct 2021 08:55:23 GMT
+**** v1   vsl|       1007 RespHeader      c X-Varnish: 1007 1006
+**** v1   vsl|       1007 RespHeader      c Age: 0
+**** v1   vsl|       1007 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1007 VCL_call        c DELIVER
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 Timestamp       c Process: 1634892923.495588 1.001110 0.000038
+**** v1   vsl|       1007 Filters         c 
+**** v1   vsl|       1007 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1007 Timestamp       c Resp: 1634892923.505661 1.011184 0.010073
+**** v1   vsl|       1007 ReqAcct         c 0 0 0 0 4 4
+**** v1   vsl|       1007 End             c 
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 152 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 152 0 57128)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61d8021310, 0x7f61d8023270)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 0 57128)
+**** v1   vsl|       1005 Begin           c req 1004 esi
+**** v1   vsl|       1005 Timestamp       c Start: 1634892922.494387 0.000000 0.000000
+**** v1   vsl|       1005 ReqURL          c /someurl
+**** v1   vsl|       1005 ReqStart        c 127.0.0.1 44522 a0
+**** v1   vsl|       1005 ReqMethod       c GET
+**** v1   vsl|       1005 ReqURL          c /someurl
+**** v1   vsl|       1005 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1005 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1005 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1005 VCL_call        c RECV
+**** v1   vsl|       1005 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1005 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1005 VCL_return      c hash
+**** v1   vsl|       1005 VCL_call        c HASH
+**** v1   vsl|       1005 VCL_return      c lookup
+**** v1   vsl|       1005 VCL_call        c MISS
+**** v1   vsl|       1005 VCL_return      c fetch
+**** v1   vsl|       1005 Link            c bereq 1006 fetch
+**** v1   vsl|       1005 Timestamp       c Fetch: 1634892923.495553 1.001165 1.001165
+**** v1   vsl|       1005 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1005 RespStatus      c 200
+**** v1   vsl|       1005 RespReason      c OK
+**** v1   vsl|       1005 RespHeader      c Content-Length: 4
+**** v1   vsl|       1005 RespHeader      c Date: Fri, 22 Oct 2021 08:55:23 GMT
+**** v1   vsl|       1005 RespHeader      c X-Varnish: 1005
+**** v1   vsl|       1005 RespHeader      c Age: 0
+**** v1   vsl|       1005 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1005 VCL_call        c DELIVER
+**** v1   vsl|       1005 VCL_return      c deliver
+**** v1   vsl|       1005 Timestamp       c Process: 1634892923.495586 1.001199 0.000033
+**** v1   vsl|       1005 Filters         c 
+**** v1   vsl|       1005 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1005 Timestamp       c Resp: 1634892923.505676 1.011288 0.010089
+**** v1   vsl|       1005 ReqAcct         c 0 0 0 0 4 4
+**** v1   vsl|       1005 End             c 
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 144 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 144 0 57128)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61d40113e0, 0x7f61d4013340)
+**** v1   vsl|          0 Debug           - WS(0x7f61d40113e0) = (req, 0x7f61d4013340 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc92be58, 0x7f61fc92b390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a74e58, 0x7f6202a74390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|       1004 Begin           c req 1000 rxreq
+**** v1   vsl|       1004 Timestamp       c Start: 1634892922.483335 0.000000 0.000000
+**** v1   vsl|       1004 Timestamp       c Req: 1634892922.483335 0.000000 0.000000
+**** v1   vsl|       1004 VCL_use         c vcl1
+**** v1   vsl|       1004 ReqStart        c 127.0.0.1 44522 a0
+**** v1   vsl|       1004 ReqMethod       c GET
+**** v1   vsl|       1004 ReqURL          c /
+**** v1   vsl|       1004 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1004 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1004 VCL_call        c RECV
+**** v1   vsl|       1004 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1004 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1004 VCL_return      c hash
+**** v1   vsl|       1004 VCL_call        c HASH
+**** v1   vsl|       1004 VCL_return      c lookup
+**** v1   vsl|       1004 Timestamp       c Waitinglist: 1634892922.494148 0.010813 0.010813
+**** v1   vsl|       1004 Hit             c 1003 120.000469 10.000000 0.000000
+**** v1   vsl|       1004 VCL_call        c HIT
+**** v1   vsl|       1004 VCL_return      c deliver
+**** v1   vsl|       1004 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1004 RespStatus      c 200
+**** v1   vsl|       1004 RespReason      c OK
+**** v1   vsl|       1004 RespHeader      c Content-Length: 28
+**** v1   vsl|       1004 RespHeader      c Date: Fri, 22 Oct 2021 08:55:22 GMT
+**** v1   vsl|       1004 RespHeader      c X-Varnish: 1004 1003
+**** v1   vsl|       1004 RespHeader      c Age: 0
+**** v1   vsl|       1004 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1004 VCL_call        c DELIVER
+**** v1   vsl|       1004 VCL_return      c deliver
+**** v1   vsl|       1004 Timestamp       c Process: 1634892922.494186 0.010851 0.000037
+**** v1   vsl|       1004 Filters         c  esi
+**** v1   vsl|       1004 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1004 RespUnset       c Content-Length: 28
+**** v1   vsl|       1004 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1004 RespHeader      c Transfer-Encoding: chunked
+**** v1   vsl|       1004 Link            c req 1005 esi
+**** v1   vsl|       1004 Timestamp       c Resp: 1634892923.505796 1.022461 1.011610
+**** v1   vsl|       1004 ReqAcct         c 35 0 35 192 16 208
+**** v1   vsl|       1004 End             c 
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 232 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 232 0 57128)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61d4001110, 0x7f61d4003070)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d4001110) = 57128
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4000bc0) = (ses, 0x7f61d4000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|       1002 Begin           c req 1001 rxreq
+**** v1   vsl|       1002 Timestamp       c Start: 1634892922.482824 0.000000 0.000000
+**** v1   vsl|       1002 Timestamp       c Req: 1634892922.482824 0.000000 0.000000
+**** v1   vsl|       1002 VCL_use         c vcl1
+**** v1   vsl|       1002 ReqStart        c 127.0.0.1 44524 a0
+**** v1   vsl|       1002 ReqMethod       c GET
+**** v1   vsl|       1002 ReqURL          c /
+**** v1   vsl|       1002 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1002 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1002 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1002 VCL_call        c RECV
+**** v1   vsl|       1002 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1002 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1002 VCL_return      c hash
+**** v1   vsl|       1002 VCL_call        c HASH
+**** v1   vsl|       1002 VCL_return      c lookup
+**** v1   vsl|       1002 VCL_call        c MISS
+**** v1   vsl|       1002 VCL_return      c fetch
+**** v1   vsl|       1002 Link            c bereq 1003 fetch
+**** v1   vsl|       1002 Timestamp       c Fetch: 1634892922.494205 0.011380 0.011380
+**** v1   vsl|       1002 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1002 RespStatus      c 200
+**** v1   vsl|       1002 RespReason      c OK
+**** v1   vsl|       1002 RespHeader      c Content-Length: 28
+**** v1   vsl|       1002 RespHeader      c Date: Fri, 22 Oct 2021 08:55:22 GMT
+**** v1   vsl|       1002 RespHeader      c X-Varnish: 1002
+**** v1   vsl|       1002 RespHeader      c Age: 0
+**** v1   vsl|       1002 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1002 VCL_call        c DELIVER
+**** v1   vsl|       1002 VCL_return      c deliver
+**** v1   vsl|       1002 Timestamp       c Process: 1634892922.494260 0.011436 0.000055
+**** v1   vsl|       1002 Filters         c  esi
+**** v1   vsl|       1002 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1002 RespUnset       c Content-Length: 28
+**** v1   vsl|       1002 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1002 RespHeader      c Transfer-Encoding: chunked
+**** v1   vsl|       1002 Link            c req 1007 esi
+**** v1   vsl|       1002 Timestamp       c Resp: 1634892923.505803 1.022979 1.011543
+**** v1   vsl|       1002 ReqAcct         c 35 0 35 187 16 203
+**** v1   vsl|       1002 End             c 
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 224 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 224 0 57128)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61d8001030, 0x7f61d8002f90)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57128
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReleaseP(0x7f61d8001030, 0x7f61d8002f90 (0))
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReleaseP(0x7f61d4001110, 0x7f61d4003070 (0))
+**** v1   vsl|          0 Debug           - WS(0x7f61d4001110) = (req, 0x7f61d4003070 0 0 57128)
+**** v1   vsl|       1001 SessClose       c REM_CLOSE 1.023
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|       1000 SessClose       c REM_CLOSE 1.023
+**** v1   vsl|       1000 End             c 
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a74e58, 0x7f6202a74390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc92be58, 0x7f61fc92b390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61fc92be58, 0x7f61fc92b390)
+**** v1   vsl|          0 Debug           - WS(0x7f61fc92be58) = (wrk, 0x7f61fc92b390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a74e58, 0x7f6202a74390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f6202a74e58, 152/152) = 152
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61d8000bc0, "ses", 0x7f61d8000c18, 584)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 0 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 0 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d8000bc0, 32/32) = 32
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 0 32 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 0 32 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 0 32 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8000bc0, 32)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 32 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 32 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d8000bc0, 16/10) = 16
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 32 16 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 32 16 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 32 16 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8000bc0, 16)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 48 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 48 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d8000bc0, 8/6) = 8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 48 8 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 48 8 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 48 8 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8000bc0, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 56 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 56 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d8000bc0, 32/32) = 32
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 56 32 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 56 32 576)
+**** dT   1.516
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 56 32 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8000bc0, 32)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 88 0 576)
+**** v1   vsl|       1008 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1008 SessOpen        c 127.0.0.1 44534 a0 127.0.0.1 35433 1634892923.506291 27
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 152 2040)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f6202a74e58, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61d8001030, "req", 0x7f61d8002f90, 57136)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57128
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 88 0 576)
+**** v1   vsl|          0 Debug           - WS_ReserveSize(0x7f61d8000bc0, 8/8) = 8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 88 8 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 88 8 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 88 8 576)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8000bc0, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReleaseP(0x7f61d8001030, 0x7f61d8002fb3 (35))
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 0 57128)
+**** v1   vsl|       1008 Link            c req 1009 rxreq
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 0 57128)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61d8001030) = 0x7f61d8002fb8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 57088 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57088
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 57088 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 57088 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 40 57088 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 32)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57056
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57056
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 16)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57040
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57040
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 24)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 57016 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57016
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 57016 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 57016 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 112 57016 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 120 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 120 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 120 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 120 57008 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57008
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 120 57008 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 120 57008 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 120 57008 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 128 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 128 0 57128)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8001030, 40) = 0x7f61d8003010
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 168 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 168 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 168 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 168 56960 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 56960
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 168 56960 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 168 56960 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 168 56960 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8001030, 24)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 192 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 192 0 57128)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8001030, 40) = 0x7f61d8003050
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 232 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f6202a74e58, 104) = 0x7f6202a74390
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 104 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f6202a74e58) = 1936
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 104 1936 2040)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f6202a74e58, 1024)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Init(0x7f61d8021310, "req", 0x7f61d8023270, 57136)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 0 57128)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f61d8021310) = 0x7f61d8023270
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57128
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 32)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57096
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57096
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 32 57096 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 16)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57080
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 0)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57080
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 48 57080 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 24)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57056
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 72 57056 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Snapshot(0x7f6202a74e58) = 0x7f6202a747f8
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 57048 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57048
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 57048 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 57048 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 80 57048 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 8)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8021310) = 57040
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 88 57040 57128)
+**** v1   vsl|          0 Debug           - WS_Release(0x7f61d8021310, 24)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 112 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 112 0 57128)
+**** v1   vsl|          0 Debug           - WS_Alloc(0x7f61d8021310, 40) = 0x7f61d80232e0
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 152 0 57128)
+**** v1   vsl|       1010 Begin           c req 1009 esi
+**** v1   vsl|       1010 Timestamp       c Start: 1634892923.506615 0.000000 0.000000
+**** v1   vsl|       1010 ReqURL          c /someurl
+**** v1   vsl|       1010 ReqStart        c 127.0.0.1 44534 a0
+**** v1   vsl|       1010 ReqMethod       c GET
+**** v1   vsl|       1010 ReqURL          c /someurl
+**** v1   vsl|       1010 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1010 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1010 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1010 VCL_call        c RECV
+**** v1   vsl|       1010 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1010 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1010 VCL_return      c hash
+**** v1   vsl|       1010 VCL_call        c HASH
+**** v1   vsl|       1010 VCL_return      c lookup
+**** v1   vsl|       1010 Hit             c 1006 119.988941 10.000000 0.000000
+**** v1   vsl|       1010 VCL_call        c HIT
+**** v1   vsl|       1010 VCL_return      c deliver
+**** v1   vsl|       1010 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1010 RespStatus      c 200
+**** v1   vsl|       1010 RespReason      c OK
+**** v1   vsl|       1010 RespHeader      c Content-Length: 4
+**** v1   vsl|       1010 RespHeader      c Date: Fri, 22 Oct 2021 08:55:23 GMT
+**** v1   vsl|       1010 RespHeader      c X-Varnish: 1010 1006
+**** v1   vsl|       1010 RespHeader      c Age: 0
+**** v1   vsl|       1010 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1010 VCL_call        c DELIVER
+**** v1   vsl|       1010 VCL_return      c deliver
+**** v1   vsl|       1010 Timestamp       c Process: 1634892923.506703 0.000088 0.000088
+**** v1   vsl|       1010 Filters         c 
+**** v1   vsl|       1010 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1010 Timestamp       c Resp: 1634892923.506752 0.000136 0.000048
+**** v1   vsl|       1010 ReqAcct         c 0 0 0 0 4 4
+**** v1   vsl|       1010 End             c 
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 152 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 152 0 57128)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61d8021310, 0x7f61d8023270)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8021310) = (req, 0x7f61d8023270 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 1128 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a74e58, 0x7f6202a74390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|       1009 Begin           c req 1008 rxreq
+**** v1   vsl|       1009 Timestamp       c Start: 1634892923.506464 0.000000 0.000000
+**** v1   vsl|       1009 Timestamp       c Req: 1634892923.506464 0.000000 0.000000
+**** v1   vsl|       1009 VCL_use         c vcl1
+**** v1   vsl|       1009 ReqStart        c 127.0.0.1 44534 a0
+**** v1   vsl|       1009 ReqMethod       c GET
+**** v1   vsl|       1009 ReqURL          c /
+**** v1   vsl|       1009 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1009 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1009 VCL_call        c RECV
+**** v1   vsl|       1009 ReqUnset        c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c host: 127.0.0.1
+**** v1   vsl|       1009 VCL_return      c hash
+**** v1   vsl|       1009 VCL_call        c HASH
+**** v1   vsl|       1009 VCL_return      c lookup
+**** v1   vsl|       1009 Hit             c 1003 118.977340 10.000000 0.000000
+**** v1   vsl|       1009 VCL_call        c HIT
+**** v1   vsl|       1009 VCL_return      c deliver
+**** v1   vsl|       1009 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1009 RespStatus      c 200
+**** v1   vsl|       1009 RespReason      c OK
+**** v1   vsl|       1009 RespHeader      c Content-Length: 28
+**** v1   vsl|       1009 RespHeader      c Date: Fri, 22 Oct 2021 08:55:22 GMT
+**** v1   vsl|       1009 RespHeader      c X-Varnish: 1009 1003
+**** v1   vsl|       1009 RespHeader      c Age: 1
+**** v1   vsl|       1009 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1009 VCL_call        c DELIVER
+**** v1   vsl|       1009 VCL_return      c deliver
+**** v1   vsl|       1009 Timestamp       c Process: 1634892923.506567 0.000103 0.000103
+**** v1   vsl|       1009 Filters         c  esi
+**** v1   vsl|       1009 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1009 RespUnset       c Content-Length: 28
+**** v1   vsl|       1009 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1009 RespHeader      c Transfer-Encoding: chunked
+**** v1   vsl|       1009 Link            c req 1010 esi
+**** v1   vsl|       1009 Timestamp       c Resp: 1634892923.506781 0.000317 0.000214
+**** v1   vsl|       1009 ReqAcct         c 35 0 35 192 16 208
+**** v1   vsl|       1009 End             c 
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 232 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 232 0 57128)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f61d8001030, 0x7f61d8002f90)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 0 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReserveAll(0x7f61d8001030) = 57128
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8000bc0) = (ses, 0x7f61d8000c18 96 0 576)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 57128 57128)
+**** v1   vsl|          0 Debug           - WS_ReleaseP(0x7f61d8001030, 0x7f61d8002f90 (0))
+**** v1   vsl|          0 Debug           - WS(0x7f61d8001030) = (req, 0x7f61d8002f90 0 0 57128)
+**** v1   vsl|       1008 SessClose       c REM_CLOSE 0.001
+**** v1   vsl|       1008 End             c 
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a74e58, 0x7f6202a74390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 Debug           - WS_Reset(0x7f6202a74e58, 0x7f6202a74390)
+**** v1   vsl|          0 Debug           - WS(0x7f6202a74e58) = (wrk, 0x7f6202a74390 0 0 2040)
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 Debug           - WS_Reset(0x72db60, 0x1343080)
+**** v1   vsl|          0 Debug           - WS(0x72db60) = (cli, 0x1343080 0 0 65528)
+**** v1   vsl|          0 CLI             - Wr 200 134 Backend name   Admin      Probe    Health     Last change
+vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:55:22 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   2.429
+***  v1   debug|Info: Child (74477) ended
+***  v1   debug|Info: Child (74477) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+**** dT   2.430
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** dT   2.431
+**** v1   STDOUT EOF
+**** dT   2.518
+**   v1   WAIT4 pid=74465 status=0x0000 (user 0.149291 sys 0.039375)
+*    top  TEST ./tests/r00345.vtc completed
+#    top  TEST ./tests/r00345.vtc passed (2.519)

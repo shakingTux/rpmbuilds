@@ -1,0 +1,3404 @@
+**** dT   0.000
+*    top  TEST ./tests/t02003.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 42439
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.100813.4b4330aa
+**   top  === varnishtest "H2 Frame coverage/error conditions"
+*    top  VTEST H2 Frame coverage/error conditions
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=38465
+**** s1   macro def s1_sock=127.0.0.1 38465
+*    s1   Listen on 127.0.0.1 38465
+**   top  === varnish v1 -vcl+backend {} -start
+**   s1   Started on 127.0.0.1 38465 (1 iterations)
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.100813.4b4330aa/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 35581' -P /tmp/vtc.100813.4b4330aa/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.100813.4b4330aa/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 35581' -P /tmp/vtc.100813.4b4330aa/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 100832
+**** v1   macro def v1_pid=100832
+**** v1   macro def v1_name=/tmp/vtc.100813.4b4330aa/v1
+**** dT   0.012
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** dT   0.013
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.111
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 7
+***  v1   CLI RX  107
+**** v1   CLI RX|avysqgeoyfikrycrblhiacodnqhtgyzi
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** dT   0.112
+**** v1   CLI TX|auth 0ea346b6a21379f6dfea753487c8b15f18656e014c66606bb12cb5b38e544756
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "38465"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.212
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.271
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.274
+***  v1   debug|Debug: Child (100844) Started
+**** dT   0.300
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (100844) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 45603
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 45603
+**   v1   Listen on 127.0.0.1 45603
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=45603
+**** v1   macro def v1_sock=127.0.0.1 45603
+**** dT   0.313
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634893281.955683/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634893281.955683/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 45603
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 45603
+
+**** dT   0.400
+**   top  === varnish v1 -cliok "param.set feature +http2"
+**** v1   CLI TX|param.set feature +http2
+**** dT   0.401
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set feature +http2>
+**   top  === varnish v1 -cliok "param.set debug +syncvsl"
+**** v1   CLI TX|param.set debug +syncvsl
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set debug +syncvsl>
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 17 from 127.0.0.1 39268 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   0.412
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f4001480
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f4001480
+**   c1   === stream 2 {
+**   c1   Starting stream 0x7f51f4002680
+**   c1   Waiting for stream 2
+**   c1   === sendhex "000003 80 00 00000002 010203"
+**** c1   sendhex|  00 00 03 80 00 00 00 00 02 01 02 03
+**** c1   sendhex|\x00\x00\x03\x80\x00\x00\x00\x00\x02\x01\x02\x03
+**   c1   === txprio
+***  c1   tx: stream: 2, type: PRIORITY (2), flags: 0x00, size: 5
+**   c1   === rxgoaway
+**** dT   0.413
+**   c1   Ending stream 2
+**   c1   === stream 0 -wait
+**   c1   Waiting for stream 0
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 39268 a0 127.0.0.1 45603 1634893282.244469 25
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1000 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1000 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1000 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1000 Debug           c H2RXF 0x80[3] 0x00 0x00000002 0x010203
+**** v1   vsl|       1000 Debug           c H2: Unknown frame type 0x80 (ignored)
+**** v1   vsl|       1000 Debug           c H2RXF PRIORITY[5] 0x00 0x00000002 0x0...0
+**** v1   vsl|       1000 Debug           c H2: illegal stream (=2)
+**** v1   vsl|       1000 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1000 ReqAcct         c 36 8 44 27 14 41
+**** v1   vsl|       1000 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1000 End             c 
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 0
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.laststream == 0
+**** c1   EXPECT goaway.laststream (0) == "0" match
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   Ending stream 0
+***  c1   closing fd 17
+**   c1   Ending
+**   top  === varnish v1 -vsl_catchup
+**** dT   0.513
+**   top  === varnish v1 -expect MEMPOOL.req0.live == 0
+**** dT   0.515
+**   v1   as expected: MEMPOOL.req0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.req1.live == 0
+**   v1   as expected: MEMPOOL.req1.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess0.live == 0
+**   v1   as expected: MEMPOOL.sess0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess1.live == 0
+**   v1   as expected: MEMPOOL.sess1.live (0) == 0
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+**** dT   0.516
+***  c1   connected fd 19 from 127.0.0.1 39270 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   0.526
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f4002680
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f4002680
+**   c1   === stream 3 {
+**   c1   === rxgoaway
+**   c1   Starting stream 0x7f51f4203870
+**   c1   Waiting for stream 3
+**** dT   0.527
+**   c1   === txreq
+***  c1   tx: stream: 3, type: HEADERS (1), flags: 0x05, size: 36
+**** dT   0.528
+***  s1   accepted fd 5 127.0.0.1 40564
+**   s1   === rxreq
+**   c1   Ending stream 3
+**   c1   === stream 1 {
+**   c1   Starting stream 0x7f51f42048d0
+**   c1   Waiting for stream 1
+**   c1   === txreq
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 36
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 3
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.laststream == 3
+**** c1   EXPECT goaway.laststream (3) == "3" match
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   Ending stream 0
+**   c1   Ending stream 1
+**   c1   === stream 0 -wait
+**   c1   Waiting for stream 0
+***  c1   closing fd 19
+**   c1   Ending
+**   top  === varnish v1 -vsl_catchup
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|scheme: http\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1003\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 117
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |scheme: http
+**** s1   http[ 4] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1003
+**** s1   http[ 7] |Host: 127.0.0.1
+**** s1   bodylen = 0
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 5
+**   s1   Ending
+**** dT   0.613
+**** v1   vsl|       1001 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1001 SessOpen        c 127.0.0.1 39270 a0 127.0.0.1 45603 1634893282.358983 26
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1001 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1001 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1001 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1001 Debug           c H2RXF HEADERS[36] 0x05 0x00000003 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1002 Begin           c req 1001 rxreq
+**** v1   vsl|       1001 Link            c req 1002 rxreq
+**** v1   vsl|       1002 Timestamp       c Start: 1634893282.370683 0.000000 0.000000
+**** v1   vsl|       1002 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1002 Timestamp       c Req: 1634893282.370684 0.000000 0.000000
+**** v1   vsl|       1002 VCL_use         c vcl1
+**** v1   vsl|       1002 ReqStart        c 127.0.0.1 39270 a0
+**** v1   vsl|       1002 ReqMethod       c GET
+**** v1   vsl|       1002 ReqURL          c /
+**** v1   vsl|       1002 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1002 ReqHeader       c scheme: http
+**** v1   vsl|       1002 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1002 VCL_call        c RECV
+**** v1   vsl|       1002 VCL_return      c hash
+**** v1   vsl|       1002 VCL_call        c HASH
+**** v1   vsl|       1002 VCL_return      c lookup
+**** v1   vsl|       1002 VCL_call        c MISS
+**** v1   vsl|       1002 VCL_return      c fetch
+**** v1   vsl|       1003 Begin           b bereq 1002 fetch
+**** v1   vsl|       1003 VCL_use         b vcl1
+**** v1   vsl|       1002 Link            c bereq 1003 fetch
+**** v1   vsl|       1003 Timestamp       b Start: 1634893282.370777 0.000000 0.000000
+**** v1   vsl|       1003 BereqMethod     b GET
+**** v1   vsl|       1003 BereqURL        b /
+**** v1   vsl|       1003 BereqProtocol   b HTTP/2.0
+**** v1   vsl|       1003 BereqHeader     b scheme: http
+**** v1   vsl|       1003 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1003 BereqHeader     b Accept-Encoding: gzip
+**** v1   vsl|       1003 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1003 BereqHeader     b X-Varnish: 1003
+**** v1   vsl|       1003 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1003 VCL_return      b fetch
+**** v1   vsl|       1003 BereqHeader     b Host: 127.0.0.1
+**** v1   vsl|       1003 BackendOpen     b 28 s1 127.0.0.1 38465 127.0.0.1 40564 connect
+**** v1   vsl|       1003 Timestamp       b Bereq: 1634893282.370919 0.000142 0.000142
+**** v1   vsl|       1001 Debug           c H2RXF HEADERS[36] 0x05 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1001 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1001 Debug           c KILL st=3 state=5 sched=1
+**** v1   vsl|       1001 Debug           c ST 0 0
+**** v1   vsl|       1001 Debug           c ST 3 5
+**** v1   vsl|       1003 Timestamp       b Beresp: 1634893282.371408 0.000631 0.000488
+**** v1   vsl|       1003 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1003 BerespStatus    b 200
+**** v1   vsl|       1003 BerespReason    b OK
+**** v1   vsl|       1003 BerespHeader    b Content-Length: 0
+**** v1   vsl|       1003 BerespHeader    b Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1003 TTL             b RFC 120 10 0 1634893282 1634893282 1634893282 0 0 cacheable
+**** v1   vsl|       1003 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1003 VCL_return      b deliver
+**** v1   vsl|       1003 Filters         b 
+**** v1   vsl|       1003 Storage         b malloc s0
+**** v1   vsl|       1003 Fetch_Body      b 0 none -
+**** v1   vsl|       1003 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1003 Timestamp       b BerespBody: 1634893282.381600 0.010823 0.010192
+**** v1   vsl|       1003 Length          b 0
+**** v1   vsl|       1003 BereqAcct       b 117 0 117 38 0 38
+**** v1   vsl|       1003 End             b 
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f6f60000b60 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f6f60000b60 e=1634893412.371408 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f6f60000b60 e=129.989780 f=0x0
+**** v1   vsl|       1002 Timestamp       c Fetch: 1634893282.381658 0.010975 0.010974
+**** v1   vsl|       1002 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1002 RespStatus      c 200
+**** v1   vsl|       1002 RespReason      c OK
+**** v1   vsl|       1002 RespHeader      c Content-Length: 0
+**** v1   vsl|       1002 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1002 RespHeader      c X-Varnish: 1002
+**** v1   vsl|       1002 RespHeader      c Age: 0
+**** v1   vsl|       1002 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1002 VCL_call        c DELIVER
+**** v1   vsl|       1002 VCL_return      c deliver
+**** v1   vsl|       1002 Timestamp       c Process: 1634893282.381704 0.011020 0.000045
+**** v1   vsl|       1002 Filters         c 
+**** v1   vsl|       1002 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1002 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1002 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1002 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1002 Debug           c HP {21, "age:", ""} <Age: 0>
+**** v1   vsl|       1002 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1002 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1002 Timestamp       c Resp: 1634893282.381722 0.011039 0.000018
+**** dT   0.628
+**   top  === varnish v1 -expect MEMPOOL.req0.live == 0
+**   v1   as expected: MEMPOOL.req0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.req1.live == 0
+**** dT   0.713
+**** v1   vsl|       1001 Debug           c KILL st=3 state=6 sched=0
+**** v1   vsl|       1002 ReqAcct         c 36 0 36 0 0 0
+**** v1   vsl|       1002 End             c 
+**** v1   vsl|       1001 Debug           c ST 0 0
+**** dT   0.728
+**   v1   as expected: MEMPOOL.req1.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess0.live == 0
+**   v1   as expected: MEMPOOL.sess0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess1.live == 0
+**** dT   0.729
+**   v1   as expected: MEMPOOL.sess1.live (0) == 0
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39276 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   0.739
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f82015a0
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8202680
+**   c1   Waiting for stream 1
+**   c1   === txreq -nostrend
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x04, size: 36
+**** dT   0.740
+**   c1   === txwinup -size 0
+***  c1   tx: stream: 1, type: WINDOW_UPDATE (8), flags: 0x00, size: 4
+**   c1   === rxrst
+***  c1   rx: stream: 1, type: RST_STREAM (3), flags: 0x00, size: 4
+**   c1   ouch
+**** c1   rst->err: PROTOCOL_ERROR (1)
+**   c1   === expect rst.err == PROTOCOL_ERROR
+**** c1   EXPECT rst.err (1) == "1" match
+**   c1   Ending stream 1
+**   c1   === stream 3 {
+**   c1   Starting stream 0x7f51f8203760
+**   c1   Waiting for stream 3
+**   c1   === txreq -nostrend
+***  c1   tx: stream: 3, type: HEADERS (1), flags: 0x04, size: 36
+**   c1   === txwinup -size 0x40000000
+***  c1   tx: stream: 3, type: WINDOW_UPDATE (8), flags: 0x00, size: 4
+**   c1   === txwinup -size 0x40000000
+***  c1   tx: stream: 3, type: WINDOW_UPDATE (8), flags: 0x00, size: 4
+**   c1   === rxrst
+***  c1   rx: stream: 3, type: RST_STREAM (3), flags: 0x00, size: 4
+**   c1   ouch
+**** c1   rst->err: FLOW_CONTROL_ERROR (3)
+**   c1   === expect rst.err == FLOW_CONTROL_ERROR
+**** c1   EXPECT rst.err (3) == "3" match
+**   c1   Ending stream 3
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f82015a0
+**   c1   === stream 5 {
+**   c1   === rxgoaway
+**   c1   Starting stream 0x7f51f8204850
+**   c1   Waiting for stream 5
+**   c1   === txreq -nostrend
+***  c1   tx: stream: 5, type: HEADERS (1), flags: 0x04, size: 36
+**   c1   === sendhex "000003 08 00 00000005"
+**** c1   sendhex|  00 00 03 08 00 00 00 00 05
+**** c1   sendhex|\x00\x00\x03\x08\x00\x00\x00\x00\x05
+**   c1   === delay .1
+***  c1   delaying 0.1 second(s)
+**** dT   0.814
+**** v1   vsl|       1001 ReqAcct         c 36 0 36 27 14 41
+**** v1   vsl|       1001 SessClose       c RX_JUNK 0.213
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1004 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1004 SessOpen        c 127.0.0.1 39276 a0 127.0.0.1 45603 1634893282.572320 27
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1004 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1004 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1004 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1004 Debug           c H2RXF HEADERS[36] 0x04 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1005 Begin           c req 1004 rxreq
+**** v1   vsl|       1004 Link            c req 1005 rxreq
+**** v1   vsl|       1005 Timestamp       c Start: 1634893282.582917 0.000000 0.000000
+**** v1   vsl|       1005 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1005 Timestamp       c Req: 1634893282.582918 0.000000 0.000000
+**** v1   vsl|       1005 VCL_use         c vcl1
+**** v1   vsl|       1005 ReqStart        c 127.0.0.1 39276 a0
+**** v1   vsl|       1005 ReqMethod       c GET
+**** v1   vsl|       1005 ReqURL          c /
+**** v1   vsl|       1005 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1005 ReqHeader       c scheme: http
+**** v1   vsl|       1005 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1005 VCL_call        c RECV
+**** v1   vsl|       1005 VCL_return      c hash
+**** v1   vsl|       1005 VCL_call        c HASH
+**** v1   vsl|       1005 VCL_return      c lookup
+**** v1   vsl|       1005 Hit             c 1003 119.788490 10.000000 0.000000
+**** v1   vsl|       1005 VCL_call        c HIT
+**** v1   vsl|       1005 VCL_return      c deliver
+**** v1   vsl|       1004 Debug           c H2RXF WINDOW_UPDATE[4] 0x00 0x00000001 0x00000000
+**** v1   vsl|       1005 Storage         c malloc Transient
+**** v1   vsl|       1004 Debug           c H2: stream 1: Protocol error detected
+**** v1   vsl|       1004 Debug           c H2RXF HEADERS[36] 0x04 0x00000003 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1006 Begin           c req 1004 rxreq
+**** v1   vsl|       1004 Link            c req 1006 rxreq
+**** v1   vsl|       1006 Timestamp       c Start: 1634893282.583238 0.000000 0.000000
+**** v1   vsl|       1006 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1006 Timestamp       c Req: 1634893282.583239 0.000000 0.000000
+**** v1   vsl|       1006 VCL_use         c vcl1
+**** v1   vsl|       1006 ReqStart        c 127.0.0.1 39276 a0
+**** v1   vsl|       1006 ReqMethod       c GET
+**** v1   vsl|       1006 ReqURL          c /
+**** v1   vsl|       1006 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1006 ReqHeader       c scheme: http
+**** v1   vsl|       1006 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1006 VCL_call        c RECV
+**** v1   vsl|       1006 VCL_return      c hash
+**** v1   vsl|       1006 VCL_call        c HASH
+**** v1   vsl|       1006 VCL_return      c lookup
+**** v1   vsl|       1006 Hit             c 1003 119.788169 10.000000 0.000000
+**** v1   vsl|       1006 VCL_call        c HIT
+**** v1   vsl|       1006 VCL_return      c deliver
+**** v1   vsl|       1006 Storage         c malloc Transient
+**** v1   vsl|       1004 Debug           c H2RXF WINDOW_UPDATE[4] 0x00 0x00000003 0x40000000
+**** v1   vsl|       1004 Debug           c H2RXF WINDOW_UPDATE[4] 0x00 0x00000003 0x40000000
+**** v1   vsl|       1004 Debug           c H2: stream 3: Flow-control limits exceeded
+**** v1   vsl|       1004 Debug           c H2RXF HEADERS[36] 0x04 0x00000005 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1007 Begin           c req 1004 rxreq
+**** v1   vsl|       1004 Link            c req 1007 rxreq
+**** v1   vsl|       1007 Timestamp       c Start: 1634893282.583655 0.000000 0.000000
+**** v1   vsl|       1007 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1007 Timestamp       c Req: 1634893282.583655 0.000000 0.000000
+**** v1   vsl|       1007 VCL_use         c vcl1
+**** v1   vsl|       1007 ReqStart        c 127.0.0.1 39276 a0
+**** v1   vsl|       1007 ReqMethod       c GET
+**** v1   vsl|       1007 ReqURL          c /
+**** v1   vsl|       1007 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1007 ReqHeader       c scheme: http
+**** v1   vsl|       1007 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1007 VCL_call        c RECV
+**** v1   vsl|       1007 VCL_return      c hash
+**** v1   vsl|       1007 VCL_call        c HASH
+**** v1   vsl|       1007 VCL_return      c lookup
+**** v1   vsl|       1007 Hit             c 1003 119.787753 10.000000 0.000000
+**** v1   vsl|       1007 VCL_call        c HIT
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 Storage         c malloc Transient
+**** dT   0.840
+**   c1   === sendhex 01
+**** c1   sendhex|  01
+**** c1   sendhex|\x01
+**   c1   === delay .1
+***  c1   delaying 0.1 second(s)
+**** dT   0.941
+**   c1   === sendhex 02
+**** c1   sendhex|  02
+**** c1   sendhex|\x02
+**   c1   === delay .1
+***  c1   delaying 0.1 second(s)
+**** dT   1.041
+**   c1   === sendhex 03
+**** c1   sendhex|  03
+**** c1   sendhex|\x03
+**   c1   Ending stream 5
+**   c1   === stream 0 -wait
+**   c1   Waiting for stream 0
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 5
+***  c1   goaway->err: FRAME_SIZE_ERROR (6)
+**   c1   === expect goaway.laststream == 5
+**** c1   EXPECT goaway.laststream (5) == "5" match
+**   c1   === expect goaway.err == FRAME_SIZE_ERROR
+**** c1   EXPECT goaway.err (6) == "6" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+**** dT   1.042
+***  c1   connected fd 5 from 127.0.0.1 39280 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.052
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8202620
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8202620
+**   c1   Waiting for stream 0
+**   c1   === txwinup -size 0x40000000
+***  c1   tx: stream: 0, type: WINDOW_UPDATE (8), flags: 0x00, size: 4
+**   c1   === txwinup -size 0x40000000
+***  c1   tx: stream: 0, type: WINDOW_UPDATE (8), flags: 0x00, size: 4
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 0
+***  c1   goaway->err: FLOW_CONTROL_ERROR (3)
+**   c1   === expect goaway.laststream == 0
+**** c1   EXPECT goaway.laststream (0) == "0" match
+**   c1   === expect goaway.err == FLOW_CONTROL_ERROR
+**** c1   EXPECT goaway.err (3) == "3" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**** dT   1.053
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39282 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.063
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f82015a0
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**** dT   1.064
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 1
+**   c1   === txreq
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 36
+**   c1   === rxresp
+***  c1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 98
+***  c1   flag: END_STREAM
+**** c1   header[ 0]: :status : 200
+**** c1   header[ 1]: content-length : 0
+**** c1   header[ 2]: date : Fri, 22 Oct 2021 09:01:22 GMT
+**** c1   header[ 3]: x-varnish : 1010 1003
+**** c1   header[ 4]: age : 0
+**** c1   header[ 5]: via : 1.1 varnish (Varnish/6.5)
+**** c1   header[ 6]: accept-ranges : bytes
+**   c1   Ending stream 1
+**   c1   === stream 1 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 1
+**   c1   === txwinup -size 0x4000
+***  c1   tx: stream: 1, type: WINDOW_UPDATE (8), flags: 0x00, size: 4
+**   c1   Ending stream 1
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === varnish v1 -vsl_catchup
+**** dT   1.114
+**** v1   vsl|       1004 Debug           c H2RXF WINDOW_UPDATE[3] 0x00 0x00000005 0x010203
+**** v1   vsl|       1004 Debug           c H2 CLEANUP FRAME_SIZE_ERROR
+**** v1   vsl|       1004 Debug           c KILL st=1 state=3 sched=1
+**** v1   vsl|       1004 Debug           c KILL st=3 state=3 sched=1
+**** v1   vsl|       1004 Debug           c KILL st=5 state=3 sched=1
+**** v1   vsl|       1004 Debug           c ST 0 0
+**** v1   vsl|       1004 Debug           c ST 1 3
+**** v1   vsl|       1004 Debug           c ST 3 3
+**** v1   vsl|       1004 Debug           c ST 5 3
+**** v1   vsl|       1005 Timestamp       c ReqBody: 1634893282.884487 0.301569 0.301568
+**** v1   vsl|       1005 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1005 RespStatus      c 200
+**** v1   vsl|       1005 RespReason      c OK
+**** v1   vsl|       1005 RespHeader      c Content-Length: 0
+**** v1   vsl|       1005 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1005 RespHeader      c X-Varnish: 1005 1003
+**** v1   vsl|       1005 RespHeader      c Age: 0
+**** v1   vsl|       1005 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1005 VCL_call        c DELIVER
+**** v1   vsl|       1005 VCL_return      c deliver
+**** v1   vsl|       1005 Timestamp       c Process: 1634893282.884575 0.301657 0.000088
+**** v1   vsl|       1005 Filters         c 
+**** v1   vsl|       1005 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1005 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1005 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1005 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1005 Debug           c HP {21, "age:", ""} <Age: 0>
+**** v1   vsl|       1005 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1005 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1005 Timestamp       c Resp: 1634893282.884597 0.301679 0.000022
+**** v1   vsl|       1006 Timestamp       c ReqBody: 1634893282.884614 0.301375 0.301375
+**** v1   vsl|       1006 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1006 RespStatus      c 200
+**** v1   vsl|       1006 RespReason      c OK
+**** v1   vsl|       1006 RespHeader      c Content-Length: 0
+**** v1   vsl|       1006 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1006 RespHeader      c X-Varnish: 1006 1003
+**** v1   vsl|       1006 RespHeader      c Age: 0
+**** v1   vsl|       1006 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1006 VCL_call        c DELIVER
+**** v1   vsl|       1006 VCL_return      c deliver
+**** v1   vsl|       1006 Timestamp       c Process: 1634893282.884628 0.301389 0.000013
+**** v1   vsl|       1006 Filters         c 
+**** v1   vsl|       1006 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1006 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1006 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1006 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1006 Debug           c HP {21, "age:", ""} <Age: 0>
+**** v1   vsl|       1006 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1006 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1006 Timestamp       c Resp: 1634893282.884639 0.301400 0.000010
+**** v1   vsl|       1007 Timestamp       c ReqBody: 1634893282.884650 0.300995 0.300994
+**** v1   vsl|       1007 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1007 RespStatus      c 200
+**** v1   vsl|       1007 RespReason      c OK
+**** v1   vsl|       1007 RespHeader      c Content-Length: 0
+**** v1   vsl|       1007 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1007 RespHeader      c X-Varnish: 1007 1003
+**** v1   vsl|       1007 RespHeader      c Age: 0
+**** v1   vsl|       1007 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1007 VCL_call        c DELIVER
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 Timestamp       c Process: 1634893282.884661 0.301006 0.000010
+**** v1   vsl|       1007 Filters         c 
+**** v1   vsl|       1007 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1007 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1007 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1007 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1007 Debug           c HP {21, "age:", ""} <Age: 0>
+**** v1   vsl|       1007 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1007 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1007 Timestamp       c Resp: 1634893282.884670 0.301015 0.000009
+**** v1   vsl|       1008 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1008 SessOpen        c 127.0.0.1 39280 a0 127.0.0.1 45603 1634893282.885056 25
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1008 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1008 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1008 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1008 Debug           c H2RXF WINDOW_UPDATE[4] 0x00 0x00000000 0x40000000
+**** v1   vsl|       1008 Debug           c H2RXF WINDOW_UPDATE[4] 0x00 0x00000000 0x40000000
+**** v1   vsl|       1008 Debug           c H2 CLEANUP FLOW_CONTROL_ERROR
+**** v1   vsl|       1008 ReqAcct         c 36 8 44 27 14 41
+**** v1   vsl|       1008 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1008 End             c 
+**** v1   vsl|       1009 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1009 SessOpen        c 127.0.0.1 39282 a0 127.0.0.1 45603 1634893282.896172 26
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1009 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1009 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1009 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1009 Debug           c H2RXF HEADERS[36] 0x05 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1010 Begin           c req 1009 rxreq
+**** v1   vsl|       1009 Link            c req 1010 rxreq
+**** v1   vsl|       1010 Timestamp       c Start: 1634893282.906999 0.000000 0.000000
+**** v1   vsl|       1010 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1010 Timestamp       c Req: 1634893282.906999 0.000000 0.000000
+**** v1   vsl|       1010 VCL_use         c vcl1
+**** v1   vsl|       1010 ReqStart        c 127.0.0.1 39282 a0
+**** v1   vsl|       1010 ReqMethod       c GET
+**** v1   vsl|       1010 ReqURL          c /
+**** v1   vsl|       1010 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1010 ReqHeader       c scheme: http
+**** v1   vsl|       1010 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1010 VCL_call        c RECV
+**** v1   vsl|       1010 VCL_return      c hash
+**** v1   vsl|       1010 VCL_call        c HASH
+**** v1   vsl|       1010 VCL_return      c lookup
+**** v1   vsl|       1010 Hit             c 1003 119.464408 10.000000 0.000000
+**** v1   vsl|       1010 VCL_call        c HIT
+**** v1   vsl|       1010 VCL_return      c deliver
+**** v1   vsl|       1010 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1010 RespStatus      c 200
+**** v1   vsl|       1010 RespReason      c OK
+**** v1   vsl|       1010 RespHeader      c Content-Length: 0
+**** v1   vsl|       1010 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1010 RespHeader      c X-Varnish: 1010 1003
+**** v1   vsl|       1010 RespHeader      c Age: 0
+**** v1   vsl|       1010 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1010 VCL_call        c DELIVER
+**** v1   vsl|       1010 VCL_return      c deliver
+**** v1   vsl|       1010 Timestamp       c Process: 1634893282.907128 0.000129 0.000128
+**** v1   vsl|       1010 Filters         c 
+**** v1   vsl|       1010 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1010 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1010 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1010 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1010 Debug           c HP {21, "age:", ""} <Age: 0>
+**** v1   vsl|       1010 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1010 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1010 Timestamp       c Resp: 1634893282.907162 0.000162 0.000033
+**** v1   vsl|       1010 ReqAcct         c 36 0 36 98 0 98
+**** v1   vsl|       1010 End             c 
+**** v1   vsl|       1009 Debug           c H2RXF WINDOW_UPDATE[4] 0x00 0x00000001 0x00004000
+**** v1   vsl|       1009 Debug           c H2: No frame (hs=-1)
+**** v1   vsl|       1009 Debug           c H2 CLEANUP NO_ERROR
+**** v1   vsl|       1009 ReqAcct         c 36 4 40 27 6 33
+**** v1   vsl|       1009 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1009 End             c 
+**** dT   1.164
+**   top  === varnish v1 -expect MEMPOOL.req0.live == 0
+**** dT   1.214
+**** v1   vsl|       1004 Debug           c KILL st=1 state=6 sched=0
+**** v1   vsl|       1005 ReqAcct         c 36 0 36 0 0 0
+**** v1   vsl|       1005 End             c 
+**** v1   vsl|       1004 Debug           c KILL st=3 state=6 sched=0
+**** v1   vsl|       1006 ReqAcct         c 36 0 36 0 0 0
+**** v1   vsl|       1006 End             c 
+**** v1   vsl|       1004 Debug           c KILL st=5 state=6 sched=0
+**** v1   vsl|       1007 ReqAcct         c 36 0 36 0 0 0
+**** v1   vsl|       1007 End             c 
+**** v1   vsl|       1004 Debug           c ST 0 0
+**** dT   1.264
+**   v1   as expected: MEMPOOL.req0.live (0) == 0
+**** dT   1.265
+**   top  === varnish v1 -expect MEMPOOL.req1.live == 0
+**   v1   as expected: MEMPOOL.req1.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess0.live == 0
+**   v1   as expected: MEMPOOL.sess0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess1.live == 0
+**   v1   as expected: MEMPOOL.sess1.live (0) == 0
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39284 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.276
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === txping -ack -data "FOOBAR42"
+***  c1   tx: stream: 0, type: PING (6), flags: 0x01, size: 8
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 0
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.laststream == 0
+**** c1   EXPECT goaway.laststream (0) == "0" match
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**** dT   1.277
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39286 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.287
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === sendhex "000008 06 80 00000001 0102030405060708"
+**** c1   sendhex|  00 00 08 06 80 00 00 00 01 01 02 03 04 05 06 07
+**** c1   sendhex|  08
+**** c1   sendhex|\x00\x00\x08\x06\x80\x00\x00\x00\x01\x01\x02\x03\x04\x05\x06\x07\x08
+**** dT   1.288
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 0
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.laststream == 0
+**** c1   EXPECT goaway.laststream (0) == "0" match
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39288 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.299
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === sendhex "000007 06 80 00000000 01020304050607"
+**** c1   sendhex|  00 00 07 06 80 00 00 00 00 01 02 03 04 05 06 07
+**** c1   sendhex|\x00\x00\x07\x06\x80\x00\x00\x00\x00\x01\x02\x03\x04\x05\x06\x07
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 0
+***  c1   goaway->err: FRAME_SIZE_ERROR (6)
+**   c1   === expect goaway.laststream == 0
+**** c1   EXPECT goaway.laststream (0) == "0" match
+**   c1   === expect goaway.err == FRAME_SIZE_ERROR
+**** c1   EXPECT goaway.err (6) == "6" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === varnish v1 -vsl_catchup
+**** dT   1.315
+**** v1   vsl|       1004 ReqAcct         c 81 15 96 45 22 67
+**** v1   vsl|       1004 SessClose       c RX_JUNK 0.513
+**** v1   vsl|       1004 End             c 
+**** v1   vsl|       1011 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1011 SessOpen        c 127.0.0.1 39284 a0 127.0.0.1 45603 1634893283.108757 28
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1011 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1011 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1011 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1011 Debug           c H2RXF PING[8] 0x01 0x00000000 0x464f4f4241523432
+**** v1   vsl|       1011 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1011 ReqAcct         c 27 8 35 27 14 41
+**** v1   vsl|       1011 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1011 End             c 
+**** v1   vsl|       1012 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1012 SessOpen        c 127.0.0.1 39286 a0 127.0.0.1 45603 1634893283.120079 25
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1012 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1012 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1012 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1012 Debug           c H2RXF PING[8] 0x80 0x00000001 0x0102030405060708
+**** v1   vsl|       1012 Debug           c H2: Unknown flags 0x80 on PING (ignored)
+**** v1   vsl|       1012 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1012 ReqAcct         c 27 8 35 27 14 41
+**** v1   vsl|       1012 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1012 End             c 
+**** v1   vsl|       1013 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1013 SessOpen        c 127.0.0.1 39288 a0 127.0.0.1 45603 1634893283.131568 26
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1013 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1013 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1013 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1013 Debug           c H2RXF PING[7] 0x80 0x00000000 0x01020304050607
+**** v1   vsl|       1013 Debug           c H2: Unknown flags 0x80 on PING (ignored)
+**** v1   vsl|       1013 Debug           c H2 CLEANUP FRAME_SIZE_ERROR
+**** v1   vsl|       1013 ReqAcct         c 27 7 34 27 14 41
+**** v1   vsl|       1013 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1013 End             c 
+**** dT   1.399
+**   top  === varnish v1 -expect MEMPOOL.req0.live == 0
+**** dT   1.400
+**   v1   as expected: MEMPOOL.req0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.req1.live == 0
+**   v1   as expected: MEMPOOL.req1.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess0.live == 0
+**   v1   as expected: MEMPOOL.sess0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess1.live == 0
+**   v1   as expected: MEMPOOL.sess1.live (0) == 0
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39290 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.411
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   === stream 1 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   === rxgoaway
+**   c1   Waiting for stream 1
+**   c1   === txreq -nostrend
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x04, size: 36
+**   c1   === sendhex "000008 05 00 00000001 0001020304050607"
+**** c1   sendhex|  00 00 08 05 00 00 00 00 01 00 01 02 03 04 05 06
+**** c1   sendhex|  07
+**** c1   sendhex|\x00\x00\x08\x05\x00\x00\x00\x00\x01\x00\x01\x02\x03\x04\x05\x06\x07
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 1
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   === expect goaway.laststream == 1
+**** c1   EXPECT goaway.laststream (1) == "1" match
+**   c1   Ending stream 0
+**   c1   Ending stream 1
+**   c1   === stream 0 -wait
+**   c1   Waiting for stream 0
+**** dT   1.412
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39292 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.415
+**** v1   vsl|       1014 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1014 SessOpen        c 127.0.0.1 39290 a0 127.0.0.1 45603 1634893283.243811 27
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1014 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1014 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1014 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1014 Debug           c H2RXF HEADERS[36] 0x04 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1015 Begin           c req 1014 rxreq
+**** v1   vsl|       1014 Link            c req 1015 rxreq
+**** v1   vsl|       1015 Timestamp       c Start: 1634893283.254670 0.000000 0.000000
+**** v1   vsl|       1015 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1015 Timestamp       c Req: 1634893283.254671 0.000000 0.000000
+**** v1   vsl|       1015 VCL_use         c vcl1
+**** v1   vsl|       1015 ReqStart        c 127.0.0.1 39290 a0
+**** v1   vsl|       1015 ReqMethod       c GET
+**** v1   vsl|       1015 ReqURL          c /
+**** v1   vsl|       1015 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1015 ReqHeader       c scheme: http
+**** v1   vsl|       1015 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1015 VCL_call        c RECV
+**** v1   vsl|       1015 VCL_return      c hash
+**** v1   vsl|       1015 VCL_call        c HASH
+**** v1   vsl|       1015 VCL_return      c lookup
+**** v1   vsl|       1014 Debug           c H2RXF PUSH_PROMISE[8] 0x00 0x00000001 0x0001020304050607
+**** v1   vsl|       1015 Hit             c 1003 119.116737 10.000000 0.000000
+**** v1   vsl|       1015 VCL_call        c HIT
+**** v1   vsl|       1015 VCL_return      c deliver
+**** v1   vsl|       1014 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1014 Debug           c KILL st=1 state=3 sched=1
+**** v1   vsl|       1015 Storage         c malloc Transient
+**** v1   vsl|       1014 Debug           c ST 0 0
+**** v1   vsl|       1014 Debug           c ST 1 3
+**** v1   vsl|       1015 Timestamp       c ReqBody: 1634893283.254808 0.000137 0.000137
+**** v1   vsl|       1015 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1015 RespStatus      c 200
+**** v1   vsl|       1015 RespReason      c OK
+**** v1   vsl|       1015 RespHeader      c Content-Length: 0
+**** v1   vsl|       1015 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1015 RespHeader      c X-Varnish: 1015 1003
+**** v1   vsl|       1015 RespHeader      c Age: 0
+**** v1   vsl|       1015 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1015 VCL_call        c DELIVER
+**** v1   vsl|       1015 VCL_return      c deliver
+**** v1   vsl|       1015 Timestamp       c Process: 1634893283.254821 0.000151 0.000013
+**** v1   vsl|       1015 Filters         c 
+**** v1   vsl|       1015 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1015 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1015 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1015 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1015 Debug           c HP {21, "age:", ""} <Age: 0>
+**** v1   vsl|       1015 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1015 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1015 Timestamp       c Resp: 1634893283.254835 0.000164 0.000013
+**** v1   vsl|       1016 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1016 SessOpen        c 127.0.0.1 39292 a0 127.0.0.1 45603 1634893283.255176 25
+**** dT   1.422
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   === stream 1 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   === rxgoaway
+**   c1   Waiting for stream 1
+**   c1   === txreq
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 36
+**** dT   1.423
+***  c1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 98
+***  c1   flag: END_STREAM
+**** c1   header[ 0]: :status : 200
+**** c1   header[ 1]: content-length : 0
+**** c1   header[ 2]: date : Fri, 22 Oct 2021 09:01:22 GMT
+**** c1   header[ 3]: x-varnish : 1017 1003
+**** c1   header[ 4]: age : 0
+**** c1   header[ 5]: via : 1.1 varnish (Varnish/6.5)
+**** c1   header[ 6]: accept-ranges : bytes
+**   c1   === rxresp
+**   c1   === delay .1
+***  c1   delaying 0.1 second(s)
+**** dT   1.515
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1016 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1016 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1016 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1016 Debug           c H2RXF HEADERS[36] 0x05 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1017 Begin           c req 1016 rxreq
+**** v1   vsl|       1016 Link            c req 1017 rxreq
+**** v1   vsl|       1017 Timestamp       c Start: 1634893283.265943 0.000000 0.000000
+**** v1   vsl|       1017 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1017 Timestamp       c Req: 1634893283.265944 0.000000 0.000000
+**** v1   vsl|       1017 VCL_use         c vcl1
+**** v1   vsl|       1017 ReqStart        c 127.0.0.1 39292 a0
+**** v1   vsl|       1017 ReqMethod       c GET
+**** v1   vsl|       1017 ReqURL          c /
+**** v1   vsl|       1017 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1017 ReqHeader       c scheme: http
+**** v1   vsl|       1017 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1017 VCL_call        c RECV
+**** v1   vsl|       1017 VCL_return      c hash
+**** v1   vsl|       1017 VCL_call        c HASH
+**** v1   vsl|       1017 VCL_return      c lookup
+**** v1   vsl|       1017 Hit             c 1003 119.105464 10.000000 0.000000
+**** v1   vsl|       1017 VCL_call        c HIT
+**** v1   vsl|       1017 VCL_return      c deliver
+**** v1   vsl|       1017 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1017 RespStatus      c 200
+**** v1   vsl|       1017 RespReason      c OK
+**** v1   vsl|       1017 RespHeader      c Content-Length: 0
+**** v1   vsl|       1017 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1017 RespHeader      c X-Varnish: 1017 1003
+**** v1   vsl|       1017 RespHeader      c Age: 0
+**** v1   vsl|       1017 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1017 VCL_call        c DELIVER
+**** v1   vsl|       1017 VCL_return      c deliver
+**** v1   vsl|       1017 Timestamp       c Process: 1634893283.266042 0.000098 0.000097
+**** v1   vsl|       1017 Filters         c 
+**** v1   vsl|       1017 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1017 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1017 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1017 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1017 Debug           c HP {21, "age:", ""} <Age: 0>
+**** v1   vsl|       1017 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1017 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1017 Timestamp       c Resp: 1634893283.266084 0.000140 0.000042
+**** v1   vsl|       1014 Debug           c KILL st=1 state=6 sched=0
+**** v1   vsl|       1015 ReqAcct         c 36 0 36 0 0 0
+**** v1   vsl|       1015 End             c 
+**** v1   vsl|       1014 Debug           c ST 0 0
+**** dT   1.523
+**   c1   === sendhex "000008 05 00 00000001 0001020304050607"
+**** c1   sendhex|  00 00 08 05 00 00 00 00 01 00 01 02 03 04 05 06
+**** c1   sendhex|  07
+**** c1   sendhex|\x00\x00\x08\x05\x00\x00\x00\x00\x01\x00\x01\x02\x03\x04\x05\x06\x07
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 1
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   === expect goaway.laststream == 1
+**** c1   EXPECT goaway.laststream (1) == "1" match
+**   c1   Ending stream 0
+**   c1   Ending stream 1
+**   c1   Waiting for stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === varnish v1 -vsl_catchup
+**** dT   1.615
+**** v1   vsl|       1017 ReqAcct         c 36 0 36 98 0 98
+**** v1   vsl|       1017 End             c 
+**** v1   vsl|       1016 Debug           c H2RXF PUSH_PROMISE[8] 0x00 0x00000001 0x0001020304050607
+**** v1   vsl|       1016 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1016 ReqAcct         c 36 8 44 36 14 50
+**** v1   vsl|       1016 SessClose       c RX_JUNK 0.111
+**** v1   vsl|       1016 End             c 
+**** v1   vsl|       1014 ReqAcct         c 36 8 44 27 14 41
+**** v1   vsl|       1014 SessClose       c RX_JUNK 0.211
+**** v1   vsl|       1014 End             c 
+**** dT   1.624
+**   top  === varnish v1 -expect MEMPOOL.req0.live == 0
+**   v1   as expected: MEMPOOL.req0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.req1.live == 0
+**   v1   as expected: MEMPOOL.req1.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess0.live == 0
+**   v1   as expected: MEMPOOL.sess0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess1.live == 0
+**   v1   as expected: MEMPOOL.sess1.live (0) == 0
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39294 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.635
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === sendhex "000004 03 00 00000007 00000008"
+**** c1   sendhex|  00 00 04 03 00 00 00 00 07 00 00 00 08
+**** c1   sendhex|\x00\x00\x04\x03\x00\x00\x00\x00\x07\x00\x00\x00\x08
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 0
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   === expect goaway.laststream == 0
+**** c1   EXPECT goaway.laststream (0) == "0" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+**** dT   1.636
+***  c1   connected fd 5 from 127.0.0.1 39296 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.646
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   === stream 1 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 1
+**   c1   === txreq -nostrend
+**   c1   === rxgoaway
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x04, size: 36
+**   c1   === sendhex "000005 03 00 00000001 0000000800"
+**** c1   sendhex|  00 00 05 03 00 00 00 00 01 00 00 00 08 00
+**** c1   sendhex|\x00\x00\x05\x03\x00\x00\x00\x00\x01\x00\x00\x00\x08\x00
+**   c1   Ending stream 1
+**   c1   === stream 0 -wait
+**   c1   Waiting for stream 0
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 1
+***  c1   goaway->err: FRAME_SIZE_ERROR (6)
+**   c1   === expect goaway.err == FRAME_SIZE_ERROR
+**** c1   EXPECT goaway.err (6) == "6" match
+**   c1   === expect goaway.laststream == 1
+**** c1   EXPECT goaway.laststream (1) == "1" match
+**   c1   Ending stream 0
+**** dT   1.647
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39298 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.657
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**** dT   1.658
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === sendhex "000000 03 00 00000000 00000008"
+**** c1   sendhex|  00 00 00 03 00 00 00 00 00 00 00 00 08
+**** c1   sendhex|\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x08
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 0
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   === expect goaway.laststream == 0
+**** c1   EXPECT goaway.laststream (0) == "0" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39300 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.669
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8201b40
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 1
+**   c1   === txreq -nohdrend
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x01, size: 36
+**   c1   === txrst -err 2
+***  c1   tx: stream: 1, type: RST_STREAM (3), flags: 0x00, size: 4
+**   c1   Ending stream 1
+**   c1   === stream 3 {
+**   c1   Starting stream 0x7f51f8204760
+**   c1   Waiting for stream 3
+**   c1   === txreq -nohdrend
+***  c1   tx: stream: 3, type: HEADERS (1), flags: 0x01, size: 36
+**   c1   === txrst -err 0x666
+***  c1   tx: stream: 3, type: RST_STREAM (3), flags: 0x00, size: 4
+**   c1   Ending stream 3
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+**** dT   1.670
+***  c1   connected fd 5 from 127.0.0.1 39302 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.680
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8204760
+**   c1   Waiting for stream 1
+**   c1   === txreq
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 36
+**   c1   === rxresp
+***  c1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 98
+***  c1   flag: END_STREAM
+**** c1   header[ 0]: :status : 200
+**** c1   header[ 1]: content-length : 0
+**** c1   header[ 2]: date : Fri, 22 Oct 2021 09:01:22 GMT
+**** c1   header[ 3]: x-varnish : 1025 1003
+**** c1   header[ 4]: age : 1
+**** c1   header[ 5]: via : 1.1 varnish (Varnish/6.5)
+**** c1   header[ 6]: accept-ranges : bytes
+**   c1   Ending stream 1
+**** dT   1.681
+**   c1   === stream 1 {
+**   c1   Starting stream 0x7f51f8204760
+**   c1   Waiting for stream 1
+**   c1   === txrst
+***  c1   tx: stream: 1, type: RST_STREAM (3), flags: 0x00, size: 4
+**   c1   Ending stream 1
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === varnish v1 -vsl_catchup
+**** dT   1.716
+**** v1   vsl|       1018 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1018 SessOpen        c 127.0.0.1 39294 a0 127.0.0.1 45603 1634893283.467782 26
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1018 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1018 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1018 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1018 Debug           c H2RXF RST_STREAM[4] 0x00 0x00000007 0x00000008
+**** v1   vsl|       1018 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1018 ReqAcct         c 27 4 31 27 14 41
+**** v1   vsl|       1018 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1018 End             c 
+**** v1   vsl|       1019 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1019 SessOpen        c 127.0.0.1 39296 a0 127.0.0.1 45603 1634893283.478926 28
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1019 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1019 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1019 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1019 Debug           c H2RXF HEADERS[36] 0x04 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1020 Begin           c req 1019 rxreq
+**** v1   vsl|       1019 Link            c req 1020 rxreq
+**** v1   vsl|       1020 Timestamp       c Start: 1634893283.489548 0.000000 0.000000
+**** v1   vsl|       1020 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1020 Timestamp       c Req: 1634893283.489548 0.000000 0.000000
+**** v1   vsl|       1019 Debug           c H2RXF RST_STREAM[5] 0x00 0x00000001 0x0000000800
+**** v1   vsl|       1020 VCL_use         c vcl1
+**** v1   vsl|       1020 ReqStart        c 127.0.0.1 39296 a0
+**** v1   vsl|       1020 ReqMethod       c GET
+**** v1   vsl|       1020 ReqURL          c /
+**** v1   vsl|       1020 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1020 ReqHeader       c scheme: http
+**** v1   vsl|       1020 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1020 VCL_call        c RECV
+**** v1   vsl|       1019 Debug           c H2 CLEANUP FRAME_SIZE_ERROR
+**** v1   vsl|       1019 Debug           c KILL st=1 state=3 sched=1
+**** v1   vsl|       1019 Debug           c ST 0 0
+**** v1   vsl|       1019 Debug           c ST 1 3
+**** v1   vsl|       1020 VCL_return      c hash
+**** v1   vsl|       1020 VCL_call        c HASH
+**** v1   vsl|       1020 VCL_return      c lookup
+**** v1   vsl|       1020 Hit             c 1003 118.881859 10.000000 0.000000
+**** v1   vsl|       1020 VCL_call        c HIT
+**** v1   vsl|       1020 VCL_return      c deliver
+**** v1   vsl|       1020 Storage         c malloc Transient
+**** v1   vsl|       1020 Timestamp       c ReqBody: 1634893283.489654 0.000106 0.000105
+**** v1   vsl|       1020 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1020 RespStatus      c 200
+**** v1   vsl|       1020 RespReason      c OK
+**** v1   vsl|       1020 RespHeader      c Content-Length: 0
+**** v1   vsl|       1020 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1020 RespHeader      c X-Varnish: 1020 1003
+**** v1   vsl|       1020 RespHeader      c Age: 1
+**** v1   vsl|       1020 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1020 VCL_call        c DELIVER
+**** v1   vsl|       1020 VCL_return      c deliver
+**** v1   vsl|       1020 Timestamp       c Process: 1634893283.489666 0.000118 0.000011
+**** v1   vsl|       1020 Filters         c 
+**** v1   vsl|       1020 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1020 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1020 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1020 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1020 Debug           c HP {21, "age:", ""} <Age: 1>
+**** v1   vsl|       1020 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1020 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1020 Timestamp       c Resp: 1634893283.489681 0.000133 0.000015
+**** v1   vsl|       1021 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1021 SessOpen        c 127.0.0.1 39298 a0 127.0.0.1 45603 1634893283.490290 25
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1021 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1021 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1021 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1021 Debug           c H2RXF RST_STREAM[0] 0x00 0x00000000
+**** v1   vsl|       1021 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1021 ReqAcct         c 27 0 27 27 14 41
+**** v1   vsl|       1021 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1021 End             c 
+**** v1   vsl|       1022 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1022 SessOpen        c 127.0.0.1 39300 a0 127.0.0.1 45603 1634893283.501636 26
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1022 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1022 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1022 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1022 Debug           c H2RXF HEADERS[36] 0x01 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1023 Begin           c req 1022 rxreq
+**** v1   vsl|       1022 Link            c req 1023 rxreq
+**** v1   vsl|       1023 Timestamp       c Start: 1634893283.512432 0.000000 0.000000
+**** v1   vsl|       1023 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1022 Debug           c H2RXF RST_STREAM[4] 0x00 0x00000001 0x00000002
+**** v1   vsl|       1022 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1022 Debug           c KILL st=1 state=3 sched=0
+**** v1   vsl|       1023 ReqAcct         c 36 0 36 0 0 0
+**** v1   vsl|       1023 End             c 
+**** v1   vsl|       1022 Debug           c ST 0 0
+**** v1   vsl|       1024 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1024 SessOpen        c 127.0.0.1 39302 a0 127.0.0.1 45603 1634893283.513028 27
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1024 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1024 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1024 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1024 Debug           c H2RXF HEADERS[36] 0x05 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1025 Begin           c req 1024 rxreq
+**** v1   vsl|       1024 Link            c req 1025 rxreq
+**** v1   vsl|       1025 Timestamp       c Start: 1634893283.523695 0.000000 0.000000
+**** v1   vsl|       1025 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1025 Timestamp       c Req: 1634893283.523696 0.000000 0.000000
+**** v1   vsl|       1025 VCL_use         c vcl1
+**** v1   vsl|       1025 ReqStart        c 127.0.0.1 39302 a0
+**** v1   vsl|       1025 ReqMethod       c GET
+**** v1   vsl|       1025 ReqURL          c /
+**** v1   vsl|       1025 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1025 ReqHeader       c scheme: http
+**** v1   vsl|       1025 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1025 VCL_call        c RECV
+**** v1   vsl|       1025 VCL_return      c hash
+**** v1   vsl|       1025 VCL_call        c HASH
+**** v1   vsl|       1025 VCL_return      c lookup
+**** v1   vsl|       1025 Hit             c 1003 118.847712 10.000000 0.000000
+**** v1   vsl|       1025 VCL_call        c HIT
+**** v1   vsl|       1025 VCL_return      c deliver
+**** v1   vsl|       1025 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1025 RespStatus      c 200
+**** v1   vsl|       1025 RespReason      c OK
+**** v1   vsl|       1025 RespHeader      c Content-Length: 0
+**** v1   vsl|       1025 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1025 RespHeader      c X-Varnish: 1025 1003
+**** v1   vsl|       1025 RespHeader      c Age: 1
+**** v1   vsl|       1025 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1025 VCL_call        c DELIVER
+**** v1   vsl|       1025 VCL_return      c deliver
+**** v1   vsl|       1025 Timestamp       c Process: 1634893283.523816 0.000121 0.000120
+**** v1   vsl|       1025 Filters         c 
+**** v1   vsl|       1025 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1025 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1025 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1025 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1025 Debug           c HP {21, "age:", ""} <Age: 1>
+**** v1   vsl|       1025 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1025 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1025 Timestamp       c Resp: 1634893283.523866 0.000170 0.000049
+**** v1   vsl|       1025 ReqAcct         c 36 0 36 98 0 98
+**** v1   vsl|       1025 End             c 
+**** v1   vsl|       1024 Debug           c H2RXF RST_STREAM[4] 0x00 0x00000001 0x00000000
+**** v1   vsl|       1024 Debug           c H2: No frame (hs=-1)
+**** v1   vsl|       1024 Debug           c H2 CLEANUP NO_ERROR
+**** v1   vsl|       1024 ReqAcct         c 36 4 40 27 6 33
+**** v1   vsl|       1024 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1024 End             c 
+**** dT   1.781
+**   top  === varnish v1 -expect MEMPOOL.req0.live == 0
+**   v1   as expected: MEMPOOL.req0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.req1.live == 0
+**** dT   1.816
+**** v1   vsl|       1019 Debug           c KILL st=1 state=6 sched=0
+**** v1   vsl|       1020 ReqAcct         c 36 0 36 0 0 0
+**** v1   vsl|       1020 End             c 
+**** v1   vsl|       1019 Debug           c ST 0 0
+**** v1   vsl|       1022 ReqAcct         c 36 4 40 27 14 41
+**** v1   vsl|       1022 SessClose       c RX_JUNK 0.111
+**** v1   vsl|       1022 End             c 
+**** dT   1.881
+**   v1   as expected: MEMPOOL.req1.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess0.live == 0
+**   v1   as expected: MEMPOOL.sess0.live (0) == 0
+**** dT   1.882
+**   top  === varnish v1 -expect MEMPOOL.sess1.live == 0
+**   v1   as expected: MEMPOOL.sess1.live (0) == 0
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39304 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.892
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+**** dT   1.893
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === sendhex "000001 04 01 00000000 aa"
+**** c1   sendhex|  00 00 01 04 01 00 00 00 00 aa
+**** c1   sendhex|\x00\x00\x01\x04\x01\x00\x00\x00\x00\xaa
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 0
+***  c1   goaway->err: FRAME_SIZE_ERROR (6)
+**   c1   === expect goaway.err == FRAME_SIZE_ERROR
+**** c1   EXPECT goaway.err (6) == "6" match
+**   c1   === expect goaway.laststream == 0
+**** c1   EXPECT goaway.laststream (0) == "0" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39306 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.903
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**** dT   1.904
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === sendhex "000001 04 00 00000000 aa"
+**** c1   sendhex|  00 00 01 04 00 00 00 00 00 aa
+**** c1   sendhex|\x00\x00\x01\x04\x00\x00\x00\x00\x00\xaa
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 0
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   === expect goaway.laststream == 0
+**** c1   EXPECT goaway.laststream (0) == "0" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39308 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   1.915
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings -winsize 0x80000000
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 0
+***  c1   goaway->err: FLOW_CONTROL_ERROR (3)
+**   c1   === expect goaway.err == FLOW_CONTROL_ERROR
+**** c1   EXPECT goaway.err (3) == "3" match
+**   c1   === expect goaway.laststream == 0
+**** c1   EXPECT goaway.laststream (0) == "0" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+**** dT   1.916
+***  c1   connected fd 5 from 127.0.0.1 39310 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** v1   vsl|       1019 ReqAcct         c 36 5 41 27 14 41
+**** v1   vsl|       1019 SessClose       c RX_JUNK 0.211
+**** v1   vsl|       1019 End             c 
+**** v1   vsl|       1026 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1026 SessOpen        c 127.0.0.1 39304 a0 127.0.0.1 45603 1634893283.725450 25
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1026 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1026 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1026 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1026 Debug           c H2RXF SETTINGS[1] 0x01 0x00000000 0xaa
+**** v1   vsl|       1026 Debug           c H2 CLEANUP FRAME_SIZE_ERROR
+**** v1   vsl|       1026 ReqAcct         c 27 1 28 27 14 41
+**** v1   vsl|       1026 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1026 End             c 
+**** v1   vsl|       1027 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1027 SessOpen        c 127.0.0.1 39306 a0 127.0.0.1 45603 1634893283.736650 29
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1027 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1027 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1027 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1027 Debug           c H2RXF SETTINGS[1] 0x00 0x00000000 0xaa
+**** v1   vsl|       1027 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1027 ReqAcct         c 27 1 28 27 14 41
+**** v1   vsl|       1027 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1027 End             c 
+**** v1   vsl|       1028 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1028 SessOpen        c 127.0.0.1 39308 a0 127.0.0.1 45603 1634893283.747709 26
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1028 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1028 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1028 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1028 Debug           c H2RXF SETTINGS[6] 0x00 0x00000000 0x000480000000
+**** v1   vsl|       1028 Debug           c H2SETTING invalid initial_window_size=0x80000000
+**** v1   vsl|       1028 Debug           c H2 CLEANUP FLOW_CONTROL_ERROR
+**** v1   vsl|       1028 ReqAcct         c 27 6 33 27 14 41
+**** v1   vsl|       1028 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1028 End             c 
+**** v1   vsl|       1029 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1029 SessOpen        c 127.0.0.1 39310 a0 127.0.0.1 45603 1634893283.759054 25
+**** dT   1.926
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === sendhex "000006 04 00 00000000 ffff00000000"
+**** c1   sendhex|  00 00 06 04 00 00 00 00 00 ff ff 00 00 00 00
+**** c1   sendhex|\x00\x00\x06\x04\x00\x00\x00\x00\x00\xff\xff\x00\x00\x00\x00
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === txping
+***  c1   tx: stream: 0, type: PING (6), flags: 0x00, size: 8
+**** dT   1.927
+**   c1   === rxping
+***  c1   rx: stream: 0, type: PING (6), flags: 0x01, size: 8
+***  c1   flag: ACK
+**** c1   ping->data: 
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === varnish v1 -vsl_catchup
+**** dT   2.016
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1029 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1029 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1029 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1029 Debug           c H2RXF SETTINGS[6] 0x00 0x00000000 0xffff00000000
+**** v1   vsl|       1029 Debug           c H2SETTING unknown setting 0xffff=00000000 (ignored)
+**** v1   vsl|       1029 Debug           c H2RXF PING[8] 0x00 0x00000000 0x0...0
+**** v1   vsl|       1029 Debug           c H2: No frame (hs=-1)
+**** v1   vsl|       1029 Debug           c H2 CLEANUP NO_ERROR
+**** v1   vsl|       1029 ReqAcct         c 36 14 50 36 14 50
+**** v1   vsl|       1029 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1029 End             c 
+**** dT   2.027
+**   top  === varnish v1 -expect MEMPOOL.req0.live == 0
+**   v1   as expected: MEMPOOL.req0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.req1.live == 0
+**   v1   as expected: MEMPOOL.req1.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess0.live == 0
+**   v1   as expected: MEMPOOL.sess0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess1.live == 0
+**** dT   2.028
+**   v1   as expected: MEMPOOL.sess1.live (0) == 0
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39312 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   2.039
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txgoaway -err 2
+***  c1   tx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+**   c1   Ending stream 0
+**   c1   === expect_close
+**** c1   Expecting close (fd = 5)
+**** c1   fd=5 EOF, as expected
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+**** dT   2.040
+***  c1   connected fd 5 from 127.0.0.1 39314 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   2.050
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txgoaway -err 2222
+***  c1   tx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+**   c1   Ending stream 0
+**   c1   === expect_close
+**** c1   Expecting close (fd = 5)
+**** c1   fd=5 EOF, as expected
+***  c1   closing fd 5
+**** dT   2.051
+**   c1   Ending
+**   top  === varnish v1 -vsl_catchup
+**** dT   2.117
+**** v1   vsl|       1030 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1030 SessOpen        c 127.0.0.1 39312 a0 127.0.0.1 45603 1634893283.871593 27
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1030 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1030 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1030 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1030 Debug           c H2RXF GOAWAY[8] 0x00 0x00000000 0x0000000000000002
+**** v1   vsl|       1030 Debug           c GOAWAY INTERNAL_ERROR
+**** v1   vsl|       1030 Debug           c H2 CLEANUP INTERNAL_ERROR
+**** v1   vsl|       1030 ReqAcct         c 27 8 35 18 6 24
+**** v1   vsl|       1030 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1030 End             c 
+**** v1   vsl|       1031 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1031 SessOpen        c 127.0.0.1 39314 a0 127.0.0.1 45603 1634893283.882939 26
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1031 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1031 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1031 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1031 Debug           c H2RXF GOAWAY[8] 0x00 0x00000000 0x00000000000008ae
+**** v1   vsl|       1031 Debug           c GOAWAY UNKNOWN_ERROR
+**** v1   vsl|       1031 Debug           c H2 CLEANUP UNKNOWN_ERROR
+**** v1   vsl|       1031 ReqAcct         c 27 8 35 18 6 24
+**** v1   vsl|       1031 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1031 End             c 
+**** dT   2.151
+**   top  === varnish v1 -expect MEMPOOL.req0.live == 0
+**   v1   as expected: MEMPOOL.req0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.req1.live == 0
+**   v1   as expected: MEMPOOL.req1.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess0.live == 0
+**   v1   as expected: MEMPOOL.sess0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess1.live == 0
+**   v1   as expected: MEMPOOL.sess1.live (0) == 0
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+**** dT   2.152
+***  c1   connected fd 5 from 127.0.0.1 39316 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   2.162
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8204760
+**   c1   Waiting for stream 1
+**   c1   === txreq -nostrend
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x04, size: 36
+**   c1   === txreq -nostrend
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x04, size: 36
+**   c1   Ending stream 1
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 1
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   Ending stream 0
+**** dT   2.163
+**   c1   === expect_close
+**** c1   Expecting close (fd = 5)
+**** dT   2.217
+**** v1   vsl|       1032 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1032 SessOpen        c 127.0.0.1 39316 a0 127.0.0.1 45603 1634893283.994966 25
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1032 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1032 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1032 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1032 Debug           c H2RXF HEADERS[36] 0x04 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1033 Begin           c req 1032 rxreq
+**** v1   vsl|       1032 Link            c req 1033 rxreq
+**** v1   vsl|       1033 Timestamp       c Start: 1634893284.005738 0.000000 0.000000
+**** v1   vsl|       1033 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1033 Timestamp       c Req: 1634893284.005744 0.000005 0.000005
+**** v1   vsl|       1033 VCL_use         c vcl1
+**** v1   vsl|       1032 Debug           c H2RXF HEADERS[36] 0x04 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1033 ReqStart        c 127.0.0.1 39316 a0
+**** v1   vsl|       1033 ReqMethod       c GET
+**** v1   vsl|       1033 ReqURL          c /
+**** v1   vsl|       1033 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1033 ReqHeader       c scheme: http
+**** v1   vsl|       1033 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1033 VCL_call        c RECV
+**** v1   vsl|       1033 VCL_return      c hash
+**** v1   vsl|       1033 VCL_call        c HASH
+**** v1   vsl|       1033 VCL_return      c lookup
+**** v1   vsl|       1032 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1032 Debug           c KILL st=1 state=3 sched=1
+**** v1   vsl|       1032 Debug           c ST 0 0
+**** v1   vsl|       1032 Debug           c ST 1 3
+**** v1   vsl|       1033 Hit             c 1003 118.365664 10.000000 0.000000
+**** v1   vsl|       1033 VCL_call        c HIT
+**** v1   vsl|       1033 VCL_return      c deliver
+**** v1   vsl|       1033 Storage         c malloc Transient
+**** v1   vsl|       1033 Timestamp       c ReqBody: 1634893284.005826 0.000087 0.000081
+**** v1   vsl|       1033 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1033 RespStatus      c 200
+**** v1   vsl|       1033 RespReason      c OK
+**** v1   vsl|       1033 RespHeader      c Content-Length: 0
+**** v1   vsl|       1033 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1033 RespHeader      c X-Varnish: 1033 1003
+**** v1   vsl|       1033 RespHeader      c Age: 1
+**** v1   vsl|       1033 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1033 VCL_call        c DELIVER
+**** v1   vsl|       1033 VCL_return      c deliver
+**** v1   vsl|       1033 Timestamp       c Process: 1634893284.005837 0.000099 0.000011
+**** v1   vsl|       1033 Filters         c 
+**** v1   vsl|       1033 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1033 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1033 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1033 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1033 Debug           c HP {21, "age:", ""} <Age: 1>
+**** v1   vsl|       1033 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1033 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1033 Timestamp       c Resp: 1634893284.005855 0.000117 0.000017
+**** dT   2.317
+**** v1   vsl|       1032 Debug           c KILL st=1 state=6 sched=0
+**** v1   vsl|       1033 ReqAcct         c 36 0 36 0 0 0
+**** v1   vsl|       1033 End             c 
+**** v1   vsl|       1032 Debug           c ST 0 0
+**** dT   2.363
+**** c1   fd=5 EOF, as expected
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39318 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**** dT   2.364
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   2.374
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === sendhex 00000c
+**** c1   sendhex|  00 00 0c
+**** c1   sendhex|\x00\x00\x0c
+**   c1   === sendhex 01
+**** c1   sendhex|  01
+**** c1   sendhex|\x01
+**   c1   === sendhex 05
+**** c1   sendhex|  05
+**** c1   sendhex|\x05
+**   c1   === sendhex 00000001
+**** c1   sendhex|  00 00 00 01
+**** c1   sendhex|\x00\x00\x00\x01
+**   c1   === sendhex ffffffff
+**** c1   sendhex|  ff ff ff ff
+**** c1   sendhex|\xff\xff\xff\xff
+**   c1   === sendhex ffffffff
+**** c1   sendhex|  ff ff ff ff
+**** c1   sendhex|\xff\xff\xff\xff
+**   c1   === sendhex ffffffff
+**** c1   sendhex|  ff ff ff ff
+**** c1   sendhex|\xff\xff\xff\xff
+**   c1   === rxgoaway
+**** dT   2.375
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 1
+***  c1   goaway->err: COMPRESSION_ERROR (9)
+**   c1   === expect goaway.err == COMPRESSION_ERROR
+**** c1   EXPECT goaway.err (9) == "9" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39320 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   2.386
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === sendhex 000012
+**** c1   sendhex|  00 00 12
+**** c1   sendhex|\x00\x00\x12
+**   c1   === sendhex 01
+**** c1   sendhex|  01
+**** c1   sendhex|\x01
+**   c1   === sendhex 05
+**** c1   sendhex|  05
+**** c1   sendhex|\x05
+**   c1   === sendhex 00000001
+**** c1   sendhex|  00 00 00 01
+**** c1   sendhex|\x00\x00\x00\x01
+**   c1   === sendhex {8286 8441 0f77 7777 2e65 7861 6d70 6c65 2e63}
+**** c1   sendhex|  82 86 84 41 0f 77 77 77 2e 65 78 61 6d 70 6c 65
+**** c1   sendhex|  2e 63
+**** c1   sendhex|\x82\x86\x84A\x0fwww.example.c
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 1
+***  c1   goaway->err: COMPRESSION_ERROR (9)
+**   c1   === expect goaway.err == COMPRESSION_ERROR
+**** c1   EXPECT goaway.err (9) == "9" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**** dT   2.387
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39322 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   2.397
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8204760
+**   c1   Waiting for stream 1
+**   c1   === txreq -hdr ":bla" "foo"
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 46
+**** dT   2.398
+**   c1   === rxrst
+***  c1   rx: stream: 1, type: RST_STREAM (3), flags: 0x00, size: 4
+**   c1   ouch
+**** c1   rst->err: PROTOCOL_ERROR (1)
+**   c1   === expect rst.err == PROTOCOL_ERROR
+**** c1   EXPECT rst.err (1) == "1" match
+**   c1   Ending stream 1
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39324 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   2.409
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8204760
+**   c1   Waiting for stream 1
+**   c1   === sendhex 000001
+**** c1   sendhex|  00 00 01
+**** c1   sendhex|\x00\x00\x01
+**   c1   === sendhex 01
+**** c1   sendhex|  01
+**** c1   sendhex|\x01
+**   c1   === sendhex 09
+**** c1   sendhex|  09
+**** c1   sendhex|\t
+**   c1   === sendhex 00000001
+**** c1   sendhex|  00 00 00 01
+**** c1   sendhex|\x00\x00\x00\x01
+**   c1   === sendhex { ff }
+**** c1   sendhex|  ff
+**** c1   sendhex|\xff
+**   c1   Ending stream 1
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 1
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   === expect goaway.laststream == 1
+**** c1   EXPECT goaway.laststream (1) == "1" match
+**   c1   Ending stream 0
+**   c1   === expect_close
+**** c1   Expecting close (fd = 5)
+**** dT   2.417
+**** v1   vsl|       1032 ReqAcct         c 36 0 36 27 14 41
+**** v1   vsl|       1032 SessClose       c RX_JUNK 0.211
+**** v1   vsl|       1032 End             c 
+**** v1   vsl|       1034 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1034 SessOpen        c 127.0.0.1 39318 a0 127.0.0.1 45603 1634893284.206826 27
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1034 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1034 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1034 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1034 Debug           c H2RXF HEADERS[12] 0x05 0x00000001 0xffffffffffffffffffffffff
+**** v1   vsl|       1035 Begin           c req 1034 rxreq
+**** v1   vsl|       1034 Link            c req 1035 rxreq
+**** v1   vsl|       1035 Timestamp       c Start: 1634893284.218017 0.000000 0.000000
+**** v1   vsl|       1035 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1035 BogoHeader      c HPACK compression error (VHD_ERR_INT (Integer overflow))
+**** v1   vsl|       1034 Debug           c HPACK(hdr) COMPRESSION_ERROR
+**** v1   vsl|       1035 BogoHeader      c HPACK compression error/fini (VHD_ERR_INT (Integer overflow))
+**** v1   vsl|       1035 ReqAcct         c 12 0 12 0 0 0
+**** v1   vsl|       1035 End             c 
+**** v1   vsl|       1034 Debug           c H2 CLEANUP COMPRESSION_ERROR
+**** v1   vsl|       1034 ReqAcct         c 27 0 27 27 14 41
+**** v1   vsl|       1034 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1034 End             c 
+**** v1   vsl|       1036 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1036 SessOpen        c 127.0.0.1 39320 a0 127.0.0.1 45603 1634893284.218566 26
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1036 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1036 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1036 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1036 Debug           c H2RXF HEADERS[18] 0x05 0x00000001 0x828684410f7777772e6578616d706c652e63
+**** v1   vsl|       1037 Begin           c req 1036 rxreq
+**** v1   vsl|       1036 Link            c req 1037 rxreq
+**** v1   vsl|       1037 Timestamp       c Start: 1634893284.229573 0.000000 0.000000
+**** v1   vsl|       1037 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1037 BogoHeader      c HPACK compression error/fini (VHD_MORE (Feed me))
+**** v1   vsl|       1036 Debug           c HPACK/FINI COMPRESSION_ERROR
+**** v1   vsl|       1037 ReqAcct         c 18 0 18 0 0 0
+**** v1   vsl|       1037 End             c 
+**** v1   vsl|       1036 Debug           c H2 CLEANUP COMPRESSION_ERROR
+**** v1   vsl|       1036 ReqAcct         c 27 0 27 27 14 41
+**** v1   vsl|       1036 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1036 End             c 
+**** v1   vsl|       1038 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1038 SessOpen        c 127.0.0.1 39322 a0 127.0.0.1 45603 1634893284.230078 25
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1038 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1038 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1038 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1038 Debug           c H2RXF HEADERS[46] 0x05 0x00000001 0x00043a626c6103666f6f00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1039 Begin           c req 1038 rxreq
+**** v1   vsl|       1038 Link            c req 1039 rxreq
+**** v1   vsl|       1039 Timestamp       c Start: 1634893284.240933 0.000000 0.000000
+**** v1   vsl|       1039 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1039 BogoHeader      c Unknown pseudo-header: :bla: foo
+**** v1   vsl|       1038 Debug           c HPACK(hdr) PROTOCOL_ERROR
+**** v1   vsl|       1039 BogoHeader      c HPACK compression error/fini (VHD_VALUE (Value))
+**** v1   vsl|       1039 ReqAcct         c 46 0 46 0 0 0
+**** v1   vsl|       1039 End             c 
+**** v1   vsl|       1038 Debug           c H2: stream 1: Protocol error detected
+**** v1   vsl|       1038 Debug           c H2: No frame (hs=-1)
+**** v1   vsl|       1038 Debug           c H2 CLEANUP NO_ERROR
+**** v1   vsl|       1038 ReqAcct         c 27 0 27 27 10 37
+**** v1   vsl|       1038 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1038 End             c 
+**** v1   vsl|       1040 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1040 SessOpen        c 127.0.0.1 39324 a0 127.0.0.1 45603 1634893284.241497 27
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1040 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1040 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1040 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1040 Debug           c H2RXF HEADERS[1] 0x09 0x00000001 0xff
+**** v1   vsl|       1041 Begin           c req 1040 rxreq
+**** v1   vsl|       1040 Link            c req 1041 rxreq
+**** v1   vsl|       1041 Timestamp       c Start: 1634893284.252408 0.000000 0.000000
+**** v1   vsl|       1041 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1040 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1040 Debug           c KILL st=1 state=3 sched=0
+**** v1   vsl|       1041 ReqAcct         c 1 0 1 0 0 0
+**** v1   vsl|       1041 End             c 
+**** v1   vsl|       1040 Debug           c ST 0 0
+**** dT   2.509
+**** c1   fd=5 EOF, as expected
+***  c1   closing fd 5
+**   c1   Ending
+**** dT   2.510
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39326 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   2.518
+**** v1   vsl|       1040 ReqAcct         c 27 0 27 27 14 41
+**** v1   vsl|       1040 SessClose       c RX_JUNK 0.111
+**** v1   vsl|       1040 End             c 
+**** v1   vsl|       1042 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1042 SessOpen        c 127.0.0.1 39326 a0 127.0.0.1 45603 1634893284.353151 26
+**** dT   2.520
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+**** dT   2.521
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8204760
+**   c1   Waiting for stream 1
+**   c1   === sendhex 000001
+**** c1   sendhex|  00 00 01
+**** c1   sendhex|\x00\x00\x01
+**   c1   === sendhex 01
+**** c1   sendhex|  01
+**** c1   sendhex|\x01
+**   c1   === sendhex 09
+**** c1   sendhex|  09
+**** c1   sendhex|\t
+**   c1   === sendhex 00000001
+**** c1   sendhex|  00 00 00 01
+**** c1   sendhex|\x00\x00\x00\x01
+**   c1   === sendhex 01
+**** c1   sendhex|  01
+**** c1   sendhex|\x01
+**   c1   Ending stream 1
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203700
+**   c1   Waiting for stream 0
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 1
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   === expect goaway.laststream == 1
+**** c1   EXPECT goaway.laststream (1) == "1" match
+**   c1   Ending stream 0
+**   c1   === expect_close
+**** c1   Expecting close (fd = 5)
+**** dT   2.618
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1042 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1042 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1042 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1042 Debug           c H2RXF HEADERS[1] 0x09 0x00000001 0x01
+**** v1   vsl|       1043 Begin           c req 1042 rxreq
+**** v1   vsl|       1042 Link            c req 1043 rxreq
+**** v1   vsl|       1043 Timestamp       c Start: 1634893284.364216 0.000000 0.000000
+**** v1   vsl|       1043 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1042 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1042 Debug           c KILL st=1 state=3 sched=0
+**** v1   vsl|       1043 ReqAcct         c 1 0 1 0 0 0
+**** v1   vsl|       1043 End             c 
+**** v1   vsl|       1042 Debug           c ST 0 0
+**** dT   2.621
+**** c1   fd=5 EOF, as expected
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+**** dT   2.622
+***  c1   connected fd 5 from 127.0.0.1 39328 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   2.632
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f82037f0
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+**** dT   2.633
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8204850
+**   c1   Waiting for stream 1
+**   c1   === sendhex 000004
+**** c1   sendhex|  00 00 04
+**** c1   sendhex|\x00\x00\x04
+**   c1   === sendhex 01
+**** c1   sendhex|  01
+**** c1   sendhex|\x01
+**   c1   === sendhex 21
+**** c1   sendhex|  21
+**** c1   sendhex|!
+**   c1   === sendhex 00000001
+**** c1   sendhex|  00 00 00 01
+**** c1   sendhex|\x00\x00\x00\x01
+**   c1   === sendhex { aabb ccdd }
+**** c1   sendhex|  aa bb cc dd
+**** c1   sendhex|\xaa\xbb\xcc\xdd
+**   c1   Ending stream 1
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f82037f0
+**   c1   Waiting for stream 0
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 1
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   === expect goaway.laststream == 1
+**** c1   EXPECT goaway.laststream (1) == "1" match
+**   c1   Ending stream 0
+**   c1   === expect_close
+**** c1   Expecting close (fd = 5)
+**** dT   2.718
+**** v1   vsl|       1042 ReqAcct         c 27 0 27 27 14 41
+**** v1   vsl|       1042 SessClose       c RX_JUNK 0.111
+**** v1   vsl|       1042 End             c 
+**** v1   vsl|       1044 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1044 SessOpen        c 127.0.0.1 39328 a0 127.0.0.1 45603 1634893284.465245 25
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1044 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1044 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1044 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1044 Debug           c H2RXF HEADERS[4] 0x21 0x00000001 0xaabbccdd
+**** v1   vsl|       1045 Begin           c req 1044 rxreq
+**** v1   vsl|       1044 Link            c req 1045 rxreq
+**** v1   vsl|       1045 Timestamp       c Start: 1634893284.476418 0.000000 0.000000
+**** v1   vsl|       1045 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1044 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1044 Debug           c KILL st=1 state=3 sched=0
+**** v1   vsl|       1045 ReqAcct         c 4 0 4 0 0 0
+**** v1   vsl|       1045 End             c 
+**** v1   vsl|       1044 Debug           c ST 0 0
+**** dT   2.733
+**** c1   fd=5 EOF, as expected
+***  c1   closing fd 5
+**   c1   Ending
+**** dT   2.734
+**   top  === varnish v1 -vsl_catchup
+**** dT   2.818
+**** v1   vsl|       1044 ReqAcct         c 27 0 27 27 14 41
+**** v1   vsl|       1044 SessClose       c RX_JUNK 0.112
+**** v1   vsl|       1044 End             c 
+**** dT   2.834
+**   top  === varnish v1 -expect MEMPOOL.req0.live == 0
+**   v1   as expected: MEMPOOL.req0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.req1.live == 0
+**   v1   as expected: MEMPOOL.req1.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess0.live == 0
+**   v1   as expected: MEMPOOL.sess0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess1.live == 0
+**   v1   as expected: MEMPOOL.sess1.live (0) == 0
+**   top  === client c1 {
+**   c1   Starting client
+**** dT   2.835
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39330 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   2.845
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203860
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**** dT   2.846
+**   c1   Starting stream 0x7f51f8204920
+**   c1   Waiting for stream 1
+**   c1   === txreq -nostrend
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x04, size: 36
+**   c1   === txcont -hdr "bar" "foo"
+***  c1   tx: stream: 1, type: CONTINUATION (9), flags: 0x04, size: 9
+**   c1   Ending stream 1
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203860
+**   c1   Waiting for stream 0
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 1
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   Ending stream 0
+**   c1   === expect_close
+**** c1   Expecting close (fd = 5)
+**** dT   2.918
+**** v1   vsl|       1046 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1046 SessOpen        c 127.0.0.1 39330 a0 127.0.0.1 45603 1634893284.678188 27
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1046 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1046 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1046 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1046 Debug           c H2RXF HEADERS[36] 0x04 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1047 Begin           c req 1046 rxreq
+**** v1   vsl|       1046 Link            c req 1047 rxreq
+**** v1   vsl|       1047 Timestamp       c Start: 1634893284.689050 0.000000 0.000000
+**** v1   vsl|       1047 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1047 Timestamp       c Req: 1634893284.689051 0.000000 0.000000
+**** v1   vsl|       1047 VCL_use         c vcl1
+**** v1   vsl|       1046 Debug           c H2RXF CONTINUATION[9] 0x04 0x00000001 0x000362617203666f6f
+**** v1   vsl|       1047 ReqStart        c 127.0.0.1 39330 a0
+**** v1   vsl|       1047 ReqMethod       c GET
+**** v1   vsl|       1047 ReqURL          c /
+**** v1   vsl|       1047 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1047 ReqHeader       c scheme: http
+**** v1   vsl|       1047 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1047 VCL_call        c RECV
+**** v1   vsl|       1047 VCL_return      c hash
+**** v1   vsl|       1047 VCL_call        c HASH
+**** v1   vsl|       1046 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1047 VCL_return      c lookup
+**** v1   vsl|       1046 Debug           c KILL st=1 state=3 sched=1
+**** v1   vsl|       1046 Debug           c ST 0 0
+**** v1   vsl|       1046 Debug           c ST 1 3
+**** v1   vsl|       1047 Hit             c 1003 117.682357 10.000000 0.000000
+**** v1   vsl|       1047 VCL_call        c HIT
+**** v1   vsl|       1047 VCL_return      c deliver
+**** v1   vsl|       1047 Storage         c malloc Transient
+**** v1   vsl|       1047 Timestamp       c ReqBody: 1634893284.689218 0.000168 0.000167
+**** v1   vsl|       1047 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1047 RespStatus      c 200
+**** v1   vsl|       1047 RespReason      c OK
+**** v1   vsl|       1047 RespHeader      c Content-Length: 0
+**** v1   vsl|       1047 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1047 RespHeader      c X-Varnish: 1047 1003
+**** v1   vsl|       1047 RespHeader      c Age: 2
+**** v1   vsl|       1047 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1047 VCL_call        c DELIVER
+**** v1   vsl|       1047 VCL_return      c deliver
+**** v1   vsl|       1047 Timestamp       c Process: 1634893284.689243 0.000193 0.000024
+**** v1   vsl|       1047 Filters         c 
+**** v1   vsl|       1047 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1047 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1047 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1047 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1047 Debug           c HP {21, "age:", ""} <Age: 2>
+**** v1   vsl|       1047 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1047 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1047 Timestamp       c Resp: 1634893284.689263 0.000213 0.000020
+**** dT   3.019
+**** v1   vsl|       1046 Debug           c KILL st=1 state=6 sched=0
+**** v1   vsl|       1047 ReqAcct         c 36 0 36 0 0 0
+**** v1   vsl|       1047 End             c 
+**** v1   vsl|       1046 Debug           c ST 0 0
+**** dT   3.046
+**** c1   fd=5 EOF, as expected
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+**** dT   3.047
+***  c1   connected fd 5 from 127.0.0.1 39332 to 127.0.0.1 45603
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   3.057
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8203a20
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8203a20
+**   c1   Waiting for stream 0
+**   c1   === sendhex 000014
+**** c1   sendhex|  00 00 14
+**** c1   sendhex|\x00\x00\x14
+**   c1   === sendhex 01
+**** c1   sendhex|  01
+**** c1   sendhex|\x01
+**** dT   3.058
+**   c1   === sendhex 01
+**** c1   sendhex|  01
+**** c1   sendhex|\x01
+**   c1   === sendhex 00000001
+**** c1   sendhex|  00 00 00 01
+**** c1   sendhex|\x00\x00\x00\x01
+**   c1   === sendhex {8286 8441 0f77 7777 2e65 7861 6d70 6c65 2e63 6f6d}
+**** c1   sendhex|  82 86 84 41 0f 77 77 77 2e 65 78 61 6d 70 6c 65
+**** c1   sendhex|  2e 63 6f 6d
+**** c1   sendhex|\x82\x86\x84A\x0fwww.example.com
+**   c1   === sendhex 00000c
+**** c1   sendhex|  00 00 0c
+**** c1   sendhex|\x00\x00\x0c
+**   c1   === sendhex 09
+**** c1   sendhex|  09
+**** c1   sendhex|\t
+**   c1   === sendhex 04
+**** c1   sendhex|  04
+**** c1   sendhex|\x04
+**   c1   === sendhex 00000001
+**** c1   sendhex|  00 00 00 01
+**** c1   sendhex|\x00\x00\x00\x01
+**   c1   === sendhex ffffffff
+**** c1   sendhex|  ff ff ff ff
+**** c1   sendhex|\xff\xff\xff\xff
+**   c1   === sendhex ffffffff
+**** c1   sendhex|  ff ff ff ff
+**** c1   sendhex|\xff\xff\xff\xff
+**   c1   === sendhex ffffffff
+**** c1   sendhex|  ff ff ff ff
+**** c1   sendhex|\xff\xff\xff\xff
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 1
+***  c1   goaway->err: COMPRESSION_ERROR (9)
+**   c1   === expect goaway.err == COMPRESSION_ERROR
+**** c1   EXPECT goaway.err (9) == "9" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39334 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   3.069
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8001110
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f80021d0
+**   c1   Waiting for stream 1
+**   c1   === txreq -nohdrend
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x01, size: 36
+**   c1   === txcont -hdr "bar" "foo"
+***  c1   tx: stream: 1, type: CONTINUATION (9), flags: 0x04, size: 9
+**   c1   === rxresp
+***  c1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 98
+***  c1   flag: END_STREAM
+**** c1   header[ 0]: :status : 200
+**** c1   header[ 1]: content-length : 0
+**** c1   header[ 2]: date : Fri, 22 Oct 2021 09:01:22 GMT
+**** c1   header[ 3]: x-varnish : 1051 1003
+**** c1   header[ 4]: age : 2
+**** c1   header[ 5]: via : 1.1 varnish (Varnish/6.5)
+**** c1   header[ 6]: accept-ranges : bytes
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+**   c1   Ending stream 1
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39336 to 127.0.0.1 45603
+**** dT   3.070
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   3.080
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8001230
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f80022f0
+**   c1   Waiting for stream 1
+**   c1   === txreq
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 36
+**   c1   === rxresp
+***  c1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 98
+***  c1   flag: END_STREAM
+**** c1   header[ 0]: :status : 200
+**** c1   header[ 1]: content-length : 0
+**** c1   header[ 2]: date : Fri, 22 Oct 2021 09:01:22 GMT
+**** c1   header[ 3]: x-varnish : 1053 1003
+**** c1   header[ 4]: age : 2
+**** dT   3.081
+**** c1   header[ 5]: via : 1.1 varnish (Varnish/6.5)
+**** c1   header[ 6]: accept-ranges : bytes
+**   c1   === txcont -hdr "foo" "bar"
+***  c1   tx: stream: 1, type: CONTINUATION (9), flags: 0x04, size: 9
+**   c1   Ending stream 1
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8001230
+**   c1   Waiting for stream 0
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 1
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   === expect goaway.err == PROTOCOL_ERROR
+**** c1   EXPECT goaway.err (1) == "1" match
+**   c1   Ending stream 0
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === varnish v1 -vsl_catchup
+**** dT   3.119
+**** v1   vsl|       1046 ReqAcct         c 36 0 36 27 14 41
+**** v1   vsl|       1046 SessClose       c RX_JUNK 0.211
+**** v1   vsl|       1046 End             c 
+**** v1   vsl|       1048 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1048 SessOpen        c 127.0.0.1 39332 a0 127.0.0.1 45603 1634893284.890009 26
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1048 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1048 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1048 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1048 Debug           c H2RXF HEADERS[20] 0x01 0x00000001 0x828684410f7777772e6578616d706c652e636f6d
+**** v1   vsl|       1049 Begin           c req 1048 rxreq
+**** v1   vsl|       1048 Link            c req 1049 rxreq
+**** v1   vsl|       1049 Timestamp       c Start: 1634893284.901003 0.000000 0.000000
+**** v1   vsl|       1049 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1048 Debug           c H2RXF CONTINUATION[12] 0x04 0x00000001 0xffffffffffffffffffffffff
+**** v1   vsl|       1049 BogoHeader      c HPACK compression error (VHD_ERR_INT (Integer overflow))
+**** v1   vsl|       1048 Debug           c HPACK(cont) COMPRESSION_ERROR
+**** v1   vsl|       1049 BogoHeader      c HPACK compression error/fini (VHD_ERR_INT (Integer overflow))
+**** v1   vsl|       1049 ReqAcct         c 32 0 32 0 0 0
+**** v1   vsl|       1049 End             c 
+**** v1   vsl|       1048 Debug           c H2 CLEANUP COMPRESSION_ERROR
+**** v1   vsl|       1048 ReqAcct         c 36 0 36 27 14 41
+**** v1   vsl|       1048 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1048 End             c 
+**** v1   vsl|       1050 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1050 SessOpen        c 127.0.0.1 39334 a0 127.0.0.1 45603 1634893284.901562 25
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1050 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1050 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1050 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1050 Debug           c H2RXF HEADERS[36] 0x01 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1051 Begin           c req 1050 rxreq
+**** v1   vsl|       1050 Link            c req 1051 rxreq
+**** v1   vsl|       1051 Timestamp       c Start: 1634893284.912319 0.000000 0.000000
+**** v1   vsl|       1051 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1050 Debug           c H2RXF CONTINUATION[9] 0x04 0x00000001 0x000362617203666f6f
+**** v1   vsl|       1051 Timestamp       c Req: 1634893284.912320 0.000000 0.000000
+**** v1   vsl|       1051 VCL_use         c vcl1
+**** v1   vsl|       1051 ReqStart        c 127.0.0.1 39334 a0
+**** v1   vsl|       1051 ReqMethod       c GET
+**** v1   vsl|       1051 ReqURL          c /
+**** v1   vsl|       1051 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1051 ReqHeader       c scheme: http
+**** v1   vsl|       1051 ReqHeader       c bar: foo
+**** v1   vsl|       1051 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1051 VCL_call        c RECV
+**** v1   vsl|       1051 VCL_return      c hash
+**** v1   vsl|       1051 VCL_call        c HASH
+**** v1   vsl|       1051 VCL_return      c lookup
+**** v1   vsl|       1051 Hit             c 1003 117.459088 10.000000 0.000000
+**** v1   vsl|       1051 VCL_call        c HIT
+**** v1   vsl|       1051 VCL_return      c deliver
+**** v1   vsl|       1051 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1051 RespStatus      c 200
+**** v1   vsl|       1051 RespReason      c OK
+**** v1   vsl|       1051 RespHeader      c Content-Length: 0
+**** v1   vsl|       1051 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1051 RespHeader      c X-Varnish: 1051 1003
+**** v1   vsl|       1051 RespHeader      c Age: 2
+**** v1   vsl|       1051 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1051 VCL_call        c DELIVER
+**** v1   vsl|       1051 VCL_return      c deliver
+**** v1   vsl|       1051 Timestamp       c Process: 1634893284.912448 0.000128 0.000128
+**** v1   vsl|       1051 Filters         c 
+**** v1   vsl|       1051 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1051 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1051 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1051 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1051 Debug           c HP {21, "age:", ""} <Age: 2>
+**** v1   vsl|       1051 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1051 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1051 Timestamp       c Resp: 1634893284.912489 0.000169 0.000041
+**** v1   vsl|       1050 Debug           c H2: No frame (hs=-1)
+**** v1   vsl|       1050 Debug           c H2 CLEANUP NO_ERROR
+**** v1   vsl|       1050 Debug           c KILL st=1 state=6 sched=0
+**** v1   vsl|       1051 ReqAcct         c 45 0 45 98 0 98
+**** v1   vsl|       1051 End             c 
+**** v1   vsl|       1050 Debug           c ST 0 0
+**** v1   vsl|       1052 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1052 SessOpen        c 127.0.0.1 39336 a0 127.0.0.1 45603 1634893284.912882 27
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1052 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1052 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1052 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1052 Debug           c H2RXF HEADERS[36] 0x05 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1053 Begin           c req 1052 rxreq
+**** v1   vsl|       1052 Link            c req 1053 rxreq
+**** v1   vsl|       1053 Timestamp       c Start: 1634893284.923731 0.000000 0.000000
+**** v1   vsl|       1053 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1053 Timestamp       c Req: 1634893284.923731 0.000000 0.000000
+**** v1   vsl|       1053 VCL_use         c vcl1
+**** v1   vsl|       1053 ReqStart        c 127.0.0.1 39336 a0
+**** v1   vsl|       1053 ReqMethod       c GET
+**** v1   vsl|       1053 ReqURL          c /
+**** v1   vsl|       1053 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1053 ReqHeader       c scheme: http
+**** v1   vsl|       1053 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1053 VCL_call        c RECV
+**** v1   vsl|       1053 VCL_return      c hash
+**** v1   vsl|       1053 VCL_call        c HASH
+**** v1   vsl|       1053 VCL_return      c lookup
+**** v1   vsl|       1053 Hit             c 1003 117.447676 10.000000 0.000000
+**** v1   vsl|       1053 VCL_call        c HIT
+**** v1   vsl|       1053 VCL_return      c deliver
+**** v1   vsl|       1053 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1053 RespStatus      c 200
+**** v1   vsl|       1053 RespReason      c OK
+**** v1   vsl|       1053 RespHeader      c Content-Length: 0
+**** v1   vsl|       1053 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1053 RespHeader      c X-Varnish: 1053 1003
+**** v1   vsl|       1053 RespHeader      c Age: 2
+**** v1   vsl|       1053 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1053 VCL_call        c DELIVER
+**** v1   vsl|       1053 VCL_return      c deliver
+**** v1   vsl|       1053 Timestamp       c Process: 1634893284.923825 0.000094 0.000093
+**** v1   vsl|       1053 Filters         c 
+**** v1   vsl|       1053 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1053 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1053 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1053 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1053 Debug           c HP {21, "age:", ""} <Age: 2>
+**** v1   vsl|       1053 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1053 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1053 Timestamp       c Resp: 1634893284.923868 0.000137 0.000042
+**** v1   vsl|       1053 ReqAcct         c 36 0 36 98 0 98
+**** v1   vsl|       1053 End             c 
+**** v1   vsl|       1052 Debug           c H2RXF CONTINUATION[9] 0x04 0x00000001 0x0003666f6f03626172
+**** v1   vsl|       1052 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1052 ReqAcct         c 36 0 36 36 14 50
+**** v1   vsl|       1052 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1052 End             c 
+**** dT   3.181
+**   top  === varnish v1 -expect MEMPOOL.req0.live == 0
+**   v1   as expected: MEMPOOL.req0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.req1.live == 0
+**** dT   3.182
+**   v1   as expected: MEMPOOL.req1.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess0.live == 0
+**   v1   as expected: MEMPOOL.sess0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess1.live == 0
+**   v1   as expected: MEMPOOL.sess1.live (0) == 0
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39338 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   3.192
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8001230
+**** dT   3.193
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8002290
+**   c1   Waiting for stream 1
+**   c1   === txdata -data "FOOBAR"
+***  c1   tx: stream: 1, type: DATA (0), flags: 0x01, size: 6
+**   c1   Ending stream 1
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f8001230
+**   c1   Waiting for stream 0
+**   c1   === rxgoaway
+***  c1   rx: stream: 0, type: GOAWAY (7), flags: 0x00, size: 8
+***  c1   goaway->laststream: 0
+***  c1   goaway->err: PROTOCOL_ERROR (1)
+**   c1   Ending stream 0
+**   c1   === expect_close
+**** c1   Expecting close (fd = 5)
+**** c1   fd=5 EOF, as expected
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45603 (1 iterations)
+***  c1   Connect to 127.0.0.1 45603
+***  c1   connected fd 5 from 127.0.0.1 39340 to 127.0.0.1 45603
+**   c1   === stream 1 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   3.204
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f51f80012a0
+**   c1   Waiting for stream 0
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->MAX_CONCURRENT_STREAMS (3): 100
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f51f8002360
+**   c1   Waiting for stream 1
+**   c1   === txreq
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 36
+**   c1   === rxresp
+***  c1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 98
+***  c1   flag: END_STREAM
+**** c1   header[ 0]: :status : 200
+**** c1   header[ 1]: content-length : 0
+**** c1   header[ 2]: date : Fri, 22 Oct 2021 09:01:22 GMT
+**** c1   header[ 3]: x-varnish : 1056 1003
+**** c1   header[ 4]: age : 2
+**** c1   header[ 5]: via : 1.1 varnish (Varnish/6.5)
+**** c1   header[ 6]: accept-ranges : bytes
+**   c1   === txdata -data "FOOBAR"
+***  c1   tx: stream: 1, type: DATA (0), flags: 0x01, size: 6
+**   c1   Ending stream 1
+**   c1   === stream 3 {
+**   c1   Starting stream 0x7f51f8003400
+**   c1   Waiting for stream 3
+**   c1   === txreq
+***  c1   tx: stream: 3, type: HEADERS (1), flags: 0x05, size: 36
+**   c1   === rxresp
+**** dT   3.205
+***  c1   rx: stream: 3, type: HEADERS (1), flags: 0x05, size: 98
+***  c1   flag: END_STREAM
+**** c1   header[ 0]: :status : 200
+**** c1   header[ 1]: content-length : 0
+**** c1   header[ 2]: date : Fri, 22 Oct 2021 09:01:22 GMT
+**** c1   header[ 3]: x-varnish : 1057 1003
+**** c1   header[ 4]: age : 2
+**** c1   header[ 5]: via : 1.1 varnish (Varnish/6.5)
+**** c1   header[ 6]: accept-ranges : bytes
+**   c1   Ending stream 3
+***  c1   closing fd 5
+**   c1   Ending
+**   top  === varnish v1 -vsl_catchup
+**** dT   3.219
+**** v1   vsl|       1050 ReqAcct         c 36 0 36 27 6 33
+**** v1   vsl|       1050 SessClose       c RX_JUNK 0.111
+**** v1   vsl|       1050 End             c 
+**** v1   vsl|       1054 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1054 SessOpen        c 127.0.0.1 39338 a0 127.0.0.1 45603 1634893285.025454 26
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1054 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1054 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1054 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1054 Debug           c H2RXF DATA[6] 0x01 0x00000001 0x464f4f424152
+**** v1   vsl|       1054 Debug           c H2 CLEANUP PROTOCOL_ERROR
+**** v1   vsl|       1054 ReqAcct         c 27 0 27 27 14 41
+**** v1   vsl|       1054 SessClose       c RX_JUNK 0.011
+**** v1   vsl|       1054 End             c 
+**** v1   vsl|       1055 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1055 SessOpen        c 127.0.0.1 39340 a0 127.0.0.1 45603 1634893285.036677 28
+**** v1   vsl|          0 Debug           - H2 Prior Knowledge Upgrade
+**** v1   vsl|       1055 Debug           c H2: Got pu PRISM
+**** v1   vsl|       1055 Debug           c H2RXF SETTINGS[0] 0x00 0x00000000
+**** v1   vsl|       1055 Debug           c H2RXF SETTINGS[0] 0x01 0x00000000
+**** v1   vsl|       1055 Debug           c H2RXF HEADERS[36] 0x05 0x00000001 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1056 Begin           c req 1055 rxreq
+**** v1   vsl|       1055 Link            c req 1056 rxreq
+**** v1   vsl|       1056 Timestamp       c Start: 1634893285.047403 0.000000 0.000000
+**** v1   vsl|       1056 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1056 Timestamp       c Req: 1634893285.047403 0.000000 0.000000
+**** v1   vsl|       1056 VCL_use         c vcl1
+**** v1   vsl|       1056 ReqStart        c 127.0.0.1 39340 a0
+**** v1   vsl|       1056 ReqMethod       c GET
+**** v1   vsl|       1056 ReqURL          c /
+**** v1   vsl|       1056 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1056 ReqHeader       c scheme: http
+**** v1   vsl|       1056 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1056 VCL_call        c RECV
+**** v1   vsl|       1056 VCL_return      c hash
+**** v1   vsl|       1056 VCL_call        c HASH
+**** v1   vsl|       1056 VCL_return      c lookup
+**** v1   vsl|       1056 Hit             c 1003 117.324004 10.000000 0.000000
+**** v1   vsl|       1056 VCL_call        c HIT
+**** v1   vsl|       1056 VCL_return      c deliver
+**** v1   vsl|       1056 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1056 RespStatus      c 200
+**** v1   vsl|       1056 RespReason      c OK
+**** v1   vsl|       1056 RespHeader      c Content-Length: 0
+**** v1   vsl|       1056 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1056 RespHeader      c X-Varnish: 1056 1003
+**** v1   vsl|       1056 RespHeader      c Age: 2
+**** v1   vsl|       1056 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1056 VCL_call        c DELIVER
+**** v1   vsl|       1056 VCL_return      c deliver
+**** v1   vsl|       1056 Timestamp       c Process: 1634893285.047525 0.000122 0.000121
+**** v1   vsl|       1056 Filters         c 
+**** v1   vsl|       1056 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1056 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1056 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1056 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1056 Debug           c HP {21, "age:", ""} <Age: 2>
+**** v1   vsl|       1056 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1056 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1056 Timestamp       c Resp: 1634893285.047569 0.000166 0.000043
+**** v1   vsl|       1056 ReqAcct         c 36 0 36 98 0 98
+**** v1   vsl|       1056 End             c 
+**** v1   vsl|       1055 Debug           c H2RXF DATA[6] 0x01 0x00000001 0x464f4f424152
+**** v1   vsl|       1055 Debug           c H2RXF HEADERS[36] 0x05 0x00000003 0x00053a70617468012f00073a6d6574686f640347455400073a736368656d650468747470
+**** v1   vsl|       1057 Begin           c req 1055 rxreq
+**** v1   vsl|       1055 Link            c req 1057 rxreq
+**** v1   vsl|       1057 Timestamp       c Start: 1634893285.047814 0.000000 0.000000
+**** v1   vsl|       1057 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1057 Timestamp       c Req: 1634893285.047814 0.000000 0.000000
+**** v1   vsl|       1057 VCL_use         c vcl1
+**** v1   vsl|       1057 ReqStart        c 127.0.0.1 39340 a0
+**** v1   vsl|       1057 ReqMethod       c GET
+**** v1   vsl|       1057 ReqURL          c /
+**** v1   vsl|       1057 ReqProtocol     c HTTP/2.0
+**** v1   vsl|       1057 ReqHeader       c scheme: http
+**** v1   vsl|       1057 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1057 VCL_call        c RECV
+**** v1   vsl|       1057 VCL_return      c hash
+**** v1   vsl|       1057 VCL_call        c HASH
+**** v1   vsl|       1057 VCL_return      c lookup
+**** v1   vsl|       1057 Hit             c 1003 117.323593 10.000000 0.000000
+**** v1   vsl|       1057 VCL_call        c HIT
+**** v1   vsl|       1057 VCL_return      c deliver
+**** v1   vsl|       1057 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1057 RespStatus      c 200
+**** v1   vsl|       1057 RespReason      c OK
+**** v1   vsl|       1057 RespHeader      c Content-Length: 0
+**** v1   vsl|       1057 RespHeader      c Date: Fri, 22 Oct 2021 09:01:22 GMT
+**** v1   vsl|       1057 RespHeader      c X-Varnish: 1057 1003
+**** v1   vsl|       1057 RespHeader      c Age: 2
+**** v1   vsl|       1057 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1057 VCL_call        c DELIVER
+**** v1   vsl|       1057 VCL_return      c deliver
+**** v1   vsl|       1057 Timestamp       c Process: 1634893285.047871 0.000057 0.000056
+**** v1   vsl|       1057 Filters         c 
+**** v1   vsl|       1057 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1057 RespProtocol    c HTTP/2.0
+**** v1   vsl|       1057 Debug           c HP {28, "content-length:", ""} <Content-Length: 0>
+**** v1   vsl|       1057 Debug           c HP {33, "date:", ""} <Date: Fri, 22 Oct 2021 09:01:22 GMT>
+**** v1   vsl|       1057 Debug           c HP {21, "age:", ""} <Age: 2>
+**** v1   vsl|       1057 Debug           c HP {60, "via:", ""} <Via: 1.1 varnish (Varnish/6.5)>
+**** v1   vsl|       1057 Debug           c HP {18, "accept-ranges:", ""} <Accept-Ranges: bytes>
+**** v1   vsl|       1057 Timestamp       c Resp: 1634893285.047910 0.000096 0.000038
+**** v1   vsl|       1055 Debug           c H2: No frame (hs=-1)
+**** v1   vsl|       1055 Debug           c H2 CLEANUP NO_ERROR
+**** v1   vsl|       1055 Debug           c KILL st=3 state=6 sched=0
+**** v1   vsl|       1057 ReqAcct         c 36 0 36 98 0 98
+**** v1   vsl|       1057 End             c 
+**** v1   vsl|       1055 Debug           c ST 0 0
+**** dT   3.305
+**   top  === varnish v1 -expect MEMPOOL.req0.live == 0
+**   v1   as expected: MEMPOOL.req0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.req1.live == 0
+**   v1   as expected: MEMPOOL.req1.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess0.live == 0
+**   v1   as expected: MEMPOOL.sess0.live (0) == 0
+**   top  === varnish v1 -expect MEMPOOL.sess1.live == 0
+**   v1   as expected: MEMPOOL.sess1.live (0) == 0
+*    top  RESETTING after ./tests/t02003.vtc
+**   s1   Waiting for server (4/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+**** dT   3.306
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 09:01:22 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+**** dT   3.319
+**** v1   vsl|          0 CLI             - Rd ping
+**** v1   vsl|          0 CLI             - Wr 200 19 PONG 1634893285 1.0
+**** v1   vsl|       1055 ReqAcct         c 45 0 45 36 6 42
+**** dT   3.320
+**** v1   vsl|       1055 SessClose       c RX_JUNK 0.112
+**** v1   vsl|       1055 End             c 
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 134 Backend name   Admin      Probe    Health     Last change
+vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 09:01:22 GMT
+
+**** dT   3.347
+***  v1   debug|Debug: Stopping Child
+**** dT   3.420
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f6f60000b60 e=127.180183 f=0x0
+**** dT   4.348
+***  v1   debug|Info: Child (100844) ended
+***  v1   debug|Info: Child (100844) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** dT   4.349
+**** v1   STDOUT EOF
+**** dT   4.422
+**   v1   WAIT4 pid=100832 status=0x0000 (user 0.156326 sys 0.048358)
+*    top  TEST ./tests/t02003.vtc completed
+#    top  TEST ./tests/t02003.vtc passed (4.423)

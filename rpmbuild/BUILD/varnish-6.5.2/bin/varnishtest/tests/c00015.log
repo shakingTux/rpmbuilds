@@ -1,0 +1,696 @@
+**** dT   0.000
+*    top  TEST ./tests/c00015.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 40483
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.53357.746108b8
+**   top  === varnishtest "Test switching VCLs"
+*    top  VTEST Test switching VCLs
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=34535
+**** s1   macro def s1_sock=127.0.0.1 34535
+*    s1   Listen on 127.0.0.1 34535
+**   top  === varnish v1 -vcl+backend {
+**   s1   Started on 127.0.0.1 34535 (1 iterations)
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.53357.746108b8/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 37155' -P /tmp/vtc.53357.746108b8/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.53357.746108b8/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 37155' -P /tmp/vtc.53357.746108b8/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 53376
+**** v1   macro def v1_pid=53376
+**** v1   macro def v1_name=/tmp/vtc.53357.746108b8/v1
+**** dT   0.012
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.110
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 7
+**** dT   0.111
+***  v1   CLI RX  107
+**** v1   CLI RX|emotjexlaaztjxibcciiiflzydbzdvqy
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth f827611ea736234b0cfb921d3e0c5a4ddb44e06d3a1b116bd6d768a4ef17db0d
+**** dT   0.112
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "34535"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.212
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.267
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.270
+***  v1   debug|Debug: Child (53388) Started
+**** dT   0.295
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (53388) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 41009
+**** v1   CLI TX|debug.xid 999
+**** dT   0.296
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 41009
+**   v1   Listen on 127.0.0.1 41009
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=41009
+**** v1   macro def v1_sock=127.0.0.1 41009
+**** dT   0.313
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892637.183947/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892637.183947/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 41009
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 41009
+
+**** dT   0.396
+**   top  === varnish v1 -vcl+backend {
+**** v1   CLI TX|vcl.inline vcl2 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "34535"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\treturn (pass);
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.549
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl2
+**** dT   0.550
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl2' now active
+**   top  === varnish v1 -cli "vcl.list"
+**** v1   CLI TX|vcl.list
+***  v1   CLI RX  200
+**** v1   CLI RX|available   auto    warm         0    vcl1
+**** v1   CLI RX|active      auto    warm         0    vcl2
+**   v1   CLI 200 <vcl.list>
+**   top  === varnish v1 -cli "vcl.use vcl1"
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl1' now active
+**   v1   CLI 200 <vcl.use vcl1>
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 41009 (1 iterations)
+***  c1   Connect to 127.0.0.1 41009
+***  c1   connected fd 17 from 127.0.0.1 59406 to 127.0.0.1 41009
+**   c1   === txreq -url "/foo"
+**** c1   txreq|GET /foo HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+***  s1   accepted fd 5 127.0.0.1 60090
+**** dT   0.551
+**   s1   === rxreq
+**** s1   rxhdr|GET /foo HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1002\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 106
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/foo
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1002
+**** s1   bodylen = 0
+**   s1   === expect req.url == "/foo"
+**** s1   EXPECT req.url (/foo) == "/foo" match
+**   s1   === txresp -body "foobar"
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 6\r
+**** s1   txresp|\r
+**** s1   txresp|foobar
+**   s1   === rxreq
+**** dT   0.552
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 6\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:50:37 GMT\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 178
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 6
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:50:37 GMT
+**** c1   http[ 5] |X-Varnish: 1001
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |Accept-Ranges: bytes
+**** c1   http[ 9] |Connection: keep-alive
+**** c1   c-l|foobar
+**** c1   bodylen = 6
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+**   c1   === expect resp.bodylen == 6
+**** c1   EXPECT resp.bodylen (6) == "6" match
+**   c1   === expect resp.http.x-varnish == "1001"
+**** c1   EXPECT resp.http.x-varnish (1001) == "1001" match
+***  c1   closing fd 17
+**   c1   Ending
+**   top  === varnish v1 -cli "vcl.use vcl2"
+**** v1   CLI TX|vcl.use vcl2
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl2' now active
+**   v1   CLI 200 <vcl.use vcl2>
+**   top  === client c2 {
+**   c2   Starting client
+**   c2   Waiting for client
+**   c2   Started on 127.0.0.1 41009 (1 iterations)
+***  c2   Connect to 127.0.0.1 41009
+***  c2   connected fd 17 from 127.0.0.1 59410 to 127.0.0.1 41009
+**   c2   === txreq -url "/foo"
+**** c2   txreq|GET /foo HTTP/1.1\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.553
+**** s1   rxhdr|GET /foo HTTP/1.1\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|X-Varnish: 1005\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 83
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/foo
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Host: 127.0.0.1
+**** s1   http[ 4] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 5] |X-Varnish: 1005
+**** s1   bodylen = 0
+**   s1   === expect req.url == "/foo"
+**** s1   EXPECT req.url (/foo) == "/foo" match
+**   s1   === txresp -body "foobar1"
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 7\r
+**** s1   txresp|\r
+**** s1   txresp|foobar1
+***  s1   shutting fd 5
+**   s1   Ending
+**** dT   0.554
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Content-Length: 7\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:50:37 GMT\r
+**** c2   rxhdr|X-Varnish: 1004\r
+**** c2   rxhdr|Age: 0\r
+**** c2   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 178
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Content-Length: 7
+**** c2   http[ 4] |Date: Fri, 22 Oct 2021 08:50:37 GMT
+**** c2   http[ 5] |X-Varnish: 1004
+**** c2   http[ 6] |Age: 0
+**** c2   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c2   http[ 8] |Accept-Ranges: bytes
+**** c2   http[ 9] |Connection: keep-alive
+**** c2   c-l|foobar1
+**** c2   bodylen = 7
+**   c2   === expect resp.status == 200
+**** c2   EXPECT resp.status (200) == "200" match
+**   c2   === expect resp.bodylen == 7
+**** c2   EXPECT resp.bodylen (7) == "7" match
+**   c2   === expect resp.http.x-varnish == "1004"
+**** c2   EXPECT resp.http.x-varnish (1004) == "1004" match
+***  c2   closing fd 17
+**   c2   Ending
+**   top  === varnish v1 -cli "vcl.use vcl1"
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl1' now active
+**   v1   CLI 200 <vcl.use vcl1>
+**   top  === client c3 {
+**   c3   Starting client
+**   c3   Waiting for client
+**   c3   Started on 127.0.0.1 41009 (1 iterations)
+***  c3   Connect to 127.0.0.1 41009
+***  c3   connected fd 5 from 127.0.0.1 59412 to 127.0.0.1 41009
+**   c3   === txreq -url "/foo"
+**** c3   txreq|GET /foo HTTP/1.1\r
+**** c3   txreq|Host: 127.0.0.1\r
+**** c3   txreq|\r
+**   c3   === rxresp
+**** dT   0.555
+**** c3   rxhdr|HTTP/1.1 200 OK\r
+**** c3   rxhdr|Content-Length: 6\r
+**** c3   rxhdr|Date: Fri, 22 Oct 2021 08:50:37 GMT\r
+**** c3   rxhdr|X-Varnish: 1007 1002\r
+**** c3   rxhdr|Age: 0\r
+**** c3   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c3   rxhdr|Accept-Ranges: bytes\r
+**** c3   rxhdr|Connection: keep-alive\r
+**** c3   rxhdr|\r
+**** c3   rxhdrlen = 183
+**** c3   http[ 0] |HTTP/1.1
+**** c3   http[ 1] |200
+**** c3   http[ 2] |OK
+**** c3   http[ 3] |Content-Length: 6
+**** c3   http[ 4] |Date: Fri, 22 Oct 2021 08:50:37 GMT
+**** c3   http[ 5] |X-Varnish: 1007 1002
+**** c3   http[ 6] |Age: 0
+**** c3   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c3   http[ 8] |Accept-Ranges: bytes
+**** c3   http[ 9] |Connection: keep-alive
+**** c3   c-l|foobar
+**** c3   bodylen = 6
+**   c3   === expect resp.status == 200
+**** c3   EXPECT resp.status (200) == "200" match
+**   c3   === expect resp.bodylen == 6
+**** c3   EXPECT resp.bodylen (6) == "6" match
+**   c3   === expect resp.http.x-varnish == "1007 1002"
+**** c3   EXPECT resp.http.x-varnish (1007 1002) == "1007 1002" match
+***  c3   closing fd 5
+**   c3   Ending
+**   top  === varnish v1 -cli "vcl.show vcl2"
+**** v1   CLI TX|vcl.show vcl2
+***  v1   CLI RX  200
+**** v1   CLI RX|vcl 4.1;
+**** v1   CLI RX|backend s1 { .host = "127.0.0.1"; .port = "34535"; }
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|\tsub vcl_recv {
+**** v1   CLI RX|\t\treturn (pass);
+**** v1   CLI RX|\t}
+**** v1   CLI RX|
+**   v1   CLI 200 <vcl.show vcl2>
+**   top  === varnish v1 -cli "vcl.show -v vcl2"
+**** v1   CLI TX|vcl.show -v vcl2
+***  v1   CLI RX  200
+**** v1   CLI RX|// VCL.SHOW 0 101 <vcl.inline>
+**** v1   CLI RX|vcl 4.1;
+**** v1   CLI RX|backend s1 { .host = "127.0.0.1"; .port = "34535"; }
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|\tsub vcl_recv {
+**** v1   CLI RX|\t\treturn (pass);
+**** v1   CLI RX|\t}
+**** v1   CLI RX|
+**** v1   CLI RX|
+**** v1   CLI RX|// VCL.SHOW 1 5303 Builtin
+**** v1   CLI RX|/*-
+**** v1   CLI RX| * Copyright (c) 2006 Verdens Gang AS
+**** v1   CLI RX| * Copyright (c) 2006-2015 Varnish Software AS
+**** v1   CLI RX| * All rights reserved.
+**** v1   CLI RX| *
+**** v1   CLI RX| * Author: Poul-Henning Kamp <phk@phk.freebsd.dk>
+**** v1   CLI RX| *
+**** v1   CLI RX| * SPDX-License-Identifier: BSD-2-Clause
+**** v1   CLI RX| *
+**** v1   CLI RX| * Redistribution and use in source and binary forms, with or without
+**** v1   CLI RX| * modification, are permitted provided that the following conditions
+**** v1   CLI RX| * are met:
+**** v1   CLI RX| * 1. Redistributions of source code must retain the above copyright
+**** v1   CLI RX| *    notice, this list of conditions and the following disclaimer.
+**** v1   CLI RX| * 2. Redistributions in binary form must reproduce the above copyright
+**** v1   CLI RX| *    notice, this list of conditions and the following disclaimer in the
+**** v1   CLI RX| *    documentation and/or other materials provided with the distribution.
+**** v1   CLI RX| *
+**** v1   CLI RX| * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+**** v1   CLI RX| * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+**** v1   CLI RX| * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+**** v1   CLI RX| * ARE DISCLAIMED.  IN NO EVENT SHALL AUTHOR OR CONTRIBUTORS BE LIABLE
+**** v1   CLI RX| * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+**** v1   CLI RX| * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+**** v1   CLI RX| * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+**** v1   CLI RX| * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+**** v1   CLI RX| * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+**** v1   CLI RX| * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+**** v1   CLI RX| * SUCH DAMAGE.
+**** v1   CLI RX| *
+**** v1   CLI RX| * This is the builtin VCL code
+**** v1   CLI RX| */
+**** v1   CLI RX|
+**** v1   CLI RX|vcl 4.0;
+**** v1   CLI RX|
+**** v1   CLI RX|#######################################################################
+**** v1   CLI RX|# Client side
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_recv {
+**** v1   CLI RX|    if (req.http.host) {
+**** v1   CLI RX|        set req.http.host = req.http.host.lower();
+**** v1   CLI RX|    }
+**** v1   CLI RX|    if (req.method == "PRI") {
+**** v1   CLI RX|        /* This will never happen in properly formed traffic (see: RFC7540) */
+**** v1   CLI RX|        return (synth(405));
+**** v1   CLI RX|    }
+**** v1   CLI RX|    if (!req.http.host &&
+**** v1   CLI RX|      req.esi_level == 0 &&
+**** v1   CLI RX|      req.proto ~ "^(?i)HTTP/1.1") {
+**** v1   CLI RX|        /* In HTTP/1.1, Host is required. */
+**** v1   CLI RX|        return (synth(400));
+**** v1   CLI RX|    }
+**** v1   CLI RX|    if (req.method != "GET" &&
+**** v1   CLI RX|      req.method != "HEAD" &&
+**** v1   CLI RX|      req.method != "PUT" &&
+**** v1   CLI RX|      req.method != "POST" &&
+**** v1   CLI RX|      req.method != "TRACE" &&
+**** v1   CLI RX|      req.method != "OPTIONS" &&
+**** v1   CLI RX|      req.method != "DELETE" &&
+**** v1   CLI RX|      req.method != "PATCH") {
+**** v1   CLI RX|        /* Non-RFC2616 or CONNECT which is weird. */
+**** v1   CLI RX|        return (pipe);
+**** v1   CLI RX|    }
+**** v1   CLI RX|
+**** v1   CLI RX|    if (req.method != "GET" && req.method != "HEAD") {
+**** v1   CLI RX|        /* We only deal with GET and HEAD by default */
+**** v1   CLI RX|        return (pass);
+**** v1   CLI RX|    }
+**** v1   CLI RX|    if (req.http.Authorization || req.http.Cookie) {
+**** v1   CLI RX|        /* Not cacheable by default */
+**** v1   CLI RX|        return (pass);
+**** v1   CLI RX|    }
+**** v1   CLI RX|    return (hash);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_pipe {
+**** v1   CLI RX|    # By default Connection: close is set on all piped requests, to stop
+**** v1   CLI RX|    # connection reuse from sending future requests directly to the
+**** v1   CLI RX|    # (potentially) wrong backend. If you do want this to happen, you can undo
+**** v1   CLI RX|    # it here.
+**** v1   CLI RX|    # unset bereq.http.connection;
+**** v1   CLI RX|    return (pipe);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_pass {
+**** v1   CLI RX|    return (fetch);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_hash {
+**** v1   CLI RX|    hash_data(req.url);
+**** v1   CLI RX|    if (req.http.host) {
+**** v1   CLI RX|        hash_data(req.http.host);
+**** v1   CLI RX|    } else {
+**** v1   CLI RX|        hash_data(server.ip);
+**** v1   CLI RX|    }
+**** v1   CLI RX|    return (lookup);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_purge {
+**** v1   CLI RX|    return (synth(200, "Purged"));
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_hit {
+**** v1   CLI RX|    return (deliver);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_miss {
+**** v1   CLI RX|    return (fetch);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_deliver {
+**** v1   CLI RX|    return (deliver);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|/*
+**** v1   CLI RX| * We can come here "invisibly" with the following errors: 500 & 503
+**** v1   CLI RX| */
+**** v1   CLI RX|sub vcl_synth {
+**** v1   CLI RX|    set resp.http.Content-Type = "text/html; charset=utf-8";
+**** v1   CLI RX|    set resp.http.Retry-After = "5";
+**** v1   CLI RX|    set resp.body = {"<!DOCTYPE html>
+**** v1   CLI RX|<html>
+**** v1   CLI RX|  <head>
+**** v1   CLI RX|    <title>"} + resp.status + " " + resp.reason + {"</title>
+**** v1   CLI RX|  </head>
+**** v1   CLI RX|  <body>
+**** v1   CLI RX|    <h1>Error "} + resp.status + " " + resp.reason + {"</h1>
+**** v1   CLI RX|    <p>"} + resp.reason + {"</p>
+**** v1   CLI RX|    <h3>Guru Meditation:</h3>
+**** v1   CLI RX|    <p>XID: "} + req.xid + {"</p>
+**** v1   CLI RX|    <hr>
+**** v1   CLI RX|    <p>Varnish cache server</p>
+**** v1   CLI RX|  </body>
+**** v1   CLI RX|</html>
+**** v1   CLI RX|"};
+**** v1   CLI RX|    return (deliver);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|#######################################################################
+**** v1   CLI RX|# Backend Fetch
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_backend_fetch {
+**** v1   CLI RX|    if (bereq.method == "GET") {
+**** v1   CLI RX|        unset bereq.body;
+**** v1   CLI RX|    }
+**** v1   CLI RX|    return (fetch);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_backend_response {
+**** v1   CLI RX|    if (bereq.uncacheable) {
+**** v1   CLI RX|        return (deliver);
+**** v1   CLI RX|    } else if (beresp.ttl <= 0s ||
+**** v1   CLI RX|      beresp.http.Set-Cookie ||
+**** v1   CLI RX|      beresp.http.Surrogate-control ~ "(?i)no-store" ||
+**** v1   CLI RX|      (!beresp.http.Surrogate-Control &&
+**** v1   CLI RX|        beresp.http.Cache-Control ~ "(?i:no-cache|no-store|private)") ||
+**** v1   CLI RX|      beresp.http.Vary == "*") {
+**** v1   CLI RX|        # Mark as "Hit-For-Miss" for the next 2 minutes
+**** v1   CLI RX|        set beresp.ttl = 120s;
+**** v1   CLI RX|        set beresp.uncacheable = true;
+**** v1   CLI RX|    }
+**** v1   CLI RX|    return (deliver);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_backend_error {
+**** v1   CLI RX|    set beresp.http.Content-Type = "text/html; charset=utf-8";
+**** v1   CLI RX|    set beresp.http.Retry-After = "5";
+**** v1   CLI RX|    set beresp.body = {"<!DOCTYPE html>
+**** v1   CLI RX|<html>
+**** v1   CLI RX|  <head>
+**** v1   CLI RX|    <title>"} + beresp.status + " " + beresp.reason + {"</title>
+**** v1   CLI RX|  </head>
+**** v1   CLI RX|  <body>
+**** v1   CLI RX|    <h1>Error "} + beresp.status + " " + beresp.reason + {"</h1>
+**** v1   CLI RX|    <p>"} + beresp.reason + {"</p>
+**** v1   CLI RX|    <h3>Guru Meditation:</h3>
+**** v1   CLI RX|    <p>XID: "} + bereq.xid + {"</p>
+**** v1   CLI RX|    <hr>
+**** v1   CLI RX|    <p>Varnish cache server</p>
+**** v1   CLI RX|  </body>
+**** v1   CLI RX|</html>
+**** v1   CLI RX|"};
+**** v1   CLI RX|    return (deliver);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|#######################################################################
+**** v1   CLI RX|# Housekeeping
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_init {
+**** v1   CLI RX|    return (ok);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**** v1   CLI RX|sub vcl_fini {
+**** v1   CLI RX|    return (ok);
+**** v1   CLI RX|}
+**** v1   CLI RX|
+**   v1   CLI 200 <vcl.show -v vcl2>
+**   top  === varnish v1 -cli "vcl.discard vcl2"
+**** v1   CLI TX|vcl.discard vcl2
+**** dT   0.556
+***  v1   CLI RX  200
+**   v1   CLI 200 <vcl.discard vcl2>
+**   top  === varnish v1 -cli "vcl.list"
+**** v1   CLI TX|vcl.list
+***  v1   CLI RX  200
+**** v1   CLI RX|active      auto    warm         3    vcl1
+**** v1   CLI RX|discarded   cold    busy         2    vcl2
+**   v1   CLI 200 <vcl.list>
+**   top  === varnish v1 -clierr 104 "vcl.show -v"
+**** v1   CLI TX|vcl.show -v
+***  v1   CLI RX  104
+**** v1   CLI RX|Too few parameters
+**   v1   CLI 104 <vcl.show -v>
+**   top  === varnish v1 -clierr 106 "vcl.show -x nowhere"
+**** v1   CLI TX|vcl.show -x nowhere
+***  v1   CLI RX  106
+**** v1   CLI RX|Unknown options '-x'
+**   v1   CLI 106 <vcl.show -x nowhere>
+**   top  === varnish v1 -clierr 106 "vcl.show nothere"
+**** v1   CLI TX|vcl.show nothere
+***  v1   CLI RX  106
+**** v1   CLI RX|No VCL named 'nothere'
+**   v1   CLI 106 <vcl.show nothere>
+**   top  === varnish v1 -clierr 106 "vcl.use nothere"
+**** v1   CLI TX|vcl.use nothere
+***  v1   CLI RX  106
+**** v1   CLI RX|No VCL named nothere known.
+**   v1   CLI 106 <vcl.use nothere>
+**   top  === varnish v1 -clierr 106 "vcl.discard nowhere"
+**** v1   CLI TX|vcl.discard nowhere
+***  v1   CLI RX  106
+**** v1   CLI RX|No VCL named nowhere known.
+**   v1   CLI 106 <vcl.discard nowhere>
+**   top  === varnish v1 -clierr 300 "vcl.discard vcl1"
+**** v1   CLI TX|vcl.discard vcl1
+**** dT   0.557
+***  v1   CLI RX  300
+**** v1   CLI RX|Cannot discard active VCL program
+**   v1   CLI 300 <vcl.discard vcl1>
+*    top  RESETTING after ./tests/c00015.vtc
+**   s1   Waiting for server (4/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:50:37 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   0.613
+**** v1   vsl|          0 CLI             - Rd vcl.load vcl2 vcl_vcl2.1634892637.467941/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl2.1634892637.467941/vgc.so" as "vcl2"
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl2
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd vcl.list
+**** v1   vsl|          0 CLI             - Wr 200 86 available   auto    warm         0    vcl1
+active      auto    warm         0    vcl2
+
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl1
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 59406 a0 127.0.0.1 41009 1634892637.622293 25
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|          0 ExpKill         - EXP_Inbox flg=1e p=0x7f56cc000cb0 e=0.000000 f=0x0
+**** v1   vsl|          0 ExpKill         - EXP_When p=0x7f56cc000cb0 e=1634892767.622984 f=0x1e
+**** v1   vsl|          0 ExpKill         - EXP_expire p=0x7f56cc000cb0 e=129.999869 f=0x0
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl2
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1003 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1003 SessOpen        c 127.0.0.1 59410 a0 127.0.0.1 41009 1634892637.624270 26
+**** v1   vsl|       1003 Link            c req 1004 rxreq
+**** v1   vsl|          0 CLI             - Rd vcl.use vcl1
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|       1006 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1006 SessOpen        c 127.0.0.1 59412 a0 127.0.0.1 41009 1634892637.626034 27
+**** v1   vsl|       1006 Link            c req 1007 rxreq
+**** v1   vsl|          0 CLI             - Rd vcl.show vcl2 
+**** v1   vsl|          0 CLI             - Wr 200 101 vcl 4.1;
+backend s1 { .host = "127.0.0.1"; .port = "34535"; }
+
+
+	sub vcl_recv {
+		return (pass);
+	}
+
+
+**** v1   vsl|          0 CLI             - Rd vcl.show -v vcl2 
+**** v1   vsl|          0 CLI             - Wr 200 5464 // VCL.SHOW 0 101 <vcl.inline>
+vcl 4.1;
+backend s1 { .host = "127.0.0.1"; .port = "34535"; }
+
+
+	sub vcl_recv {
+		return (pass);
+	}
+
+
+// VCL.SHOW 1 5303 Builtin
+/*-
+ * Copyright (c) 2006 Verdens Gang AS
+ * Copyright (c) 2006-2015 Varnish Softw
+**** v1   vsl|          0 CLI             - Rd vcl.state vcl2 0cold
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd vcl.discard vcl2
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd vcl.list
+**** v1   vsl|          0 CLI             - Wr 200 86 active      auto    warm         3    vcl1
+discarded   cold    busy         2    vcl2
+
+**** v1   vsl|          0 CLI             - Rd vcl.show -v 
+**** v1   vsl|          0 CLI             - Wr 104 18 Too few parameters
+**** v1   vsl|          0 CLI             - Rd vcl.show -x nowhere 
+**** v1   vsl|          0 CLI             - Wr 106 20 Unknown options '-x'
+**** v1   vsl|          0 CLI             - Rd vcl.show nothere 
+**** v1   vsl|          0 CLI             - Wr 106 22 No VCL named 'nothere'
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 134 Backend name   Admin      Probe    Health     Last change
+vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:50:37 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.557
+***  v1   debug|Info: Child (53388) ended
+***  v1   debug|Info: Child (53388) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+**** dT   1.558
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   1.614
+**   v1   WAIT4 pid=53376 status=0x0000 (user 0.280718 sys 0.050463)
+**** dT   1.615
+*    top  TEST ./tests/c00015.vtc completed
+#    top  TEST ./tests/c00015.vtc passed (1.615)

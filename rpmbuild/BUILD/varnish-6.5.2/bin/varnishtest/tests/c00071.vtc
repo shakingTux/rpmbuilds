@@ -1,0 +1,73 @@
+varnishtest "Test actual client workspace overflow"
+
+server s1 {
+	rxreq
+	txresp
+
+	rxreq
+	txresp
+
+	rxreq
+	txresp
+} -start
+
+varnish v1 -arg "-p debug=+workspace" -vcl+backend {
+	import vtc;
+	import std;
+	sub vcl_deliver {
+		vtc.workspace_alloc(client, -192);
+
+		if (req.url ~ "/bar") {
+			set resp.http.x-foo = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+			vtc.workspace_alloc(client, -10);
+		}
+		else if (req.url ~ "/baz") {
+			set resp.http.x-foo = regsub(req.url, "baz", "baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaz");
+			std.log("dummy");
+			std.syslog(8 + 7, "vtc: " + 1 + 2);
+		}
+		set resp.http.x-of = vtc.workspace_overflowed(client);
+	}
+} -start
+
+client c1 {
+	txreq -url /foo
+	rxresp
+	expect resp.status == 200
+	expect resp.http.x-of == "false"
+
+	txreq -url /bar
+	rxresp
+	expect resp.status == 500
+	expect resp.http.x-of == <undef>
+} -run
+
+varnish v1 -vsl_catchup
+
+logexpect l1 -v v1 -g vxid -q "vxid == 1006" {
+	expect * 1006	VCL_call	{^DELIVER$}
+	expect 0 =	LostHeader	{^x-foo:$}
+	# std.log does not need workspace
+	expect 0 =	VCL_Log		{^dummy$}
+	# the workspace is overflowed, but still has space
+	expect 0 =	RespHeader	{^x-of: true$}
+	expect 6 =	Error		{^workspace_client overflow}
+} -start
+
+logexpect l2 -v v1 -g raw -i Debug {
+	expect *  0	Debug		{^WS_Snapshot.* = overflowed}
+	expect 24 0	Debug		{^WS_Reset.*, overflowed}
+} -start
+
+client c2 {
+	txreq -url /baz
+	rxresp
+	expect resp.status == 500
+	expect resp.http.x-of == <undef>
+} -run
+
+logexpect l1 -wait
+logexpect l2 -wait
+
+varnish v1 -expect client_resp_500 == 2
+varnish v1 -expect ws_client_overflow == 2

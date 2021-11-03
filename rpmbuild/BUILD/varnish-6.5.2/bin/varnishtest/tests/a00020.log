@@ -1,0 +1,126 @@
+**** dT   0.000
+*    top  TEST ./tests/a00020.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 34527
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.45106.15353555
+**   top  === varnishtest "Test -bodyfrom"
+*    top  VTEST Test -bodyfrom
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=33389
+**** s1   macro def s1_sock=127.0.0.1 33389
+*    s1   Listen on 127.0.0.1 33389
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   s1   Started on 127.0.0.1 33389 (1 iterations)
+**** dT   0.001
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 33389 (1 iterations)
+***  c1   Connect to 127.0.0.1 33389
+***  s1   accepted fd 5 127.0.0.1 44136
+**   s1   === rxreq
+***  c1   connected fd 6 from 127.0.0.1 44136 to 127.0.0.1 33389
+**   c1   === txreq -bodyfrom /root/rpmbuild/BUILD/varnish-6.5.2/bin/varni...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|Content-Length: 241\r
+**** c1   txreq|\r
+**** c1   txreq|varnishtest "Test -bodyfrom"
+**** c1   txreq|
+**** c1   txreq|server s1 {
+**** c1   txreq|\trxreq
+**** c1   txreq|\texpect req.bodylen == 241
+**** c1   txreq|\ttxresp -bodyfrom ${testdir}/a00020.vtc
+**** c1   txreq|} -start
+**** c1   txreq|
+**** c1   txreq|client c1 -connect ${s1_sock} {
+**** c1   txreq|\ttxreq -bodyfrom ${testdir}/a00020.vtc
+**** c1   txreq|\trxresp
+**** c1   txreq|\texpect resp.bodylen == 241
+**** c1   txreq|} -run
+**** c1   txreq|
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|Content-Length: 241\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 56
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Host: 127.0.0.1
+**** s1   http[ 4] |Content-Length: 241
+**** s1   c-l|varnishtest "Test -bodyfrom"
+**** s1   c-l|
+**** s1   c-l|server s1 {
+**** s1   c-l|\trxreq
+**** s1   c-l|\texpect req.bodylen == 241
+**** s1   c-l|\ttxresp -bodyfrom ${testdir}/a00020.vtc
+**** s1   c-l|} -start
+**** s1   c-l|
+**** s1   c-l|client c1 -connect ${s1_sock} {
+**** s1   c-l|\ttxreq -bodyfrom ${testdir}/a00020.vtc
+**** s1   c-l|\trxresp
+**** s1   c-l|\texpect resp.bodylen == 241
+**** s1   c-l|} -run
+**** s1   c-l|
+**** s1   bodylen = 241
+**   s1   === expect req.bodylen == 241
+**** s1   EXPECT req.bodylen (241) == "241" match
+**   s1   === txresp -bodyfrom /root/rpmbuild/BUILD/varnish-6.5.2/bin/varn...
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 241\r
+**** s1   txresp|\r
+**** s1   txresp|varnishtest "Test -bodyfrom"
+**** s1   txresp|
+**** s1   txresp|server s1 {
+**** s1   txresp|\trxreq
+**** s1   txresp|\texpect req.bodylen == 241
+**** s1   txresp|\ttxresp -bodyfrom ${testdir}/a00020.vtc
+**** s1   txresp|} -start
+**** s1   txresp|
+**** s1   txresp|client c1 -connect ${s1_sock} {
+**** s1   txresp|\ttxreq -bodyfrom ${testdir}/a00020.vtc
+**** s1   txresp|\trxresp
+**** s1   txresp|\texpect resp.bodylen == 241
+**** s1   txresp|} -run
+**** s1   txresp|
+***  s1   shutting fd 5
+**   s1   Ending
+**   c1   === rxresp
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 241\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 40
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 241
+**** c1   c-l|varnishtest "Test -bodyfrom"
+**** c1   c-l|
+**** c1   c-l|server s1 {
+**** c1   c-l|\trxreq
+**** c1   c-l|\texpect req.bodylen == 241
+**** c1   c-l|\ttxresp -bodyfrom ${testdir}/a00020.vtc
+**** c1   c-l|} -start
+**** c1   c-l|
+**** c1   c-l|client c1 -connect ${s1_sock} {
+**** c1   c-l|\ttxreq -bodyfrom ${testdir}/a00020.vtc
+**** c1   c-l|\trxresp
+**** c1   c-l|\texpect resp.bodylen == 241
+**** c1   c-l|} -run
+**** c1   c-l|
+**** c1   bodylen = 241
+**   c1   === expect resp.bodylen == 241
+**** c1   EXPECT resp.bodylen (241) == "241" match
+***  c1   closing fd 6
+**   c1   Ending
+**** dT   0.002
+*    top  RESETTING after ./tests/a00020.vtc
+**   s1   Waiting for server (4/-1)
+*    top  TEST ./tests/a00020.vtc completed
+#    top  TEST ./tests/a00020.vtc passed (0.006)

@@ -1,0 +1,259 @@
+**** dT   0.000
+*    top  TEST ./tests/a00005.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 38211
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.44715.2eb5af0d
+**   top  === varnishtest "dual shared client HTTP transactions"
+*    top  VTEST dual shared client HTTP transactions
+**   top  === server s1 {
+**   top  === server s2 {
+**   top  === server s1 -start
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=35307
+**** s1   macro def s1_sock=127.0.0.1 35307
+*    s1   Listen on 127.0.0.1 35307
+**   top  === server s2 -start
+**   s2   Starting server
+**** s2   macro def s2_addr=127.0.0.1
+**** s2   macro def s2_port=45239
+**** s2   macro def s2_sock=127.0.0.1 45239
+*    s2   Listen on 127.0.0.1 45239
+**   s1   Started on 127.0.0.1 35307 (1 iterations)
+**   top  === client c1 -connect ${s1_sock} {
+**   top  === client c1 -run
+**   c1   Starting client
+**   s2   Started on 127.0.0.1 45239 (1 iterations)
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 35307 (1 iterations)
+***  c1   Connect to 127.0.0.1 35307
+**** dT   0.001
+***  s1   accepted fd 6 127.0.0.1 37614
+**   s1   === rxreq
+***  c1   connected fd 8 from 127.0.0.1 37614 to 127.0.0.1 35307
+**   c1   === txreq -req PUT -proto HTTP/1.0 -url /foo
+**** c1   txreq|PUT /foo HTTP/1.0\r
+**** c1   txreq|\r
+**** s1   rxhdr|PUT /foo HTTP/1.0\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 21
+**** s1   http[ 0] |PUT
+**** s1   http[ 1] |/foo
+**** s1   http[ 2] |HTTP/1.0
+**** s1   bodylen = 0
+**   s1   === expect req.method == PUT
+**** s1   EXPECT req.method (PUT) == "PUT" match
+**   s1   === expect req.proto == HTTP/1.0
+**** s1   EXPECT req.proto (HTTP/1.0) == "HTTP/1.0" match
+**   s1   === expect req.url == "/foo"
+**** s1   EXPECT req.url (/foo) == "/foo" match
+**   s1   === txresp -proto HTTP/1.2 -status 201 -reason Foo
+**** s1   txresp|HTTP/1.2 201 Foo\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 6
+**   s1   Ending
+**   c1   === rxresp
+**** c1   rxhdr|HTTP/1.2 201 Foo\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 39
+**** c1   http[ 0] |HTTP/1.2
+**** c1   http[ 1] |201
+**** c1   http[ 2] |Foo
+**** c1   http[ 3] |Content-Length: 0
+**** c1   bodylen = 0
+**   c1   === expect resp.proto == HTTP/1.2
+**** c1   EXPECT resp.proto (HTTP/1.2) == "HTTP/1.2" match
+**   c1   === expect resp.status == 201
+**** c1   EXPECT resp.status (201) == "201" match
+**   c1   === expect resp.reason == Foo
+**** c1   EXPECT resp.reason (Foo) == "Foo" match
+***  c1   closing fd 8
+**   c1   Ending
+**   top  === client c1 -connect ${s2_sock} {
+**   top  === client c1 -run
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 45239 (1 iterations)
+***  c1   Connect to 127.0.0.1 45239
+***  s2   accepted fd 7 127.0.0.1 52368
+**   s2   === rxreq
+***  c1   connected fd 6 from 127.0.0.1 52368 to 127.0.0.1 45239
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** s2   rxhdr|GET / HTTP/1.1\r
+**** s2   rxhdr|Host: 127.0.0.1\r
+**** s2   rxhdr|\r
+**** s2   rxhdrlen = 35
+**** s2   http[ 0] |GET
+**** s2   http[ 1] |/
+**** s2   http[ 2] |HTTP/1.1
+**** s2   http[ 3] |Host: 127.0.0.1
+**** s2   bodylen = 0
+**   s2   === expect req.method == GET
+**** s2   EXPECT req.method (GET) == "GET" match
+**   s2   === expect req.proto == HTTP/1.1
+**** s2   EXPECT req.proto (HTTP/1.1) == "HTTP/1.1" match
+**   s2   === expect req.url == "/"
+**** s2   EXPECT req.url (/) == "/" match
+**   s2   === txresp
+**** s2   txresp|HTTP/1.1 200 OK\r
+**** s2   txresp|Content-Length: 0\r
+**** s2   txresp|\r
+***  s2   shutting fd 7
+**   s2   Ending
+**** dT   0.002
+**   c1   === rxresp
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 38
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   bodylen = 0
+**   c1   === expect resp.proto == HTTP/1.1
+**** c1   EXPECT resp.proto (HTTP/1.1) == "HTTP/1.1" match
+**   c1   === expect resp.status == 200
+**** c1   EXPECT resp.status (200) == "200" match
+**   c1   === expect resp.reason == OK
+**** c1   EXPECT resp.reason (OK) == "OK" match
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === server s1 -wait
+**   s1   Waiting for server (4/-1)
+**   top  === server s2 -wait
+**   s2   Waiting for server (5/-1)
+**   top  === server s3 -listen "${tmpdir}/s3.sock" {
+**   top  === server s4 -listen "${tmpdir}/s4.sock" {
+**   top  === server s3 -start
+**   s3   Starting server
+**** s3   macro def s3_addr=0.0.0.0
+**** s3   macro def s3_port=0
+**** s3   macro def s3_sock=/tmp/vtc.44715.2eb5af0d/s3.sock
+*    s3   Listen on /tmp/vtc.44715.2eb5af0d/s3.sock
+**   top  === server s4 -start
+**   s4   Starting server
+**   s3   Started on /tmp/vtc.44715.2eb5af0d/s3.sock (1 iterations)
+**** s4   macro def s4_addr=0.0.0.0
+**** s4   macro def s4_port=0
+**** s4   macro def s4_sock=/tmp/vtc.44715.2eb5af0d/s4.sock
+*    s4   Listen on /tmp/vtc.44715.2eb5af0d/s4.sock
+**   top  === client c2 -connect ${s3_sock} {
+**   s4   Started on /tmp/vtc.44715.2eb5af0d/s4.sock (1 iterations)
+**   top  === client c2 -run
+**   c2   Starting client
+**   c2   Waiting for client
+**   c2   Started on /tmp/vtc.44715.2eb5af0d/s3.sock (1 iterations)
+***  c2   Connect to /tmp/vtc.44715.2eb5af0d/s3.sock
+***  s3   accepted fd 8 0.0.0.0 0
+**   s3   === rxreq
+***  c2   connected fd 10 to /tmp/vtc.44715.2eb5af0d/s3.sock
+**   c2   === txreq -req PUT -proto HTTP/1.0 -url /foo
+**** c2   txreq|PUT /foo HTTP/1.0\r
+**** c2   txreq|\r
+**** s3   rxhdr|PUT /foo HTTP/1.0\r
+**** s3   rxhdr|\r
+**** s3   rxhdrlen = 21
+**** s3   http[ 0] |PUT
+**** s3   http[ 1] |/foo
+**** s3   http[ 2] |HTTP/1.0
+**** s3   bodylen = 0
+**   s3   === expect req.method == PUT
+**** s3   EXPECT req.method (PUT) == "PUT" match
+**   s3   === expect req.proto == HTTP/1.0
+**** s3   EXPECT req.proto (HTTP/1.0) == "HTTP/1.0" match
+**   s3   === expect req.url == "/foo"
+**** s3   EXPECT req.url (/foo) == "/foo" match
+**   s3   === txresp -proto HTTP/1.2 -status 201 -reason Foo
+**** s3   txresp|HTTP/1.2 201 Foo\r
+**** s3   txresp|Content-Length: 0\r
+**** s3   txresp|\r
+***  s3   shutting fd 8
+**   s3   Ending
+**   c2   === rxresp
+**** c2   rxhdr|HTTP/1.2 201 Foo\r
+**** c2   rxhdr|Content-Length: 0\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 39
+**** c2   http[ 0] |HTTP/1.2
+**** c2   http[ 1] |201
+**** c2   http[ 2] |Foo
+**** c2   http[ 3] |Content-Length: 0
+**** c2   bodylen = 0
+**   c2   === expect resp.proto == HTTP/1.2
+**** c2   EXPECT resp.proto (HTTP/1.2) == "HTTP/1.2" match
+**   c2   === expect resp.status == 201
+**** c2   EXPECT resp.status (201) == "201" match
+**   c2   === expect resp.reason == Foo
+**** c2   EXPECT resp.reason (Foo) == "Foo" match
+***  c2   closing fd 10
+**   c2   Ending
+**   top  === client c2 -connect ${s4_sock} {
+**   top  === client c2 -run
+**   c2   Starting client
+**   c2   Waiting for client
+**** dT   0.003
+**   c2   Started on /tmp/vtc.44715.2eb5af0d/s4.sock (1 iterations)
+***  c2   Connect to /tmp/vtc.44715.2eb5af0d/s4.sock
+***  s4   accepted fd 9 0.0.0.0 0
+**   s4   === rxreq
+***  c2   connected fd 8 to /tmp/vtc.44715.2eb5af0d/s4.sock
+**   c2   === txreq
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**** s4   rxhdr|GET / HTTP/1.1\r
+**** s4   rxhdr|Host: 127.0.0.1\r
+**** s4   rxhdr|\r
+**** s4   rxhdrlen = 35
+**** s4   http[ 0] |GET
+**** s4   http[ 1] |/
+**** s4   http[ 2] |HTTP/1.1
+**** s4   http[ 3] |Host: 127.0.0.1
+**** s4   bodylen = 0
+**   s4   === expect req.method == GET
+**** s4   EXPECT req.method (GET) == "GET" match
+**   s4   === expect req.proto == HTTP/1.1
+**** s4   EXPECT req.proto (HTTP/1.1) == "HTTP/1.1" match
+**   s4   === expect req.url == "/"
+**** s4   EXPECT req.url (/) == "/" match
+**   s4   === txresp
+**** s4   txresp|HTTP/1.1 200 OK\r
+**** s4   txresp|Content-Length: 0\r
+**** s4   txresp|\r
+***  s4   shutting fd 9
+**   s4   Ending
+**   c2   === rxresp
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Content-Length: 0\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 38
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Content-Length: 0
+**** c2   bodylen = 0
+**   c2   === expect resp.proto == HTTP/1.1
+**** c2   EXPECT resp.proto (HTTP/1.1) == "HTTP/1.1" match
+**   c2   === expect resp.status == 200
+**** c2   EXPECT resp.status (200) == "200" match
+**   c2   === expect resp.reason == OK
+**** c2   EXPECT resp.reason (OK) == "OK" match
+***  c2   closing fd 8
+**   c2   Ending
+**   top  === server s3 -wait
+**   s3   Waiting for server (6/-1)
+**   top  === server s4 -wait
+**   s4   Waiting for server (7/-1)
+*    top  RESETTING after ./tests/a00005.vtc
+*    top  TEST ./tests/a00005.vtc completed
+#    top  TEST ./tests/a00005.vtc passed (0.069)

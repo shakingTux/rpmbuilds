@@ -1,0 +1,245 @@
+**** dT   0.000
+*    top  TEST ./tests/a00013.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 41391
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.44961.47db85a5
+**   top  === varnishtest "Barrier operations"
+*    top  VTEST Barrier operations
+**   top  === barrier bs sock 4
+**** bs   macro def bs_addr=127.0.0.1
+**** bs   macro def bs_port=38513
+**** bs   macro def bs_sock=127.0.0.1:38513
+**   top  === barrier bc sock 4
+**** bc   macro def bc_addr=127.0.0.1
+**** bc   macro def bc_port=33871
+**** bc   macro def bc_sock=127.0.0.1:33871
+**   top  === barrier bb sock 4 -cyclic
+**** dT   0.001
+**** bb   macro def bb_addr=127.0.0.1
+**** bb   macro def bb_port=46741
+**** bb   macro def bb_sock=127.0.0.1:46741
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=34633
+**** s1   macro def s1_sock=127.0.0.1 34633
+*    s1   Listen on 127.0.0.1 34633
+**   top  === server s2 {
+**   s2   Starting server
+**** s2   macro def s2_addr=127.0.0.1
+**** s2   macro def s2_port=43135
+**   s1   Started on 127.0.0.1 34633 (1 iterations)
+**** s2   macro def s2_sock=127.0.0.1 43135
+*    s2   Listen on 127.0.0.1 43135
+**   top  === server s3 {
+**   s3   Starting server
+**   s2   Started on 127.0.0.1 43135 (1 iterations)
+**** s3   macro def s3_addr=127.0.0.1
+**** s3   macro def s3_port=37809
+**** s3   macro def s3_sock=127.0.0.1 37809
+*    s3   Listen on 127.0.0.1 37809
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   s3   Started on 127.0.0.1 37809 (1 iterations)
+**   top  === client c2 -connect ${s2_sock} {
+**   c2   Starting client
+**   c1   Started on 127.0.0.1 34633 (1 iterations)
+***  c1   Connect to 127.0.0.1 34633
+**   top  === client c3 -connect ${s3_sock} {
+**   c3   Starting client
+***  s1   accepted fd 9 127.0.0.1 58848
+**   top  === barrier bs sync
+**   s1   === rxreq
+**** top  Barrier(bs) sync with socket
+***  c1   connected fd 13 from 127.0.0.1 58848 to 127.0.0.1 34633
+**   c1   === delay .2
+***  c1   delaying 0.2 second(s)
+**** bs   Barrier(bs) wait 1 of 4
+**   c3   Started on 127.0.0.1 37809 (1 iterations)
+***  c3   Connect to 127.0.0.1 37809
+**** dT   0.002
+***  c3   connected fd 16 from 127.0.0.1 38650 to 127.0.0.1 37809
+***  s3   accepted fd 12 127.0.0.1 38650
+**   c3   === delay .9
+***  c3   delaying 0.9 second(s)
+**   s3   === rxreq
+**   c2   Started on 127.0.0.1 43135 (1 iterations)
+***  c2   Connect to 127.0.0.1 43135
+***  c2   connected fd 17 from 127.0.0.1 41230 to 127.0.0.1 43135
+***  s2   accepted fd 11 127.0.0.1 41230
+**   c2   === delay .6
+***  c2   delaying 0.6 second(s)
+**   s2   === rxreq
+**** dT   0.202
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 35
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Host: 127.0.0.1
+**** s1   bodylen = 0
+**   s1   === barrier bs sync
+**** s1   Barrier(bs) sync with socket
+**** bs   Barrier(bs) wait 2 of 4
+**   c1   === rxresp
+**** dT   0.602
+**   c2   === txreq
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** s2   rxhdr|GET / HTTP/1.1\r
+**** s2   rxhdr|Host: 127.0.0.1\r
+**** s2   rxhdr|\r
+**** dT   0.603
+**** s2   rxhdrlen = 35
+**** s2   http[ 0] |GET
+**** s2   http[ 1] |/
+**** s2   http[ 2] |HTTP/1.1
+**** s2   http[ 3] |Host: 127.0.0.1
+**** s2   bodylen = 0
+**   s2   === barrier bs sync
+**** s2   Barrier(bs) sync with socket
+**** bs   Barrier(bs) wait 3 of 4
+**** dT   0.902
+**   c3   === txreq
+**** c3   txreq|GET / HTTP/1.1\r
+**** c3   txreq|Host: 127.0.0.1\r
+**** c3   txreq|\r
+**   c3   === rxresp
+**** s3   rxhdr|GET / HTTP/1.1\r
+**** s3   rxhdr|Host: 127.0.0.1\r
+**** s3   rxhdr|\r
+**** s3   rxhdrlen = 35
+**** s3   http[ 0] |GET
+**** s3   http[ 1] |/
+**** s3   http[ 2] |HTTP/1.1
+**** s3   http[ 3] |Host: 127.0.0.1
+**** s3   bodylen = 0
+**   s3   === barrier bs sync
+**** s3   Barrier(bs) sync with socket
+**** bs   Barrier(bs) wake 4
+**** bs   macro undef bs_addr
+**** bs   macro undef bs_port
+**** bs   macro undef bs_sock
+**   top  === barrier bb sync
+**** top  Barrier(bb) sync with socket
+**   s1   === barrier bb sync
+**   s2   === barrier bb sync
+**** s2   Barrier(bb) sync with socket
+**** bb   Barrier(bb) wait 1 of 4
+**** bb   Barrier(bb) wait 2 of 4
+**** s1   Barrier(bb) sync with socket
+**** bb   Barrier(bb) wait 3 of 4
+**   s3   === barrier bb sync
+**** s3   Barrier(bb) sync with socket
+**** bb   Barrier(bb) wake 4
+**** dT   0.903
+**   top  === barrier bc sync
+**** top  Barrier(bc) sync with socket
+**   s2   === delay .6
+***  s2   delaying 0.6 second(s)
+**   s1   === delay .9
+***  s1   delaying 0.9 second(s)
+**** bc   Barrier(bc) wait 1 of 4
+**   s3   === delay .2
+***  s3   delaying 0.2 second(s)
+**** dT   1.103
+**   s3   === txresp
+**** s3   txresp|HTTP/1.1 200 OK\r
+**** s3   txresp|Content-Length: 0\r
+**** s3   txresp|\r
+***  s3   shutting fd 12
+**   s3   Ending
+**** c3   rxhdr|HTTP/1.1 200 OK\r
+**** c3   rxhdr|Content-Length: 0\r
+**** c3   rxhdr|\r
+**** c3   rxhdrlen = 38
+**** c3   http[ 0] |HTTP/1.1
+**** c3   http[ 1] |200
+**** c3   http[ 2] |OK
+**** c3   http[ 3] |Content-Length: 0
+**** c3   bodylen = 0
+**   c3   === barrier bc sync
+**** c3   Barrier(bc) sync with socket
+**** bc   Barrier(bc) wait 2 of 4
+**** dT   1.503
+**   s2   === txresp
+**** s2   txresp|HTTP/1.1 200 OK\r
+**** s2   txresp|Content-Length: 0\r
+**** s2   txresp|\r
+***  s2   shutting fd 11
+**   s2   Ending
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Content-Length: 0\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 38
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Content-Length: 0
+**** c2   bodylen = 0
+**   c2   === barrier bc sync
+**** c2   Barrier(bc) sync with socket
+**** bc   Barrier(bc) wait 3 of 4
+**** dT   1.803
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 9
+**   s1   Ending
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 38
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   bodylen = 0
+**   c1   === barrier bc sync
+**** c1   Barrier(bc) sync with socket
+**** bc   Barrier(bc) wake 4
+**** bc   macro undef bc_addr
+**** bc   macro undef bc_port
+**** bc   macro undef bc_sock
+**   top  === barrier bb sync
+**** top  Barrier(bb) sync with socket
+**** dT   1.804
+**   c1   === barrier bb sync
+**** bb   Barrier(bb) wait 1 of 4
+**   c3   === barrier bb sync
+**** c3   Barrier(bb) sync with socket
+**   c2   === barrier bb sync
+**** c1   Barrier(bb) sync with socket
+**** bb   Barrier(bb) wait 2 of 4
+**** bb   Barrier(bb) wait 3 of 4
+**** c2   Barrier(bb) sync with socket
+**** bb   Barrier(bb) wake 4
+*    top  RESETTING after ./tests/a00013.vtc
+***  c3   closing fd 16
+***  c2   closing fd 17
+**   c3   Ending
+**   c2   Ending
+**** dT   2.805
+**   c1   Waiting for client
+***  c1   closing fd 13
+**   c1   Ending
+**   c2   Waiting for client
+**   c3   Waiting for client
+**   s1   Waiting for server (7/-1)
+**   s2   Waiting for server (8/-1)
+**   s3   Waiting for server (10/-1)
+*    top  TEST ./tests/a00013.vtc completed
+#    top  TEST ./tests/a00013.vtc passed (2.806)

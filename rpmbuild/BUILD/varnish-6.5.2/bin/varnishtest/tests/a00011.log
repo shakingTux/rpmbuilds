@@ -1,0 +1,114 @@
+**** dT   0.000
+*    top  TEST ./tests/a00011.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 44719
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.44909.112bc7a5
+**   top  === varnishtest "test vtc gzip support"
+*    top  VTEST test vtc gzip support
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=37249
+**** s1   macro def s1_sock=127.0.0.1 37249
+*    s1   Listen on 127.0.0.1 37249
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 37249 (1 iterations)
+***  c1   Connect to 127.0.0.1 37249
+**   s1   Started on 127.0.0.1 37249 (1 iterations)
+***  c1   connected fd 6 from 127.0.0.1 53888 to 127.0.0.1 37249
+***  s1   accepted fd 5 127.0.0.1 53888
+**   s1   === rxreq
+**** dT   0.001
+**   c1   === txreq -gzipbody FOO
+**** c1   startbit = 80 10/0
+**** c1   lastbit = 80 10/0
+**** c1   stopbit = 120 15/0
+***  c1   new bodylen 26
+**** c1   body|\x1f\x8b\x08\x00\x00\x00\x00\x00\x04\x03\x01\x03\x00\xfc\xffFOO\xab'\xd4\x1a\x03\x00\x00\x00
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Content-Encoding: gzip\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|Content-Length: 26\r
+**** c1   txreq|\r
+**** c1   txreq|\x1f\x8b\x08\x00\x00\x00\x00\x00\x04\x03\x01\x03\x00\xfc\xffFOO\xab'\xd4\x1a\x03\x00\x00\x00
+**   c1   === rxresp
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|Content-Encoding: gzip\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|Content-Length: 26\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 79
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Content-Encoding: gzip
+**** s1   http[ 4] |Host: 127.0.0.1
+**** s1   http[ 5] |Content-Length: 26
+**** s1   c-l|\x1f\x8b\x08\x00\x00\x00\x00\x00\x04\x03\x01\x03\x00\xfc\xffFOO\xab'\xd4\x1a\x03\x00\x00\x00
+**** s1   bodylen = 26
+**   s1   === expect req.http.content-length == "26"
+**** s1   EXPECT req.http.content-length (26) == "26" match
+**   s1   === expect req.bodylen == "26"
+**** s1   EXPECT req.bodylen (26) == "26" match
+**   s1   === gunzip
+**** s1   startbit = 80 10/0
+**** s1   lastbit = 80 10/0
+**** s1   stopbit = 144 18/0
+***  s1   new bodylen 3
+**** s1   body|FOO
+**   s1   === expect req.bodylen == "3"
+**** s1   EXPECT req.bodylen (3) == "3" match
+**   s1   === expect req.http.content-encoding == "gzip"
+**** s1   EXPECT req.http.content-encoding (gzip) == "gzip" match
+**   s1   === txresp -gzipbody FOO
+**** s1   startbit = 80 10/0
+**** s1   lastbit = 80 10/0
+**** s1   stopbit = 120 15/0
+***  s1   new bodylen 26
+**** s1   body|\x1f\x8b\x08\x00\x00\x00\x00\x00\x04\x03\x01\x03\x00\xfc\xffFOO\xab'\xd4\x1a\x03\x00\x00\x00
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Encoding: gzip\r
+**** s1   txresp|Content-Length: 26\r
+**** s1   txresp|\r
+**** s1   txresp|\x1f\x8b\x08\x00\x00\x00\x00\x00\x04\x03\x01\x03\x00\xfc\xffFOO\xab'\xd4\x1a\x03\x00\x00\x00
+**** dT   0.002
+***  s1   shutting fd 5
+**   s1   Ending
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Encoding: gzip\r
+**** c1   rxhdr|Content-Length: 26\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 63
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Encoding: gzip
+**** c1   http[ 4] |Content-Length: 26
+**** c1   c-l|\x1f\x8b\x08\x00\x00\x00\x00\x00\x04\x03\x01\x03\x00\xfc\xffFOO\xab'\xd4\x1a\x03\x00\x00\x00
+**** c1   bodylen = 26
+**   c1   === expect resp.http.content-length == "26"
+**** c1   EXPECT resp.http.content-length (26) == "26" match
+**   c1   === expect resp.bodylen == "26"
+**** c1   EXPECT resp.bodylen (26) == "26" match
+**   c1   === gunzip
+**** c1   startbit = 80 10/0
+**** c1   lastbit = 80 10/0
+**** c1   stopbit = 144 18/0
+***  c1   new bodylen 3
+**** c1   body|FOO
+**   c1   === expect resp.bodylen == "3"
+**** c1   EXPECT resp.bodylen (3) == "3" match
+**   c1   === expect resp.http.content-encoding == "gzip"
+**** c1   EXPECT resp.http.content-encoding (gzip) == "gzip" match
+***  c1   closing fd 6
+**   c1   Ending
+*    top  RESETTING after ./tests/a00011.vtc
+**   s1   Waiting for server (4/-1)
+*    top  TEST ./tests/a00011.vtc completed
+#    top  TEST ./tests/a00011.vtc passed (0.058)

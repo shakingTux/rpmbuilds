@@ -1,0 +1,111 @@
+**** dT   0.000
+*    top  TEST ./tests/a00007.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 43253
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.44775.30f6fcf6
+**   top  === varnishtest "TCP reuse"
+*    top  VTEST TCP reuse
+**   top  === server s1 {
+**   top  === server s1 -start
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=38237
+**** s1   macro def s1_sock=127.0.0.1 38237
+*    s1   Listen on 127.0.0.1 38237
+**   top  === client c1 -connect ${s1_sock} {
+**   top  === client c1 -run
+**   c1   Starting client
+**   c1   Waiting for client
+**   s1   Started on 127.0.0.1 38237 (1 iterations)
+**   c1   Started on 127.0.0.1 38237 (1 iterations)
+***  c1   Connect to 127.0.0.1 38237
+***  s1   accepted fd 5 127.0.0.1 51700
+***  c1   connected fd 6 from 127.0.0.1 51700 to 127.0.0.1 38237
+**   c1   === txreq -url "/1" -req "POST" -body "abcdefghi\n"
+**   s1   === rxreq
+**** c1   txreq|POST /1 HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|Content-Length: 10\r
+**** c1   txreq|\r
+**** c1   txreq|abcdefghi
+**   c1   === rxresp
+**** dT   0.001
+**** s1   rxhdr|POST /1 HTTP/1.1\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|Content-Length: 10\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 57
+**** s1   http[ 0] |POST
+**** s1   http[ 1] |/1
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Host: 127.0.0.1
+**** s1   http[ 4] |Content-Length: 10
+**** s1   c-l|abcdefghi
+**** s1   bodylen = 10
+**   s1   === expect req.url == "/1"
+**** s1   EXPECT req.url (/1) == "/1" match
+**   s1   === txresp -body "123456789\n"
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 10\r
+**** s1   txresp|\r
+**** s1   txresp|123456789
+**   s1   === rxreq
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 10\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 39
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 10
+**** c1   c-l|123456789
+**** c1   bodylen = 10
+**   c1   === txreq -url "/2" -req "POST" -body "ihgfedcba\n"
+**** c1   txreq|POST /2 HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|Content-Length: 10\r
+**** c1   txreq|\r
+**** c1   txreq|ihgfedcba
+**   c1   === rxresp
+**** s1   rxhdr|POST /2 HTTP/1.1\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|Content-Length: 10\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 57
+**** s1   http[ 0] |POST
+**** s1   http[ 1] |/2
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Host: 127.0.0.1
+**** s1   http[ 4] |Content-Length: 10
+**** s1   c-l|ihgfedcba
+**** s1   bodylen = 10
+**   s1   === expect req.url == "/2"
+**** s1   EXPECT req.url (/2) == "/2" match
+**   s1   === txresp -body "987654321\n"
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 10\r
+**** s1   txresp|\r
+**** s1   txresp|987654321
+***  s1   shutting fd 5
+**   s1   Ending
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 10\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 39
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 10
+**** c1   c-l|987654321
+**** c1   bodylen = 10
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === server s1 -wait
+**   s1   Waiting for server (4/-1)
+*    top  RESETTING after ./tests/a00007.vtc
+*    top  TEST ./tests/a00007.vtc completed
+#    top  TEST ./tests/a00007.vtc passed (0.060)

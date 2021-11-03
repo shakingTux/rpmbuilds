@@ -1,0 +1,980 @@
+**** dT   0.000
+*    top  TEST ./tests/d00017.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 33905
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.61572.7c15e482
+**   top  === varnishtest "shard director regression to vslp v01000"
+*    top  VTEST shard director regression to vslp v01000
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=35963
+**** s1   macro def s1_sock=127.0.0.1 35963
+*    s1   Listen on 127.0.0.1 35963
+**   top  === server s2 {
+**   s2   Starting server
+**** s2   macro def s2_addr=127.0.0.1
+**** s2   macro def s2_port=45263
+**   s1   Started on 127.0.0.1 35963 (1 iterations)
+**** s2   macro def s2_sock=127.0.0.1 45263
+*    s2   Listen on 127.0.0.1 45263
+**   top  === server s3 {
+**   s3   Starting server
+**   s2   Started on 127.0.0.1 45263 (1 iterations)
+**** s3   macro def s3_addr=127.0.0.1
+**** s3   macro def s3_port=45291
+**** s3   macro def s3_sock=127.0.0.1 45291
+*    s3   Listen on 127.0.0.1 45291
+**   top  === varnish v1 -vcl+backend {
+**   s3   Started on 127.0.0.1 45291 (1 iterations)
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.61572.7c15e482/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 34695' -P /tmp/vtc.61572.7c15e482/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.61572.7c15e482/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 34695' -P /tmp/vtc.61572.7c15e482/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 61593
+**** v1   macro def v1_pid=61593
+**** v1   macro def v1_name=/tmp/vtc.61572.7c15e482/v1
+**** dT   0.013
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.111
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 11
+***  v1   CLI RX  107
+**** v1   CLI RX|eawqcdfdciwchgjtzruvqskwxjpfkgvy
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** dT   0.112
+**** v1   CLI TX|auth 51fbf6226f321a77e8f640a61ac365b5014966234055efeeb8e6b8c2abe646a2
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "35963"; }
+**** v1   CLI TX|backend s2 { .host = "127.0.0.1"; .port = "45263"; }
+**** v1   CLI TX|backend s3 { .host = "127.0.0.1"; .port = "45291"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\timport std;
+**** v1   CLI TX|\timport directors;
+**** v1   CLI TX|\timport blob;
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_init {
+**** v1   CLI TX|\t\tnew vd = directors.shard();
+**** v1   CLI TX|\t\tvd.debug(3);
+**** v1   CLI TX|\t\tif (!vd.add_backend(s1)) {
+**** v1   CLI TX|\t\t\treturn(fail("add s1 failed"));
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (!vd.add_backend(s2)) {
+**** v1   CLI TX|\t\t\treturn(fail("add s2 failed"));
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (!vd.add_backend(s3)) {
+**** v1   CLI TX|\t\t\treturn(fail("add s3 failed"));
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t\tif (!vd.reconfigure(replicas=25)) {
+**** v1   CLI TX|\t\t\treturn(fail("reconfigure failed"));
+**** v1   CLI TX|\t\t}
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|\tsub vcl_recv {
+**** v1   CLI TX|\t\tset req.backend_hint = vd.backend(by=BLOB,
+**** v1   CLI TX|\t\t    key_blob=blob.decode(HEX, encoded=
+**** v1   CLI TX|\t\t\tregsub(req.url, "^/", "")));
+**** v1   CLI TX|\t\treturn(pass);
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.213
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.301
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.304
+***  v1   debug|Debug: Child (61605) Started
+**** dT   0.332
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (61605) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+**** dT   0.333
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 33981
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 33981
+**   v1   Listen on 127.0.0.1 33981
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=33981
+**** v1   macro def v1_sock=127.0.0.1 33981
+**** dT   0.413
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892767.883531/vgc.so 1auto
+**** v1   vsl|          0 Debug           - shard: hashcircle[    0] = {point =  3b6b56a, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[    1] = {point =  66986a7, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[    2] = {point =  7e41e30, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[    3] = {point =  b749e7b, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[    4] = {point =  e543430, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[    5] = {point = 10136c05, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[    6] = {point = 102d847f, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[    7] = {point = 1112f910, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[    8] = {point = 1119a7c7, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[    9] = {point = 22464ee9, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   10] = {point = 22b35675, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   11] = {point = 2363bebb, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   12] = {point = 259eeccf, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   13] = {point = 26f0c3e7, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   14] = {point = 28340f35, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   15] = {point = 285e8475, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   16] = {point = 28ec7a6f, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   17] = {point = 2da0e37b, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   18] = {point = 3392487a, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   19] = {point = 37597c4c, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   20] = {point = 4b1f5b22, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   21] = {point = 523723f2, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   22] = {point = 539234db, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   23] = {point = 564ca84f, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   24] = {point = 5d2df428, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   25] = {point = 5fa294ee, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   26] = {point = 60dded53, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   27] = {point = 6257bc27, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   28] = {point = 64014b25, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   29] = {point = 6bfd5a2d, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   30] = {point = 6e040182, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   31] = {point = 6e3819f7, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   32] = {point = 7232b381, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   33] = {point = 74c384ad, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   34] = {point = 83ce71ce, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   35] = {point = 888b6447, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   36] = {point = 8997c018, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   37] = {point = 8aa6b5b4, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   38] = {point = 8b47e6ac, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   39] = {point = 8bc8bc11, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   40] = {point = 8e2d3849, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   41] = {point = 8e7e012c, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   42] = {point = 99892987, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   43] = {point = 9a6f2f00, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   44] = {point = 9ef9125d, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   45] = {point = 9f33cd30, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   46] = {point = 9fc69b51, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   47] = {point = a19f99eb, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   48] = {point = a28b9595, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   49] = {point = a8afe9c4, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   50] = {point = ad923ad3, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   51] = {point = ae8946c6, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   52] = {point = b197e339, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   53] = {point = b3c305e6, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   54] = {point = b6bf43ea, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   55] = {point = b9004d3d, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   56] = {point = bbcc0bad, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   57] = {point = c2542a5d, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   58] = {point = c6c43fa7, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   59] = {point = c945958a, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   60] = {point = cbd9198a, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   61] = {point = d4c93105, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   62] = {point = d7de63b6, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   63] = {point = d937a7df, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   64] = {point = dac52229, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   65] = {point = db7840f0, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   66] = {point = dd5c6bef, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   67] = {point = dfd5333b, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   68] = {point = e991584c, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   69] = {point = ec8891c5, host =  1}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   70] = {point = ef6b4ab5, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   71] = {point = f08ad325, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   72] = {point = f3325ba2, host =  2}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   73] = {point = f6530dd1, host =  0}
+
+**** v1   vsl|          0 Debug           - shard: hashcircle[   74] = {point = fc28e8d2, host =  2}
+
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892767.883531/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 33981
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 33981
+
+**** dT   0.433
+**   top  === logexpect l1 -v v1 -g raw -d 1 {
+**   l1   === expect 0 0    CLI   "^Rd vcl.load"
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 0. = .point =  3b6...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 1. = .point =  669...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 2. = .point =  7e4...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 3. = .point =  b74...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 4. = .point =  e54...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 5. = .point = 1013...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 6. = .point = 102d...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 7. = .point = 1112...
+**** dT   0.434
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 8. = .point = 1119...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 9. = .point = 2246...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 10. = .point = 22b...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 11. = .point = 236...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 12. = .point = 259...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 13. = .point = 26f...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 14. = .point = 283...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 15. = .point = 285...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 16. = .point = 28e...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 17. = .point = 2da...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 18. = .point = 339...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 19. = .point = 375...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 20. = .point = 4b1...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 21. = .point = 523...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 22. = .point = 539...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 23. = .point = 564...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 24. = .point = 5d2...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 25. = .point = 5fa...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 26. = .point = 60d...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 27. = .point = 625...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 28. = .point = 640...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 29. = .point = 6bf...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 30. = .point = 6e0...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 31. = .point = 6e3...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 32. = .point = 723...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 33. = .point = 74c...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 34. = .point = 83c...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 35. = .point = 888...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 36. = .point = 899...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 37. = .point = 8aa...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 38. = .point = 8b4...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 39. = .point = 8bc...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 40. = .point = 8e2...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 41. = .point = 8e7...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 42. = .point = 998...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 43. = .point = 9a6...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 44. = .point = 9ef...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 45. = .point = 9f3...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 46. = .point = 9fc...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 47. = .point = a19...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 48. = .point = a28...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 49. = .point = a8a...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 50. = .point = ad9...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 51. = .point = ae8...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 52. = .point = b19...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 53. = .point = b3c...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 54. = .point = b6b...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 55. = .point = b90...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 56. = .point = bbc...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 57. = .point = c25...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 58. = .point = c6c...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 59. = .point = c94...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 60. = .point = cbd...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 61. = .point = d4c...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 62. = .point = d7d...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 63. = .point = d93...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 64. = .point = dac...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 65. = .point = db7...
+**** dT   0.435
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 66. = .point = dd5...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 67. = .point = dfd...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 68. = .point = e99...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 69. = .point = ec8...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 70. = .point = ef6...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 71. = .point = f08...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 72. = .point = f33...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 73. = .point = f65...
+**   l1   === expect 0 =    Debug {^shard: hashcircle.* 74. = .point = fc2...
+**   l1   === expect 0 =    CLI   Loaded
+**   l1   === expect * =    Debug {^shard: lookup key 68b902f7 idx 29 host...
+**   l1   === expect * =    Debug {^shard: lookup key 39dc4613 idx 20 host...
+**   l1   === expect * =    Debug {^shard: lookup key c7793505 idx 59 host...
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 33981 (1 iterations)
+**** l1   begin|
+***  c1   Connect to 127.0.0.1 33981
+***  l1   expecting| expect 0 0 CLI ^Rd vcl.load
+**** l1   match|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892767.883531/vgc.so 1auto
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 0. = .point =  3b6b56a, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[    0] = {point =  3b6b56a, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 1. = .point =  66986a7, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[    1] = {point =  66986a7, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 2. = .point =  7e41e30, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[    2] = {point =  7e41e30, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 3. = .point =  b749e7b, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[    3] = {point =  b749e7b, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 4. = .point =  e543430, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[    4] = {point =  e543430, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 5. = .point = 10136c05, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[    5] = {point = 10136c05, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 6. = .point = 102d847f, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[    6] = {point = 102d847f, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 7. = .point = 1112f910, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[    7] = {point = 1112f910, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 8. = .point = 1119a7c7, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[    8] = {point = 1119a7c7, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 9. = .point = 22464ee9, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[    9] = {point = 22464ee9, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 10. = .point = 22b35675, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   10] = {point = 22b35675, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 11. = .point = 2363bebb, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   11] = {point = 2363bebb, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 12. = .point = 259eeccf, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   12] = {point = 259eeccf, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 13. = .point = 26f0c3e7, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   13] = {point = 26f0c3e7, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 14. = .point = 28340f35, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   14] = {point = 28340f35, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 15. = .point = 285e8475, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   15] = {point = 285e8475, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 16. = .point = 28ec7a6f, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   16] = {point = 28ec7a6f, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 17. = .point = 2da0e37b, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   17] = {point = 2da0e37b, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 18. = .point = 3392487a, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   18] = {point = 3392487a, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 19. = .point = 37597c4c, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   19] = {point = 37597c4c, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 20. = .point = 4b1f5b22, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   20] = {point = 4b1f5b22, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 21. = .point = 523723f2, host =  2.
+***  c1   connected fd 26 from 127.0.0.1 49676 to 127.0.0.1 33981
+**   c1   === txreq -url /68b902f7
+**** c1   txreq|GET /68b902f7 HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.436
+**** l1   match|          0 Debug           - shard: hashcircle[   21] = {point = 523723f2, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 22. = .point = 539234db, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   22] = {point = 539234db, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 23. = .point = 564ca84f, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   23] = {point = 564ca84f, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 24. = .point = 5d2df428, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   24] = {point = 5d2df428, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 25. = .point = 5fa294ee, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   25] = {point = 5fa294ee, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 26. = .point = 60dded53, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   26] = {point = 60dded53, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 27. = .point = 6257bc27, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   27] = {point = 6257bc27, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 28. = .point = 64014b25, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   28] = {point = 64014b25, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 29. = .point = 6bfd5a2d, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   29] = {point = 6bfd5a2d, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 30. = .point = 6e040182, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   30] = {point = 6e040182, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 31. = .point = 6e3819f7, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   31] = {point = 6e3819f7, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 32. = .point = 7232b381, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   32] = {point = 7232b381, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 33. = .point = 74c384ad, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   33] = {point = 74c384ad, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 34. = .point = 83ce71ce, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   34] = {point = 83ce71ce, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 35. = .point = 888b6447, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   35] = {point = 888b6447, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 36. = .point = 8997c018, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   36] = {point = 8997c018, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 37. = .point = 8aa6b5b4, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   37] = {point = 8aa6b5b4, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 38. = .point = 8b47e6ac, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   38] = {point = 8b47e6ac, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 39. = .point = 8bc8bc11, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   39] = {point = 8bc8bc11, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 40. = .point = 8e2d3849, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   40] = {point = 8e2d3849, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 41. = .point = 8e7e012c, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   41] = {point = 8e7e012c, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 42. = .point = 99892987, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   42] = {point = 99892987, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 43. = .point = 9a6f2f00, host =  0.
+***  s1   accepted fd 6 127.0.0.1 47174
+**** l1   match|          0 Debug           - shard: hashcircle[   43] = {point = 9a6f2f00, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 44. = .point = 9ef9125d, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   44] = {point = 9ef9125d, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 45. = .point = 9f33cd30, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   45] = {point = 9f33cd30, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 46. = .point = 9fc69b51, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   46] = {point = 9fc69b51, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 47. = .point = a19f99eb, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   47] = {point = a19f99eb, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 48. = .point = a28b9595, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   48] = {point = a28b9595, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 49. = .point = a8afe9c4, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   49] = {point = a8afe9c4, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 50. = .point = ad923ad3, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   50] = {point = ad923ad3, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 51. = .point = ae8946c6, host =  2.
+**   s1   === rxreq
+**** l1   match|          0 Debug           - shard: hashcircle[   51] = {point = ae8946c6, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 52. = .point = b197e339, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   52] = {point = b197e339, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 53. = .point = b3c305e6, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   53] = {point = b3c305e6, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 54. = .point = b6bf43ea, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   54] = {point = b6bf43ea, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 55. = .point = b9004d3d, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   55] = {point = b9004d3d, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 56. = .point = bbcc0bad, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   56] = {point = bbcc0bad, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 57. = .point = c2542a5d, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   57] = {point = c2542a5d, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 58. = .point = c6c43fa7, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   58] = {point = c6c43fa7, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 59. = .point = c945958a, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   59] = {point = c945958a, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 60. = .point = cbd9198a, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   60] = {point = cbd9198a, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 61. = .point = d4c93105, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   61] = {point = d4c93105, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 62. = .point = d7de63b6, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   62] = {point = d7de63b6, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 63. = .point = d937a7df, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   63] = {point = d937a7df, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 64. = .point = dac52229, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   64] = {point = dac52229, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 65. = .point = db7840f0, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   65] = {point = db7840f0, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 66. = .point = dd5c6bef, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   66] = {point = dd5c6bef, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 67. = .point = dfd5333b, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   67] = {point = dfd5333b, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 68. = .point = e991584c, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   68] = {point = e991584c, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 69. = .point = ec8891c5, host =  1.
+**** l1   match|          0 Debug           - shard: hashcircle[   69] = {point = ec8891c5, host =  1}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 70. = .point = ef6b4ab5, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   70] = {point = ef6b4ab5, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 71. = .point = f08ad325, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   71] = {point = f08ad325, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 72. = .point = f3325ba2, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   72] = {point = f3325ba2, host =  2}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 73. = .point = f6530dd1, host =  0.
+**** l1   match|          0 Debug           - shard: hashcircle[   73] = {point = f6530dd1, host =  0}
+
+***  l1   expecting| expect 0 = Debug ^shard: hashcircle.* 74. = .point = fc28e8d2, host =  2.
+**** l1   match|          0 Debug           - shard: hashcircle[   74] = {point = fc28e8d2, host =  2}
+
+***  l1   expecting| expect 0 = CLI Loaded
+**** l1   match|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892767.883531/vgc.so" as "vcl1"
+***  l1   expecting| expect * = Debug ^shard: lookup key 68b902f7 idx 29 host 0
+**** l1   match|          0 Debug           - shard: lookup key 68b902f7 idx 29 host 0
+***  l1   expecting| expect * = Debug ^shard: lookup key 39dc4613 idx 20 host 1
+**** s1   rxhdr|GET /68b902f7 HTTP/1.1\r
+**** s1   rxhdr|Host: 127.0.0.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|X-Varnish: 1002\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 88
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/68b902f7
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |Host: 127.0.0.1
+**** s1   http[ 4] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 5] |X-Varnish: 1002
+**** s1   bodylen = 0
+**   s1   === txresp -body "ech3Ooj"
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 7\r
+**** s1   txresp|\r
+**** s1   txresp|ech3Ooj
+***  s1   shutting fd 6
+**   s1   Ending
+**** dT   0.437
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 7\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:52:48 GMT\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 178
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 7
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:52:48 GMT
+**** c1   http[ 5] |X-Varnish: 1001
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |Accept-Ranges: bytes
+**** c1   http[ 9] |Connection: keep-alive
+**** c1   c-l|ech3Ooj
+**** c1   bodylen = 7
+**   c1   === expect resp.body == "ech3Ooj"
+**** c1   EXPECT resp.body (ech3Ooj) == "ech3Ooj" match
+**   c1   === txreq -url /39dc4613
+**** c1   txreq|GET /39dc4613 HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.447
+***  s2   accepted fd 8 127.0.0.1 43736
+**   s2   === rxreq
+**** s2   rxhdr|GET /39dc4613 HTTP/1.1\r
+**** s2   rxhdr|Host: 127.0.0.1\r
+**** s2   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s2   rxhdr|X-Varnish: 1004\r
+**** s2   rxhdr|\r
+**** s2   rxhdrlen = 88
+**** s2   http[ 0] |GET
+**** s2   http[ 1] |/39dc4613
+**** s2   http[ 2] |HTTP/1.1
+**** s2   http[ 3] |Host: 127.0.0.1
+**** s2   http[ 4] |X-Forwarded-For: 127.0.0.1
+**** s2   http[ 5] |X-Varnish: 1004
+**** s2   bodylen = 0
+**   s2   === txresp -body "ieQu2qua"
+**** s2   txresp|HTTP/1.1 200 OK\r
+**** s2   txresp|Content-Length: 8\r
+**** s2   txresp|\r
+**** s2   txresp|ieQu2qua
+***  s2   shutting fd 8
+**   s2   Ending
+**** dT   0.448
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 8\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:52:48 GMT\r
+**** c1   rxhdr|X-Varnish: 1003\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 178
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 8
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:52:48 GMT
+**** c1   http[ 5] |X-Varnish: 1003
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |Accept-Ranges: bytes
+**** c1   http[ 9] |Connection: keep-alive
+**** c1   c-l|ieQu2qua
+**** c1   bodylen = 8
+**   c1   === expect resp.body == "ieQu2qua"
+**** dT   0.449
+**** c1   EXPECT resp.body (ieQu2qua) == "ieQu2qua" match
+**   c1   === txreq -url /c7793505
+**** c1   txreq|GET /c7793505 HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   0.456
+**** l1   match|          0 Debug           - shard: lookup key 39dc4613 idx 20 host 1
+***  l1   expecting| expect * = Debug ^shard: lookup key c7793505 idx 59 host 2
+**** dT   0.458
+***  s3   accepted fd 9 127.0.0.1 49512
+**   s3   === rxreq
+**** dT   0.459
+**** s3   rxhdr|GET /c7793505 HTTP/1.1\r
+**** s3   rxhdr|Host: 127.0.0.1\r
+**** s3   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s3   rxhdr|X-Varnish: 1006\r
+**** s3   rxhdr|\r
+**** s3   rxhdrlen = 88
+**** s3   http[ 0] |GET
+**** s3   http[ 1] |/c7793505
+**** s3   http[ 2] |HTTP/1.1
+**** s3   http[ 3] |Host: 127.0.0.1
+**** s3   http[ 4] |X-Forwarded-For: 127.0.0.1
+**** s3   http[ 5] |X-Varnish: 1006
+**** s3   bodylen = 0
+**   s3   === txresp -body "xiuFi3Pe"
+**** s3   txresp|HTTP/1.1 200 OK\r
+**** s3   txresp|Content-Length: 8\r
+**** s3   txresp|\r
+**** s3   txresp|xiuFi3Pe
+***  s3   shutting fd 9
+**   s3   Ending
+**** dT   0.460
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 8\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:52:48 GMT\r
+**** c1   rxhdr|X-Varnish: 1005\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 178
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 8
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:52:48 GMT
+**** c1   http[ 5] |X-Varnish: 1005
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |Accept-Ranges: bytes
+**** c1   http[ 9] |Connection: keep-alive
+**** c1   c-l|xiuFi3Pe
+**** c1   bodylen = 8
+**   c1   === expect resp.body == "xiuFi3Pe"
+**** c1   EXPECT resp.body (xiuFi3Pe) == "xiuFi3Pe" match
+***  c1   closing fd 26
+**   c1   Ending
+**   top  === logexpect l1 -wait
+**   l1   Waiting for logexp
+**** dT   0.466
+**** l1   match|          0 Debug           - shard: lookup key c7793505 idx 59 host 2
+**** l1   end|
+*    top  RESETTING after ./tests/d00017.vtc
+**   s1   Waiting for server (4/-1)
+**   s2   Waiting for server (5/-1)
+**   s3   Waiting for server (7/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+**** dT   0.467
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:48 GMT
+**** v1   CLI RX|vcl1.s2        healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:48 GMT
+**** v1   CLI RX|vcl1.s3        healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:48 GMT
+**** v1   CLI RX|vcl1.vd        probe      3/3      healthy    Fri, 22 Oct 2021 08:52:48 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   0.513
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 49676 a0 127.0.0.1 33981 1634892768.206085 25
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|          0 Debug           - shard: lookup key 68b902f7 idx 29 host 0
+**** v1   vsl|       1002 Begin           b bereq 1001 pass
+**** v1   vsl|       1002 VCL_use         b vcl1
+**** v1   vsl|       1002 Timestamp       b Start: 1634892768.206342 0.000000 0.000000
+**** v1   vsl|       1002 BereqMethod     b GET
+**** v1   vsl|       1002 BereqURL        b /68b902f7
+**** v1   vsl|       1002 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1002 BereqHeader     b Host: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1002 BereqHeader     b X-Varnish: 1002
+**** v1   vsl|       1002 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1002 VCL_return      b fetch
+**** v1   vsl|       1002 BackendOpen     b 28 s1 127.0.0.1 35963 127.0.0.1 47174 connect
+**** v1   vsl|       1002 Timestamp       b Bereq: 1634892768.206605 0.000262 0.000262
+**** v1   vsl|       1002 Timestamp       b Beresp: 1634892768.207311 0.000968 0.000706
+**** v1   vsl|       1002 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1002 BerespStatus    b 200
+**** v1   vsl|       1002 BerespReason    b OK
+**** v1   vsl|       1002 BerespHeader    b Content-Length: 7
+**** v1   vsl|       1002 BerespHeader    b Date: Fri, 22 Oct 2021 08:52:48 GMT
+**** v1   vsl|       1002 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1002 VCL_return      b deliver
+**** v1   vsl|       1002 Filters         b 
+**** v1   vsl|       1002 Storage         b malloc Transient
+**** v1   vsl|       1002 Fetch_Body      b 3 length stream
+**** v1   vsl|       1002 BackendClose    b 28 s1 recycle
+**** v1   vsl|       1002 Timestamp       b BerespBody: 1634892768.217537 0.011194 0.010226
+**** v1   vsl|       1002 Length          b 7
+**** v1   vsl|       1002 BereqAcct       b 88 0 88 38 7 45
+**** v1   vsl|       1002 End             b 
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892768.206204 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892768.206204 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 49676 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /68b902f7
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 VCL_return      c pass
+**** v1   vsl|       1001 VCL_call        c HASH
+**** v1   vsl|       1001 VCL_return      c lookup
+**** v1   vsl|       1001 VCL_call        c PASS
+**** v1   vsl|       1001 VCL_return      c fetch
+**** v1   vsl|       1001 Link            c bereq 1002 pass
+**** v1   vsl|       1001 Timestamp       c Fetch: 1634892768.207454 0.001249 0.001249
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 200
+**** v1   vsl|       1001 RespReason      c OK
+**** v1   vsl|       1001 RespHeader      c Content-Length: 7
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 08:52:48 GMT
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 RespHeader      c Age: 0
+**** v1   vsl|       1001 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1001 VCL_call        c DELIVER
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634892768.207469 0.001264 0.000014
+**** v1   vsl|       1001 Filters         c 
+**** v1   vsl|       1001 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1001 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1001 Timestamp       c Resp: 1634892768.217578 0.011373 0.010108
+**** v1   vsl|       1001 ReqAcct         c 43 0 43 178 7 185
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 Link            c req 1003 rxreq
+**** v1   vsl|          0 Debug           - shard: lookup key 39dc4613 idx 20 host 1
+**** v1   vsl|       1004 Begin           b bereq 1003 pass
+**** v1   vsl|       1004 VCL_use         b vcl1
+**** v1   vsl|       1004 Timestamp       b Start: 1634892768.217664 0.000000 0.000000
+**** v1   vsl|       1004 BereqMethod     b GET
+**** v1   vsl|       1004 BereqURL        b /39dc4613
+**** v1   vsl|       1004 BereqProtocol   b HTTP/1.1
+**** v1   vsl|       1004 BereqHeader     b Host: 127.0.0.1
+**** v1   vsl|       1004 BereqHeader     b X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1004 BereqHeader     b X-Varnish: 1004
+**** v1   vsl|       1004 VCL_call        b BACKEND_FETCH
+**** v1   vsl|       1004 VCL_return      b fetch
+**** v1   vsl|       1004 BackendOpen     b 28 s2 127.0.0.1 45263 127.0.0.1 43736 connect
+**** v1   vsl|       1004 Timestamp       b Bereq: 1634892768.217834 0.000170 0.000170
+**** v1   vsl|       1004 Timestamp       b Beresp: 1634892768.218466 0.000802 0.000631
+**** v1   vsl|       1004 BerespProtocol  b HTTP/1.1
+**** v1   vsl|       1004 BerespStatus    b 200
+**** v1   vsl|       1004 BerespReason    b OK
+**** v1   vsl|       1004 BerespHeader    b Content-Length: 8
+**** v1   vsl|       1004 BerespHeader    b Date: Fri, 22 Oct 2021 08:52:48 GMT
+**** v1   vsl|       1004 VCL_call        b BACKEND_RESPONSE
+**** v1   vsl|       1004 VCL_return      b deliver
+**** v1   vsl|       1004 Filters         b 
+**** v1   vsl|       1004 Storage         b malloc Transient
+**** v1   vsl|       1004 Fetch_Body      b 3 length stream
+**** v1   vsl|       1004 BackendClose    b 28 s2 recycle
+**** v1   vsl|       1004 Timestamp       b BerespBody: 1634892768.228639 0.010975 0.010173
+**** v1   vsl|       1004 Length          b 8
+**** v1   vsl|       1004 BereqAcct       b 88 0 88 38 8 46
+**** v1   vsl|       1004 End             b 
+**** v1   vsl|       1003 Begin           c req 1000 rxreq
+**** v1   vsl|       1003 Timestamp       c Start: 1634892768.217609 0.000000 0.000000
+**** v1   vsl|       1003 Timestamp       c Req: 1634892768.217609 0.000000 0.000000
+**** v1   vsl|       1003 VCL_use         c vcl1
+**** v1   vsl|       1003 ReqStart        c 127.0.0.1 49676 a0
+**** v1   vsl|       1003 ReqMethod       c GET
+**** v1   vsl|       1003 ReqURL          c /39dc4613
+**** v1   vsl|       1003 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1003 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1003 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1003 VCL_call        c RECV
+**** v1   vsl|       1003 VCL_return      c pass
+**** v1   vsl|       1003 VCL_call        c HASH
+**** v1   vsl|       1003 VCL_return      c lookup
+**** v1   vsl|       1003 VCL_call        c PASS
+**** v1   vsl|       1003 VCL_return      c fetch
+**** v1   vsl|       1003 Link            c bereq 1004 pass
+**** v1   vsl|       1003 Timestamp       c Fetch: 1634892768.218551 0.000941 0.000941
+**** v1   vsl|       1003 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1003 RespStatus      c 200
+**** v1   vsl|       1003 RespReason      c OK
+**** v1   vsl|       1003 RespHeader      c Content-Length: 8
+**** v1   vsl|       1003 RespHeader      c Date: Fri, 22 Oct 2021 08:52:48 GMT
+**** v1   vsl|       1003 RespHeader      c X-Varnish: 1003
+**** v1   vsl|       1003 RespHeader      c Age: 0
+**** v1   vsl|       1003 RespHeader      c Via: 1.1 varnish (Varnish/6.5)
+**** v1   vsl|       1003 VCL_call        c DELIVER
+**** v1   vsl|       1003 VCL_return      c deliver
+**** v1   vsl|       1003 Timestamp       c Process: 1634892768.218563 0.000954 0.000012
+**** v1   vsl|       1003 Filters         c 
+**** v1   vsl|       1003 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1003 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1003 Timestamp       c Resp: 1634892768.228734 0.011125 0.010171
+**** v1   vsl|       1003 ReqAcct         c 43 0 43 178 8 186
+**** v1   vsl|       1003 End             c 
+**** v1   vsl|       1000 Link            c req 1005 rxreq
+**** v1   vsl|          0 Debug           - shard: lookup key c7793505 idx 59 host 2
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 362 Backend name   Admin      Probe    Health     Last change
+vcl1.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:48 GMT
+vcl1.s2        healthy    0/0      healthy    Fri, 22 Oct 2021 08:52:48 GMT
+vcl1.s3        healthy    0/0    
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.467
+***  v1   debug|Info: Child (61605) ended
+***  v1   debug|Info: Child (61605) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+**** dT   1.468
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   1.515
+**   v1   WAIT4 pid=61593 status=0x0000 (user 0.157833 sys 0.057235)
+*    top  TEST ./tests/d00017.vtc completed
+#    top  TEST ./tests/d00017.vtc passed (1.516)

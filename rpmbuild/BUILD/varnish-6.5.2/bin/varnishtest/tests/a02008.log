@@ -1,0 +1,290 @@
+**** dT   0.000
+*    top  TEST ./tests/a02008.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 45073
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.45402.42a9f5d4
+**   top  === varnishtest "HPACK test"
+*    top  VTEST HPACK test
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=46061
+**** s1   macro def s1_sock=127.0.0.1 46061
+*    s1   Listen on 127.0.0.1 46061
+**   top  === client c1 -connect ${s1_sock} {
+**   c1   Starting client
+**   s1   Started on 127.0.0.1 46061 (1 iterations)
+**** dT   0.001
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 46061 (1 iterations)
+***  c1   Connect to 127.0.0.1 46061
+***  s1   accepted fd 5 127.0.0.1 47050
+**   s1   === stream 0 {
+**** s1   Not in H/2 mode, do what's needed
+**   s1   === rxpri
+***  c1   connected fd 6 from 127.0.0.1 47050 to 127.0.0.1 46061
+**   c1   === stream 0 {
+**** c1   Not in H/2 mode, do what's needed
+**   c1   === txpri
+**** c1   txpri|PRI * HTTP/2.0\r
+**** c1   txpri|\r
+**** c1   txpri|SM\r
+**** c1   txpri|\r
+**** dT   0.011
+**   s1   === stream 0 {
+**   s1   Starting stream 0x7f2448001850
+**   s1   Waiting for stream 0
+**   s1   === txsettings
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === stream 0 {
+**   c1   Starting stream 0x7f2440001ad0
+**   s1   === rxsettings
+**   c1   Waiting for stream 0
+**** dT   0.012
+**   c1   === txsettings
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   s1   === txsettings -ack
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   s1   === rxsettings
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 0
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  s1   flag: ACK
+**   s1   === expect settings.ack == true
+**** s1   EXPECT settings.ack (true) == "true" match
+**   s1   Ending stream 0
+**   s1   Starting stream 0x7f2448001850
+**   c1   === rxsettings
+**   s1   Waiting for stream 0
+**   s1   === txsettings -hdrtbl 256
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   s1   === rxsettings
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   Starting stream 0x7f2440001ad0
+**   c1   Waiting for stream 0
+**   c1   === txsettings -hdrtbl 256
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** s1   settings->HEADER_TABLE_SIZE (1): 256
+**   s1   === txsettings -ack
+***  s1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+**   s1   === rxsettings
+**   c1   === rxsettings
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x00, size: 6
+**** c1   settings->HEADER_TABLE_SIZE (1): 256
+**   c1   === txsettings -ack
+***  c1   tx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  s1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  s1   flag: ACK
+**   s1   === expect settings.ack == true
+**** s1   EXPECT settings.ack (true) == "true" match
+**   s1   Ending stream 0
+**   s1   === stream 1 {
+**   c1   === rxsettings
+**   s1   Starting stream 0x7f2448002ae0
+**   s1   Waiting for stream 1
+**   s1   === rxreq
+***  c1   rx: stream: 0, type: SETTINGS (4), flags: 0x01, size: 0
+***  c1   flag: ACK
+**   c1   === expect settings.ack == true
+**** c1   EXPECT settings.ack (true) == "true" match
+**   c1   Ending stream 0
+**   c1   === stream 1 {
+**   c1   Starting stream 0x7f2440002cd0
+**   c1   Waiting for stream 1
+**   c1   === txreq \
+***  c1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 106
+**** dT   0.013
+***  s1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 106
+***  s1   flag: END_STREAM
+**** s1   header[ 0]: :status : 302
+**** s1   header[ 1]: cache-control : private
+**** s1   header[ 2]: date : Mon, 21 Oct 2013 20:13:21 GMT
+**** s1   header[ 3]: location : https://www.example.com
+**** s1   header[ 4]: :path : /
+**** s1   header[ 5]: :method : GET
+**** s1   header[ 6]: :scheme : http
+**   s1   === expect tbl.dec[1].key == "location"
+**** s1   EXPECT tbl.dec[1].key (location) == "location" match
+**   s1   === expect tbl.dec[1].value == "https://www.example.com"
+**** s1   EXPECT tbl.dec[1].value (https://www.example.com) == "https://www.example.com" match
+**   s1   === expect tbl.dec[2].key == "date"
+**** s1   EXPECT tbl.dec[2].key (date) == "date" match
+**   s1   === expect tbl.dec[2].value == "Mon, 21 Oct 2013 20:13:21 GMT"
+**** s1   EXPECT tbl.dec[2].value (Mon, 21 Oct 2013 20:13:21 GMT) == "Mon, 21 Oct 2013 20:13:21 GMT" match
+**   s1   === expect tbl.dec[3].key == "cache-control"
+**** s1   EXPECT tbl.dec[3].key (cache-control) == "cache-control" match
+**   s1   === expect tbl.dec[3].value == "private"
+**** s1   EXPECT tbl.dec[3].value (private) == "private" match
+**   s1   === expect tbl.dec[4].key == ":status"
+**** s1   EXPECT tbl.dec[4].key (:status) == ":status" match
+**   s1   === expect tbl.dec[4].value == "302"
+**** s1   EXPECT tbl.dec[4].value (302) == "302" match
+**   s1   === expect tbl.dec.size == 222
+**** s1   EXPECT tbl.dec.size (222) == "222" match
+**   s1   === txresp
+***  s1   tx: stream: 1, type: HEADERS (1), flags: 0x05, size: 13
+**   s1   Ending stream 1
+**   s1   === stream 3 {
+**   s1   Starting stream 0x7f2448003cd0
+**   s1   Waiting for stream 3
+**** dT   0.014
+**   c1   === expect tbl.enc[1].key == "location"
+**** c1   EXPECT tbl.enc[1].key (location) == "location" match
+**   c1   === expect tbl.enc[1].value == "https://www.example.com"
+**** c1   EXPECT tbl.enc[1].value (https://www.example.com) == "https://www.example.com" match
+**   c1   === expect tbl.enc[2].key == "date"
+**** c1   EXPECT tbl.enc[2].key (date) == "date" match
+**   c1   === expect tbl.enc[2].value == "Mon, 21 Oct 2013 20:13:21 GMT"
+**** c1   EXPECT tbl.enc[2].value (Mon, 21 Oct 2013 20:13:21 GMT) == "Mon, 21 Oct 2013 20:13:21 GMT" match
+**   c1   === expect tbl.enc[3].key == "cache-control"
+**** c1   EXPECT tbl.enc[3].key (cache-control) == "cache-control" match
+**   c1   === expect tbl.enc[3].value == "private"
+**** c1   EXPECT tbl.enc[3].value (private) == "private" match
+**   c1   === expect tbl.enc[4].key == ":status"
+**** c1   EXPECT tbl.enc[4].key (:status) == ":status" match
+**   c1   === expect tbl.enc[4].value == "302"
+**** c1   EXPECT tbl.enc[4].value (302) == "302" match
+**   c1   === expect tbl.enc.size == 222
+**** c1   EXPECT tbl.enc.size (222) == "222" match
+**   c1   === rxresp
+**   s1   === rxreq
+***  c1   rx: stream: 1, type: HEADERS (1), flags: 0x05, size: 13
+***  c1   flag: END_STREAM
+**** c1   header[ 0]: :status : 200
+**   c1   Ending stream 1
+**   c1   === stream 3 {
+**   c1   Starting stream 0x7f2440003fa0
+**   c1   Waiting for stream 3
+**   c1   === txreq \
+***  c1   tx: stream: 3, type: HEADERS (1), flags: 0x05, size: 44
+***  s1   rx: stream: 3, type: HEADERS (1), flags: 0x05, size: 44
+***  s1   flag: END_STREAM
+**** s1   header[ 0]: :status : 307
+**** s1   header[ 1]: cache-control : private
+**** s1   header[ 2]: date : Mon, 21 Oct 2013 20:13:21 GMT
+**** s1   header[ 3]: location : https://www.example.com
+**** s1   header[ 4]: :path : /
+**** s1   header[ 5]: :method : GET
+**** s1   header[ 6]: :scheme : http
+**   s1   === expect tbl.dec[1].key == ":status"
+**** s1   EXPECT tbl.dec[1].key (:status) == ":status" match
+**   s1   === expect tbl.dec[1].value == "307"
+**** s1   EXPECT tbl.dec[1].value (307) == "307" match
+**   s1   === expect tbl.dec[2].key == "location"
+**** s1   EXPECT tbl.dec[2].key (location) == "location" match
+**   s1   === expect tbl.dec[2].value == "https://www.example.com"
+**** s1   EXPECT tbl.dec[2].value (https://www.example.com) == "https://www.example.com" match
+**   s1   === expect tbl.dec[3].key == "date"
+**** s1   EXPECT tbl.dec[3].key (date) == "date" match
+**   s1   === expect tbl.dec[3].value == "Mon, 21 Oct 2013 20:13:21 GMT"
+**** s1   EXPECT tbl.dec[3].value (Mon, 21 Oct 2013 20:13:21 GMT) == "Mon, 21 Oct 2013 20:13:21 GMT" match
+**   s1   === expect tbl.dec[4].key == "cache-control"
+**** s1   EXPECT tbl.dec[4].key (cache-control) == "cache-control" match
+**   s1   === expect tbl.dec[4].value == "private"
+**** s1   EXPECT tbl.dec[4].value (private) == "private" match
+**   s1   === expect tbl.dec.size == 222
+**** s1   EXPECT tbl.dec.size (222) == "222" match
+**   s1   === txresp
+***  s1   tx: stream: 3, type: HEADERS (1), flags: 0x05, size: 13
+**   s1   Ending stream 3
+**   s1   === stream 5 {
+**   c1   === expect tbl.enc[1].key == ":status"
+**** c1   EXPECT tbl.enc[1].key (:status) == ":status" match
+**   c1   === expect tbl.enc[1].value == "307"
+**   s1   Starting stream 0x7f2448004ec0
+**** c1   EXPECT tbl.enc[1].value (307) == "307" match
+**   c1   === expect tbl.enc[2].key == "location"
+**** c1   EXPECT tbl.enc[2].key (location) == "location" match
+**   c1   === expect tbl.enc[2].value == "https://www.example.com"
+**** c1   EXPECT tbl.enc[2].value (https://www.example.com) == "https://www.example.com" match
+**   c1   === expect tbl.enc[3].key == "date"
+**** c1   EXPECT tbl.enc[3].key (date) == "date" match
+**   c1   === expect tbl.enc[3].value == "Mon, 21 Oct 2013 20:13:21 GMT"
+**** c1   EXPECT tbl.enc[3].value (Mon, 21 Oct 2013 20:13:21 GMT) == "Mon, 21 Oct 2013 20:13:21 GMT" match
+**   c1   === expect tbl.enc[4].key == "cache-control"
+**** c1   EXPECT tbl.enc[4].key (cache-control) == "cache-control" match
+**   c1   === expect tbl.enc[4].value == "private"
+**** c1   EXPECT tbl.enc[4].value (private) == "private" match
+**   c1   === expect tbl.enc.size == 222
+**** c1   EXPECT tbl.enc.size (222) == "222" match
+**   c1   === rxresp
+**   s1   Waiting for stream 5
+***  c1   rx: stream: 3, type: HEADERS (1), flags: 0x05, size: 13
+***  c1   flag: END_STREAM
+**** c1   header[ 0]: :status : 200
+**   c1   Ending stream 3
+**   s1   === rxreq
+**   c1   === stream 5 {
+**   c1   Starting stream 0x7f24400051e0
+**   c1   Waiting for stream 5
+**   c1   === txreq -idxHdr 8 \
+***  c1   tx: stream: 5, type: HEADERS (1), flags: 0x05, size: 134
+***  s1   rx: stream: 5, type: HEADERS (1), flags: 0x05, size: 134
+***  s1   flag: END_STREAM
+**** s1   header[ 0]: :status : 200
+**** s1   header[ 1]: cache-control : private
+**** s1   header[ 2]: date : Mon, 21 Oct 2013 20:13:22 GMT
+**** s1   header[ 3]: location : https://www.example.com
+**** s1   header[ 4]: content-encoding : gzip
+**** s1   header[ 5]: set-cookie : foo=ASDJKHQKBZXOQWEOPIUAXQWEOIU; max-age=3600; version=1
+**** s1   header[ 6]: :path : /
+**** s1   header[ 7]: :method : GET
+**** s1   header[ 8]: :scheme : http
+**   c1   === expect tbl.enc[1].key == "set-cookie"
+**** c1   EXPECT tbl.enc[1].key (set-cookie) == "set-cookie" match
+**   c1   === expect tbl.enc[1].value == "foo=ASDJKHQKBZXOQWEOPIUAXQWEOIU;...
+**** c1   EXPECT tbl.enc[1].value (foo=ASDJKHQKBZXOQWEOPIUAXQWEOIU; max-age=3600; version=1) == "foo=ASDJKHQKBZXOQWEOPIUAXQWEOIU; max-age=3600; version=1" match
+**   c1   === expect tbl.enc[2].key == "content-encoding"
+**** c1   EXPECT tbl.enc[2].key (content-encoding) == "content-encoding" match
+**   c1   === expect tbl.enc[2].value == "gzip"
+**   s1   === expect tbl.dec[1].key == "set-cookie"
+**** c1   EXPECT tbl.enc[2].value (gzip) == "gzip" match
+**   c1   === expect tbl.enc[3].key == "date"
+**** c1   EXPECT tbl.enc[3].key (date) == "date" match
+**   c1   === expect tbl.enc[3].value == "Mon, 21 Oct 2013 20:13:22 GMT"
+**** s1   EXPECT tbl.dec[1].key (set-cookie) == "set-cookie" match
+**** c1   EXPECT tbl.enc[3].value (Mon, 21 Oct 2013 20:13:22 GMT) == "Mon, 21 Oct 2013 20:13:22 GMT" match
+**   c1   === expect tbl.enc.size == 215
+**   s1   === expect tbl.dec[1].value == "foo=ASDJKHQKBZXOQWEOPIUAXQWEOIU;...
+**** s1   EXPECT tbl.dec[1].value (foo=ASDJKHQKBZXOQWEOPIUAXQWEOIU; max-age=3600; version=1) == "foo=ASDJKHQKBZXOQWEOPIUAXQWEOIU; max-age=3600; version=1" match
+**** c1   EXPECT tbl.enc.size (215) == "215" match
+**   s1   === expect tbl.dec[2].key == "content-encoding"
+**   c1   === rxresp
+**** s1   EXPECT tbl.dec[2].key (content-encoding) == "content-encoding" match
+**   s1   === expect tbl.dec[2].value == "gzip"
+**** s1   EXPECT tbl.dec[2].value (gzip) == "gzip" match
+**   s1   === expect tbl.dec[3].key == "date"
+**** s1   EXPECT tbl.dec[3].key (date) == "date" match
+**   s1   === expect tbl.dec[3].value == "Mon, 21 Oct 2013 20:13:22 GMT"
+**** s1   EXPECT tbl.dec[3].value (Mon, 21 Oct 2013 20:13:22 GMT) == "Mon, 21 Oct 2013 20:13:22 GMT" match
+**   s1   === expect tbl.dec.size == 215
+**** s1   EXPECT tbl.dec.size (215) == "215" match
+**   s1   === txresp
+***  s1   tx: stream: 5, type: HEADERS (1), flags: 0x05, size: 13
+***  c1   rx: stream: 5, type: HEADERS (1), flags: 0x05, size: 13
+***  c1   flag: END_STREAM
+**** dT   0.015
+**** c1   header[ 0]: :status : 200
+**   c1   Ending stream 5
+**   s1   Ending stream 5
+***  c1   closing fd 6
+**   c1   Ending
+**   top  === server s1 -wait
+**   s1   Waiting for server (4/-1)
+***  s1   shutting fd 5
+**   s1   Ending
+*    top  RESETTING after ./tests/a02008.vtc
+*    top  TEST ./tests/a02008.vtc completed
+#    top  TEST ./tests/a02008.vtc passed (0.076)

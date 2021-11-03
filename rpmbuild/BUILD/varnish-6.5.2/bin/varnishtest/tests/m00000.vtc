@@ -1,0 +1,301 @@
+varnishtest "Test std, vtc & debug vmod"
+
+server s1 {
+	rxreq
+	expect req.http.encrypted == "ROT52"
+	txresp -hdr "foo: bAr" -hdr "bar: fOo" -bodylen 4
+} -start
+
+varnish v1 -vcl+backend {
+	import std;
+	import debug;
+	import vtc;
+	import debug;		// again
+	import debug as dbg;
+	import debug as dbg;	// again
+
+	sub log {
+		std.log("VCL" + " initiated " + "log");
+		std.log("01030507090b0d0f" +
+			"11131517191b1d1f" +
+			"21232527292b2d2f" +
+			"31333537393b3d3f" +
+			"41434547494b4d4f" +
+			"51535557595b5d5f" +
+			"61636567696b6d6f" +
+			"71737577797b7d7f" +
+			"81838587898b8d8f" +
+			"91939597999b9d9f" +
+			"a1a3a5a7a9abadaf" +
+			"b1b3b5b7b9bbbdbf" +
+			"c1c3c5c7c9cbcdcf" +
+			"d1d3d5d7d9dbdddf" +
+			"e1e3e5e7e9ebedef" +
+			"f1f3f5f7f9fbfdff");
+	}
+
+	sub vcl_init {
+		new objx = dbg.obj();
+		dbg.vsc_new();
+		call log;
+	}
+
+	sub vcl_synth {
+		set req.http.overwrite = "the workspace " +
+		    "to ensure we notice any unfinished privs";
+	}
+
+	sub priv_task {
+		debug.test_priv_task("foo");
+	}
+
+	sub vcl_recv {
+		if (req.url == "/priv-task-no-mem") {
+			vtc.workspace_alloc(client, -4);
+			call priv_task;
+			return (fail);
+		}
+		if (req.url == "/fail") {
+			debug.test_priv_task("foo");
+			return (fail);
+		}
+		debug.rot52(req);
+		debug.vsc_count();
+	}
+
+	sub vcl_deliver {
+		set resp.http.foo = std.toupper(resp.http.foo);
+		set resp.http.bar = std.tolower(resp.http.bar);
+		set resp.http.who = debug.author(mithrandir);
+		set resp.http.really = debug.author();
+		set resp.http.when = objx.date();
+		set resp.http.what = vtc.typesize("dfijlopsz");
+		set resp.http.not = vtc.typesize("*");
+		debug.test_priv_call();
+		debug.test_priv_vcl();
+		objx.test_priv_call();
+		objx.test_priv_vcl();
+		call log;
+		std.syslog(8 + 7, "Somebody runs varnishtest");
+		debug.rot52(resp);
+	}
+} -start
+
+varnish v1 -expect DEBUG.count == 0
+
+client c1 {
+	txreq -url "/bar"
+	rxresp
+	expect resp.status == 200
+	expect resp.bodylen == "4"
+	expect resp.http.foo == "BAR"
+	expect resp.http.bar == "foo"
+	expect resp.http.who == "Tollef"
+	expect resp.http.really == "Poul-Henning"
+	expect resp.http.when == "Thu, 01 Jan 1970 00:00:21 GMT"
+	expect resp.http.encrypted == "ROT52"
+	expect resp.http.what >= 16
+	expect resp.http.not == -1
+	txreq -url "/fail"
+	rxresp
+	expect resp.status == 503
+} -run
+
+client c1 {
+	txreq -url "/priv-task-no-mem"
+	rxresp
+	expect resp.status == 503
+} -run
+
+varnish v1 -expect DEBUG.count == 1
+
+logexpect l1 -v v1 -g raw -d 1 {
+	expect * 0    CLI		{^Rd vcl.load}
+	expect 0 0    VCL_Log		{^VCL initiated log}
+	# vsl_reclen = 255b minus NUL byte (last "ff" missing)
+	expect 0 0    VCL_Log		{^01030507090b0d0f11131517191b1d1f21232527292b2d2f31333537393b3d3f41434547494b4d4f51535557595b5d5f61636567696b6d6f71737577797b7d7f81838587898b8d8f91939597999b9d9fa1a3a5a7a9abadafb1b3b5b7b9bbbdbfc1c3c5c7c9cbcdcfd1d3d5d7d9dbdddfe1e3e5e7e9ebedeff1f3f5f7f9fbfd$}
+	expect 0 0    Debug		{VCL_EVENT_WARM}
+
+	expect * 1001 VCL_call		{^DELIVER}
+	expect 0 =    RespUnset	{^foo: bAr}
+	expect 0 =    RespHeader	{^foo: BAR}
+	expect 0 =    RespUnset	{^bar: fOo}
+	expect 0 =    RespHeader	{^bar: foo}
+	expect 0 =    RespHeader	{^who: Tollef}
+	expect 0 =    RespHeader	{^really: Poul-Henning}
+	expect 0 =    RespHeader	{^when: Thu, 01 Jan 1970 00:00:21 GMT}
+	expect 0 =    RespHeader	{^what: [1-9][0-9]}
+	expect 0 =    RespHeader	{^not: -1}
+	expect 0 =    VCL_Log		{^VCL initiated log}
+	expect 0 =    VCL_Log		{^01030507090b0d0f11131517191b1d1f21232527292b2d2f31333537393b3d3f41434547494b4d4f51535557595b5d5f61636567696b6d6f71737577797b7d7f81838587898b8d8f91939597999b9d9fa1a3a5a7a9abadafb1b3b5b7b9bbbdbfc1c3c5c7c9cbcdcfd1d3d5d7d9dbdddfe1e3e5e7e9ebedeff1f3f5f7f9fbfd$}
+	expect 0 =    RespHeader	{^Encrypted: ROT52}
+	expect 0 =    VCL_return	{^deliver}
+} -start
+
+logexpect l1 -wait
+
+varnish v1 -errvcl {Wrong enum value.  Expected one of:} {
+	import debug;
+	sub vcl_deliver {
+		set resp.http.who = debug.author(ENUM);
+	}
+}
+
+varnish v1 -errvcl {Wrong enum value.  Expected one of:} {
+	import debug;
+	sub vcl_deliver {
+		set resp.http.who = debug.author(slink);
+	}
+}
+
+varnish v1 -errvcl {Expression has type STRING, expected REAL} {
+	import std;
+	sub vcl_deliver {
+		set resp.http.who = std.random("foo", "bar");
+	}
+}
+
+varnish v1 -errvcl {Symbol not found: 'obj'} {
+	import debug;
+	sub vcl_hit {
+		debug.rot52(obj);
+	}
+}
+
+varnish v1 -errvcl {Symbol not found: 'obj'} {
+	import debug;
+	sub vcl_deliver {
+		debug.rot52(obj);
+	}
+}
+
+varnish v1 -errvcl {Failed initialization} {
+	import debug;
+	import directors;
+	backend default { .host = "127.0.0.1"; }
+	sub vcl_init {
+		return (fail);
+		# uninitialized objects coverage
+		new xyz = debug.obj();
+		new fb = directors.fallback();
+		new hsh = directors.hash();
+		new rnd = directors.random();
+		new rr = directors.round_robin();
+		new shd = directors.shard();
+		new shp = directors.shard_param();
+	}
+}
+
+varnish v1 -cliok "param.set vcc_allow_inline_c on"
+varnish v1 -vcl {
+	import std;
+	import vtc;
+
+	backend be none;
+
+	C{
+		struct zc {
+			size_t	z;
+			char	c;
+		};
+		struct ic {
+			int	i;
+			char	c;
+		};
+		struct sc {
+			short	s;
+			char	c;
+		};
+		struct cc {
+			char	c1;
+			char	c2;
+		};
+		struct czc {
+			char	c1;
+			size_t	z;
+			char	c2;
+		};
+		struct cic {
+			char	c1;
+			int	i;
+			char	c2;
+		};
+		struct csc {
+			char	c1;
+			short	s;
+			char	c2;
+		};
+		struct uzp { /* same as vrt_blob */
+			unsigned	u;
+			size_t		z;
+			void		*p;
+		};
+
+		#define SETHDR(type)					\
+			VRT_SetHdr(ctx,					\
+			    &VGC_HDR_RESP_ ## type ## _2d_sizeof,	\
+			    VRT_INT_string(ctx, sizeof(struct type)),	\
+			    vrt_magic_string_end)
+	}C
+
+	sub vcl_recv {
+		return (synth(200));
+	}
+
+	sub vcl_synth {
+		C{ SETHDR(zc); }C
+		set resp.http.zc-typesize = vtc.typesize("zc");
+		set resp.http.zc-match =
+		    (resp.http.zc-sizeof == resp.http.zc-typesize);
+
+		C{ SETHDR(ic); }C
+		set resp.http.ic-typesize = vtc.typesize("ic");
+		set resp.http.ic-match =
+		    (resp.http.ic-sizeof == resp.http.ic-typesize);
+
+		C{ SETHDR(sc); }C
+		set resp.http.sc-typesize = vtc.typesize("sc");
+		set resp.http.sc-match =
+		    (resp.http.sc-sizeof == resp.http.sc-typesize);
+
+		C{ SETHDR(cc); }C
+		set resp.http.cc-typesize = vtc.typesize("cc");
+		set resp.http.cc-match =
+		    (resp.http.cc-sizeof == resp.http.cc-typesize);
+
+		C{ SETHDR(czc); }C
+		set resp.http.czc-typesize = vtc.typesize("czc");
+		set resp.http.czc-match =
+		    (resp.http.czc-sizeof == resp.http.czc-typesize);
+
+		C{ SETHDR(cic); }C
+		set resp.http.cic-typesize = vtc.typesize("cic");
+		set resp.http.cic-match =
+		    (resp.http.cic-sizeof == resp.http.cic-typesize);
+
+		C{ SETHDR(csc); }C
+		set resp.http.csc-typesize = vtc.typesize("csc");
+		set resp.http.csc-match =
+		    (resp.http.csc-sizeof == resp.http.csc-typesize);
+
+		C{ SETHDR(uzp); }C
+		set resp.http.uzp-typesize = vtc.typesize("uzp");
+		set resp.http.uzp-match =
+		    (resp.http.uzp-sizeof == resp.http.uzp-typesize);
+	}
+}
+
+client c1 {
+	txreq
+	rxresp
+
+	expect resp.http.zc-match == true
+	expect resp.http.ic-match == true
+	expect resp.http.sc-match == true
+	expect resp.http.cc-match == true
+
+	expect resp.http.czc-match == true
+	expect resp.http.cic-match == true
+	expect resp.http.csc-match == true
+	expect resp.http.uzp-match == true
+} -run

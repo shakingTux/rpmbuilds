@@ -1,0 +1,732 @@
+**** dT   0.000
+*    top  TEST ./tests/cookie_b00009.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 45873
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/./tests
+**** top  macro def tmpdir=/tmp/vtc.43553.1f2a76b6
+**   top  === varnishtest "Test cookie parser"
+*    top  VTEST Test cookie parser
+**   top  === varnish v1 -vcl {
+**** dT   0.004
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.43553.1f2a76b6/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 34957' -P /tmp/vtc.43553.1f2a76b6/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie && exec varnishd  -d -n /tmp/vtc.43553.1f2a76b6/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 34957' -P /tmp/vtc.43553.1f2a76b6/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs 
+***  v1   PID: 43571
+**** v1   macro def v1_pid=43571
+**** v1   macro def v1_name=/tmp/vtc.43553.1f2a76b6/v1
+**** dT   0.013
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.110
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 5
+***  v1   CLI RX  107
+**** v1   CLI RX|aurjanbhgglzwyohxfewgrtagoyziyjr
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** dT   0.111
+**** v1   CLI TX|auth 692b604d2aeebab5d3f517d92a472305a8353262892675c0d1b63ba59e0f6b9d
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|
+**** v1   CLI TX|\timport cookie;
+**** v1   CLI TX|\tbackend be none;
+**** v1   CLI TX|\tsub vcl_recv { return (synth(200)); }
+**** v1   CLI TX|\tsub vcl_synth {
+**** v1   CLI TX|\t\tcookie.parse(req.http.cookie);
+**** v1   CLI TX|\t\tset resp.http.X-foo = cookie.get_string();
+**** v1   CLI TX|\t}
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.211
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.272
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+**** dT   0.273
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.275
+***  v1   debug|Debug: Child (43628) Started
+**** dT   0.301
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (43628) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 40147
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 40147
+**   v1   Listen on 127.0.0.1 40147
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=40147
+**** v1   macro def v1_sock=127.0.0.1 40147
+**** dT   0.312
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892516.162374/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892516.162374/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 40147
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 40147
+
+**** dT   0.402
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 40147 (1 iterations)
+***  c1   Connect to 127.0.0.1 40147
+***  c1   connected fd 15 from 127.0.0.1 38840 to 127.0.0.1 40147
+**   c1   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.403
+**   c1   === rxresp
+**** dT   0.404
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:48:36 GMT\r
+**** c1   rxhdr|Server: Varnish\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;\r
+**** c1   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c1   rxhdr|Retry-After: 5\r
+**** c1   rxhdr|Content-Length: 227\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 309
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Date: Fri, 22 Oct 2021 08:48:36 GMT
+**** c1   http[ 4] |Server: Varnish
+**** c1   http[ 5] |X-Varnish: 1001
+**** c1   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** c1   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c1   http[ 8] |Retry-After: 5
+**** c1   http[ 9] |Content-Length: 227
+**** c1   http[10] |Accept-Ranges: bytes
+**** c1   http[11] |Connection: keep-alive
+**** c1   c-l|<!DOCTYPE html>
+**** c1   c-l|<html>
+**** c1   c-l|  <head>
+**** c1   c-l|    <title>200 OK</title>
+**** c1   c-l|  </head>
+**** c1   c-l|  <body>
+**** c1   c-l|    <h1>Error 200 OK</h1>
+**** c1   c-l|    <p>OK</p>
+**** c1   c-l|    <h3>Guru Meditation:</h3>
+**** c1   c-l|    <p>XID: 1001</p>
+**** c1   c-l|    <hr>
+**** c1   c-l|    <p>Varnish cache server</p>
+**** c1   c-l|  </body>
+**** c1   c-l|</html>
+**** c1   bodylen = 227
+**   c1   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c1   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;" match
+***  c1   closing fd 15
+**   c1   Ending
+**   top  === client c2 {
+**   c2   Starting client
+**   c2   Waiting for client
+**   c2   Started on 127.0.0.1 40147 (1 iterations)
+***  c2   Connect to 127.0.0.1 40147
+***  c2   connected fd 15 from 127.0.0.1 38842 to 127.0.0.1 40147
+**   c2   === txreq -hdr "Cookie: __utmc=253898641; __utma=253898641.65462...
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Cookie: __utmc=253898641; __utma=253898641.654622101.1372224466.1372224466.1372224466.1; __utmb=253898641.44.10.1372224466; __utmz=253898641.1372224466.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=index%2Bof%2Bccnp%2Bpdf\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === rxresp
+**** dT   0.406
+**** c2   rxhdr|HTTP/1.1 200 OK\r
+**** c2   rxhdr|Date: Fri, 22 Oct 2021 08:48:36 GMT\r
+**** c2   rxhdr|Server: Varnish\r
+**** c2   rxhdr|X-Varnish: 1003\r
+**** c2   rxhdr|X-foo: __utmc=253898641; __utma=253898641.654622101.1372224466.1372224466.1372224466.1; __utmb=253898641.44.10.1372224466; __utmz=253898641.1372224466.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=index%2Bof%2Bccnp%2Bpdf;\r
+**** c2   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c2   rxhdr|Retry-After: 5\r
+**** c2   rxhdr|Content-Length: 227\r
+**** c2   rxhdr|Accept-Ranges: bytes\r
+**** c2   rxhdr|Connection: keep-alive\r
+**** c2   rxhdr|\r
+**** c2   rxhdrlen = 447
+**** c2   http[ 0] |HTTP/1.1
+**** c2   http[ 1] |200
+**** c2   http[ 2] |OK
+**** c2   http[ 3] |Date: Fri, 22 Oct 2021 08:48:36 GMT
+**** c2   http[ 4] |Server: Varnish
+**** c2   http[ 5] |X-Varnish: 1003
+**** c2   http[ 6] |X-foo: __utmc=253898641; __utma=253898641.654622101.1372224466.1372224466.1372224466.1; __utmb=253898641.44.10.1372224466; __utmz=253898641.1372224466.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=index%2Bof%2Bccnp%2Bpdf;
+**** c2   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c2   http[ 8] |Retry-After: 5
+**** c2   http[ 9] |Content-Length: 227
+**** c2   http[10] |Accept-Ranges: bytes
+**** c2   http[11] |Connection: keep-alive
+**** c2   c-l|<!DOCTYPE html>
+**** c2   c-l|<html>
+**** c2   c-l|  <head>
+**** c2   c-l|    <title>200 OK</title>
+**** c2   c-l|  </head>
+**** c2   c-l|  <body>
+**** c2   c-l|    <h1>Error 200 OK</h1>
+**** c2   c-l|    <p>OK</p>
+**** c2   c-l|    <h3>Guru Meditation:</h3>
+**** c2   c-l|    <p>XID: 1003</p>
+**** c2   c-l|    <hr>
+**** c2   c-l|    <p>Varnish cache server</p>
+**** c2   c-l|  </body>
+**** c2   c-l|</html>
+**** c2   bodylen = 227
+**   c2   === expect resp.http.X-foo == "__utmc=253898641; __utma=25389864...
+**** c2   EXPECT resp.http.X-foo (__utmc=253898641; __utma=253898641.654622101.1372224466.1372224466.1372224466.1; __utmb=253898641.44.10.1372224466; __utmz=253898641.1372224466.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=index%2Bof%2Bccnp%2Bpdf;) == "__utmc=253898641; __utma=253898641.654622101.1372224466.1372224466.1372224466.1; __utmb=253898641.44.10.1372224466; __utmz=253898641.1372224466.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=index%2Bof%2Bccnp%2Bpdf;" match
+***  c2   closing fd 15
+**   c2   Ending
+**   top  === client c3 {
+**   c3   Starting client
+**   c3   Waiting for client
+**   c3   Started on 127.0.0.1 40147 (1 iterations)
+***  c3   Connect to 127.0.0.1 40147
+***  c3   connected fd 15 from 127.0.0.1 38844 to 127.0.0.1 40147
+**   c3   === txreq -hdr "Cookie: "
+**** c3   txreq|GET / HTTP/1.1\r
+**** c3   txreq|Cookie: \r
+**** c3   txreq|Host: 127.0.0.1\r
+**** c3   txreq|\r
+**   c3   === rxresp
+**** dT   0.407
+**** c3   rxhdr|HTTP/1.1 200 OK\r
+**** c3   rxhdr|Date: Fri, 22 Oct 2021 08:48:36 GMT\r
+**** c3   rxhdr|Server: Varnish\r
+**** c3   rxhdr|X-Varnish: 1005\r
+**** c3   rxhdr|X-foo: \r
+**** c3   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c3   rxhdr|Retry-After: 5\r
+**** c3   rxhdr|Content-Length: 227\r
+**** c3   rxhdr|Accept-Ranges: bytes\r
+**** c3   rxhdr|Connection: keep-alive\r
+**** c3   rxhdr|\r
+**** c3   rxhdrlen = 222
+**** c3   http[ 0] |HTTP/1.1
+**** c3   http[ 1] |200
+**** c3   http[ 2] |OK
+**** c3   http[ 3] |Date: Fri, 22 Oct 2021 08:48:36 GMT
+**** c3   http[ 4] |Server: Varnish
+**** c3   http[ 5] |X-Varnish: 1005
+**** c3   http[ 6] |X-foo: 
+**** c3   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c3   http[ 8] |Retry-After: 5
+**** c3   http[ 9] |Content-Length: 227
+**** c3   http[10] |Accept-Ranges: bytes
+**** c3   http[11] |Connection: keep-alive
+**** c3   c-l|<!DOCTYPE html>
+**** c3   c-l|<html>
+**** c3   c-l|  <head>
+**** c3   c-l|    <title>200 OK</title>
+**** c3   c-l|  </head>
+**** c3   c-l|  <body>
+**** c3   c-l|    <h1>Error 200 OK</h1>
+**** c3   c-l|    <p>OK</p>
+**** c3   c-l|    <h3>Guru Meditation:</h3>
+**** c3   c-l|    <p>XID: 1005</p>
+**** c3   c-l|    <hr>
+**** c3   c-l|    <p>Varnish cache server</p>
+**** c3   c-l|  </body>
+**** c3   c-l|</html>
+**** c3   bodylen = 227
+**   c3   === expect resp.http.X-foo == ""
+**** c3   EXPECT resp.http.X-foo () == "" match
+***  c3   closing fd 15
+**   c3   Ending
+**   top  === client c4 {
+**   c4   Starting client
+**   c4   Waiting for client
+**   c4   Started on 127.0.0.1 40147 (1 iterations)
+***  c4   Connect to 127.0.0.1 40147
+***  c4   connected fd 15 from 127.0.0.1 38846 to 127.0.0.1 40147
+**   c4   === txreq -hdr "Cookie: emptycookie="
+**** c4   txreq|GET / HTTP/1.1\r
+**** c4   txreq|Cookie: emptycookie=\r
+**** c4   txreq|Host: 127.0.0.1\r
+**** c4   txreq|\r
+**   c4   === rxresp
+**** dT   0.408
+**** c4   rxhdr|HTTP/1.1 200 OK\r
+**** c4   rxhdr|Date: Fri, 22 Oct 2021 08:48:36 GMT\r
+**** c4   rxhdr|Server: Varnish\r
+**** c4   rxhdr|X-Varnish: 1007\r
+**** c4   rxhdr|X-foo: \r
+**** c4   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c4   rxhdr|Retry-After: 5\r
+**** c4   rxhdr|Content-Length: 227\r
+**** c4   rxhdr|Accept-Ranges: bytes\r
+**** c4   rxhdr|Connection: keep-alive\r
+**** c4   rxhdr|\r
+**** c4   rxhdrlen = 222
+**** c4   http[ 0] |HTTP/1.1
+**** c4   http[ 1] |200
+**** c4   http[ 2] |OK
+**** c4   http[ 3] |Date: Fri, 22 Oct 2021 08:48:36 GMT
+**** c4   http[ 4] |Server: Varnish
+**** c4   http[ 5] |X-Varnish: 1007
+**** c4   http[ 6] |X-foo: 
+**** c4   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c4   http[ 8] |Retry-After: 5
+**** c4   http[ 9] |Content-Length: 227
+**** c4   http[10] |Accept-Ranges: bytes
+**** c4   http[11] |Connection: keep-alive
+**** c4   c-l|<!DOCTYPE html>
+**** c4   c-l|<html>
+**** c4   c-l|  <head>
+**** c4   c-l|    <title>200 OK</title>
+**** c4   c-l|  </head>
+**** c4   c-l|  <body>
+**** c4   c-l|    <h1>Error 200 OK</h1>
+**** c4   c-l|    <p>OK</p>
+**** c4   c-l|    <h3>Guru Meditation:</h3>
+**** c4   c-l|    <p>XID: 1007</p>
+**** c4   c-l|    <hr>
+**** c4   c-l|    <p>Varnish cache server</p>
+**** c4   c-l|  </body>
+**** c4   c-l|</html>
+**** c4   bodylen = 227
+**   c4   === expect resp.http.X-foo == ""
+**** c4   EXPECT resp.http.X-foo () == "" match
+***  c4   closing fd 15
+**   c4   Ending
+**   top  === client c5 {
+**   c5   Starting client
+**   c5   Waiting for client
+**   c5   Started on 127.0.0.1 40147 (1 iterations)
+***  c5   Connect to 127.0.0.1 40147
+***  c5   connected fd 15 from 127.0.0.1 38848 to 127.0.0.1 40147
+**   c5   === txreq -hdr "Cookie: cookie1=foobarbaz"
+**** c5   txreq|GET / HTTP/1.1\r
+**** c5   txreq|Cookie: cookie1=foobarbaz\r
+**** c5   txreq|Host: 127.0.0.1\r
+**** c5   txreq|\r
+**   c5   === rxresp
+**** dT   0.409
+**** c5   rxhdr|HTTP/1.1 200 OK\r
+**** c5   rxhdr|Date: Fri, 22 Oct 2021 08:48:36 GMT\r
+**** c5   rxhdr|Server: Varnish\r
+**** c5   rxhdr|X-Varnish: 1009\r
+**** c5   rxhdr|X-foo: cookie1=foobarbaz;\r
+**** c5   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c5   rxhdr|Retry-After: 5\r
+**** c5   rxhdr|Content-Length: 227\r
+**** c5   rxhdr|Accept-Ranges: bytes\r
+**** c5   rxhdr|Connection: keep-alive\r
+**** c5   rxhdr|\r
+**** c5   rxhdrlen = 240
+**** c5   http[ 0] |HTTP/1.1
+**** c5   http[ 1] |200
+**** c5   http[ 2] |OK
+**** c5   http[ 3] |Date: Fri, 22 Oct 2021 08:48:36 GMT
+**** c5   http[ 4] |Server: Varnish
+**** c5   http[ 5] |X-Varnish: 1009
+**** c5   http[ 6] |X-foo: cookie1=foobarbaz;
+**** c5   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c5   http[ 8] |Retry-After: 5
+**** c5   http[ 9] |Content-Length: 227
+**** c5   http[10] |Accept-Ranges: bytes
+**** c5   http[11] |Connection: keep-alive
+**** c5   c-l|<!DOCTYPE html>
+**** c5   c-l|<html>
+**** c5   c-l|  <head>
+**** c5   c-l|    <title>200 OK</title>
+**** c5   c-l|  </head>
+**** c5   c-l|  <body>
+**** c5   c-l|    <h1>Error 200 OK</h1>
+**** c5   c-l|    <p>OK</p>
+**** c5   c-l|    <h3>Guru Meditation:</h3>
+**** c5   c-l|    <p>XID: 1009</p>
+**** c5   c-l|    <hr>
+**** c5   c-l|    <p>Varnish cache server</p>
+**** c5   c-l|  </body>
+**** c5   c-l|</html>
+**** c5   bodylen = 227
+**   c5   === expect resp.http.X-foo == "cookie1=foobarbaz;"
+**** c5   EXPECT resp.http.X-foo (cookie1=foobarbaz;) == "cookie1=foobarbaz;" match
+***  c5   closing fd 15
+**   c5   Ending
+**   top  === client c6 {
+**   c6   Starting client
+**   c6   Waiting for client
+**   c6   Started on 127.0.0.1 40147 (1 iterations)
+***  c6   Connect to 127.0.0.1 40147
+***  c6   connected fd 15 from 127.0.0.1 38850 to 127.0.0.1 40147
+**   c6   === txreq -hdr "Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc112...
+**** c6   txreq|GET / HTTP/1.1\r
+**** c6   txreq|Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128a;=\r
+**** c6   txreq|X-Not-Cookie: sessionid=a707505310ddf259bb290d3ca63fc561\r
+**** c6   txreq|Host: 127.0.0.1\r
+**** c6   txreq|\r
+**   c6   === rxresp
+**** dT   0.410
+**** c6   rxhdr|HTTP/1.1 200 OK\r
+**** c6   rxhdr|Date: Fri, 22 Oct 2021 08:48:36 GMT\r
+**** c6   rxhdr|Server: Varnish\r
+**** c6   rxhdr|X-Varnish: 1011\r
+**** c6   rxhdr|X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128a;\r
+**** c6   rxhdr|Content-Type: text/html; charset=utf-8\r
+**** c6   rxhdr|Retry-After: 5\r
+**** c6   rxhdr|Content-Length: 227\r
+**** c6   rxhdr|Accept-Ranges: bytes\r
+**** c6   rxhdr|Connection: keep-alive\r
+**** c6   rxhdr|\r
+**** c6   rxhdrlen = 265
+**** c6   http[ 0] |HTTP/1.1
+**** c6   http[ 1] |200
+**** c6   http[ 2] |OK
+**** c6   http[ 3] |Date: Fri, 22 Oct 2021 08:48:36 GMT
+**** c6   http[ 4] |Server: Varnish
+**** c6   http[ 5] |X-Varnish: 1011
+**** c6   http[ 6] |X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128a;
+**** c6   http[ 7] |Content-Type: text/html; charset=utf-8
+**** c6   http[ 8] |Retry-After: 5
+**** c6   http[ 9] |Content-Length: 227
+**** c6   http[10] |Accept-Ranges: bytes
+**** c6   http[11] |Connection: keep-alive
+**** c6   c-l|<!DOCTYPE html>
+**** c6   c-l|<html>
+**** c6   c-l|  <head>
+**** c6   c-l|    <title>200 OK</title>
+**** c6   c-l|  </head>
+**** c6   c-l|  <body>
+**** c6   c-l|    <h1>Error 200 OK</h1>
+**** c6   c-l|    <p>OK</p>
+**** c6   c-l|    <h3>Guru Meditation:</h3>
+**** c6   c-l|    <p>XID: 1011</p>
+**** c6   c-l|    <hr>
+**** c6   c-l|    <p>Varnish cache server</p>
+**** c6   c-l|  </body>
+**** c6   c-l|</html>
+**** c6   bodylen = 227
+**   c6   === expect resp.http.X-foo == "csrftoken=0e0c3616e41a6bd561b72b7...
+**** c6   EXPECT resp.http.X-foo (csrftoken=0e0c3616e41a6bd561b72b7f5fc1128a;) == "csrftoken=0e0c3616e41a6bd561b72b7f5fc1128a;" match
+***  c6   closing fd 15
+**   c6   Ending
+*    top  RESETTING after ./tests/cookie_b00009.vtc
+**   v1   Wait
+**** v1   CLI TX|backend.list
+**** dT   0.411
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin    Probe    Health    Last change
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   0.412
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 38840 a0 127.0.0.1 40147 1634892516.453577 22
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892516.453750 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892516.453750 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 38840 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** v1   vsl|       1001 VCL_return      c synth
+**** v1   vsl|       1001 VCL_call        c HASH
+**** v1   vsl|       1001 VCL_return      c lookup
+**** v1   vsl|       1001 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1001 RespStatus      c 200
+**** v1   vsl|       1001 RespReason      c OK
+**** v1   vsl|       1001 RespHeader      c Date: Fri, 22 Oct 2021 08:48:36 GMT
+**** v1   vsl|       1001 RespHeader      c Server: Varnish
+**** v1   vsl|       1001 RespHeader      c X-Varnish: 1001
+**** v1   vsl|       1001 VCL_call        c SYNTH
+**** v1   vsl|       1001 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1001 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128f; sessionid=a707505310ddf259bb290d3ca63fc560;
+**** v1   vsl|       1001 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1001 RespHeader      c Retry-After: 5
+**** v1   vsl|       1001 VCL_return      c deliver
+**** v1   vsl|       1001 Timestamp       c Process: 1634892516.453869 0.000119 0.000119
+**** v1   vsl|       1001 RespHeader      c Content-Length: 227
+**** v1   vsl|       1001 Storage         c malloc Transient
+**** v1   vsl|       1001 Filters         c 
+**** v1   vsl|       1001 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1001 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1001 Timestamp       c Resp: 1634892516.453914 0.000164 0.000044
+**** v1   vsl|       1001 ReqAcct         c 131 0 131 309 227 536
+**** v1   vsl|       1001 End             c 
+**** v1   vsl|       1000 SessClose       c REM_CLOSE 0.002
+**** v1   vsl|       1000 End             c 
+**** v1   vsl|       1002 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1002 SessOpen        c 127.0.0.1 38842 a0 127.0.0.1 40147 1634892516.455419 26
+**** v1   vsl|       1002 Link            c req 1003 rxreq
+**** v1   vsl|       1003 Begin           c req 1002 rxreq
+**** v1   vsl|       1003 Timestamp       c Start: 1634892516.455482 0.000000 0.000000
+**** v1   vsl|       1003 Timestamp       c Req: 1634892516.455482 0.000000 0.000000
+**** v1   vsl|       1003 VCL_use         c vcl1
+**** v1   vsl|       1003 ReqStart        c 127.0.0.1 38842 a0
+**** v1   vsl|       1003 ReqMethod       c GET
+**** v1   vsl|       1003 ReqURL          c /
+**** v1   vsl|       1003 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1003 ReqHeader       c Cookie: __utmc=253898641; __utma=253898641.654622101.1372224466.1372224466.1372224466.1; __utmb=253898641.44.10.1372224466; __utmz=253898641.1372224466.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=index%2Bof%2Bccnp%2Bpdf
+**** v1   vsl|       1003 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1003 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1003 VCL_call        c RECV
+**** v1   vsl|       1003 VCL_return      c synth
+**** v1   vsl|       1003 VCL_call        c HASH
+**** v1   vsl|       1003 VCL_return      c lookup
+**** v1   vsl|       1003 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1003 RespStatus      c 200
+**** v1   vsl|       1003 RespReason      c OK
+**** v1   vsl|       1003 RespHeader      c Date: Fri, 22 Oct 2021 08:48:36 GMT
+**** v1   vsl|       1003 RespHeader      c Server: Varnish
+**** v1   vsl|       1003 RespHeader      c X-Varnish: 1003
+**** v1   vsl|       1003 VCL_call        c SYNTH
+**** v1   vsl|       1003 Debug           c cookie: parsed 4 cookies.
+**** v1   vsl|       1003 RespHeader      c X-foo: __utmc=253898641; __utma=253898641.654622101.1372224466.1372224466.1372224466.1; __utmb=253898641.44.10.1372224466; __utmz=253898641.1372224466.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=index%2Bof%2Bccnp%2Bpdf;
+**** v1   vsl|       1003 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1003 RespHeader      c Retry-After: 5
+**** v1   vsl|       1003 VCL_return      c deliver
+**** v1   vsl|       1003 Timestamp       c Process: 1634892516.455520 0.000037 0.000037
+**** v1   vsl|       1003 RespHeader      c Content-Length: 227
+**** v1   vsl|       1003 Storage         c malloc Transient
+**** v1   vsl|       1003 Filters         c 
+**** v1   vsl|       1003 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1003 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1003 Timestamp       c Resp: 1634892516.455583 0.000100 0.000062
+**** v1   vsl|       1003 ReqAcct         c 269 0 269 447 227 674
+**** v1   vsl|       1003 End             c 
+**** v1   vsl|       1002 SessClose       c REM_CLOSE 0.002
+**** v1   vsl|       1002 End             c 
+**** v1   vsl|       1004 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1004 SessOpen        c 127.0.0.1 38844 a0 127.0.0.1 40147 1634892516.457260 27
+**** v1   vsl|       1004 Link            c req 1005 rxreq
+**** v1   vsl|       1005 Begin           c req 1004 rxreq
+**** v1   vsl|       1005 Timestamp       c Start: 1634892516.457278 0.000000 0.000000
+**** v1   vsl|       1005 Timestamp       c Req: 1634892516.457278 0.000000 0.000000
+**** v1   vsl|       1005 VCL_use         c vcl1
+**** v1   vsl|       1005 ReqStart        c 127.0.0.1 38844 a0
+**** v1   vsl|       1005 ReqMethod       c GET
+**** v1   vsl|       1005 ReqURL          c /
+**** v1   vsl|       1005 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1005 ReqHeader       c Cookie:
+**** v1   vsl|       1005 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1005 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1005 VCL_call        c RECV
+**** v1   vsl|       1005 VCL_return      c synth
+**** v1   vsl|       1005 VCL_call        c HASH
+**** v1   vsl|       1005 VCL_return      c lookup
+**** v1   vsl|       1005 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1005 RespStatus      c 200
+**** v1   vsl|       1005 RespReason      c OK
+**** v1   vsl|       1005 RespHeader      c Date: Fri, 22 Oct 2021 08:48:36 GMT
+**** v1   vsl|       1005 RespHeader      c Server: Varnish
+**** v1   vsl|       1005 RespHeader      c X-Varnish: 1005
+**** v1   vsl|       1005 VCL_call        c SYNTH
+**** v1   vsl|       1005 Debug           c cookie: nothing to parse
+**** v1   vsl|       1005 RespHeader      c X-foo: 
+**** v1   vsl|       1005 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1005 RespHeader      c Retry-After: 5
+**** v1   vsl|       1005 VCL_return      c deliver
+**** v1   vsl|       1005 Timestamp       c Process: 1634892516.457302 0.000024 0.000024
+**** v1   vsl|       1005 RespHeader      c Content-Length: 227
+**** v1   vsl|       1005 Storage         c malloc Transient
+**** v1   vsl|       1005 Filters         c 
+**** v1   vsl|       1005 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1005 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1005 Timestamp       c Resp: 1634892516.457356 0.000077 0.000053
+**** v1   vsl|       1005 ReqAcct         c 45 0 45 222 227 449
+**** v1   vsl|       1005 End             c 
+**** v1   vsl|       1004 SessClose       c REM_CLOSE 0.001
+**** v1   vsl|       1004 End             c 
+**** v1   vsl|       1006 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1006 SessOpen        c 127.0.0.1 38846 a0 127.0.0.1 40147 1634892516.458316 22
+**** v1   vsl|       1006 Link            c req 1007 rxreq
+**** v1   vsl|       1007 Begin           c req 1006 rxreq
+**** v1   vsl|       1007 Timestamp       c Start: 1634892516.458375 0.000000 0.000000
+**** v1   vsl|       1007 Timestamp       c Req: 1634892516.458375 0.000000 0.000000
+**** v1   vsl|       1007 VCL_use         c vcl1
+**** v1   vsl|       1007 ReqStart        c 127.0.0.1 38846 a0
+**** v1   vsl|       1007 ReqMethod       c GET
+**** v1   vsl|       1007 ReqURL          c /
+**** v1   vsl|       1007 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1007 ReqHeader       c Cookie: emptycookie=
+**** v1   vsl|       1007 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1007 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1007 VCL_call        c RECV
+**** v1   vsl|       1007 VCL_return      c synth
+**** v1   vsl|       1007 VCL_call        c HASH
+**** v1   vsl|       1007 VCL_return      c lookup
+**** v1   vsl|       1007 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1007 RespStatus      c 200
+**** v1   vsl|       1007 RespReason      c OK
+**** v1   vsl|       1007 RespHeader      c Date: Fri, 22 Oct 2021 08:48:36 GMT
+**** v1   vsl|       1007 RespHeader      c Server: Varnish
+**** v1   vsl|       1007 RespHeader      c X-Varnish: 1007
+**** v1   vsl|       1007 VCL_call        c SYNTH
+**** v1   vsl|       1007 Debug           c cookie: parsed 1 cookies.
+**** v1   vsl|       1007 RespHeader      c X-foo: 
+**** v1   vsl|       1007 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1007 RespHeader      c Retry-After: 5
+**** v1   vsl|       1007 VCL_return      c deliver
+**** v1   vsl|       1007 Timestamp       c Process: 1634892516.458402 0.000027 0.000027
+**** v1   vsl|       1007 RespHeader      c Content-Length: 227
+**** v1   vsl|       1007 Storage         c malloc Transient
+**** v1   vsl|       1007 Filters         c 
+**** v1   vsl|       1007 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1007 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1007 Timestamp       c Resp: 1634892516.458454 0.000078 0.000051
+**** v1   vsl|       1007 ReqAcct         c 57 0 57 222 227 449
+**** v1   vsl|       1007 End             c 
+**** v1   vsl|       1006 SessClose       c REM_CLOSE 0.001
+**** v1   vsl|       1006 End             c 
+**** v1   vsl|       1008 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1008 SessOpen        c 127.0.0.1 38848 a0 127.0.0.1 40147 1634892516.459401 26
+**** v1   vsl|       1008 Link            c req 1009 rxreq
+**** v1   vsl|       1009 Begin           c req 1008 rxreq
+**** v1   vsl|       1009 Timestamp       c Start: 1634892516.459425 0.000000 0.000000
+**** v1   vsl|       1009 Timestamp       c Req: 1634892516.459425 0.000000 0.000000
+**** v1   vsl|       1009 VCL_use         c vcl1
+**** v1   vsl|       1009 ReqStart        c 127.0.0.1 38848 a0
+**** v1   vsl|       1009 ReqMethod       c GET
+**** v1   vsl|       1009 ReqURL          c /
+**** v1   vsl|       1009 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1009 ReqHeader       c Cookie: cookie1=foobarbaz
+**** v1   vsl|       1009 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1009 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1009 VCL_call        c RECV
+**** v1   vsl|       1009 VCL_return      c synth
+**** v1   vsl|       1009 VCL_call        c HASH
+**** v1   vsl|       1009 VCL_return      c lookup
+**** v1   vsl|       1009 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1009 RespStatus      c 200
+**** v1   vsl|       1009 RespReason      c OK
+**** v1   vsl|       1009 RespHeader      c Date: Fri, 22 Oct 2021 08:48:36 GMT
+**** v1   vsl|       1009 RespHeader      c Server: Varnish
+**** v1   vsl|       1009 RespHeader      c X-Varnish: 1009
+**** v1   vsl|       1009 VCL_call        c SYNTH
+**** v1   vsl|       1009 Debug           c cookie: parsed 1 cookies.
+**** v1   vsl|       1009 RespHeader      c X-foo: cookie1=foobarbaz;
+**** v1   vsl|       1009 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1009 RespHeader      c Retry-After: 5
+**** v1   vsl|       1009 VCL_return      c deliver
+**** v1   vsl|       1009 Timestamp       c Process: 1634892516.459450 0.000025 0.000025
+**** v1   vsl|       1009 RespHeader      c Content-Length: 227
+**** v1   vsl|       1009 Storage         c malloc Transient
+**** v1   vsl|       1009 Filters         c 
+**** v1   vsl|       1009 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1009 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1009 Timestamp       c Resp: 1634892516.459496 0.000071 0.000046
+**** v1   vsl|       1009 ReqAcct         c 62 0 62 240 227 467
+**** v1   vsl|       1009 End             c 
+**** v1   vsl|       1008 SessClose       c REM_CLOSE 0.001
+**** v1   vsl|       1008 End             c 
+**** v1   vsl|       1010 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1010 SessOpen        c 127.0.0.1 38850 a0 127.0.0.1 40147 1634892516.460504 27
+**** v1   vsl|       1010 Link            c req 1011 rxreq
+**** v1   vsl|       1011 Begin           c req 1010 rxreq
+**** v1   vsl|       1011 Timestamp       c Start: 1634892516.460550 0.000000 0.000000
+**** v1   vsl|       1011 Timestamp       c Req: 1634892516.460550 0.000000 0.000000
+**** v1   vsl|       1011 VCL_use         c vcl1
+**** v1   vsl|       1011 ReqStart        c 127.0.0.1 38850 a0
+**** v1   vsl|       1011 ReqMethod       c GET
+**** v1   vsl|       1011 ReqURL          c /
+**** v1   vsl|       1011 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1011 ReqHeader       c Cookie: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128a;=
+**** v1   vsl|       1011 ReqHeader       c X-Not-Cookie: sessionid=a707505310ddf259bb290d3ca63fc561
+**** v1   vsl|       1011 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1011 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1011 VCL_call        c RECV
+**** v1   vsl|       1011 VCL_return      c synth
+**** v1   vsl|       1011 VCL_call        c HASH
+**** v1   vsl|       1011 VCL_return      c lookup
+**** v1   vsl|       1011 RespProtocol    c HTTP/1.1
+**** v1   vsl|       1011 RespStatus      c 200
+**** v1   vsl|       1011 RespReason      c OK
+**** v1   vsl|       1011 RespHeader      c Date: Fri, 22 Oct 2021 08:48:36 GMT
+**** v1   vsl|       1011 RespHeader      c Server: Varnish
+**** v1   vsl|       1011 RespHeader      c X-Varnish: 1011
+**** v1   vsl|       1011 VCL_call        c SYNTH
+**** v1   vsl|       1011 Debug           c cookie: parsed 2 cookies.
+**** v1   vsl|       1011 RespHeader      c X-foo: csrftoken=0e0c3616e41a6bd561b72b7f5fc1128a;
+**** v1   vsl|       1011 RespHeader      c Content-Type: text/html; charset=utf-8
+**** v1   vsl|       1011 RespHeader      c Retry-After: 5
+**** v1   vsl|       1011 VCL_return      c deliver
+**** v1   vsl|       1011 Timestamp       c Process: 1634892516.460578 0.000028 0.000028
+**** v1   vsl|       1011 RespHeader      c Content-Length: 227
+**** v1   vsl|       1011 Storage         c malloc Transient
+**** v1   vsl|       1011 Filters         c 
+**** v1   vsl|       1011 RespHeader      c Accept-Ranges: bytes
+**** v1   vsl|       1011 RespHeader      c Connection: keep-alive
+**** v1   vsl|       1011 Timestamp       c Resp: 1634892516.460625 0.000074 0.000046
+**** v1   vsl|       1011 ReqAcct         c 147 0 147 265 227 492
+**** v1   vsl|       1011 End             c 
+**** v1   vsl|       1010 SessClose       c REM_CLOSE 0.001
+**** v1   vsl|       1010 End             c 
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 55 Backend name   Admin    Probe    Health    Last change
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   1.411
+***  v1   debug|Info: Child (43628) ended
+***  v1   debug|Info: Child (43628) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+**** dT   1.412
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** v1   STDOUT EOF
+**** dT   1.414
+**   v1   WAIT4 pid=43571 status=0x0000 (user 0.145351 sys 0.034467)
+*    top  TEST ./tests/cookie_b00009.vtc completed
+#    top  TEST ./tests/cookie_b00009.vtc passed (1.415)

@@ -1,0 +1,159 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Upgrading to Varnish 6.3 &#8212; Varnish version 6.5.2 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Changes in Varnish 6.2" href="changes-6.2.html" />
+    <link rel="prev" title="Changes in Varnish 6.3" href="changes-6.3.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="changes-6.2.html" title="Changes in Varnish 6.2"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="changes-6.3.html" title="Changes in Varnish 6.3"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Varnish version 6.5.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">What’s new / Upgrading</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="upgrading-to-varnish-6-3">
+<span id="whatsnew-upgrading-6-3"></span><h1>Upgrading to Varnish 6.3<a class="headerlink" href="#upgrading-to-varnish-6-3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="for-users-of-many-and-or-labeled-vcls">
+<h2>For users of many and/or labeled VCLs<a class="headerlink" href="#for-users-of-many-and-or-labeled-vcls" title="Permalink to this headline">¶</a></h2>
+<p>Users of the advanced mechanics behind the <code class="docutils literal notranslate"><span class="pre">vcl.state</span></code> CLI command
+(most likely used via <code class="docutils literal notranslate"><span class="pre">varnishadm</span></code>) should be aware of the following
+changes, which may require adjustments to (or, more likely, allow for
+simplifications of) scripts/programs interfacing with varnish:</p>
+<p>The VCL <code class="docutils literal notranslate"><span class="pre">auto</span></code> state has been streamlined. Conceptually, it used to
+be a variant of the <code class="docutils literal notranslate"><span class="pre">warm</span></code> state which would automatically cool
+the vcl. Yet, cooling did not only transition the temperature, but
+also the state, so <code class="docutils literal notranslate"><span class="pre">auto</span></code> only worked one way - except that
+<code class="docutils literal notranslate"><span class="pre">vcl.use</span></code> or moving a label (by labeling another vcl) would also set
+<code class="docutils literal notranslate"><span class="pre">auto</span></code>, so a manual warm/cold setting would get lost.</p>
+<p>Now the <code class="docutils literal notranslate"><span class="pre">auto</span></code> state will remain no matter the actual temperature or
+labeling, so when a vcl needs to implicitly change temperature (due to
+being used or being labeled), an <code class="docutils literal notranslate"><span class="pre">auto</span></code> vcl will remain <code class="docutils literal notranslate"><span class="pre">auto</span></code>,
+and a <code class="docutils literal notranslate"><span class="pre">cold</span></code> / <code class="docutils literal notranslate"><span class="pre">warm</span></code> vcl will change state, but never become
+<code class="docutils literal notranslate"><span class="pre">auto</span></code> implicitly.</p>
+</div>
+<div class="section" id="for-developers-and-authors-of-vmods-and-api-clients">
+<h2>For developers and authors of VMODs and API clients<a class="headerlink" href="#for-developers-and-authors-of-vmods-and-api-clients" title="Permalink to this headline">¶</a></h2>
+<p>The Python 2 EOL is approaching and our build system now favors Python 3. In
+the 2020-03-15 release we plan to only support Python 3.</p>
+<p>The “vararg” <code class="docutils literal notranslate"><span class="pre">VCL_STRING_LIST</span></code> type is superseded by the array-based
+<code class="docutils literal notranslate"><span class="pre">VCL_STRANDS</span></code> type. The deprecated string list will eventually be removed
+entirely and VMOD authors are strongly encouraged to convert to strands.
+VRT functions working with string list arguments now take strands.</p>
+<p>More functions such as <code class="docutils literal notranslate"><span class="pre">VRT_Vmod_Init()</span></code> and <code class="docutils literal notranslate"><span class="pre">VRT_Vmod_Unload()</span></code> from
+the VRT namespace moved away to the Varnish Private Interface (VPI). Such
+functions were never intended for VMODs in the first place.</p>
+<p>The functions <code class="docutils literal notranslate"><span class="pre">VRT_ref_vcl()</span></code> and <code class="docutils literal notranslate"><span class="pre">VRT_rel_vcl()</span></code> were renamed to
+respectively <code class="docutils literal notranslate"><span class="pre">VRT_VCL_Prevent_Discard()</span></code> and <code class="docutils literal notranslate"><span class="pre">VRT_VCL_Allow_Discard()</span></code>.</p>
+<p>Some functions taking <code class="docutils literal notranslate"><span class="pre">VCL_IP</span></code> arguments now take a <code class="docutils literal notranslate"><span class="pre">VRT_CTX</span></code> in order
+to fail in the presence of an invalid IP address.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">vrt.h</span></code> for a list of changes since the 6.2.0 release.</p>
+<p>We sometimes use <a class="reference external" href="http://coccinelle.lip6.fr/">Coccinelle</a> to automate C code refactoring throughout the
+code base. Our collection of semantic patches may be used by VMOD and API
+clients authors and are available in the Varnish source tree in the
+<code class="docutils literal notranslate"><span class="pre">tools/coccinelle/</span></code> directory.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">WS_Reserve()</span></code> function is deprecated and replaced by two functions
+<code class="docutils literal notranslate"><span class="pre">WS_ReserveAll()</span></code> and <code class="docutils literal notranslate"><span class="pre">WS_ReserveSize()</span></code> to avoid ambiguous situations.
+Its removal is planned for the 2020-09-15 release.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">ws_reserve.cocci</span></code> semantic patch can help with the transition.</p>
+<p><em>eof</em></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Upgrading to Varnish 6.3</a><ul>
+<li><a class="reference internal" href="#for-users-of-many-and-or-labeled-vcls">For users of many and/or labeled VCLs</a></li>
+<li><a class="reference internal" href="#for-developers-and-authors-of-vmods-and-api-clients">For developers and authors of VMODs and API clients</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="changes-6.3.html"
+                        title="previous chapter">Changes in Varnish 6.3</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="changes-6.2.html"
+                        title="next chapter">Changes in Varnish 6.2</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/whats-new/upgrading-6.3.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="changes-6.2.html" title="Changes in Varnish 6.2"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="changes-6.3.html" title="Changes in Varnish 6.3"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Varnish version 6.5.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >What’s new / Upgrading</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2010-2014, Varnish Software AS.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

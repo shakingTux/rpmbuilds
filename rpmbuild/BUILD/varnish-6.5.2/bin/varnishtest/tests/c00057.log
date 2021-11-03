@@ -1,0 +1,1123 @@
+**** dT   0.000
+*    top  TEST ./tests/c00057.vtc starting
+**** top  extmacro def pwd=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest
+**** top  extmacro def localhost=127.0.0.1
+**** top  extmacro def bad_backend=127.0.0.1 38925
+**** top  extmacro def bad_ip=192.0.2.255
+**** top  extmacro def topbuild=/root/rpmbuild/BUILD/varnish-6.5.2
+**** top  macro def testdir=/root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest/./tests
+**** top  macro def tmpdir=/tmp/vtc.56271.5be19bf7
+**   top  === varnishtest	"test sigsegv handler"
+*    top  VTEST test sigsegv handler
+**   top  === feature cmd "test -z $(env | grep ASAN_OPTIONS)"
+**** dT   0.004
+**   top  === server s1 {
+**   s1   Starting server
+**** s1   macro def s1_addr=127.0.0.1
+**** s1   macro def s1_port=42101
+**** s1   macro def s1_sock=127.0.0.1 42101
+*    s1   Listen on 127.0.0.1 42101
+**   top  === varnish v1 \
+**   s1   Started on 127.0.0.1 42101 (1 iterations)
+**** dT   0.008
+**   v1   Launch
+***  v1   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.56271.5be19bf7/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 43295' -P /tmp/vtc.56271.5be19bf7/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p feature=+no_coredump -p vcc_allow_inline_c=true -p thread_pool_stack=128k
+***  v1   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.56271.5be19bf7/v1 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 43295' -P /tmp/vtc.56271.5be19bf7/v1/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p feature=+no_coredump -p vcc_allow_inline_c=true -p thread_pool_stack=128k
+***  v1   PID: 56294
+**** v1   macro def v1_pid=56294
+**** v1   macro def v1_name=/tmp/vtc.56271.5be19bf7/v1
+**** dT   0.016
+***  v1   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|200 321     
+***  v1   debug|-----------------------------
+***  v1   debug|Varnish Cache CLI 1.0
+***  v1   debug|-----------------------------
+***  v1   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v1   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v1   debug|
+***  v1   debug|Type 'help' for command list.
+***  v1   debug|Type 'quit' to close CLI session.
+***  v1   debug|Type 'start' to launch worker process.
+***  v1   debug|
+**** dT   0.115
+**** v1   CLIPOLL 1 0x1 0x0
+***  v1   CLI connection fd = 7
+***  v1   CLI RX  107
+**** v1   CLI RX|vsiwyevvwwncaoutsworedvxniwlbgjw
+**** v1   CLI RX|
+**** v1   CLI RX|Authentication required.
+**** v1   CLI TX|auth 498933b04586a57bffc4a28f5ce2859052b229a9ad8d7abf7a1d53ba58fe05dd
+**** dT   0.116
+***  v1   CLI RX  200
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Varnish Cache CLI 1.0
+**** v1   CLI RX|-----------------------------
+**** v1   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v1   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v1   CLI RX|
+**** v1   CLI RX|Type 'help' for command list.
+**** v1   CLI RX|Type 'quit' to close CLI session.
+**** v1   CLI RX|Type 'start' to launch worker process.
+**** v1   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42101"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|\tC{
+**** v1   CLI TX|#include <signal.h>
+**** v1   CLI TX|#include <unistd.h>
+**** v1   CLI TX|#include <stdio.h>
+**** v1   CLI TX|
+**** v1   CLI TX|static void _accessor(volatile char *p) {
+**** v1   CLI TX|     p[0] = 'V'; p[1] = '\0';
+**** v1   CLI TX|     fprintf(stderr, "%p %s\n", p, p);
+**** v1   CLI TX|}
+**** v1   CLI TX|void (*accessor)(volatile char *p) = _accessor;
+**** v1   CLI TX|
+**** v1   CLI TX|}C
+**** v1   CLI TX|\tsub vcl_recv { C{
+**** v1   CLI TX|\t    const int stkkb = 128;
+**** v1   CLI TX|\t    int i;
+**** v1   CLI TX|\t    volatile char overflow[stkkb * 1024];
+**** v1   CLI TX|
+**** v1   CLI TX|\t    /* for downwards stack, take care to hit a single guard page */
+**** v1   CLI TX|\t    for (i = (stkkb - 1) * 1024; i >= 0; i -= 1024)
+**** v1   CLI TX|\t\taccessor(overflow + i);
+**** v1   CLI TX|\t    /* NOTREACHED */
+**** v1   CLI TX|\t    sleep(2);
+**** v1   CLI TX|\t}C }
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   0.216
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.316
+***  v1   vsl|No VSL chunk found (child not started ?)
+**** dT   0.349
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl1
+***  v1   CLI RX  200
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   0.353
+***  v1   debug|Debug: Child (56337) Started
+**** dT   0.380
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   debug|Info: Child (56337) said Child starts
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+**** dT   0.381
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 40421
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 40421
+**   v1   Listen on 127.0.0.1 40421
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=40421
+**** v1   macro def v1_sock=127.0.0.1 40421
+**** dT   0.417
+**** v1   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892681.758781/vgc.so 1auto
+**** v1   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892681.758781/vgc.so" as "vcl1"
+**** v1   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd start
+**** v1   vsl|          0 CLI             - Wr 200 0 
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 40421
+
+**** v1   vsl|          0 CLI             - Rd debug.xid 999 
+**** v1   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v1   vsl|          0 CLI             - Rd debug.listen_address 
+**** v1   vsl|          0 CLI             - Wr 200 16 127.0.0.1 40421
+
+**** dT   0.481
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 40421 (1 iterations)
+***  c1   Connect to 127.0.0.1 40421
+***  c1   connected fd 17 from 127.0.0.1 40946 to 127.0.0.1 40421
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**** dT   0.482
+***  v1   debug|Info: Child (56337) said 0x7f363c359cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3598b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3594b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3590b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c358cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3588b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3584b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3580b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c357cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3578b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3574b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3570b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c356cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3568b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3564b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3560b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c355cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3558b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3554b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3550b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c354cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3548b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3544b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3540b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c353cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3538b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3534b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3530b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c352cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3528b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3524b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3520b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c351cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3518b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3514b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3510b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c350cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3508b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3504b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3500b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34fcb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34f8b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34f4b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34f0b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34ecb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34e8b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34e4b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34e0b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34dcb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34d8b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34d4b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34d0b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34ccb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34c8b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34c4b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34c0b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34bcb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34b8b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34b4b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34b0b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34acb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34a8b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34a4b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c34a0b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c349cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3498b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3494b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3490b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c348cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3488b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3484b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3480b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c347cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3478b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3474b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3470b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c346cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3468b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3464b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3460b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c345cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3458b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3454b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3450b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c344cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3448b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3444b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3440b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c343cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3438b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3434b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3430b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c342cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3428b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3424b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3420b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c341cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3418b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3414b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3410b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c340cb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3408b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3404b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c3400b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33fcb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33f8b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33f4b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33f0b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33ecb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33e8b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33e4b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33e0b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33dcb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33d8b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33d4b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33d0b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33ccb0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33c8b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33c4b0 V
+***  v1   debug|Info: Child (56337) said 0x7f363c33c0b0 V
+**** dT   0.483
+**   c1   === expect_close
+**** c1   Expecting close (fd = 17)
+**** dT   0.517
+**** v1   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v1   vsl|       1000 SessOpen        c 127.0.0.1 40946 a0 127.0.0.1 40421 1634892682.123955 25
+**** v1   vsl|       1000 Link            c req 1001 rxreq
+**** v1   vsl|       1001 Begin           c req 1000 rxreq
+**** v1   vsl|       1001 Timestamp       c Start: 1634892682.124140 0.000000 0.000000
+**** v1   vsl|       1001 Timestamp       c Req: 1634892682.124140 0.000000 0.000000
+**** v1   vsl|       1001 VCL_use         c vcl1
+**** v1   vsl|       1001 ReqStart        c 127.0.0.1 40946 a0
+**** v1   vsl|       1001 ReqMethod       c GET
+**** v1   vsl|       1001 ReqURL          c /
+**** v1   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v1   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v1   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v1   vsl|       1001 VCL_call        c RECV
+**** dT   0.757
+**** c1   fd=17 EOF, as expected
+***  c1   closing fd 17
+**** dT   0.758
+**   c1   Ending
+**   top  === delay 3
+***  top  delaying 3 second(s)
+***  v1   debug|Error: Child (56337) died signal=6 (core dumped)
+***  v1   debug|Error: Child (56337) Panic at: Fri, 22 Oct 2021 08:51:22 GMT
+***  v1   debug|Wrong turn at cache/cache_main.c:287:
+***  v1   debug|Signal 11 (Segmentation fault) received at 0x7f363c33bcb0 si_code 2
+***  v1   debug|THIS PROBABLY IS A STACK OVERFLOW - check thread_pool_stack parameter
+***  v1   debug|version = varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b, vrt api = 12.0
+***  v1   debug|ident = Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit,epoll
+***  v1   debug|now = 73319.098415 (mono), 1634892682.124410 (real)
+***  v1   debug|Backtrace:
+***  v1   debug|  0x440aaa: varnishd() [0x440aaa]
+***  v1   debug|  0x4a87a3: varnishd(VAS_Fail+0x43) [0x4a87a3]
+***  v1   debug|  0x43c149: varnishd() [0x43c149]
+***  v1   debug|  0x7f363f816f80: /lib64/libpthread.so.0(+0x13f80) [0x7f363f816f80]
+***  v1   debug|  0x7f36345f4027: vcl_vcl1.1634892681.758781/vgc.so(+0x2027) [0x7f36345f4027]
+***  v1   debug|  0x7f36345f497e: vcl_vcl1.1634892681.758781/vgc.so(VGC_function_vcl_recv+0x6e) [0x7f36345f497e]
+***  v1   debug|  0x45e142: varnishd() [0x45e142]
+***  v1   debug|  0x4608fa: varnishd(VCL_recv_method+0x5a) [0x4608fa]
+***  v1   debug|  0x444fab: varnishd(CNT_Request+0xd9b) [0x444fab]
+***  v1   debug|  0x46c3d3: varnishd() [0x46c3d3]
+***  v1   debug|pthread.self = 0x7f363c35b700
+***  v1   debug|pthread.name = (cache-worker)
+***  v1   debug|pthread.attr = {
+***  v1   debug|  guard = 4096,
+***  v1   debug|  stack_bottom = 0x7f363c33c000,
+***  v1   debug|  stack_top = 0x7f363c35c000,
+***  v1   debug|  stack_size = 131072,
+***  v1   debug|}
+***  v1   debug|thr.req = 0x7f3610000fc0 {
+***  v1   debug|  vxid = 1001, transport = HTTP/1 {
+***  v1   debug|    state = HTTP1::Proc
+***  v1   debug|  }
+***  v1   debug|  step = R_STP_RECV,
+***  v1   debug|  req_body = none,
+***  v1   debug|  restarts = 0, esi_level = 0,
+***  v1   debug|  sp = 0x7f3610000b80 {
+***  v1   debug|    fd = 25, vxid = 1000,
+***  v1   debug|    t_open = 1634892682.123955,
+***  v1   debug|    t_idle = 1634892682.123955,
+***  v1   debug|    ws = 0x7f3610000bc0 {
+***  v1   debug|      id = \"ses\",
+***  v1   debug|      {s, f, r, e} = {0x7f3610000c18, +96, (nil), +576},
+***  v1   debug|    },
+***  v1   debug|    transport = HTTP/1 {
+***  v1   debug|      state = HTTP1::Proc
+***  v1   debug|    }
+***  v1   debug|    client = 127.0.0.1 40946 127.0.0.1:40421,
+***  v1   debug|  },
+***  v1   debug|  worker = 0x7f363c35adb0 {
+***  v1   debug|    ws = 0x7f363c35ae58 {
+***  v1   debug|      id = \"wrk\",
+***  v1   debug|      {s, f, r, e} = {0x7f363c35a390, +0, (nil), +2040},
+***  v1   debug|    },
+***  v1   debug|    VCL::method = inside RECV,
+***  v1   debug|    VCL::return = 0x0,
+***  v1   debug|    VCL::methods = {RECV},
+***  v1   debug|  },
+***  v1   debug|  ws = 0x7f3610001110 {
+***  v1   debug|    id = \"req\",
+***  v1   debug|    {s, f, r, e} = {0x7f3610003070, +72, (nil), +57128},
+***  v1   debug|  },
+***  v1   debug|  http_conn = 0x7f3610002fe8 {
+***  v1   debug|    fd = 25 (@0x7f3610000ba4),
+***  v1   debug|    doclose = NULL,
+***  v1   debug|    ws = 0x7f3610001110 {
+***  v1   debug|      [Already dumped, see above]
+***  v1   debug|    },
+***  v1   debug|    {rxbuf_b, rxbuf_e} = {0x7f3610003070, 0x7f3610003093},
+***  v1   debug|    {pipeline_b, pipeline_e} = {(nil), (nil)},
+***  v1   debug|    content_length = -1,
+***  v1   debug|    body_status = none,
+***  v1   debug|    first_byte_timeout = 0.000000,
+***  v1   debug|    between_bytes_timeout = 0.000000,
+***  v1   debug|  },
+***  v1   debug|  http[req] = 0x7f36100011b0 {
+***  v1   debug|    ws = 0x7f3610001110 {
+***  v1   debug|      [Already dumped, see above]
+***  v1   debug|    },
+***  v1   debug|    hdrs {
+***  v1   debug|      \"GET\",
+***  v1   debug|      \"/\",
+***  v1   debug|      \"HTTP/1.1\",
+***  v1   debug|      \"Host: 127.0.0.1\",
+***  v1   debug|      \"X-Forwarded-For: 127.0.0.1\",
+***  v1   debug|    },
+***  v1   debug|  },
+***  v1   debug|  vdc = 0x7f3610002fc8 {
+***  v1   debug|    nxt = (nil),
+***  v1   debug|    retval = 0,
+***  v1   debug|  },
+***  v1   debug|  vcl = {
+***  v1   debug|    name = \"vcl1\",
+***  v1   debug|    busy = 1,
+***  v1   debug|    discard = 0,
+***  v1   debug|    state = auto,
+***  v1   debug|    temp = warm,
+***  v1   debug|    conf = {
+***  v1   debug|      syntax = \"41\",
+***  v1   debug|      srcname = {
+***  v1   debug|        \"<vcl.inline>\",
+***  v1   debug|        \"Builtin\",
+***  v1   debug|      instances = {
+***  v1   debug|      },
+***  v1   debug|    },
+***  v1   debug|  },
+***  v1   debug|  flags = {
+***  v1   debug|  },
+***  v1   debug|  privs = 0x7f36100011a0 {
+***  v1   debug|  },
+***  v1   debug|  top = 0x7f3610003050 {
+***  v1   debug|    req = 0x7f3610000fc0 {
+***  v1   debug|      [Already dumped, see above]
+***  v1   debug|    },
+***  v1   debug|    privs = 0x7f3610003068 {
+***  v1   debug|    },
+***  v1   debug|  },
+***  v1   debug|},
+***  v1   debug|thr.busyobj = (nil) {
+***  v1   debug|},
+***  v1   debug|vmods = {
+***  v1   debug|},
+***  v1   debug|
+***  v1   debug|
+***  v1   debug|Debug: Child cleanup complete
+**** dT   3.758
+**   top  === varnish v1 -cliexpect "STACK OVERFLOW" "panic.show"
+**** v1   CLI TX|panic.show
+***  v1   CLI RX  200
+**** v1   CLI RX|Panic at: Fri, 22 Oct 2021 08:51:22 GMT
+**** v1   CLI RX|Wrong turn at cache/cache_main.c:287:
+**** v1   CLI RX|Signal 11 (Segmentation fault) received at 0x7f363c33bcb0 si_code 2
+**** v1   CLI RX|THIS PROBABLY IS A STACK OVERFLOW - check thread_pool_stack parameter
+**** v1   CLI RX|version = varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b, vrt api = 12.0
+**** v1   CLI RX|ident = Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit,epoll
+**** v1   CLI RX|now = 73319.098415 (mono), 1634892682.124410 (real)
+**** v1   CLI RX|Backtrace:
+**** v1   CLI RX|  0x440aaa: varnishd() [0x440aaa]
+**** v1   CLI RX|  0x4a87a3: varnishd(VAS_Fail+0x43) [0x4a87a3]
+**** v1   CLI RX|  0x43c149: varnishd() [0x43c149]
+**** v1   CLI RX|  0x7f363f816f80: /lib64/libpthread.so.0(+0x13f80) [0x7f363f816f80]
+**** v1   CLI RX|  0x7f36345f4027: vcl_vcl1.1634892681.758781/vgc.so(+0x2027) [0x7f36345f4027]
+**** v1   CLI RX|  0x7f36345f497e: vcl_vcl1.1634892681.758781/vgc.so(VGC_function_vcl_recv+0x6e) [0x7f36345f497e]
+**** v1   CLI RX|  0x45e142: varnishd() [0x45e142]
+**** v1   CLI RX|  0x4608fa: varnishd(VCL_recv_method+0x5a) [0x4608fa]
+**** v1   CLI RX|  0x444fab: varnishd(CNT_Request+0xd9b) [0x444fab]
+**** v1   CLI RX|  0x46c3d3: varnishd() [0x46c3d3]
+**** v1   CLI RX|pthread.self = 0x7f363c35b700
+**** v1   CLI RX|pthread.name = (cache-worker)
+**** v1   CLI RX|pthread.attr = {
+**** v1   CLI RX|  guard = 4096,
+**** v1   CLI RX|  stack_bottom = 0x7f363c33c000,
+**** v1   CLI RX|  stack_top = 0x7f363c35c000,
+**** v1   CLI RX|  stack_size = 131072,
+**** v1   CLI RX|}
+**** v1   CLI RX|thr.req = 0x7f3610000fc0 {
+**** v1   CLI RX|  vxid = 1001, transport = HTTP/1 {
+**** v1   CLI RX|    state = HTTP1::Proc
+**** v1   CLI RX|  }
+**** v1   CLI RX|  step = R_STP_RECV,
+**** v1   CLI RX|  req_body = none,
+**** v1   CLI RX|  restarts = 0, esi_level = 0,
+**** v1   CLI RX|  sp = 0x7f3610000b80 {
+**** v1   CLI RX|    fd = 25, vxid = 1000,
+**** v1   CLI RX|    t_open = 1634892682.123955,
+**** v1   CLI RX|    t_idle = 1634892682.123955,
+**** v1   CLI RX|    ws = 0x7f3610000bc0 {
+**** v1   CLI RX|      id = \"ses\",
+**** v1   CLI RX|      {s, f, r, e} = {0x7f3610000c18, +96, (nil), +576},
+**** v1   CLI RX|    },
+**** v1   CLI RX|    transport = HTTP/1 {
+**** v1   CLI RX|      state = HTTP1::Proc
+**** v1   CLI RX|    }
+**** v1   CLI RX|    client = 127.0.0.1 40946 127.0.0.1:40421,
+**** v1   CLI RX|  },
+**** v1   CLI RX|  worker = 0x7f363c35adb0 {
+**** v1   CLI RX|    ws = 0x7f363c35ae58 {
+**** v1   CLI RX|      id = \"wrk\",
+**** v1   CLI RX|      {s, f, r, e} = {0x7f363c35a390, +0, (nil), +2040},
+**** v1   CLI RX|    },
+**** v1   CLI RX|    VCL::method = inside RECV,
+**** v1   CLI RX|    VCL::return = 0x0,
+**** v1   CLI RX|    VCL::methods = {RECV},
+**** v1   CLI RX|  },
+**** v1   CLI RX|  ws = 0x7f3610001110 {
+**** v1   CLI RX|    id = \"req\",
+**** v1   CLI RX|    {s, f, r, e} = {0x7f3610003070, +72, (nil), +57128},
+**** v1   CLI RX|  },
+**** v1   CLI RX|  http_conn = 0x7f3610002fe8 {
+**** v1   CLI RX|    fd = 25 (@0x7f3610000ba4),
+**** v1   CLI RX|    doclose = NULL,
+**** v1   CLI RX|    ws = 0x7f3610001110 {
+**** v1   CLI RX|      [Already dumped, see above]
+**** v1   CLI RX|    },
+**** v1   CLI RX|    {rxbuf_b, rxbuf_e} = {0x7f3610003070, 0x7f3610003093},
+**** v1   CLI RX|    {pipeline_b, pipeline_e} = {(nil), (nil)},
+**** v1   CLI RX|    content_length = -1,
+**** v1   CLI RX|    body_status = none,
+**** v1   CLI RX|    first_byte_timeout = 0.000000,
+**** v1   CLI RX|    between_bytes_timeout = 0.000000,
+**** v1   CLI RX|  },
+**** v1   CLI RX|  http[req] = 0x7f36100011b0 {
+**** v1   CLI RX|    ws = 0x7f3610001110 {
+**** v1   CLI RX|      [Already dumped, see above]
+**** v1   CLI RX|    },
+**** v1   CLI RX|    hdrs {
+**** v1   CLI RX|      \"GET\",
+**** v1   CLI RX|      \"/\",
+**** v1   CLI RX|      \"HTTP/1.1\",
+**** v1   CLI RX|      \"Host: 127.0.0.1\",
+**** v1   CLI RX|      \"X-Forwarded-For: 127.0.0.1\",
+**** v1   CLI RX|    },
+**** v1   CLI RX|  },
+**** v1   CLI RX|  vdc = 0x7f3610002fc8 {
+**** v1   CLI RX|    nxt = (nil),
+**** v1   CLI RX|    retval = 0,
+**** v1   CLI RX|  },
+**** v1   CLI RX|  vcl = {
+**** v1   CLI RX|    name = \"vcl1\",
+**** v1   CLI RX|    busy = 1,
+**** v1   CLI RX|    discard = 0,
+**** v1   CLI RX|    state = auto,
+**** v1   CLI RX|    temp = warm,
+**** v1   CLI RX|    conf = {
+**** v1   CLI RX|      syntax = \"41\",
+**** v1   CLI RX|      srcname = {
+**** v1   CLI RX|        \"<vcl.inline>\",
+**** v1   CLI RX|        \"Builtin\",
+**** v1   CLI RX|      instances = {
+**** v1   CLI RX|      },
+**** v1   CLI RX|    },
+**** v1   CLI RX|  },
+**** v1   CLI RX|  flags = {
+**** v1   CLI RX|  },
+**** v1   CLI RX|  privs = 0x7f36100011a0 {
+**** v1   CLI RX|  },
+**** v1   CLI RX|  top = 0x7f3610003050 {
+**** v1   CLI RX|    req = 0x7f3610000fc0 {
+**** v1   CLI RX|      [Already dumped, see above]
+**** v1   CLI RX|    },
+**** v1   CLI RX|    privs = 0x7f3610003068 {
+**** v1   CLI RX|    },
+**** v1   CLI RX|  },
+**** v1   CLI RX|},
+**** v1   CLI RX|thr.busyobj = (nil) {
+**** v1   CLI RX|},
+**** v1   CLI RX|vmods = {
+**** v1   CLI RX|},
+**** v1   CLI RX|
+**** v1   CLI RX|
+**   v1   CLI 200 <panic.show>
+**   top  === varnish v1 -clijson "panic.show -j"
+**** v1   CLI TX|panic.show -j
+***  v1   CLI RX  200
+**** v1   CLI RX|[ 2, ["panic.show", "-j"], 1634892685.401,
+**** v1   CLI RX|  "Panic at: Fri, 22 Oct 2021 08:51:22 GMT\nWrong turn at cache/cache_main.c:287:\nSignal 11 (Segmentation fault) received at 0x7f363c33bcb0 si_code 2\nTHIS PROBABLY IS A STACK OVERFLOW - check thread_pool_stack parameter\nversion = varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b, vrt api = 12.0\nident = Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit,epoll\nnow = 73319.098415 (mono), 1634892682.124410 (real)\nBacktrace:\n  0x440aaa: varnishd() [0x440aaa]\n  0x4a87a3: varnishd(VAS_Fail+0x43) [0x4a87a3]\n  0x43c149: varnishd() [0x43c149]\n  0x7f363f816f80: /lib64/libpthread.so.0(+0x13f80) [0x7f363f816f80]\n  0x7f36345f4027: vcl_vcl1.1634892681.758781/vgc.so(+0x2027) [0x7f36345f4027]\n  0x7f36345f497e: vcl_vcl1.1634892681.758781/vgc.so(VGC_function_vcl_recv+0x6e) [0x7f36345f497e]\n  0x45e142: varnishd() [0x45e142]\n  0x4608fa: varnishd(VCL_recv_method+0x5a) [0x4608fa]\n  0x444fab: varnishd(CNT_Request+0xd9b) [0x444fab]\n  0x46c3d3: varnishd() [0x46c3d3]\npthread.self = 0x7f363c35b700\npthread.name = (cache-worker)\npthread.attr = {\n  guard = 4096,\n  stack_bottom = 0x7f363c33c000,\n  stack_top = 0x7f363c35c000,\n  stack_size = 131072,\n}\nthr.req = 0x7f3610000fc0 {\n  vxid = 1001, transport = HTTP/1 {\n    state = HTTP1::Proc\n  }\n  step = R_STP_RECV,\n  req_body = none,\n  restarts = 0, esi_level = 0,\n  sp = 0x7f3610000b80 {\n    fd = 25, vxid = 1000,\n    t_open = 1634892682.123955,\n    t_idle = 1634892682.123955,\n    ws = 0x7f3610000bc0 {\n      id = \\\"ses\\\",\n      {s, f, r, e} = {0x7f3610000c18, +96, (nil), +576},\n    },\n    transport = HTTP/1 {\n      state = HTTP1::Proc\n    }\n    client = 127.0.0.1 40946 127.0.0.1:40421,\n  },\n  worker = 0x7f363c35adb0 {\n    ws = 0x7f363c35ae58 {\n      id = \\\"wrk\\\",\n      {s, f, r, e} = {0x7f363c35a390, +0, (nil), +2040},\n    },\n    VCL::method = inside RECV,\n    VCL::return = 0x0,\n    VCL::methods = {RECV},\n  },\n  ws = 0x7f3610001110 {\n    id = \\\"req\\\",\n    {s, f, r, e} = {0x7f3610003070, +72, (nil), +57128},\n  },\n  http_conn = 0x7f3610002fe8 {\n    fd = 25 (@0x7f3610000ba4),\n    doclose = NULL,\n    ws = 0x7f3610001110 {\n      [Already dumped, see above]\n    },\n    {rxbuf_b, rxbuf_e} = {0x7f3610003070, 0x7f3610003093},\n    {pipeline_b, pipeline_e} = {(nil), (nil)},\n    content_length = -1,\n    body_status = none,\n    first_byte_timeout = 0.000000,\n    between_bytes_timeout = 0.000000,\n  },\n  http[req] = 0x7f36100011b0 {\n    ws = 0x7f3610001110 {\n      [Already dumped, see above]\n    },\n    hdrs {\n      \\\"GET\\\",\n      \\\"/\\\",\n      \\\"HTTP/1.1\\\",\n      \\\"Host: 127.0.0.1\\\",\n      \\\"X-Forwarded-For: 127.0.0.1\\\",\n    },\n  },\n  vdc = 0x7f3610002fc8 {\n    nxt = (nil),\n    retval = 0,\n  },\n  vcl = {\n    name = \\\"vcl1\\\",\n    busy = 1,\n    discard = 0,\n    state = auto,\n    temp = warm,\n    conf = {\n      syntax = \\\"41\\\",\n      srcname = {\n        \\\"<vcl.inline>\\\",\n        \\\"Builtin\\\",\n      instances = {\n      },\n    },\n  },\n  flags = {\n  },\n  privs = 0x7f36100011a0 {\n  },\n  top = 0x7f3610003050 {\n    req = 0x7f3610000fc0 {\n      [Already dumped, see above]\n    },\n    privs = 0x7f3610003068 {\n    },\n  },\n},\nthr.busyobj = (nil) {\n},\nvmods = {\n},\n\n"
+**** v1   CLI RX|]
+**   v1   CLI 200 <panic.show -j>
+**** dT   3.759
+**   top  === varnish v1 -cliok "panic.clear"
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  200
+**   v1   CLI 200 <panic.clear>
+**   top  === varnish v1 -cliok "param.set sigsegv_handler off"
+**** v1   CLI TX|param.set sigsegv_handler off
+***  v1   CLI RX  200
+**   v1   CLI 200 <param.set sigsegv_handler off>
+**   top  === varnish v1 -vcl+backend {} -start
+**** v1   CLI TX|vcl.inline vcl2 << %XJEIFLH|)Xspa8P
+**** v1   CLI TX|vcl 4.1;
+**** v1   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42101"; }
+**** v1   CLI TX|
+**** v1   CLI TX|
+**** v1   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   3.943
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL compiled.
+**** v1   CLI TX|vcl.use vcl2
+***  v1   CLI RX  200
+**** v1   CLI RX|VCL 'vcl2' now active
+**   v1   Start
+**** v1   CLI TX|start
+**** dT   3.948
+***  v1   debug|Debug: Child (56522) Started
+**** dT   3.975
+***  v1   debug|Info: Child (56522) said Child starts
+***  v1   CLI RX  200
+***  v1   wait-running
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state running
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 40421
+**** v1   CLI TX|debug.xid 999
+***  v1   CLI RX  200
+**** v1   CLI RX|XID is 999
+**** v1   CLI TX|debug.listen_address
+***  v1   CLI RX  200
+**** v1   CLI RX|127.0.0.1 40421
+**   v1   Listen on 127.0.0.1 40421
+**** v1   macro def v1_addr=127.0.0.1
+**** v1   macro def v1_port=40421
+**** v1   macro def v1_sock=127.0.0.1 40421
+**   top  === client c1 {
+**   c1   Starting client
+**   c1   Waiting for client
+**   c1   Started on 127.0.0.1 40421 (1 iterations)
+***  c1   Connect to 127.0.0.1 40421
+**** dT   3.976
+***  c1   connected fd 17 from 127.0.0.1 40980 to 127.0.0.1 40421
+**   c1   === txreq
+**** c1   txreq|GET / HTTP/1.1\r
+**** c1   txreq|Host: 127.0.0.1\r
+**** c1   txreq|\r
+**   c1   === rxresp
+**** dT   4.064
+***  s1   accepted fd 5 127.0.0.1 59278
+**   s1   === rxreq
+**** dT   4.065
+**** s1   rxhdr|GET / HTTP/1.1\r
+**** s1   rxhdr|X-Forwarded-For: 127.0.0.1\r
+**** s1   rxhdr|host: 127.0.0.1\r
+**** s1   rxhdr|Accept-Encoding: gzip\r
+**** s1   rxhdr|X-Varnish: 1002\r
+**** s1   rxhdr|\r
+**** s1   rxhdrlen = 103
+**** s1   http[ 0] |GET
+**** s1   http[ 1] |/
+**** s1   http[ 2] |HTTP/1.1
+**** s1   http[ 3] |X-Forwarded-For: 127.0.0.1
+**** s1   http[ 4] |host: 127.0.0.1
+**** s1   http[ 5] |Accept-Encoding: gzip
+**** s1   http[ 6] |X-Varnish: 1002
+**** s1   bodylen = 0
+**   s1   === txresp
+**** s1   txresp|HTTP/1.1 200 OK\r
+**** s1   txresp|Content-Length: 0\r
+**** s1   txresp|\r
+***  s1   shutting fd 5
+**   s1   Ending
+**** dT   4.076
+**** c1   rxhdr|HTTP/1.1 200 OK\r
+**** c1   rxhdr|Content-Length: 0\r
+**** c1   rxhdr|Date: Fri, 22 Oct 2021 08:51:25 GMT\r
+**** c1   rxhdr|X-Varnish: 1001\r
+**** c1   rxhdr|Age: 0\r
+**** c1   rxhdr|Via: 1.1 varnish (Varnish/6.5)\r
+**** c1   rxhdr|Accept-Ranges: bytes\r
+**** c1   rxhdr|Connection: keep-alive\r
+**** c1   rxhdr|\r
+**** c1   rxhdrlen = 178
+**** c1   http[ 0] |HTTP/1.1
+**** c1   http[ 1] |200
+**** c1   http[ 2] |OK
+**** c1   http[ 3] |Content-Length: 0
+**** c1   http[ 4] |Date: Fri, 22 Oct 2021 08:51:25 GMT
+**** c1   http[ 5] |X-Varnish: 1001
+**** c1   http[ 6] |Age: 0
+**** c1   http[ 7] |Via: 1.1 varnish (Varnish/6.5)
+**** c1   http[ 8] |Accept-Ranges: bytes
+**** c1   http[ 9] |Connection: keep-alive
+**** c1   bodylen = 0
+***  c1   closing fd 17
+**   c1   Ending
+**   top  === varnish v1 -expectexit 0x40
+**   top  === varnish v2 \
+**** dT   4.080
+**   v2   Launch
+***  v2   CMD: cd ${pwd} && exec varnishd  -d -n /tmp/vtc.56271.5be19bf7/v2 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 39823' -P /tmp/vtc.56271.5be19bf7/v2/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p feature=+no_coredump -p vcc_allow_inline_c=true
+***  v2   CMD: cd /root/rpmbuild/BUILD/varnish-6.5.2/bin/varnishtest && exec varnishd  -d -n /tmp/vtc.56271.5be19bf7/v2 -l 2m -p auto_restart=off -p syslog_cli_traffic=off -p sigsegv_handler=on -p thread_pool_min=10 -p debug=+vtc_mode -p vsl_mask=+Debug -a '127.0.0.1:0' -M '127.0.0.1 39823' -P /tmp/vtc.56271.5be19bf7/v2/varnishd.pid -p vmod_path=/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_blob/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_cookie/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_std/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_vtc/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_unix/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_proxy/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_purge/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_directors/.libs:/root/rpmbuild/BUILD/varnish-6.5.2/lib/libvmod_debug/.libs  -p feature=+no_coredump -p vcc_allow_inline_c=true
+***  v2   PID: 56562
+**** v2   macro def v2_pid=56562
+**** v2   macro def v2_name=/tmp/vtc.56271.5be19bf7/v2
+**** dT   4.092
+***  v2   debug|Debug: Version: varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v2   debug|Debug: Platform: Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v2   debug|200 321     
+***  v2   debug|-----------------------------
+***  v2   debug|Varnish Cache CLI 1.0
+***  v2   debug|-----------------------------
+***  v2   debug|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+***  v2   debug|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+***  v2   debug|
+***  v2   debug|Type 'help' for command list.
+***  v2   debug|Type 'quit' to close CLI session.
+***  v2   debug|Type 'start' to launch worker process.
+***  v2   debug|
+**** dT   4.190
+**** v2   CLIPOLL 1 0x1 0x0
+***  v2   CLI connection fd = 17
+***  v2   CLI RX  107
+**** v2   CLI RX|iafkgngxgcrlodhzetfyetiplfktrsws
+**** v2   CLI RX|
+**** v2   CLI RX|Authentication required.
+**** dT   4.191
+**** v2   CLI TX|auth cfff31e96f0a509dd329d746198837d79899ed0aa86975a039c3791851388fe7
+***  v2   CLI RX  200
+**** v2   CLI RX|-----------------------------
+**** v2   CLI RX|Varnish Cache CLI 1.0
+**** v2   CLI RX|-----------------------------
+**** v2   CLI RX|Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit
+**** v2   CLI RX|varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b
+**** v2   CLI RX|
+**** v2   CLI RX|Type 'help' for command list.
+**** v2   CLI RX|Type 'quit' to close CLI session.
+**** v2   CLI RX|Type 'start' to launch worker process.
+**** v2   CLI TX|vcl.inline vcl1 << %XJEIFLH|)Xspa8P
+**** v2   CLI TX|vcl 4.1;
+**** v2   CLI TX|backend s1 { .host = "127.0.0.1"; .port = "42101"; }
+**** v2   CLI TX|
+**** v2   CLI TX|
+**** v2   CLI TX|
+**** v2   CLI TX|\tC{
+**** v2   CLI TX|\t#include <stdio.h>
+**** v2   CLI TX|\t}C
+**** v2   CLI TX|
+**** v2   CLI TX|\tsub vcl_recv { C{
+**** v2   CLI TX|\t    int *i = (void *)VRT_GetHdr;
+**** v2   CLI TX|\t    *i = 42;
+**** v2   CLI TX|\t}C }
+**** v2   CLI TX|
+**** v2   CLI TX|%XJEIFLH|)Xspa8P
+**** dT   4.291
+***  v2   vsl|No VSL chunk found (child not started ?)
+**** dT   4.369
+***  v2   CLI RX  200
+**** v2   CLI RX|VCL compiled.
+**** v2   CLI TX|vcl.use vcl1
+**** dT   4.370
+***  v2   CLI RX  200
+**   v2   Start
+**** v2   CLI TX|start
+**** dT   4.373
+***  v2   debug|Debug: Child (56574) Started
+**** dT   4.398
+***  v2   CLI RX  200
+***  v2   wait-running
+**** v2   CLI TX|status
+***  v2   debug|Info: Child (56574) said Child starts
+***  v2   CLI RX  200
+**** v2   CLI RX|Child in state running
+**** v2   CLI TX|debug.listen_address
+**** dT   4.399
+***  v2   CLI RX  200
+**** v2   CLI RX|127.0.0.1 44771
+**** v2   CLI TX|debug.xid 999
+***  v2   CLI RX  200
+**** v2   CLI RX|XID is 999
+**** v2   CLI TX|debug.listen_address
+***  v2   CLI RX  200
+**** v2   CLI RX|127.0.0.1 44771
+**   v2   Listen on 127.0.0.1 44771
+**** v2   macro def v2_addr=127.0.0.1
+**** v2   macro def v2_port=44771
+**** v2   macro def v2_sock=127.0.0.1 44771
+**** dT   4.492
+**** v2   vsl|          0 CLI             - Rd vcl.load "vcl1" vcl_vcl1.1634892685.833896/vgc.so 1auto
+**** v2   vsl|          0 CLI             - Wr 200 52 Loaded "vcl_vcl1.1634892685.833896/vgc.so" as "vcl1"
+**** v2   vsl|          0 CLI             - Rd vcl.use "vcl1"
+**** v2   vsl|          0 CLI             - Wr 200 0 
+**** v2   vsl|          0 CLI             - Rd start
+**** v2   vsl|          0 CLI             - Wr 200 0 
+**** v2   vsl|          0 CLI             - Rd debug.listen_address 
+**** v2   vsl|          0 CLI             - Wr 200 16 127.0.0.1 44771
+
+**** v2   vsl|          0 CLI             - Rd debug.xid 999 
+**** v2   vsl|          0 CLI             - Wr 200 10 XID is 999
+**** v2   vsl|          0 CLI             - Rd debug.listen_address 
+**** v2   vsl|          0 CLI             - Wr 200 16 127.0.0.1 44771
+
+**** dT   4.499
+**   top  === client c2 -connect ${v2_sock} {
+**   c2   Starting client
+**   c2   Waiting for client
+**   c2   Started on 127.0.0.1 44771 (1 iterations)
+***  c2   Connect to 127.0.0.1 44771
+**** dT   4.500
+***  c2   connected fd 27 from 127.0.0.1 49696 to 127.0.0.1 44771
+**   c2   === txreq
+**** c2   txreq|GET / HTTP/1.1\r
+**** c2   txreq|Host: 127.0.0.1\r
+**** c2   txreq|\r
+**   c2   === expect_close
+**** c2   Expecting close (fd = 27)
+**** dT   4.592
+**** v2   vsl|       1000 Begin           c sess 0 HTTP/1
+**** v2   vsl|       1000 SessOpen        c 127.0.0.1 49696 a0 127.0.0.1 44771 1634892686.142065 22
+**** v2   vsl|       1000 Link            c req 1001 rxreq
+**** v2   vsl|       1001 Begin           c req 1000 rxreq
+**** v2   vsl|       1001 Timestamp       c Start: 1634892686.142238 0.000000 0.000000
+**** v2   vsl|       1001 Timestamp       c Req: 1634892686.142238 0.000000 0.000000
+**** v2   vsl|       1001 VCL_use         c vcl1
+**** v2   vsl|       1001 ReqStart        c 127.0.0.1 49696 a0
+**** v2   vsl|       1001 ReqMethod       c GET
+**** v2   vsl|       1001 ReqURL          c /
+**** v2   vsl|       1001 ReqProtocol     c HTTP/1.1
+**** v2   vsl|       1001 ReqHeader       c Host: 127.0.0.1
+**** v2   vsl|       1001 ReqHeader       c X-Forwarded-For: 127.0.0.1
+**** v2   vsl|       1001 VCL_call        c RECV
+**** dT   4.816
+**** c2   fd=27 EOF, as expected
+***  c2   closing fd 27
+**   c2   Ending
+**   top  === delay 3
+***  top  delaying 3 second(s)
+**** dT   4.818
+***  v2   debug|Error: Child (56574) died signal=6 (core dumped)
+***  v2   debug|Error: Child (56574) Panic at: Fri, 22 Oct 2021 08:51:26 GMT
+***  v2   debug|Wrong turn at cache/cache_main.c:287:
+***  v2   debug|Signal 11 (Segmentation fault) received at 0x4525e0 si_code 2
+***  v2   debug|version = varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b, vrt api = 12.0
+***  v2   debug|ident = Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit,epoll
+***  v2   debug|now = 73323.116326 (mono), 1634892686.142321 (real)
+***  v2   debug|Backtrace:
+***  v2   debug|  0x440aaa: varnishd() [0x440aaa]
+***  v2   debug|  0x4a87a3: varnishd(VAS_Fail+0x43) [0x4a87a3]
+***  v2   debug|  0x43c149: varnishd() [0x43c149]
+***  v2   debug|  0x7f9322587f80: /lib64/libpthread.so.0(+0x13f80) [0x7f9322587f80]
+***  v2   debug|  0x7f93075796f6: vcl_vcl1.1634892685.833896/vgc.so(VGC_function_vcl_recv+0x26) [0x7f93075796f6]
+***  v2   debug|  0x45e142: varnishd() [0x45e142]
+***  v2   debug|  0x4608fa: varnishd(VCL_recv_method+0x5a) [0x4608fa]
+***  v2   debug|  0x444fab: varnishd(CNT_Request+0xd9b) [0x444fab]
+***  v2   debug|  0x46c3d3: varnishd() [0x46c3d3]
+***  v2   debug|  0x461a27: varnishd() [0x461a27]
+***  v2   debug|pthread.self = 0x7f93231cc700
+***  v2   debug|pthread.name = (cache-worker)
+***  v2   debug|pthread.attr = {
+***  v2   debug|  guard = 4096,
+***  v2   debug|  stack_bottom = 0x7f93231bf000,
+***  v2   debug|  stack_top = 0x7f93231cd000,
+***  v2   debug|  stack_size = 57344,
+***  v2   debug|}
+***  v2   debug|thr.req = 0x7f92fc000fc0 {
+***  v2   debug|  vxid = 1001, transport = HTTP/1 {
+***  v2   debug|    state = HTTP1::Proc
+***  v2   debug|  }
+***  v2   debug|  step = R_STP_RECV,
+***  v2   debug|  req_body = none,
+***  v2   debug|  restarts = 0, esi_level = 0,
+***  v2   debug|  sp = 0x7f92fc000b80 {
+***  v2   debug|    fd = 22, vxid = 1000,
+***  v2   debug|    t_open = 1634892686.142065,
+***  v2   debug|    t_idle = 1634892686.142065,
+***  v2   debug|    ws = 0x7f92fc000bc0 {
+***  v2   debug|      id = \"ses\",
+***  v2   debug|      {s, f, r, e} = {0x7f92fc000c18, +96, (nil), +576},
+***  v2   debug|    },
+***  v2   debug|    transport = HTTP/1 {
+***  v2   debug|      state = HTTP1::Proc
+***  v2   debug|    }
+***  v2   debug|    client = 127.0.0.1 49696 127.0.0.1:44771,
+***  v2   debug|  },
+***  v2   debug|  worker = 0x7f93231cbdb0 {
+***  v2   debug|    ws = 0x7f93231cbe58 {
+***  v2   debug|      id = \"wrk\",
+***  v2   debug|      {s, f, r, e} = {0x7f93231cb390, +0, (nil), +2040},
+***  v2   debug|    },
+***  v2   debug|    VCL::method = inside RECV,
+***  v2   debug|    VCL::return = 0x0,
+***  v2   debug|    VCL::methods = {RECV},
+***  v2   debug|  },
+***  v2   debug|  ws = 0x7f92fc001110 {
+***  v2   debug|    id = \"req\",
+***  v2   debug|    {s, f, r, e} = {0x7f92fc003070, +72, (nil), +57128},
+***  v2   debug|  },
+***  v2   debug|  http_conn = 0x7f92fc002fe8 {
+***  v2   debug|    fd = 22 (@0x7f92fc000ba4),
+***  v2   debug|    doclose = NULL,
+***  v2   debug|    ws = 0x7f92fc001110 {
+***  v2   debug|      [Already dumped, see above]
+***  v2   debug|    },
+***  v2   debug|    {rxbuf_b, rxbuf_e} = {0x7f92fc003070, 0x7f92fc003093},
+***  v2   debug|    {pipeline_b, pipeline_e} = {(nil), (nil)},
+***  v2   debug|    content_length = -1,
+***  v2   debug|    body_status = none,
+***  v2   debug|    first_byte_timeout = 0.000000,
+***  v2   debug|    between_bytes_timeout = 0.000000,
+***  v2   debug|  },
+***  v2   debug|  http[req] = 0x7f92fc0011b0 {
+***  v2   debug|    ws = 0x7f92fc001110 {
+***  v2   debug|      [Already dumped, see above]
+***  v2   debug|    },
+***  v2   debug|    hdrs {
+***  v2   debug|      \"GET\",
+***  v2   debug|      \"/\",
+***  v2   debug|      \"HTTP/1.1\",
+***  v2   debug|      \"Host: 127.0.0.1\",
+***  v2   debug|      \"X-Forwarded-For: 127.0.0.1\",
+***  v2   debug|    },
+***  v2   debug|  },
+***  v2   debug|  vdc = 0x7f92fc002fc8 {
+***  v2   debug|    nxt = (nil),
+***  v2   debug|    retval = 0,
+***  v2   debug|  },
+***  v2   debug|  vcl = {
+***  v2   debug|    name = \"vcl1\",
+***  v2   debug|    busy = 1,
+***  v2   debug|    discard = 0,
+***  v2   debug|    state = auto,
+***  v2   debug|    temp = warm,
+***  v2   debug|    conf = {
+***  v2   debug|      syntax = \"41\",
+***  v2   debug|      srcname = {
+***  v2   debug|        \"<vcl.inline>\",
+***  v2   debug|        \"Builtin\",
+***  v2   debug|      instances = {
+***  v2   debug|      },
+***  v2   debug|    },
+***  v2   debug|  },
+***  v2   debug|  flags = {
+***  v2   debug|  },
+***  v2   debug|  privs = 0x7f92fc0011a0 {
+***  v2   debug|  },
+***  v2   debug|  top = 0x7f92fc003050 {
+***  v2   debug|    req = 0x7f92fc000fc0 {
+***  v2   debug|      [Already dumped, see above]
+***  v2   debug|    },
+***  v2   debug|    privs = 0x7f92fc003068 {
+***  v2   debug|    },
+***  v2   debug|  },
+***  v2   debug|},
+***  v2   debug|thr.busyobj = (nil) {
+***  v2   debug|},
+***  v2   debug|vmods = {
+***  v2   debug|},
+***  v2   debug|
+***  v2   debug|
+***  v2   debug|Debug: Child cleanup complete
+**** dT   7.027
+**** v1   vsl|          0 CLI             - Rd ping
+**** v1   vsl|          0 CLI             - Wr 200 19 PONG 1634892688 1.0
+**** dT   7.816
+**   top  === varnish v2 -cliexpect "[bB]us error|Segmentation [fF]ault" "...
+**** dT   7.817
+**** v2   CLI TX|panic.show
+***  v2   CLI RX  200
+**** v2   CLI RX|Panic at: Fri, 22 Oct 2021 08:51:26 GMT
+**** v2   CLI RX|Wrong turn at cache/cache_main.c:287:
+**** v2   CLI RX|Signal 11 (Segmentation fault) received at 0x4525e0 si_code 2
+**** v2   CLI RX|version = varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b, vrt api = 12.0
+**** v2   CLI RX|ident = Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit,epoll
+**** v2   CLI RX|now = 73323.116326 (mono), 1634892686.142321 (real)
+**** v2   CLI RX|Backtrace:
+**** v2   CLI RX|  0x440aaa: varnishd() [0x440aaa]
+**** v2   CLI RX|  0x4a87a3: varnishd(VAS_Fail+0x43) [0x4a87a3]
+**** v2   CLI RX|  0x43c149: varnishd() [0x43c149]
+**** v2   CLI RX|  0x7f9322587f80: /lib64/libpthread.so.0(+0x13f80) [0x7f9322587f80]
+**** v2   CLI RX|  0x7f93075796f6: vcl_vcl1.1634892685.833896/vgc.so(VGC_function_vcl_recv+0x26) [0x7f93075796f6]
+**** v2   CLI RX|  0x45e142: varnishd() [0x45e142]
+**** v2   CLI RX|  0x4608fa: varnishd(VCL_recv_method+0x5a) [0x4608fa]
+**** v2   CLI RX|  0x444fab: varnishd(CNT_Request+0xd9b) [0x444fab]
+**** v2   CLI RX|  0x46c3d3: varnishd() [0x46c3d3]
+**** v2   CLI RX|  0x461a27: varnishd() [0x461a27]
+**** v2   CLI RX|pthread.self = 0x7f93231cc700
+**** v2   CLI RX|pthread.name = (cache-worker)
+**** v2   CLI RX|pthread.attr = {
+**** v2   CLI RX|  guard = 4096,
+**** v2   CLI RX|  stack_bottom = 0x7f93231bf000,
+**** v2   CLI RX|  stack_top = 0x7f93231cd000,
+**** v2   CLI RX|  stack_size = 57344,
+**** v2   CLI RX|}
+**** v2   CLI RX|thr.req = 0x7f92fc000fc0 {
+**** v2   CLI RX|  vxid = 1001, transport = HTTP/1 {
+**** v2   CLI RX|    state = HTTP1::Proc
+**** v2   CLI RX|  }
+**** v2   CLI RX|  step = R_STP_RECV,
+**** v2   CLI RX|  req_body = none,
+**** v2   CLI RX|  restarts = 0, esi_level = 0,
+**** v2   CLI RX|  sp = 0x7f92fc000b80 {
+**** v2   CLI RX|    fd = 22, vxid = 1000,
+**** v2   CLI RX|    t_open = 1634892686.142065,
+**** v2   CLI RX|    t_idle = 1634892686.142065,
+**** v2   CLI RX|    ws = 0x7f92fc000bc0 {
+**** v2   CLI RX|      id = \"ses\",
+**** v2   CLI RX|      {s, f, r, e} = {0x7f92fc000c18, +96, (nil), +576},
+**** v2   CLI RX|    },
+**** v2   CLI RX|    transport = HTTP/1 {
+**** v2   CLI RX|      state = HTTP1::Proc
+**** v2   CLI RX|    }
+**** v2   CLI RX|    client = 127.0.0.1 49696 127.0.0.1:44771,
+**** v2   CLI RX|  },
+**** v2   CLI RX|  worker = 0x7f93231cbdb0 {
+**** v2   CLI RX|    ws = 0x7f93231cbe58 {
+**** v2   CLI RX|      id = \"wrk\",
+**** v2   CLI RX|      {s, f, r, e} = {0x7f93231cb390, +0, (nil), +2040},
+**** v2   CLI RX|    },
+**** v2   CLI RX|    VCL::method = inside RECV,
+**** v2   CLI RX|    VCL::return = 0x0,
+**** v2   CLI RX|    VCL::methods = {RECV},
+**** v2   CLI RX|  },
+**** v2   CLI RX|  ws = 0x7f92fc001110 {
+**** v2   CLI RX|    id = \"req\",
+**** v2   CLI RX|    {s, f, r, e} = {0x7f92fc003070, +72, (nil), +57128},
+**** v2   CLI RX|  },
+**** v2   CLI RX|  http_conn = 0x7f92fc002fe8 {
+**** v2   CLI RX|    fd = 22 (@0x7f92fc000ba4),
+**** v2   CLI RX|    doclose = NULL,
+**** v2   CLI RX|    ws = 0x7f92fc001110 {
+**** v2   CLI RX|      [Already dumped, see above]
+**** v2   CLI RX|    },
+**** v2   CLI RX|    {rxbuf_b, rxbuf_e} = {0x7f92fc003070, 0x7f92fc003093},
+**** v2   CLI RX|    {pipeline_b, pipeline_e} = {(nil), (nil)},
+**** v2   CLI RX|    content_length = -1,
+**** v2   CLI RX|    body_status = none,
+**** v2   CLI RX|    first_byte_timeout = 0.000000,
+**** v2   CLI RX|    between_bytes_timeout = 0.000000,
+**** v2   CLI RX|  },
+**** v2   CLI RX|  http[req] = 0x7f92fc0011b0 {
+**** v2   CLI RX|    ws = 0x7f92fc001110 {
+**** v2   CLI RX|      [Already dumped, see above]
+**** v2   CLI RX|    },
+**** v2   CLI RX|    hdrs {
+**** v2   CLI RX|      \"GET\",
+**** v2   CLI RX|      \"/\",
+**** v2   CLI RX|      \"HTTP/1.1\",
+**** v2   CLI RX|      \"Host: 127.0.0.1\",
+**** v2   CLI RX|      \"X-Forwarded-For: 127.0.0.1\",
+**** v2   CLI RX|    },
+**** v2   CLI RX|  },
+**** v2   CLI RX|  vdc = 0x7f92fc002fc8 {
+**** v2   CLI RX|    nxt = (nil),
+**** v2   CLI RX|    retval = 0,
+**** v2   CLI RX|  },
+**** v2   CLI RX|  vcl = {
+**** v2   CLI RX|    name = \"vcl1\",
+**** v2   CLI RX|    busy = 1,
+**** v2   CLI RX|    discard = 0,
+**** v2   CLI RX|    state = auto,
+**** v2   CLI RX|    temp = warm,
+**** v2   CLI RX|    conf = {
+**** v2   CLI RX|      syntax = \"41\",
+**** v2   CLI RX|      srcname = {
+**** v2   CLI RX|        \"<vcl.inline>\",
+**** v2   CLI RX|        \"Builtin\",
+**** v2   CLI RX|      instances = {
+**** v2   CLI RX|      },
+**** v2   CLI RX|    },
+**** v2   CLI RX|  },
+**** v2   CLI RX|  flags = {
+**** v2   CLI RX|  },
+**** v2   CLI RX|  privs = 0x7f92fc0011a0 {
+**** v2   CLI RX|  },
+**** v2   CLI RX|  top = 0x7f92fc003050 {
+**** v2   CLI RX|    req = 0x7f92fc000fc0 {
+**** v2   CLI RX|      [Already dumped, see above]
+**** v2   CLI RX|    },
+**** v2   CLI RX|    privs = 0x7f92fc003068 {
+**** v2   CLI RX|    },
+**** v2   CLI RX|  },
+**** v2   CLI RX|},
+**** v2   CLI RX|thr.busyobj = (nil) {
+**** v2   CLI RX|},
+**** v2   CLI RX|vmods = {
+**** v2   CLI RX|},
+**** v2   CLI RX|
+**** v2   CLI RX|
+**   v2   CLI 200 <panic.show>
+**   top  === varnish v2 -clijson "panic.show -j"
+**** v2   CLI TX|panic.show -j
+***  v2   CLI RX  200
+**** v2   CLI RX|[ 2, ["panic.show", "-j"], 1634892689.460,
+**** v2   CLI RX|  "Panic at: Fri, 22 Oct 2021 08:51:26 GMT\nWrong turn at cache/cache_main.c:287:\nSignal 11 (Segmentation fault) received at 0x4525e0 si_code 2\nversion = varnish-6.5.2 revision e7233b0ad2639043341819d19a8d2e418e94ce1b, vrt api = 12.0\nident = Linux,5.3.18-59.24-default,x86_64,-jnone,-sdefault,-sdefault,-hcritbit,epoll\nnow = 73323.116326 (mono), 1634892686.142321 (real)\nBacktrace:\n  0x440aaa: varnishd() [0x440aaa]\n  0x4a87a3: varnishd(VAS_Fail+0x43) [0x4a87a3]\n  0x43c149: varnishd() [0x43c149]\n  0x7f9322587f80: /lib64/libpthread.so.0(+0x13f80) [0x7f9322587f80]\n  0x7f93075796f6: vcl_vcl1.1634892685.833896/vgc.so(VGC_function_vcl_recv+0x26) [0x7f93075796f6]\n  0x45e142: varnishd() [0x45e142]\n  0x4608fa: varnishd(VCL_recv_method+0x5a) [0x4608fa]\n  0x444fab: varnishd(CNT_Request+0xd9b) [0x444fab]\n  0x46c3d3: varnishd() [0x46c3d3]\n  0x461a27: varnishd() [0x461a27]\npthread.self = 0x7f93231cc700\npthread.name = (cache-worker)\npthread.attr = {\n  guard = 4096,\n  stack_bottom = 0x7f93231bf000,\n  stack_top = 0x7f93231cd000,\n  stack_size = 57344,\n}\nthr.req = 0x7f92fc000fc0 {\n  vxid = 1001, transport = HTTP/1 {\n    state = HTTP1::Proc\n  }\n  step = R_STP_RECV,\n  req_body = none,\n  restarts = 0, esi_level = 0,\n  sp = 0x7f92fc000b80 {\n    fd = 22, vxid = 1000,\n    t_open = 1634892686.142065,\n    t_idle = 1634892686.142065,\n    ws = 0x7f92fc000bc0 {\n      id = \\\"ses\\\",\n      {s, f, r, e} = {0x7f92fc000c18, +96, (nil), +576},\n    },\n    transport = HTTP/1 {\n      state = HTTP1::Proc\n    }\n    client = 127.0.0.1 49696 127.0.0.1:44771,\n  },\n  worker = 0x7f93231cbdb0 {\n    ws = 0x7f93231cbe58 {\n      id = \\\"wrk\\\",\n      {s, f, r, e} = {0x7f93231cb390, +0, (nil), +2040},\n    },\n    VCL::method = inside RECV,\n    VCL::return = 0x0,\n    VCL::methods = {RECV},\n  },\n  ws = 0x7f92fc001110 {\n    id = \\\"req\\\",\n    {s, f, r, e} = {0x7f92fc003070, +72, (nil), +57128},\n  },\n  http_conn = 0x7f92fc002fe8 {\n    fd = 22 (@0x7f92fc000ba4),\n    doclose = NULL,\n    ws = 0x7f92fc001110 {\n      [Already dumped, see above]\n    },\n    {rxbuf_b, rxbuf_e} = {0x7f92fc003070, 0x7f92fc003093},\n    {pipeline_b, pipeline_e} = {(nil), (nil)},\n    content_length = -1,\n    body_status = none,\n    first_byte_timeout = 0.000000,\n    between_bytes_timeout = 0.000000,\n  },\n  http[req] = 0x7f92fc0011b0 {\n    ws = 0x7f92fc001110 {\n      [Already dumped, see above]\n    },\n    hdrs {\n      \\\"GET\\\",\n      \\\"/\\\",\n      \\\"HTTP/1.1\\\",\n      \\\"Host: 127.0.0.1\\\",\n      \\\"X-Forwarded-For: 127.0.0.1\\\",\n    },\n  },\n  vdc = 0x7f92fc002fc8 {\n    nxt = (nil),\n    retval = 0,\n  },\n  vcl = {\n    name = \\\"vcl1\\\",\n    busy = 1,\n    discard = 0,\n    state = auto,\n    temp = warm,\n    conf = {\n      syntax = \\\"41\\\",\n      srcname = {\n        \\\"<vcl.inline>\\\",\n        \\\"Builtin\\\",\n      instances = {\n      },\n    },\n  },\n  flags = {\n  },\n  privs = 0x7f92fc0011a0 {\n  },\n  top = 0x7f92fc003050 {\n    req = 0x7f92fc000fc0 {\n      [Already dumped, see above]\n    },\n    privs = 0x7f92fc003068 {\n    },\n  },\n},\nthr.busyobj = (nil) {\n},\nvmods = {\n},\n\n"
+**** v2   CLI RX|]
+**   v2   CLI 200 <panic.show -j>
+**   top  === varnish v2 -cliok "panic.clear"
+**** v2   CLI TX|panic.clear
+***  v2   CLI RX  200
+**   v2   CLI 200 <panic.clear>
+**   top  === varnish v2 -expectexit 0x40
+*    top  RESETTING after ./tests/c00057.vtc
+**   s1   Waiting for server (4/-1)
+**   v1   Wait
+**** v1   CLI TX|backend.list
+***  v1   CLI RX  200
+**** v1   CLI RX|Backend name   Admin      Probe    Health     Last change
+**** v1   CLI RX|vcl2.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:51:25 GMT
+**   v1   Stop
+**** v1   CLI TX|stop
+***  v1   debug|Debug: Stopping Child
+**** dT   7.828
+**** v1   vsl|          0 CLI             - Rd backend.list 
+**** v1   vsl|          0 CLI             - Wr 200 134 Backend name   Admin      Probe    Health     Last change
+vcl2.s1        healthy    0/0      healthy    Fri, 22 Oct 2021 08:51:25 GMT
+
+**** v1   vsl|          0 CLI             - EOF on CLI connection, worker stops
+**** dT   8.818
+***  v1   debug|Info: Child (56522) ended
+***  v1   debug|Info: Child (56522) said Child dies
+***  v1   debug|Debug: Child cleanup complete
+***  v1   CLI RX  200
+***  v1   wait-stopped
+**** v1   CLI TX|status
+***  v1   CLI RX  200
+**** v1   CLI RX|Child in state stopped
+**** v1   CLI TX|panic.clear
+***  v1   CLI RX  300
+**** v1   CLI RX|No panic to clear
+***  v1   debug|Info: manager stopping child
+***  v1   debug|Info: manager dies
+**** dT   8.819
+**** v1   STDOUT EOF
+**** dT   8.830
+**   v1   WAIT4 pid=56294 status=0x4000 (user 0.376295 sys 0.086383)
+**   v2   Wait
+**** v2   CLI TX|backend.list
+***  v2   CLI RX  101
+**** v2   CLI RX|Unknown request in manager process (child not running).
+**** v2   CLI RX|Type 'help' for more info.
+**   v2   Stop
+**** v2   CLI TX|stop
+***  v2   CLI RX  300
+**** v2   CLI RX|Child in state stopped
+***  v2   wait-stopped
+**** v2   CLI TX|status
+***  v2   CLI RX  200
+**** v2   CLI RX|Child in state stopped
+**** v2   CLI TX|panic.clear
+***  v2   CLI RX  300
+**** v2   CLI RX|No panic to clear
+***  v2   debug|Info: manager stopping child
+***  v2   debug|Info: manager dies
+**** dT   8.831
+**** v2   STDOUT EOF
+**** dT   8.899
+**   v2   WAIT4 pid=56562 status=0x4000 (user 0.178832 sys 0.025989)
+*    top  TEST ./tests/c00057.vtc completed
+#    top  TEST ./tests/c00057.vtc passed (8.900)
